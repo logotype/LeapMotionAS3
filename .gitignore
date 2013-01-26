@@ -1,0 +1,38 @@
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.zip
+*.vi
+*~
+*.sass-cache
+
+# Certificates
+*.p12
+*.cert
+*.mobileprovision
+
+# OS or Editor folders
+.DS_Store
+._*
+Thumbs.db
+.cache
+.project
+.settings
+.tmproj
+*.esproj
+nbproject
+*.sublime-project
+*.sublime-workspace
+
+# Folders to ignore
+.hg
+.svn
+.CVS
+.idea
+node_modules
+dist
