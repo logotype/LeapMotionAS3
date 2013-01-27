@@ -1,9 +1,10 @@
 package com.leapmotion.leap
 {
+
 	/**
 	 * The Vector struct represents a three-component mathematical vector
 	 * or point such as a direction or position in three-dimensional space.
-	 * 
+	 *
 	 * The Leap software employs a right-handed Cartesian coordinate system.
 	 * Values given are in units of real-world millimeters. The origin is
 	 * centered at the center of the Leap device. The x- and z-axes lie in
@@ -12,9 +13,9 @@ package com.leapmotion.leap
 	 * upwards (in contrast to the downward orientation of most computer
 	 * graphics coordinate systems). The z-axis has positive values increasing
 	 * away from the computer screen.
-	 *  
+	 *
 	 * @author logotype
-	 * 
+	 *
 	 */
 	public class Vector3
 	{
@@ -175,9 +176,9 @@ package com.leapmotion.leap
 		}
 
 		/**
-		 * The pitch angle in radians. 
-		 * @return 
-		 * 
+		 * The pitch angle in radians.
+		 * @return
+		 *
 		 */
 		public function pitch():Number
 		{
@@ -185,9 +186,9 @@ package com.leapmotion.leap
 		}
 
 		/**
-		 * The yaw angle in radians.  
-		 * @return 
-		 * 
+		 * The yaw angle in radians.
+		 * @return
+		 *
 		 */
 		public function yaw():Number
 		{
@@ -195,13 +196,113 @@ package com.leapmotion.leap
 		}
 
 		/**
-		 * The roll angle in radians.  
-		 * @return 
-		 * 
+		 * The roll angle in radians.
+		 * @return
+		 *
 		 */
 		public function roll():Number
 		{
 			return Math.atan2( x, -y );
+		}
+
+		/**
+		 * The zero vector: (0, 0, 0)
+		 * @return
+		 *
+		 */
+		static public function zero():Vector3
+		{
+			return new Vector3( 0, 0, 0 );
+		}
+
+		/**
+		 * The x-axis unit vector: (1, 0, 0)
+		 * @return
+		 *
+		 */
+		static public function xAxis():Vector3
+		{
+			return new Vector3( 1, 0, 0 );
+		}
+
+		/**
+		 * The y-axis unit vector: (0, 1, 0)
+		 * @return
+		 *
+		 */
+		static public function yAxis():Vector3
+		{
+			return new Vector3( 0, 1, 0 );
+		}
+
+		/**
+		 * The z-axis unit vector: (0, 0, 1)
+		 * @return
+		 *
+		 */
+		static public function zAxis():Vector3
+		{
+			return new Vector3( 0, 0, 1 );
+		}
+
+		/**
+		 * The unit vector pointing left along the negative x-axis: (-1, 0, 0)
+		 * @return
+		 *
+		 */
+		static public function left():Vector3
+		{
+			return new Vector3( -1, 0, 0 );
+		}
+
+		/**
+		 * The unit vector pointing right along the positive x-axis: (1, 0, 0)
+		 * @return
+		 *
+		 */
+		static public function right():Vector3
+		{
+			return xAxis();
+		}
+
+		/**
+		 * The unit vector pointing down along the negative y-axis: (0, -1, 0)
+		 * @return
+		 *
+		 */
+		static public function down():Vector3
+		{
+			return new Vector3( 0, -1, 0 );
+		}
+
+		/**
+		 * The unit vector pointing up along the positive x-axis: (0, 1, 0)
+		 * @return
+		 *
+		 */
+		static public function up():Vector3
+		{
+			return yAxis();
+		}
+
+		/**
+		 * The unit vector pointing forward along the negative z-axis: (0, 0, -1)
+		 * @return
+		 *
+		 */
+		static public function forward():Vector3
+		{
+			return new Vector3( 0, 0, -1 );
+		}
+
+		/**
+		 * The unit vector pointing backward along the positive z-axis: (0, 0, 1)
+		 * @return
+		 *
+		 */
+		static public function backward():Vector3
+		{
+			return zAxis();
 		}
 
 		/**
@@ -211,108 +312,7 @@ package com.leapmotion.leap
 		 */
 		public function toString():String
 		{
-			return "[Vector3 x:" + this.x + " y:" + this.y + " z:" + this.z + "]";
-		}
-
-		// STATIC METHODS
-		/**
-		 * The zero vector: (0, 0, 0)  
-		 * @return 
-		 * 
-		 */
-		static public function zero():Vector3
-		{
-			return new Vector3( 0, 0, 0 );
-		}
-
-		/**
-		 * The x-axis unit vector: (1, 0, 0)  
-		 * @return 
-		 * 
-		 */
-		static public function xAxis():Vector3
-		{
-			return new Vector3( 1, 0, 0 );
-		}
-
-		/**
-		 * The y-axis unit vector: (0, 1, 0)  
-		 * @return 
-		 * 
-		 */
-		static public function yAxis():Vector3
-		{
-			return new Vector3( 0, 1, 0 );
-		}
-
-		/**
-		 * The z-axis unit vector: (0, 0, 1)  
-		 * @return 
-		 * 
-		 */
-		static public function zAxis():Vector3
-		{
-			return new Vector3( 0, 0, 1 );
-		}
-
-		/**
-		 * The unit vector pointing left along the negative x-axis: (-1, 0, 0)  
-		 * @return 
-		 * 
-		 */
-		static public function left():Vector3
-		{
-			return new Vector3( -1, 0, 0 );
-		}
-
-		/**
-		 * The unit vector pointing right along the positive x-axis: (1, 0, 0)  
-		 * @return 
-		 * 
-		 */
-		static public function right():Vector3
-		{
-			return xAxis();
-		}
-
-		/**
-		 * The unit vector pointing down along the negative y-axis: (0, -1, 0)  
-		 * @return 
-		 * 
-		 */
-		static public function down():Vector3
-		{
-			return new Vector3( 0, -1, 0 );
-		}
-
-		/**
-		 * The unit vector pointing up along the positive x-axis: (0, 1, 0)  
-		 * @return 
-		 * 
-		 */
-		static public function up():Vector3
-		{
-			return yAxis();
-		}
-
-		/**
-		 * The unit vector pointing forward along the negative z-axis: (0, 0, -1)  
-		 * @return 
-		 * 
-		 */
-		static public function forward():Vector3
-		{
-			return new Vector3( 0, 0, -1 );
-		}
-
-		/**
-		 * The unit vector pointing backward along the positive z-axis: (0, 0, 1)  
-		 * @return 
-		 * 
-		 */
-		static public function backward():Vector3
-		{
-			return zAxis();
+			return "[Vector3 x:" + this.x.toFixed( 2 ) + " y:" + this.y.toFixed( 2 ) + " z:" + this.z.toFixed( 2 ) + "]";
 		}
 	}
 }
