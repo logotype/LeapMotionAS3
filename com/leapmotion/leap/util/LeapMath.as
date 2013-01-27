@@ -1,4 +1,4 @@
-package com.leapmotion.leap
+package com.leapmotion.leap.util
 {
 
 	public class LeapMath
