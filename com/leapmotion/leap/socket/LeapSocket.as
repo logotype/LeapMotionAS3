@@ -35,8 +35,8 @@ package com.leapmotion.leap.socket
 		private var currentState:String;
 
 		private var handshakeBytesReceived:int;
-		private var serverHandshakeResponse:String = "";
-		private var serverExtensions:Array;
+		private var leapMotionDeviceHandshakeResponse:String = "";
+		private var leapMotionDeviceExtensions:Array;
 		private var base64nonce:String;
 		private var handShakeTimer:Timer;
 		private var handshakeTimeout:int = 10000;
@@ -109,7 +109,7 @@ package com.leapmotion.leap.socket
 		{
 			if ( currentState == LeapSocket.STATE_CONNECTING )
 			{
-				readServerHandshake();
+				readLeapMotionHandshake();
 				return;
 			}
 
@@ -183,7 +183,7 @@ package com.leapmotion.leap.socket
 					}
 				}
 
-				// R
+				// Rotation (since last frame), interpolate for smoother motion
 				if ( json.r )
 				{
 					for ( i = 0; i < json.r.length; ++i )
@@ -193,18 +193,20 @@ package com.leapmotion.leap.socket
 					}
 				}
 
-				// S
+				// Scale factor (since last frame), interpolate for smoother motion
 				frame.s = json.s;
 
-				// T
+				// Translation (since last frame), interpolate for smoother motion
 				if ( json.t )
 					frame.t = new Vector3( json.t[ 0 ], json.t[ 1 ], json.t[ 2 ]);
 
 				// Timestamp
 				frame.timestamp = json.timestamp;
-
+				
+				// Dispatches the prepared data
 				LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_FRAME, frame ));
-
+				
+				// Release current frame and create a new one
 				currentFrame = new LeapSocketFrame();
 			}
 		}
@@ -236,7 +238,7 @@ package com.leapmotion.leap.socket
 			{
 				char = socket.readMultiByte( 1, "us-ascii" );
 				handshakeBytesReceived++;
-				serverHandshakeResponse += char;
+				leapMotionDeviceHandshakeResponse += char;
 				if ( char == "\n" )
 				{
 					return true;
@@ -264,7 +266,7 @@ package com.leapmotion.leap.socket
 			handShakeTimer.start();
 		}
 
-		private function readServerHandshake():void
+		private function readLeapMotionHandshake():void
 		{
 			var upgradeHeader:Boolean = false;
 			var connectionHeader:Boolean = false;
@@ -273,12 +275,12 @@ package com.leapmotion.leap.socket
 
 			// Load in HTTP Header lines until we encounter a double-newline.
 			while ( headersTerminatorIndex === -1 && readHandshakeLine())
-				headersTerminatorIndex = serverHandshakeResponse.search( /\r?\n\r?\n/ );
+				headersTerminatorIndex = leapMotionDeviceHandshakeResponse.search( /\r?\n\r?\n/ );
 
 			// Slice off the trailing \r\n\r\n from the handshake data
-			serverHandshakeResponse = serverHandshakeResponse.slice( 0, headersTerminatorIndex );
+			leapMotionDeviceHandshakeResponse = leapMotionDeviceHandshakeResponse.slice( 0, headersTerminatorIndex );
 
-			var lines:Array = serverHandshakeResponse.split( /\r?\n/ );
+			var lines:Array = leapMotionDeviceHandshakeResponse.split( /\r?\n/ );
 
 			// Validate status line
 			var responseLine:String = lines.shift();
@@ -288,24 +290,24 @@ package com.leapmotion.leap.socket
 			var statusDescription:String = responseLineMatch[ 3 ];
 
 			// Interpret HTTP Response Headers
-			serverExtensions = [];
+			leapMotionDeviceExtensions = [];
 			try
 			{
 				while ( lines.length > 0 )
 				{
 					responseLine = lines.shift();
 					var header:Object = parseHTTPHeader( responseLine );
-					var lcName:String = header.name.toLocaleLowerCase();
-					var lcValue:String = header.value.toLocaleLowerCase();
-					if ( lcName === "upgrade" && lcValue === "websocket" )
+					var headerName:String = header.name.toLocaleLowerCase();
+					var headerValue:String = header.value.toLocaleLowerCase();
+					if ( headerName === "upgrade" && headerValue === "websocket" )
 					{
 						upgradeHeader = true;
 					}
-					else if ( lcName === "connection" && lcValue === "upgrade" )
+					else if ( headerName === "connection" && headerValue === "upgrade" )
 					{
 						connectionHeader = true;
 					}
-					else if ( lcName === "sec-websocket-accept" )
+					else if ( headerName === "sec-websocket-accept" )
 					{
 						var expectedKey:String = SHA1.hashToBase64( base64nonce + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11" );
 						if ( header.value === expectedKey )
@@ -323,21 +325,21 @@ package com.leapmotion.leap.socket
 
 			if ( !upgradeHeader )
 			{
-				trace( "The server response did not include a valid Upgrade: websocket header." );
+				trace( "The Leap Motion response did not include a valid Upgrade: websocket header." );
 				return;
 			}
 			if ( !connectionHeader )
 			{
-				trace( "The server response did not include a valid Connection: upgrade header." );
+				trace( "The Leap Motion response did not include a valid Connection: upgrade header." );
 				return;
 			}
 			if ( !keyValidated )
 			{
-				trace( "Unable to validate server response for Sec-Websocket-Accept header." );
+				trace( "Unable to validate Leap Motion response for Sec-Websocket-Accept header." );
 				return;
 			}
 
-			serverHandshakeResponse = null;
+			leapMotionDeviceHandshakeResponse = null;
 			currentState = LeapSocket.STATE_OPEN;
 			LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_CONNECTED ));
 			return;

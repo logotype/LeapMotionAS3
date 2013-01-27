@@ -7,12 +7,11 @@ package com.leapmotion.leap.util
 	public class IntUtil
 	{
 
+		/** String for quick lookup of a hex character based on index */
+		private static var hexChars:String = "0123456789abcdef";
+
 		/**
 		 * Rotates x left n bits
-		 *
-		 * @langversion ActionScript 3.0
-		 * @playerversion Flash 9.0
-		 * @tiptext
 		 */
 		public static function rol( x:int, n:int ):int
 		{
@@ -21,19 +20,12 @@ package com.leapmotion.leap.util
 
 		/**
 		 * Rotates x right n bits
-		 *
-		 * @langversion ActionScript 3.0
-		 * @playerversion Flash 9.0
-		 * @tiptext
 		 */
 		public static function ror( x:int, n:int ):uint
 		{
 			var nn:int = 32 - n;
 			return ( x << nn ) | ( x >>> ( 32 - nn ));
 		}
-
-		/** String for quick lookup of a hex character based on index */
-		private static var hexChars:String = "0123456789abcdef";
 
 		/**
 		 * Outputs the hex value of a int, allowing the developer to specify
@@ -43,9 +35,6 @@ package com.leapmotion.leap.util
 		 * @param bigEndian Flag to output the int as big or little endian
 		 * @return A string of length 8 corresponding to the
 		 *		hex representation of n ( minus the leading "0x" )
-		 * @langversion ActionScript 3.0
-		 * @playerversion Flash 9.0
-		 * @tiptext
 		 */
 		public static function toHex( n:int, bigEndian:Boolean = false ):String
 		{
