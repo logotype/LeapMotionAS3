@@ -8,17 +8,15 @@ package com.leapmotion.leap.socket
 	import com.leapmotion.leap.events.LeapMotionEventProxy;
 	import com.leapmotion.leap.util.Base64Encoder;
 	import com.leapmotion.leap.util.SHA1;
-
+	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
 	import flash.events.SecurityErrorEvent;
-	import flash.events.TimerEvent;
 	import flash.net.Socket;
 	import flash.utils.ByteArray;
 	import flash.utils.Endian;
-	import flash.utils.Timer;
 
 	/**
 	 * The LeapSocket class handles the communication via WebSockets.
@@ -33,18 +31,18 @@ package com.leapmotion.leap.socket
 
 		private var socket:Socket;
 		private var currentState:String;
+		private var eventDispatcher:LeapMotionEventProxy;
 
 		private var handshakeBytesReceived:int;
 		private var leapMotionDeviceHandshakeResponse:String = "";
 		private var leapMotionDeviceExtensions:Array;
 		private var base64nonce:String;
-		private var handShakeTimer:Timer;
-		private var handshakeTimeout:int = 10000;
-		private var currentFrame:LeapSocketFrame = new LeapSocketFrame();
+		private var leapSocketFrame:LeapSocketFrame = new LeapSocketFrame();
 		public var isConnected:Boolean = false;
 
 		public function LeapSocket()
 		{
+			eventDispatcher = LeapMotionEventProxy.getInstance();
 			// Generate nonce
 			var nonce:ByteArray = new ByteArray();
 			for ( var i:int = 0; i < 16; i++ )
@@ -55,9 +53,6 @@ package com.leapmotion.leap.socket
 			encoder.encodeBytes( nonce );
 			base64nonce = encoder.flush();
 
-			handShakeTimer = new Timer( handshakeTimeout, 10000 );
-			handShakeTimer.addEventListener( TimerEvent.TIMER, onHandshakeTimerHandler );
-
 			socket = new Socket( "localhost", 6437 );
 			socket.addEventListener( Event.CONNECT, onSocketConnectHandler );
 			socket.addEventListener( IOErrorEvent.IO_ERROR, onIOErrorHandler );
@@ -65,20 +60,10 @@ package com.leapmotion.leap.socket
 			socket.addEventListener( ProgressEvent.SOCKET_DATA, onSocketDataHandler );
 		}
 
-		private function onHandshakeTimerHandler( event:TimerEvent ):void
-		{
-			handShakeTimer.reset();
-			handShakeTimer.removeEventListener( TimerEvent.TIMER, onHandshakeTimerHandler );
-			handShakeTimer = null;
-
-			isConnected = false;
-			LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_TIMEOUT ));
-		}
-
 		private function onSocketConnectHandler( event:Event ):void
 		{
 			isConnected = false;
-			LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_INIT ));
+			eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_INIT ));
 			currentState = LeapSocket.STATE_CONNECTING;
 			socket.endian = Endian.BIG_ENDIAN;
 			sendHandshake();
@@ -87,22 +72,22 @@ package com.leapmotion.leap.socket
 		private function onIOErrorHandler( event:IOErrorEvent ):void
 		{
 			isConnected = false;
-			LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_EXIT ));
-			LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_DISCONNECTED ));
+			eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_EXIT ));
+			eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_DISCONNECTED ));
 		}
 
 		private function onSecurityErrorHandler( event:SecurityErrorEvent ):void
 		{
 			isConnected = false;
-			LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_EXIT ));
-			LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_DISCONNECTED ));
+			eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_EXIT ));
+			eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_DISCONNECTED ));
 		}
 
 		private function onSocketCloseHandler( event:Event ):void
 		{
 			isConnected = false;
-			LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_EXIT ));
-			LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_DISCONNECTED ));
+			eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_EXIT ));
+			eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_DISCONNECTED ));
 		}
 
 		private function onSocketDataHandler( event:ProgressEvent = null ):void
@@ -115,10 +100,11 @@ package com.leapmotion.leap.socket
 
 			isConnected = true;
 
-			while ( socket.connected && currentFrame.addData( socket ))
+			// Loop until data has been completely added to the frame
+			while ( socket.connected && leapSocketFrame.addData( socket ))
 			{
-				currentFrame.binaryPayload.position = 0;
-				var utf8data:String = currentFrame.binaryPayload.readMultiByte( currentFrame.length, "utf-8" );
+				leapSocketFrame.binaryPayload.position = 0;
+				var utf8data:String = leapSocketFrame.binaryPayload.readMultiByte( leapSocketFrame.length, "utf-8" );
 				var i:uint = 0;
 				var j:uint = 0;
 				var json:Object = JSON.parse( utf8data );
@@ -204,14 +190,15 @@ package com.leapmotion.leap.socket
 				frame.timestamp = json.timestamp;
 				
 				// Dispatches the prepared data
-				LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_FRAME, frame ));
+				eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_FRAME, frame ));
 				
 				// Release current frame and create a new one
-				currentFrame = new LeapSocketFrame();
+				leapSocketFrame = new LeapSocketFrame();
 			}
 		}
 
-		private function getHandByID( frame:Frame, id:int ):Hand
+		[Inline]
+		private final function getHandByID( frame:Frame, id:int ):Hand
 		{
 			var returnValue:Hand = null;
 			for each ( var hand:Hand in frame.hands )
@@ -240,9 +227,7 @@ package com.leapmotion.leap.socket
 				handshakeBytesReceived++;
 				leapMotionDeviceHandshakeResponse += char;
 				if ( char == "\n" )
-				{
 					return true;
-				}
 			}
 			return false;
 		}
@@ -260,10 +245,6 @@ package com.leapmotion.leap.socket
 			text += "\r\n";
 
 			socket.writeMultiByte( text, "us-ascii" );
-
-			handShakeTimer.stop();
-			handShakeTimer.reset();
-			handShakeTimer.start();
 		}
 
 		private function readLeapMotionHandshake():void
@@ -311,13 +292,11 @@ package com.leapmotion.leap.socket
 					{
 						var expectedKey:String = SHA1.hashToBase64( base64nonce + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11" );
 						if ( header.value === expectedKey )
-						{
 							keyValidated = true;
-						}
 					}
 				}
 			}
-			catch ( e:Error )
+			catch ( error:Error )
 			{
 				trace( "There was an error while parsing the following HTTP Header line:\n" + responseLine );
 				return;
@@ -341,7 +320,7 @@ package com.leapmotion.leap.socket
 
 			leapMotionDeviceHandshakeResponse = null;
 			currentState = LeapSocket.STATE_OPEN;
-			LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_CONNECTED ));
+			eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_CONNECTED ));
 			return;
 		}
 	}

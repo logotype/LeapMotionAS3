@@ -48,13 +48,19 @@ package com.leapmotion.leap
 		 */
 		public var timestamp:Number;
 		
-		// Rotation (from WebSocket frame)
+		/**
+		 * Rotation since last Frame 
+		 */
 		public var r:Vector.<Vector3> = new Vector.<Vector3>();
 		
-		// Scale factor (from WebSocket frame)
+		/**
+		 * Scale factor since last Frame 
+		 */		
 		public var s:Number;
 		
-		// Translation (from WebSocket frame)
+		/**
+		 * Translation since last Frame 
+		 */		
 		public var t:Vector3;
 		
 		public var tools:Vector.<Pointable> = new Vector.<Pointable>();
