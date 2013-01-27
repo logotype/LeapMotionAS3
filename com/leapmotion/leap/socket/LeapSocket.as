@@ -28,15 +28,12 @@ package com.leapmotion.leap.socket
 		private var socket:Socket;
 		private var currentState:String;
 
-		// Remove
 		private var handshakeBytesReceived:int;
 		private var serverHandshakeResponse:String = "";
 		private var serverExtensions:Array;
 		private var base64nonce:String;
 		private var handshakeTimer:Timer;
 		private var handshakeTimeout:int = 10000;
-
-		// Added
 		private var currentFrame:LeapSocketFrame = new LeapSocketFrame();
 
 		public function LeapSocket()
@@ -49,7 +46,7 @@ package com.leapmotion.leap.socket
 			nonce.position = 0;
 			var encoder:Base64Encoder = new Base64Encoder();
 			encoder.encodeBytes( nonce );
-			base64nonce = encoder.flush(); //Base64.encodeByteArray( nonce );
+			base64nonce = encoder.flush();
 
 			handshakeTimer = new Timer( handshakeTimeout, 10000 );
 			handshakeTimer.addEventListener( TimerEvent.TIMER, handleHandshakeTimer );
@@ -118,6 +115,7 @@ package com.leapmotion.leap.socket
 					for ( i = 0; i < json.hands.length; ++i )
 					{
 						hand = new Hand();
+						hand.frame = frame;
 						hand.direction = new Vector3( json.hands[ i ].direction[ 0 ], json.hands[ i ].direction[ 1 ], json.hands[ i ].direction[ 2 ]);
 						hand.id = json.hands[ i ].id;
 						hand.palmNormal = new Vector3( json.hands[ i ].palmNormal[ 0 ], json.hands[ i ].palmNormal[ 1 ], json.hands[ i ].palmNormal[ 2 ]);
@@ -149,11 +147,21 @@ package com.leapmotion.leap.socket
 					for ( i = 0; i < json.pointables.length; ++i )
 					{
 						finger = new Finger();
+						finger.frame = frame;
+						finger.id = json.pointables[ i ].id;
+						finger.hand = getHandByID( frame, int( json.pointables[ i ].handId ));
 						finger.direction = new Vector3( json.pointables[ i ].direction[ 0 ], json.pointables[ i ].direction[ 1 ], json.pointables[ i ].direction[ 2 ]);
 						frame.fingers.push( finger );
 						// Set primary finger
 						if ( i == 0 )
+						{
 							frame.finger = finger;
+							if ( frame.hand )
+							{
+								frame.hand.finger = finger;
+								frame.hand.pointable = finger;
+							}
+						}
 					}
 				}
 
@@ -181,6 +189,20 @@ package com.leapmotion.leap.socket
 
 				currentFrame = new LeapSocketFrame();
 			}
+		}
+
+		private function getHandByID( frame:Frame, id:int ):Hand
+		{
+			var returnValue:Hand = null;
+			for each ( var hand:Hand in frame.hands )
+			{
+				if ( hand.id == id )
+				{
+					returnValue = hand;
+					break;
+				}
+			}
+			return returnValue;
 		}
 
 		private function parseHTTPHeader( line:String ):Object
