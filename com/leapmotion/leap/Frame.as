@@ -1,5 +1,20 @@
 package com.leapmotion.leap
 {
+	/**
+	 * The Frame class represents a set of hand and finger tracking
+	 * data detected in a single frame.
+	 * 
+	 * The Leap detects hands, fingers and tools within the tracking area,
+	 * reporting their positions, orientations and motions in frames at
+	 * the Leap frame rate.
+	 * 
+	 * Access Frame objects through an instance of a Leap Controller.
+	 * Implement a Listener subclass to receive a callback event when
+	 * a new Frame is available.
+	 *  
+	 * @author logotype
+	 * 
+	 */
 	public class Frame
 	{
 		/**

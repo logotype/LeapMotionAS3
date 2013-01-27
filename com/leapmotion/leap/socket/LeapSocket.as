@@ -35,6 +35,7 @@ package com.leapmotion.leap.socket
 		private var handshakeTimer:Timer;
 		private var handshakeTimeout:int = 10000;
 		private var currentFrame:LeapSocketFrame = new LeapSocketFrame();
+		public var isConnected:Boolean = false;
 
 		public function LeapSocket()
 		{
@@ -60,11 +61,13 @@ package com.leapmotion.leap.socket
 
 		private function handleHandshakeTimer( event:TimerEvent ):void
 		{
+			isConnected = false;
 			LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_TIMEOUT ));
 		}
 
 		private function onSocketConnectHandler( event:Event ):void
 		{
+			isConnected = false;
 			LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_INIT ));
 			currentState = LeapSocket.STATE_CONNECTING;
 			socket.endian = Endian.BIG_ENDIAN;
@@ -73,18 +76,21 @@ package com.leapmotion.leap.socket
 
 		private function onIOErrorHandler( event:IOErrorEvent ):void
 		{
+			isConnected = false;
 			LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_EXIT ));
 			LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_DISCONNECTED ));
 		}
 
 		private function onSecurityErrorHandler( event:SecurityErrorEvent ):void
 		{
+			isConnected = false;
 			LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_EXIT ));
 			LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_DISCONNECTED ));
 		}
 
 		private function onSocketCloseHandler( event:Event ):void
 		{
+			isConnected = false;
 			LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_EXIT ));
 			LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_DISCONNECTED ));
 		}
@@ -97,6 +103,8 @@ package com.leapmotion.leap.socket
 				return;
 			}
 
+			isConnected = true;
+			
 			while ( socket.connected && currentFrame.addData( socket ))
 			{
 				currentFrame.binaryPayload.position = 0;
