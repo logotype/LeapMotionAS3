@@ -4,6 +4,12 @@ package com.leapmotion.leap.socket
 	import flash.utils.ByteArray;
 	import flash.utils.Endian;
 
+	/**
+	 * A WebSocket frame, not yet parsed to a LeapMotion::Frame.
+	 *  
+	 * @author logotype
+	 * 
+	 */
 	public class LeapSocketFrame
 	{
 		static private const NEW_FRAME:String = "newFrame";

@@ -74,8 +74,13 @@ package com.leapmotion.leap
 		 */
 		public var sphereRadius:Number;
 		
+		// Rotation (from WebSocket frame)
 		public var r:Vector.<Vector3> = new Vector.<Vector3>();
+		
+		// Scale factor (from WebSocket frame)
 		public var s:Number;
+		
+		// Translation (from WebSocket frame)
 		public var t:Vector3;
 
 		public function Hand()

@@ -29,7 +29,6 @@ package com.leapmotion.leap
 			this.z = z;
 		}
 
-		// OPERATOR METHODS (no overloading yet)
 		public function opposite():Vector3
 		{
 			return new Vector3( -x, -y, -z );

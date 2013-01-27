@@ -20,6 +20,12 @@ package com.leapmotion.leap.socket
 	import flash.utils.Endian;
 	import flash.utils.Timer;
 
+	/**
+	 * The LeapSocket class handles the communication via WebSockets.
+	 * 
+	 * @author logotype
+	 * 
+	 */
 	public class LeapSocket extends EventDispatcher
 	{
 		static public const STATE_CONNECTING:String = "stateConnecting";
@@ -32,7 +38,7 @@ package com.leapmotion.leap.socket
 		private var serverHandshakeResponse:String = "";
 		private var serverExtensions:Array;
 		private var base64nonce:String;
-		private var handshakeTimer:Timer;
+		private var handShakeTimer:Timer;
 		private var handshakeTimeout:int = 10000;
 		private var currentFrame:LeapSocketFrame = new LeapSocketFrame();
 		public var isConnected:Boolean = false;
@@ -49,8 +55,8 @@ package com.leapmotion.leap.socket
 			encoder.encodeBytes( nonce );
 			base64nonce = encoder.flush();
 
-			handshakeTimer = new Timer( handshakeTimeout, 10000 );
-			handshakeTimer.addEventListener( TimerEvent.TIMER, handleHandshakeTimer );
+			handShakeTimer = new Timer( handshakeTimeout, 10000 );
+			handShakeTimer.addEventListener( TimerEvent.TIMER, onHandshakeTimerHandler );
 
 			socket = new Socket( "localhost", 6437 );
 			socket.addEventListener( Event.CONNECT, onSocketConnectHandler );
@@ -59,8 +65,12 @@ package com.leapmotion.leap.socket
 			socket.addEventListener( ProgressEvent.SOCKET_DATA, onSocketDataHandler );
 		}
 
-		private function handleHandshakeTimer( event:TimerEvent ):void
+		private function onHandshakeTimerHandler( event:TimerEvent ):void
 		{
+			handShakeTimer.reset();
+			handShakeTimer.removeEventListener( TimerEvent.TIMER, onHandshakeTimerHandler );
+			handShakeTimer = null;
+
 			isConnected = false;
 			LeapMotionEventProxy.getInstance().dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_TIMEOUT ));
 		}
@@ -104,7 +114,7 @@ package com.leapmotion.leap.socket
 			}
 
 			isConnected = true;
-			
+
 			while ( socket.connected && currentFrame.addData( socket ))
 			{
 				currentFrame.binaryPayload.position = 0;
@@ -249,9 +259,9 @@ package com.leapmotion.leap.socket
 
 			socket.writeMultiByte( text, "us-ascii" );
 
-			handshakeTimer.stop();
-			handshakeTimer.reset();
-			handshakeTimer.start();
+			handShakeTimer.stop();
+			handShakeTimer.reset();
+			handShakeTimer.start();
 		}
 
 		private function readServerHandshake():void
