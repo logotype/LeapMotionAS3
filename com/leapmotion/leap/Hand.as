@@ -74,6 +74,16 @@ package com.leapmotion.leap
 		 */
 		public var sphereRadius:Number;
 		
+		/**
+		 * The Tool object with the specified ID held by this hand.  
+		 */
+		public var tool:Tool;
+		
+		/**
+		 * The list of Tool objects detected in this frame that are held by this hand, given in arbitrary order. 
+		 */
+		public var tools:Vector.<Pointable> = new Vector.<Pointable>();
+		
 		// Rotation (from WebSocket frame)
 		public var r:Vector.<Vector3> = new Vector.<Vector3>();
 		

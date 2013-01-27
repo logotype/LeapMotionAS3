@@ -30,46 +30,45 @@ package com.leapmotion.leap
 		 * @see Frame 
 		 */		
 		public var frame:Frame;
+
 		/**
 		 * The Hand associated with this finger or tool.
 		 * @see Hand  
 		 */
 		public var hand:Hand;
+
 		/**
 		 * A unique ID assigned to this Pointable object, whose value remains the same across consecutive frames while the tracked finger or tool remains visible.  
 		 */		
 		public var id:Number;
+
 		/**
 		 * The estimated length of the finger or tool in millimeters.  
 		 */		
 		public var length:Number;
+
 		/**
 		 * The tip position in millimeters from the Leap origin.  
 		 */		
 		public var tipPosition:Vector3;
+
 		/**
 		 * The rate of change of the tip position in millimeters/second.  
 		 */		
 		public var tipVelocity:Vector3;
-
-		public function Pointable()
-		{
-		}
-
+		
 		/**
 		 * Whether or not the Pointable is believed to be a finger.  
 		 */
-		public function isFinger():Boolean
-		{
-			return ( length < 10 ) ? true : false;
-		}
+		public var isFinger:Boolean;
 
 		/**
 		 * Whether or not the Pointable is believed to be a tool.  
 		 */		
-		public function isTool():Boolean
+		public var isTool:Boolean;
+
+		public function Pointable()
 		{
-			return ( length > 10 ) ? true : false;
 		}
 
 		/**

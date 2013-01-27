@@ -49,6 +49,16 @@ package com.leapmotion.leap
 		public var timestamp:Number;
 		
 		/**
+		 * The Tool object with the specified ID in this frame.  
+		 */
+		public var tool:Tool;
+
+		/**
+		 * The list of Tool objects detected in this frame, given in arbitrary order. 
+		 */
+		public var tools:Vector.<Pointable> = new Vector.<Pointable>();
+
+		/**
 		 * Rotation since last Frame 
 		 */
 		public var r:Vector.<Vector3> = new Vector.<Vector3>();
@@ -62,9 +72,7 @@ package com.leapmotion.leap
 		 * Translation since last Frame 
 		 */		
 		public var t:Vector3;
-		
-		public var tools:Vector.<Pointable> = new Vector.<Pointable>();
-		
+				
 		public function Frame()
 		{
 		}

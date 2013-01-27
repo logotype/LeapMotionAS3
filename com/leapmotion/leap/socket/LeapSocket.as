@@ -3,12 +3,14 @@ package com.leapmotion.leap.socket
 	import com.leapmotion.leap.Finger;
 	import com.leapmotion.leap.Frame;
 	import com.leapmotion.leap.Hand;
+	import com.leapmotion.leap.Pointable;
+	import com.leapmotion.leap.Tool;
 	import com.leapmotion.leap.Vector3;
 	import com.leapmotion.leap.events.LeapMotionEvent;
 	import com.leapmotion.leap.events.LeapMotionEventProxy;
 	import com.leapmotion.leap.util.Base64Encoder;
 	import com.leapmotion.leap.util.SHA1;
-	
+
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IOErrorEvent;
@@ -20,9 +22,9 @@ package com.leapmotion.leap.socket
 
 	/**
 	 * The LeapSocket class handles the communication via WebSockets.
-	 * 
+	 *
 	 * @author logotype
-	 * 
+	 *
 	 */
 	public class LeapSocket extends EventDispatcher
 	{
@@ -90,7 +92,8 @@ package com.leapmotion.leap.socket
 			eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_DISCONNECTED ));
 		}
 
-		private function onSocketDataHandler( event:ProgressEvent = null ):void
+		[Inline]
+		private final function onSocketDataHandler( event:ProgressEvent = null ):void
 		{
 			if ( currentState == LeapSocket.STATE_CONNECTING )
 			{
@@ -110,8 +113,9 @@ package com.leapmotion.leap.socket
 				var json:Object = JSON.parse( utf8data );
 				var frame:Frame = new Frame();
 				var hand:Hand;
-				var finger:Finger;
+				var abstractPointable:Pointable;
 				var vector:Vector3;
+				var isTool:Boolean;
 
 				// Hands
 				if ( json.hands )
@@ -150,20 +154,57 @@ package com.leapmotion.leap.socket
 				{
 					for ( i = 0; i < json.pointables.length; ++i )
 					{
-						finger = new Finger();
-						finger.frame = frame;
-						finger.id = json.pointables[ i ].id;
-						finger.hand = getHandByID( frame, int( json.pointables[ i ].handId ));
-						finger.direction = new Vector3( json.pointables[ i ].direction[ 0 ], json.pointables[ i ].direction[ 1 ], json.pointables[ i ].direction[ 2 ]);
-						frame.fingers.push( finger );
-						// Set primary finger
+						isTool = json.pointables[ i ].tool;
+						if ( isTool )
+							abstractPointable = new Tool();
+						else
+							abstractPointable = new Finger();
+
+						abstractPointable.frame = frame;
+						abstractPointable.id = json.pointables[ i ].id;
+						abstractPointable.hand = getHandByID( frame, int( json.pointables[ i ].handId ));
+						abstractPointable.length = json.pointables[ i ].length;
+						abstractPointable.direction = new Vector3( json.pointables[ i ].direction[ 0 ], json.pointables[ i ].direction[ 1 ], json.pointables[ i ].direction[ 2 ]);
+						abstractPointable.tipPosition = new Vector3( json.pointables[ i ].tipPosition[ 0 ], json.pointables[ i ].tipPosition[ 1 ], json.pointables[ i ].tipPosition[ 2 ]);
+						abstractPointable.tipVelocity = new Vector3( json.pointables[ i ].tipVelocity[ 0 ], json.pointables[ i ].tipVelocity[ 1 ], json.pointables[ i ].tipVelocity[ 2 ]);
+
+						if ( isTool )
+						{
+							abstractPointable.isTool = true;
+							abstractPointable.isFinger = false;
+							frame.tools.push( abstractPointable );
+							if ( frame.hand )
+								frame.hand.tools.push( abstractPointable );
+						}
+						else
+						{
+							abstractPointable.isTool = false;
+							abstractPointable.isFinger = true;
+							frame.fingers.push( abstractPointable );
+							if ( frame.hand )
+								frame.hand.fingers.push( abstractPointable );
+						}
+
+						// Set first as primary
 						if ( i == 0 )
 						{
-							frame.finger = finger;
-							if ( frame.hand )
+							if ( isTool )
 							{
-								frame.hand.finger = finger;
-								frame.hand.pointable = finger;
+								frame.tool = Tool( abstractPointable );
+								if ( frame.hand )
+								{
+									frame.hand.tool = Tool( abstractPointable );
+									frame.hand.pointable = abstractPointable;
+								}
+							}
+							else
+							{
+								frame.finger = Finger( abstractPointable );
+								if ( frame.hand )
+								{
+									frame.hand.finger = Finger( abstractPointable );
+									frame.hand.pointable = abstractPointable;
+								}
 							}
 						}
 					}
@@ -188,10 +229,10 @@ package com.leapmotion.leap.socket
 
 				// Timestamp
 				frame.timestamp = json.timestamp;
-				
+
 				// Dispatches the prepared data
 				eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_FRAME, frame ));
-				
+
 				// Release current frame and create a new one
 				leapSocketFrame = new LeapSocketFrame();
 			}
