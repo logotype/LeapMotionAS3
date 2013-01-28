@@ -28,11 +28,22 @@ package com.leapmotion.leap.socket
 	 */
 	public class LeapSocket extends EventDispatcher
 	{
-		static public const STATE_CONNECTING:String = "stateConnecting";
-		static public const STATE_OPEN:String = "stateOpen";
+		static public const STATE_CONNECTING:int = 0;
+		static public const STATE_OPEN:int = 1;
 
+		/**
+		 * The raw socket connection to Leap 
+		 */
 		private var socket:Socket;
-		private var currentState:String;
+		
+		/**
+		 * The current state of the parser 
+		 */
+		private var currentState:int;
+		
+		/**
+		 * Event Dispatcher singleton 
+		 */
 		private var eventDispatcher:LeapMotionEventProxy;
 		
 		/**
@@ -40,11 +51,22 @@ package com.leapmotion.leap.socket
 		 */
 		private var host:String = "localhost";
 
+		/**
+		 * Number of byts of the handshake response 
+		 */
 		private var handshakeBytesReceived:int;
+		
+		/**
+		 * The device handshake response from Leap 
+		 */
 		private var leapMotionDeviceHandshakeResponse:String = "";
 		private var leapMotionDeviceExtensions:Array;
 		private var base64nonce:String;
 		private var leapSocketFrame:LeapSocketFrame = new LeapSocketFrame();
+		
+		/**
+		 * Whether the Leap is currently connected 
+		 */
 		public var isConnected:Boolean = false;
 
 		public function LeapSocket( host:String = null )
@@ -60,6 +82,7 @@ package com.leapmotion.leap.socket
 				nonce.writeByte( Math.round( Math.random() * 0xFF ));
 
 			nonce.position = 0;
+			
 			var encoder:Base64Encoder = new Base64Encoder();
 			encoder.encodeBytes( nonce );
 			base64nonce = encoder.flush();
@@ -71,6 +94,11 @@ package com.leapmotion.leap.socket
 			socket.addEventListener( ProgressEvent.SOCKET_DATA, onSocketDataHandler );
 		}
 
+		/**
+		 * Triggered once the Socket-connection is established, send handshake 
+		 * @param event
+		 * 
+		 */
 		private function onSocketConnectHandler( event:Event ):void
 		{
 			isConnected = false;
@@ -80,18 +108,33 @@ package com.leapmotion.leap.socket
 			sendHandshake();
 		}
 
+		/**
+		 * Triggered when network-error occurs 
+		 * @param event
+		 * 
+		 */
 		private function onIOErrorHandler( event:IOErrorEvent ):void
 		{
 			isConnected = false;
 			eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_DISCONNECTED ));
 		}
 
+		/**
+		 * Triggered if socket policy-file is missing, or other security related error occurs 
+		 * @param event
+		 * 
+		 */
 		private function onSecurityErrorHandler( event:SecurityErrorEvent ):void
 		{
 			isConnected = false;
 			eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_DISCONNECTED ));
 		}
 
+		/**
+		 * Triggered when the socket-connection is closed 
+		 * @param event
+		 * 
+		 */
 		private function onSocketCloseHandler( event:Event ):void
 		{
 			isConnected = false;
@@ -99,6 +142,12 @@ package com.leapmotion.leap.socket
 			eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_EXIT ));
 		}
 
+		/**
+		 * Inline method where data is read until a complete LeapSocketFrame is parsed 
+		 * @param event
+		 * @see LeapSocketFrame
+		 * 
+		 */
 		[Inline]
 		final private function onSocketDataHandler( event:ProgressEvent = null ):void
 		{
@@ -245,6 +294,13 @@ package com.leapmotion.leap.socket
 			}
 		}
 
+		/**
+		 * Inline method. Finds a Hand object by ID 
+		 * @param frame The Frame object in which the Hand contains
+		 * @param id The ID of the Hand object
+		 * @return The Hand object if found, otherwise null
+		 * 
+		 */
 		[Inline]
 		final private function getHandByID( frame:Frame, id:int ):Hand
 		{
@@ -260,12 +316,23 @@ package com.leapmotion.leap.socket
 			return returnValue;
 		}
 
+		/**
+		 * Parses the HTTP header received from the Leap 
+		 * @param line
+		 * @return 
+		 * 
+		 */
 		private function parseHTTPHeader( line:String ):Object
 		{
 			var header:Array = line.split( /\: +/ );
 			return header.length === 2 ? { name:header[ 0 ], value:header[ 1 ]} : null;
 		}
 
+		/**
+		 * Reads the handshake received from the Leap 
+		 * @return 
+		 * 
+		 */
 		private function readHandshakeLine():Boolean
 		{
 			var char:String;
@@ -280,6 +347,10 @@ package com.leapmotion.leap.socket
 			return false;
 		}
 
+		/**
+		 * Sends the HTTP handshake to the Leap 
+		 * 
+		 */
 		private function sendHandshake():void
 		{
 			var text:String = "";
@@ -295,6 +366,10 @@ package com.leapmotion.leap.socket
 			socket.writeMultiByte( text, "us-ascii" );
 		}
 
+		/**
+		 * Reads the handshake response from the Leap 
+		 * 
+		 */
 		private function readLeapMotionHandshake():void
 		{
 			var upgradeHeader:Boolean = false;

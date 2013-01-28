@@ -13,20 +13,26 @@ package com.leapmotion.leap.socket
 	[Inline]
 	final public class LeapSocketFrame
 	{
-		static private const NEW_FRAME:String = "newFrame";
-		static private const WAITING_FOR_16_BIT_LENGTH:String = "waitingFor16BitLength";
-		static private const WAITING_FOR_PAYLOAD:String = "waitingForPayload";
-		static private const COMPLETE:String = "complete";
+		static private const NEW_FRAME:int = 0;
+		static private const WAITING_FOR_16_BIT_LENGTH:int = 1;
+		static private const WAITING_FOR_PAYLOAD:int = 2;
+		static private const COMPLETE:int = 3;
 
 		private var _length:int;
 		public var binaryPayload:ByteArray;
-		private var parseState:String = NEW_FRAME;
+		private var parseState:int = NEW_FRAME;
 
 		public function get length():int
 		{
 			return _length;
 		}
 
+		/**
+		 * Adds data to a buffer until a full Frame is assembled 
+		 * @param input Socket data
+		 * @return Returns true once the Frame is complete
+		 * 
+		 */
 		[Inline]
 		final public function addData( input:Socket ):Boolean
 		{
