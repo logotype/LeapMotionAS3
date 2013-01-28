@@ -76,7 +76,7 @@ Upcoming features
 + Multi-threading using Workers
 + Optional dispatch model using Signals
 + AIR Native Extension (ANE) which directly interfaces with the C++ library
-+ Example code will be added
++ Additional example code will be added
 
 Authors
 -------
