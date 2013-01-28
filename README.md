@@ -40,7 +40,7 @@ typed properties such as `Hands`, `Pointables`, `Direction` and more:
     		if ( fingers.length > 0 )
     		{
     			// Calculate the hand's average finger tip position
-    			var avgPos:Vector3 = new Vector3( 0, 0, 0 );
+    			var avgPos:Vector3 = Vector3.zero();
     			for each ( var finger:Finger in fingers )
     				avgPos = avgPos.plus( finger.tipPosition );
     
