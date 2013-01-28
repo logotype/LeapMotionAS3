@@ -12,7 +12,7 @@ Quick start
 
 Clone the repo, `git clone git://github.com/logotype/LeapMotionAS3.git`.
 
-Create an instance of the LeapMotion class (called Controller in the official docs)
+Create an instance of the LeapMotion class:
 
     leap = new LeapMotion();
     leap.controller.addEventListener( LeapMotionEvent.LEAPMOTION_INIT, onInit );
