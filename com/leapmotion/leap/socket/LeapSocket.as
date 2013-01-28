@@ -45,6 +45,7 @@ package com.leapmotion.leap.socket
 		public function LeapSocket()
 		{
 			eventDispatcher = LeapMotionEventProxy.getInstance();
+
 			// Generate nonce
 			var nonce:ByteArray = new ByteArray();
 			for ( var i:int = 0; i < 16; i++ )
@@ -74,26 +75,24 @@ package com.leapmotion.leap.socket
 		private function onIOErrorHandler( event:IOErrorEvent ):void
 		{
 			isConnected = false;
-			eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_EXIT ));
 			eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_DISCONNECTED ));
 		}
 
 		private function onSecurityErrorHandler( event:SecurityErrorEvent ):void
 		{
 			isConnected = false;
-			eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_EXIT ));
 			eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_DISCONNECTED ));
 		}
 
 		private function onSocketCloseHandler( event:Event ):void
 		{
 			isConnected = false;
-			eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_EXIT ));
 			eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_DISCONNECTED ));
+			eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_EXIT ));
 		}
 
 		[Inline]
-		private final function onSocketDataHandler( event:ProgressEvent = null ):void
+		final private function onSocketDataHandler( event:ProgressEvent = null ):void
 		{
 			if ( currentState == LeapSocket.STATE_CONNECTING )
 			{
@@ -239,7 +238,7 @@ package com.leapmotion.leap.socket
 		}
 
 		[Inline]
-		private final function getHandByID( frame:Frame, id:int ):Hand
+		final private function getHandByID( frame:Frame, id:int ):Hand
 		{
 			var returnValue:Hand = null;
 			for each ( var hand:Hand in frame.hands )

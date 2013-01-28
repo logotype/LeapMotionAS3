@@ -10,6 +10,7 @@ package com.leapmotion.leap.socket
 	 * @author logotype
 	 * 
 	 */
+	[Inline]
 	public class LeapSocketFrame
 	{
 		static private const NEW_FRAME:String = "newFrame";
@@ -26,7 +27,8 @@ package com.leapmotion.leap.socket
 			return _length;
 		}
 
-		public function addData( input:Socket ):Boolean
+		[Inline]
+		final public function addData( input:Socket ):Boolean
 		{
 			if ( input.bytesAvailable >= 2 )
 			{
