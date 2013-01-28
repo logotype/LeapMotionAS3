@@ -65,7 +65,8 @@ Features
 --------
 
 + Very similar structure as the official API
-+ No dependencies, creates a optimized socket directly to the Leap
++ Clean, lightweight and documented code
++ No external dependencies, creates a optimized socket directly to the Leap
 + Uses ASC 2.0 compiler features (be sure to add the "-inline" compiler argument)
 + Compatible with Mac and PC
 
