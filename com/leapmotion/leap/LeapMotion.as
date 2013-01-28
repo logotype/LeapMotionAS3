@@ -55,10 +55,10 @@ package com.leapmotion.leap
 		private var socket:LeapSocket;
 		public var controller:LeapMotionEventProxy;
 
-		public function LeapMotion()
+		public function LeapMotion( host:String = null )
 		{
 			controller = LeapMotionEventProxy.getInstance();
-			socket = new LeapSocket();
+			socket = new LeapSocket( host );
 		}
 		
 		public function isConnected():Boolean

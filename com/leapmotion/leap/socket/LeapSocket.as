@@ -34,6 +34,11 @@ package com.leapmotion.leap.socket
 		private var socket:Socket;
 		private var currentState:String;
 		private var eventDispatcher:LeapMotionEventProxy;
+		
+		/**
+		 * Specifies which host to connect to, default localhost 
+		 */
+		private var host:String = "localhost";
 
 		private var handshakeBytesReceived:int;
 		private var leapMotionDeviceHandshakeResponse:String = "";
@@ -42,8 +47,11 @@ package com.leapmotion.leap.socket
 		private var leapSocketFrame:LeapSocketFrame = new LeapSocketFrame();
 		public var isConnected:Boolean = false;
 
-		public function LeapSocket()
+		public function LeapSocket( host:String = null )
 		{
+			if( host )
+				this.host = host;
+			
 			eventDispatcher = LeapMotionEventProxy.getInstance();
 
 			// Generate nonce
@@ -56,7 +64,7 @@ package com.leapmotion.leap.socket
 			encoder.encodeBytes( nonce );
 			base64nonce = encoder.flush();
 
-			socket = new Socket( "localhost", 6437 );
+			socket = new Socket( this.host, 6437 );
 			socket.addEventListener( Event.CONNECT, onSocketConnectHandler );
 			socket.addEventListener( IOErrorEvent.IO_ERROR, onIOErrorHandler );
 			socket.addEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityErrorHandler );
@@ -276,7 +284,7 @@ package com.leapmotion.leap.socket
 		{
 			var text:String = "";
 			text += "GET / HTTP/1.1\r\n";
-			text += "Host: localhost:6437\r\n";
+			text += "Host: " + this.host + ":6437\r\n";
 			text += "Upgrade: websocket\r\n";
 			text += "Connection: Upgrade\r\n";
 			text += "Sec-WebSocket-Key: " + base64nonce + "\r\n";
