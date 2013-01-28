@@ -34,7 +34,7 @@ package com.leapmotion.leap
 		/**
 		 * The list of Finger objects detected in this frame that are attached to this hand, given in arbitrary order.
 		 */
-		public var fingers:Vector.<Pointable> = new Vector.<Pointable>();
+		public var fingers:Vector.<Finger> = new Vector.<Finger>();
 
 		/**
 		 * The Frame associated with this Hand.
@@ -83,7 +83,7 @@ package com.leapmotion.leap
 		/**
 		 * The list of Tool objects detected in this frame that are held by this hand, given in arbitrary order.
 		 */
-		public var tools:Vector.<Pointable> = new Vector.<Pointable>();
+		public var tools:Vector.<Tool> = new Vector.<Tool>();
 
 		// Rotation (from WebSocket frame)
 		public var r:Vector.<Vector3> = new Vector.<Vector3>();

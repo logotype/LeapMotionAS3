@@ -47,6 +47,19 @@ package com.leapmotion.leap
 		}
 
 		/**
+		 * Add vectors component-wise and assign the value.
+		 * @param other
+		 * @return
+		 *
+		 */
+		public function plusAssign( other:Vector3 ):void
+		{
+			this.x + other.x;
+			this.y + other.y;
+			this.z + other.z;
+		}
+
+		/**
 		 * A copy of this vector pointing in the opposite direction.
 		 * @param other
 		 * @return
@@ -55,6 +68,19 @@ package com.leapmotion.leap
 		public function minus( other:Vector3 ):Vector3
 		{
 			return new Vector3( x - other.x, y - other.y, z - other.z );
+		}
+
+		/**
+		 * A copy of this vector pointing in the opposite direction and assign the value.
+		 * @param other
+		 * @return
+		 *
+		 */
+		public function minusAssign( other:Vector3 ):void
+		{
+			this.x - other.x;
+			this.y - other.y;
+			this.z - other.z;
 		}
 
 		/**
@@ -69,6 +95,19 @@ package com.leapmotion.leap
 		}
 
 		/**
+		 * Multiply vector by a scalar and assign the value.
+		 * @param scalar
+		 * @return
+		 *
+		 */
+		public function multiplyAssign( scalar:Number ):void
+		{
+			this.x * scalar;
+			this.y * scalar;
+			this.z * scalar;
+		}
+
+		/**
 		 * Divide vector by a scalar.
 		 * @param scalar
 		 * @return
@@ -78,7 +117,20 @@ package com.leapmotion.leap
 		{
 			return new Vector3( x / scalar, y / scalar, z / scalar );
 		}
-
+		
+		/**
+		 * Divide vector by a scalar and assign the value.
+		 * @param scalar
+		 * @return
+		 *
+		 */
+		public function divideAssign( scalar:Number ):void
+		{
+			this.x / scalar;
+			this.y / scalar;
+			this.z / scalar;
+		}
+		
 		// INSTANCE METHODS
 		/**
 		 * The angle between this vector and the specified vector in radians.
