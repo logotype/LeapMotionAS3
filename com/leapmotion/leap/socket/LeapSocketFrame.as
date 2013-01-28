@@ -11,7 +11,7 @@ package com.leapmotion.leap.socket
 	 * 
 	 */
 	[Inline]
-	public class LeapSocketFrame
+	final public class LeapSocketFrame
 	{
 		static private const NEW_FRAME:String = "newFrame";
 		static private const WAITING_FOR_16_BIT_LENGTH:String = "waitingFor16BitLength";
