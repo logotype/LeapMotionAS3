@@ -176,7 +176,7 @@ package com.leapmotion.leap.socket
 				var json:Object = JSON.parse( utf8data );
 				var frame:Frame = new Frame();
 				var hand:Hand;
-				var abstractPointable:Pointable;
+				var pointable:Pointable;
 				var vector:Vector3;
 				var isTool:Boolean;
 
@@ -219,33 +219,33 @@ package com.leapmotion.leap.socket
 					{
 						isTool = json.pointables[ i ].tool;
 						if ( isTool )
-							abstractPointable = new Tool();
+							pointable = new Tool();
 						else
-							abstractPointable = new Finger();
+							pointable = new Finger();
 
-						abstractPointable.frame = frame;
-						abstractPointable.id = json.pointables[ i ].id;
-						abstractPointable.hand = getHandByID( frame, int( json.pointables[ i ].handId ));
-						abstractPointable.length = json.pointables[ i ].length;
-						abstractPointable.direction = new Vector3( json.pointables[ i ].direction[ 0 ], json.pointables[ i ].direction[ 1 ], json.pointables[ i ].direction[ 2 ]);
-						abstractPointable.tipPosition = new Vector3( json.pointables[ i ].tipPosition[ 0 ], json.pointables[ i ].tipPosition[ 1 ], json.pointables[ i ].tipPosition[ 2 ]);
-						abstractPointable.tipVelocity = new Vector3( json.pointables[ i ].tipVelocity[ 0 ], json.pointables[ i ].tipVelocity[ 1 ], json.pointables[ i ].tipVelocity[ 2 ]);
+						pointable.frame = frame;
+						pointable.id = json.pointables[ i ].id;
+						pointable.hand = getHandByID( frame, int( json.pointables[ i ].handId ));
+						pointable.length = json.pointables[ i ].length;
+						pointable.direction = new Vector3( json.pointables[ i ].direction[ 0 ], json.pointables[ i ].direction[ 1 ], json.pointables[ i ].direction[ 2 ]);
+						pointable.tipPosition = new Vector3( json.pointables[ i ].tipPosition[ 0 ], json.pointables[ i ].tipPosition[ 1 ], json.pointables[ i ].tipPosition[ 2 ]);
+						pointable.tipVelocity = new Vector3( json.pointables[ i ].tipVelocity[ 0 ], json.pointables[ i ].tipVelocity[ 1 ], json.pointables[ i ].tipVelocity[ 2 ]);
 
 						if ( isTool )
 						{
-							abstractPointable.isTool = true;
-							abstractPointable.isFinger = false;
-							frame.tools.push( abstractPointable );
+							pointable.isTool = true;
+							pointable.isFinger = false;
+							frame.tools.push( pointable );
 							if ( frame.hand )
-								frame.hand.tools.push( abstractPointable );
+								frame.hand.tools.push( pointable );
 						}
 						else
 						{
-							abstractPointable.isTool = false;
-							abstractPointable.isFinger = true;
-							frame.fingers.push( abstractPointable );
+							pointable.isTool = false;
+							pointable.isFinger = true;
+							frame.fingers.push( pointable );
 							if ( frame.hand )
-								frame.hand.fingers.push( abstractPointable );
+								frame.hand.fingers.push( pointable );
 						}
 
 						// Set first as primary
@@ -253,20 +253,20 @@ package com.leapmotion.leap.socket
 						{
 							if ( isTool )
 							{
-								frame.tool = Tool( abstractPointable );
+								frame.tool = Tool( pointable );
 								if ( frame.hand )
 								{
-									frame.hand.tool = Tool( abstractPointable );
-									frame.hand.pointable = abstractPointable;
+									frame.hand.tool = Tool( pointable );
+									frame.hand.pointable = pointable;
 								}
 							}
 							else
 							{
-								frame.finger = Finger( abstractPointable );
+								frame.finger = Finger( pointable );
 								if ( frame.hand )
 								{
-									frame.hand.finger = Finger( abstractPointable );
-									frame.hand.pointable = abstractPointable;
+									frame.hand.finger = Finger( pointable );
+									frame.hand.pointable = pointable;
 								}
 							}
 						}
