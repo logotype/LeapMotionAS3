@@ -232,7 +232,7 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
-		public function pitch():Number
+		public function get pitch():Number
 		{
 			return Math.atan2( y, -z );
 		}
@@ -242,7 +242,7 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
-		public function yaw():Number
+		public function get yaw():Number
 		{
 			return Math.atan2( x, -z );
 		}
@@ -252,7 +252,7 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
-		public function roll():Number
+		public function get roll():Number
 		{
 			return Math.atan2( x, -y );
 		}

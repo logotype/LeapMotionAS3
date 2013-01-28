@@ -56,7 +56,7 @@ typed properties such as `Hands`, `Pointables`, `Direction` and more.:
     		var direction:Vector3 = hand.direction;
     
     		// Calculate the hand's pitch, roll, and yaw angles
-    		trace( "Hand pitch: " + LeapMath.toDegrees( direction.pitch() ) + " degrees, " + "roll: " + LeapMath.toDegrees( normal.roll() ) + " degrees, " + "yaw: " + LeapMath.toDegrees( direction.yaw() ) + " degrees" );
+    		trace( "Hand pitch: " + LeapMath.toDegrees( direction.pitch ) + " degrees, " + "roll: " + LeapMath.toDegrees( normal.roll ) + " degrees, " + "yaw: " + LeapMath.toDegrees( direction.yaw ) + " degrees\n" );
     	}
     }
 
