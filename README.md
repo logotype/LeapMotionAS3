@@ -37,7 +37,7 @@ typed properties such as Hand, Pointables, Direction and much more:
     
     		// Check if the hand has any fingers
     		var fingers:Vector.<Pointable> = hand.fingers;
-    		if ( !fingers.length == 0 )
+    		if ( fingers.length > 0 )
     		{
     			// Calculate the hand's average finger tip position
     			var avgPos:Vector3 = new Vector3( 0, 0, 0 );
