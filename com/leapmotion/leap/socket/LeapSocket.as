@@ -60,8 +60,15 @@ package com.leapmotion.leap.socket
 		 * The device handshake response from Leap 
 		 */
 		private var leapMotionDeviceHandshakeResponse:String = "";
-		private var leapMotionDeviceExtensions:Array;
+		
+		/**
+		 * Base64 encoded cryptographic nonce value 
+		 */
 		private var base64nonce:String;
+		
+		/**
+		 * Most recent non-parsed Frame received from Socket 
+		 */
 		private var leapSocketFrame:LeapSocketFrame = new LeapSocketFrame();
 		
 		/**
@@ -393,8 +400,6 @@ package com.leapmotion.leap.socket
 			var statusCode:int = parseInt( responseLineMatch[ 2 ], 10 );
 			var statusDescription:String = responseLineMatch[ 3 ];
 
-			// Interpret HTTP Response Headers
-			leapMotionDeviceExtensions = [];
 			try
 			{
 				while ( lines.length > 0 )
