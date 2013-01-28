@@ -1,6 +1,8 @@
 [LeapMotionAS3](http://github.com/logotype/LeapMotionAS3)
 =================
 
+<img src="http://logotype.se/leapImage.png">
+
 This is the AS3 framework for working with the Leap.
 
 Created and maintained by [Victor Norgren](http://logotype.se)
