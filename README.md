@@ -29,7 +29,7 @@ the properties as per the official docs):
     {
     	// Get the most recent frame and report some basic information
     	var frame:Frame = event.frame;
-    	trace("Frame id: " + frame.id + ", timestamp: " + frame.timestamp + ", hands: " + frame.hands.length + ", fingers: " + frame.fingers.length + ", tools: " + frame.tools.length);
+    	trace( "Frame id: " + frame.id + ", timestamp: " + frame.timestamp + ", hands: " + frame.hands.length + ", fingers: " + frame.fingers.length + ", tools: " + frame.tools.length );
     
     	if ( frame.hands.length > 0 )
     	{
@@ -37,7 +37,7 @@ the properties as per the official docs):
     		var hand:Hand = frame.hands[ 0 ];
     
     		// Check if the hand has any fingers
-    		var fingers:Vector.<Pointable> = hand.fingers;
+    		var fingers:Vector.<Finger> = hand.fingers;
     		if ( fingers.length > 0 )
     		{
     			// Calculate the hand's average finger tip position
@@ -46,18 +46,18 @@ the properties as per the official docs):
     				avgPos = avgPos.plus( finger.tipPosition );
     
     			avgPos = avgPos.divide( fingers.length );
-    			trace("Hand has " + fingers.length.toFixed( 2 ) + " fingers, average finger tip position: " + avgPos);
+    			trace( "Hand has " + fingers.length + " fingers, average finger tip position: " + avgPos );
     		}
     
     		// Get the hand's sphere radius and palm position
-    		trace("Hand sphere radius: " + hand.sphereRadius.toFixed( 2 ) + " mm, palm position: " + hand.palmPosition);
+    		trace( "Hand sphere radius: " + hand.sphereRadius + " mm, palm position: " + hand.palmPosition );
     
     		// Get the hand's normal vector and direction
     		var normal:Vector3 = hand.palmNormal;
     		var direction:Vector3 = hand.direction;
     
     		// Calculate the hand's pitch, roll, and yaw angles
-    		trace("Hand pitch: " + LeapMath.toDegrees( direction.pitch()).toFixed( 2 ) + " degrees, " + "roll: " + LeapMath.toDegrees( normal.roll()).toFixed( 2 ) + " degrees, " + "yaw: " + LeapMath.toDegrees( direction.yaw()).toFixed( 2 ) + " degrees");
+    		trace( "Hand pitch: " + LeapMath.toDegrees( direction.pitch() ) + " degrees, " + "roll: " + LeapMath.toDegrees( normal.roll() ) + " degrees, " + "yaw: " + LeapMath.toDegrees( direction.yaw() ) + " degrees" );
     	}
     }
 
