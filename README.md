@@ -68,7 +68,7 @@ Features
 + Clean, lightweight and documented code
 + No external dependencies, creates a optimized socket directly to the Leap
 + Uses ASC 2.0 compiler features (be sure to add the "-inline" compiler argument)
-+ Connect multiple computers to the same Leap device
++ Connect multiple computers to the same Leap device (via an optional "host" argument)
 + Compatible with Mac and PC
 
 Upcoming features
