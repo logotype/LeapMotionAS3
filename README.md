@@ -69,6 +69,8 @@ Features
 + Uses ASC 2.0 compiler features (be sure to add the "-inline" and "-swf-version=19" compiler arguments)
 + Connect multiple computers to the same Leap device (via an optional "host" argument)
 + Compatible with Mac and PC
++ High performance, less than 1ms processing per frame
+<img src="http://logotype.se/leapImageTelemetry.png">
 
 Upcoming features
 -----------------
