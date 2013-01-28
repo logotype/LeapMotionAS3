@@ -20,7 +20,43 @@ Create an instance of the LeapMotion class (called Controller in the official do
     leap.data.addEventListener( LeapMotionEvent.LEAPMOTION_FRAME, onFrame );
 
 What you'll get from the LEAPMOTION_FRAME handler is a Frame object, with strongly
-typed properties such as Hand, Pointables, Direction and much more.
+typed properties such as Hand, Pointables, Direction and much more:
+
+    public function onFrame( event:LeapMotionEvent ):void
+    {
+    	// Get the most recent frame and report some basic information
+    	var frame:Frame = event.frame;
+    	trace("Frame id: " + frame.id + ", timestamp: " + frame.timestamp + ", hands: " + frame.hands.length + ", fingers: " + frame.fingers.length + ", tools: " + frame.tools.length);
+    
+    	if ( frame.hands.length > 0 )
+    	{
+    		// Get the first hand
+    		var hand:Hand = frame.hands[ 0 ];
+    
+    		// Check if the hand has any fingers
+    		var fingers:Vector.<Pointable> = hand.fingers;
+    		if ( !fingers.length == 0 )
+    		{
+    			// Calculate the hand's average finger tip position
+    			var avgPos:Vector3 = new Vector3( 0, 0, 0 );
+    			for each ( var finger:Finger in fingers )
+    				avgPos = avgPos.plus( finger.tipPosition );
+    
+    			avgPos = avgPos.divide( fingers.length );
+    			trace("Hand has " + fingers.length.toFixed( 2 ) + " fingers, average finger tip position: " + avgPos);
+    		}
+    
+    		// Get the hand's sphere radius and palm position
+    		trace("Hand sphere radius: " + hand.sphereRadius.toFixed( 2 ) + " mm, palm position: " + hand.palmPosition);
+    
+    		// Get the hand's normal vector and direction
+    		var normal:Vector3 = hand.palmNormal;
+    		var direction:Vector3 = hand.direction;
+    
+    		// Calculate the hand's pitch, roll, and yaw angles
+    		trace("Hand pitch: " + LeapMath.toDegrees( direction.pitch()).toFixed( 2 ) + " degrees, " + "roll: " + LeapMath.toDegrees( normal.roll()).toFixed( 2 ) + " degrees, " + "yaw: " + LeapMath.toDegrees( direction.yaw()).toFixed( 2 ) + " degrees");
+    	}
+    }
 
 Features
 --------
