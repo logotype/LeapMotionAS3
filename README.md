@@ -65,7 +65,7 @@ Features
 
 <img src="http://logotype.se/leapImageTelemetry.png">
 + High performance, less than 1ms processing per frame
-+ Very similar structure as the official API
++ Same structure as official API
 + Clean, lightweight and documented code
 + No external dependencies, creates a optimized socket directly to the Leap
 + Uses ASC 2.0 compiler features (be sure to add the "-inline" and "-swf-version=19" compiler arguments)
