@@ -5,6 +5,9 @@ package com.leapmotion.leap.events
 
 	public class LeapMotionEvent extends Event
 	{
+		/**
+		 * Called once, when this Listener object is newly added to a Controller. 
+		 */
 		static public const LEAPMOTION_INIT:String = "onInit";
 
 		/**

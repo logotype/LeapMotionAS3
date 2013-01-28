@@ -59,17 +59,17 @@ package com.leapmotion.leap
 		public var tools:Vector.<Pointable> = new Vector.<Pointable>();
 
 		/**
-		 * Rotation since last Frame 
+		 * Rotation since last Frame.
 		 */
 		public var r:Vector.<Vector3> = new Vector.<Vector3>();
 		
 		/**
-		 * Scale factor since last Frame 
+		 * Scale factor since last Frame. 
 		 */		
 		public var s:Number;
 		
 		/**
-		 * Translation since last Frame 
+		 * Translation since last Frame. 
 		 */		
 		public var t:Vector3;
 				

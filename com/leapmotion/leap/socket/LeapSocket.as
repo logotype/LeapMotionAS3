@@ -10,7 +10,7 @@ package com.leapmotion.leap.socket
 	import com.leapmotion.leap.events.LeapMotionEventProxy;
 	import com.leapmotion.leap.util.Base64Encoder;
 	import com.leapmotion.leap.util.SHA1;
-
+	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IOErrorEvent;
@@ -32,47 +32,52 @@ package com.leapmotion.leap.socket
 		static public const STATE_OPEN:int = 1;
 
 		/**
-		 * The raw socket connection to Leap 
+		 * The raw socket connection to Leap.
 		 */
 		private var socket:Socket;
 		
 		/**
-		 * The current state of the parser 
+		 * The current state of the parser.
 		 */
 		private var currentState:int;
 		
 		/**
-		 * Event Dispatcher singleton 
+		 * Event Dispatcher singleton.
 		 */
 		private var eventDispatcher:LeapMotionEventProxy;
 		
 		/**
-		 * Specifies which host to connect to, default localhost 
+		 * Specifies which host to connect to, default localhost.
 		 */
 		private var host:String = "localhost";
 
 		/**
-		 * Number of byts of the handshake response 
+		 * Number of byts of the handshake response.
 		 */
 		private var handshakeBytesReceived:int;
 		
 		/**
-		 * The device handshake response from Leap 
+		 * The device handshake response from Leap.
 		 */
 		private var leapMotionDeviceHandshakeResponse:String = "";
 		
 		/**
-		 * Base64 encoded cryptographic nonce value 
+		 * Base64 encoded cryptographic nonce value.
 		 */
 		private var base64nonce:String;
 		
 		/**
-		 * Most recent non-parsed Frame received from Socket 
+		 * Most recent non-parsed Frame received from Socket.
 		 */
 		private var leapSocketFrame:LeapSocketFrame = new LeapSocketFrame();
 		
 		/**
-		 * Whether the Leap is currently connected 
+		 * Most recent parsed Frame received from Socket. 
+		 */
+		public var frame:Frame;
+		
+		/**
+		 * Whether the Leap is currently connected.
 		 */
 		public var isConnected:Boolean = false;
 
@@ -174,7 +179,7 @@ package com.leapmotion.leap.socket
 				var i:uint = 0;
 				var j:uint = 0;
 				var json:Object = JSON.parse( utf8data );
-				var frame:Frame = new Frame();
+				var currentFrame:Frame = new Frame();
 				var hand:Hand;
 				var pointable:Pointable;
 				var vector:Vector3;
@@ -186,7 +191,7 @@ package com.leapmotion.leap.socket
 					for ( i = 0; i < json.hands.length; ++i )
 					{
 						hand = new Hand();
-						hand.frame = frame;
+						hand.frame = currentFrame;
 						hand.direction = new Vector3( json.hands[ i ].direction[ 0 ], json.hands[ i ].direction[ 1 ], json.hands[ i ].direction[ 2 ]);
 						hand.id = json.hands[ i ].id;
 						hand.palmNormal = new Vector3( json.hands[ i ].palmNormal[ 0 ], json.hands[ i ].palmNormal[ 1 ], json.hands[ i ].palmNormal[ 2 ]);
@@ -201,16 +206,16 @@ package com.leapmotion.leap.socket
 						hand.sphereCenter = new Vector3( json.hands[ i ].sphereCenter[ 0 ], json.hands[ i ].sphereCenter[ 1 ], json.hands[ i ].sphereCenter[ 2 ]);
 						hand.sphereRadius = json.hands[ i ].sphereRadius;
 						hand.t = new Vector3( json.hands[ i ].t[ 0 ], json.hands[ i ].t[ 1 ], json.hands[ i ].t[ 2 ]);
-						frame.hands.push( hand );
+						currentFrame.hands.push( hand );
 
 						// Set primary hand
 						if ( i == 0 )
-							frame.hand = hand;
+							currentFrame.hand = hand;
 					}
 				}
 
 				// ID
-				frame.id = json.id;
+				currentFrame.id = json.id;
 
 				// Pointables
 				if ( json.pointables )
@@ -223,9 +228,9 @@ package com.leapmotion.leap.socket
 						else
 							pointable = new Finger();
 
-						pointable.frame = frame;
+						pointable.frame = currentFrame;
 						pointable.id = json.pointables[ i ].id;
-						pointable.hand = getHandByID( frame, int( json.pointables[ i ].handId ));
+						pointable.hand = getHandByID( currentFrame, int( json.pointables[ i ].handId ));
 						pointable.length = json.pointables[ i ].length;
 						pointable.direction = new Vector3( json.pointables[ i ].direction[ 0 ], json.pointables[ i ].direction[ 1 ], json.pointables[ i ].direction[ 2 ]);
 						pointable.tipPosition = new Vector3( json.pointables[ i ].tipPosition[ 0 ], json.pointables[ i ].tipPosition[ 1 ], json.pointables[ i ].tipPosition[ 2 ]);
@@ -235,17 +240,17 @@ package com.leapmotion.leap.socket
 						{
 							pointable.isTool = true;
 							pointable.isFinger = false;
-							frame.tools.push( pointable );
-							if ( frame.hand )
-								frame.hand.tools.push( pointable );
+							currentFrame.tools.push( pointable );
+							if ( currentFrame.hand )
+								currentFrame.hand.tools.push( pointable );
 						}
 						else
 						{
 							pointable.isTool = false;
 							pointable.isFinger = true;
-							frame.fingers.push( pointable );
-							if ( frame.hand )
-								frame.hand.fingers.push( pointable );
+							currentFrame.fingers.push( pointable );
+							if ( currentFrame.hand )
+								currentFrame.hand.fingers.push( pointable );
 						}
 
 						// Set first as primary
@@ -253,20 +258,20 @@ package com.leapmotion.leap.socket
 						{
 							if ( isTool )
 							{
-								frame.tool = Tool( pointable );
-								if ( frame.hand )
+								currentFrame.tool = Tool( pointable );
+								if ( currentFrame.hand )
 								{
-									frame.hand.tool = Tool( pointable );
-									frame.hand.pointable = pointable;
+									currentFrame.hand.tool = Tool( pointable );
+									currentFrame.hand.pointable = pointable;
 								}
 							}
 							else
 							{
-								frame.finger = Finger( pointable );
-								if ( frame.hand )
+								currentFrame.finger = Finger( pointable );
+								if ( currentFrame.hand )
 								{
-									frame.hand.finger = Finger( pointable );
-									frame.hand.pointable = pointable;
+									currentFrame.hand.finger = Finger( pointable );
+									currentFrame.hand.pointable = pointable;
 								}
 							}
 						}
@@ -279,22 +284,24 @@ package com.leapmotion.leap.socket
 					for ( i = 0; i < json.r.length; ++i )
 					{
 						vector = new Vector3( json.r[ i ][ 0 ], json.r[ i ][ 1 ], json.r[ i ][ 2 ]);
-						frame.r.push( vector );
+						currentFrame.r.push( vector );
 					}
 				}
 
 				// Scale factor (since last frame), interpolate for smoother motion
-				frame.s = json.s;
+				currentFrame.s = json.s;
 
 				// Translation (since last frame), interpolate for smoother motion
 				if ( json.t )
-					frame.t = new Vector3( json.t[ 0 ], json.t[ 1 ], json.t[ 2 ]);
+					currentFrame.t = new Vector3( json.t[ 0 ], json.t[ 1 ], json.t[ 2 ]);
 
 				// Timestamp
-				frame.timestamp = json.timestamp;
+				currentFrame.timestamp = json.timestamp;
 
 				// Dispatches the prepared data
-				eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_FRAME, frame ));
+				eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_FRAME, currentFrame ));
+				
+				frame = currentFrame;
 
 				// Release current frame and create a new one
 				leapSocketFrame = new LeapSocketFrame();

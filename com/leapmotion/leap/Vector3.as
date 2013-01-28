@@ -19,8 +19,19 @@ package com.leapmotion.leap
 	 */
 	public class Vector3
 	{
+		/**
+		 * The horizontal component.
+		 */
 		public var x:Number;
+
+		/**
+		 * The vertical component.
+		 */
 		public var y:Number;
+
+		/**
+		 * The depth component.
+		 */
 		public var z:Number;
 
 		public function Vector3( x:Number, y:Number, z:Number )
@@ -117,7 +128,7 @@ package com.leapmotion.leap
 		{
 			return new Vector3( x / scalar, y / scalar, z / scalar );
 		}
-		
+
 		/**
 		 * Divide vector by a scalar and assign the value.
 		 * @param scalar
@@ -130,7 +141,7 @@ package com.leapmotion.leap
 			this.y / scalar;
 			this.z / scalar;
 		}
-		
+
 		/**
 		 * The angle between this vector and the specified vector in radians.
 		 * @param other
