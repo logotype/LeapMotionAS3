@@ -53,11 +53,11 @@ package com.leapmotion.leap
 	public class LeapMotion extends EventDispatcher
 	{
 		private var socket:LeapSocket;
-		public var data:LeapMotionEventProxy;
+		public var controller:LeapMotionEventProxy;
 
 		public function LeapMotion()
 		{
-			data = LeapMotionEventProxy.getInstance();
+			controller = LeapMotionEventProxy.getInstance();
 			socket = new LeapSocket();
 		}
 		

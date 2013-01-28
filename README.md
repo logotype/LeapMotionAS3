@@ -15,11 +15,11 @@ Clone the repo, `git clone git://github.com/logotype/LeapMotionAS3.git`.
 Create an instance of the LeapMotion class (called Controller in the official docs)
 
     leap = new LeapMotion();
-    leap.data.addEventListener( LeapMotionEvent.LEAPMOTION_INIT, onInit );
-    leap.data.addEventListener( LeapMotionEvent.LEAPMOTION_CONNECTED, onConnect );
-    leap.data.addEventListener( LeapMotionEvent.LEAPMOTION_DISCONNECTED, onDisconnect );
-    leap.data.addEventListener( LeapMotionEvent.LEAPMOTION_EXIT, onExit );
-    leap.data.addEventListener( LeapMotionEvent.LEAPMOTION_FRAME, onFrame );
+    leap.controller.addEventListener( LeapMotionEvent.LEAPMOTION_INIT, onInit );
+    leap.controller.addEventListener( LeapMotionEvent.LEAPMOTION_CONNECTED, onConnect );
+    leap.controller.addEventListener( LeapMotionEvent.LEAPMOTION_DISCONNECTED, onDisconnect );
+    leap.controller.addEventListener( LeapMotionEvent.LEAPMOTION_EXIT, onExit );
+    leap.controller.addEventListener( LeapMotionEvent.LEAPMOTION_FRAME, onFrame );
 
 What you'll get from the LEAPMOTION_FRAME handler is a Frame object, with strongly
 typed properties such as Hand, Pointables, Direction and much more:
