@@ -22,7 +22,7 @@ Create an instance of the LeapMotion class:
     leap.controller.addEventListener( LeapMotionEvent.LEAPMOTION_FRAME, onFrame );
 
 What you'll get from the `LEAPMOTION_FRAME` handler is a `Frame` object, with strongly
-typed properties such as `Hands`, `Pointables`, `Direction` and more.:
+typed properties such as `Hands`, `Pointables`, `Direction` and more:
 
     public function onFrame( event:LeapMotionEvent ):void
     {

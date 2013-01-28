@@ -131,7 +131,6 @@ package com.leapmotion.leap
 			this.z / scalar;
 		}
 		
-		// INSTANCE METHODS
 		/**
 		 * The angle between this vector and the specified vector in radians.
 		 * @param other
