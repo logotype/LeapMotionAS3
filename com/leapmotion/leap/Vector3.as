@@ -141,9 +141,8 @@ package com.leapmotion.leap
 		{
 			var denom:Number = this.magnitudeSquared() * other.magnitudeSquared();
 			if ( denom <= 0.0 )
-			{
 				return 0.0;
-			}
+
 			return Math.acos( this.dot( other ) / Math.sqrt( denom ));
 		}
 
@@ -219,9 +218,8 @@ package com.leapmotion.leap
 		{
 			var denom:Number = this.magnitudeSquared();
 			if ( denom <= 0.0 )
-			{
 				return new Vector3( 0, 0, 0 );
-			}
+
 			denom = 1.0 / Math.sqrt( denom );
 			return new Vector3( x * denom, y * denom, z * denom );
 		}
@@ -363,7 +361,7 @@ package com.leapmotion.leap
 		 */
 		public function toString():String
 		{
-			return "[Vector3 x:" + this.x.toFixed( 2 ) + " y:" + this.y.toFixed( 2 ) + " z:" + this.z.toFixed( 2 ) + "]";
+			return "[Vector3 x:" + this.x + " y:" + this.y + " z:" + this.z + "]";
 		}
 	}
 }
