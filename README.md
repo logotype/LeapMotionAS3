@@ -24,7 +24,7 @@ Create an instance of the LeapMotion class:
 What you'll get from the `LEAPMOTION_FRAME` handler is a `Frame` object, with strongly
 typed properties such as `Hands`, `Pointables`, `Direction` and more:
 
-    public function onFrame( event:LeapMotionEvent ):void
+    private function onFrame( event:LeapMotionEvent ):void
     {
     	// Get the most recent frame and report some basic information
     	var frame:Frame = event.frame;

@@ -19,27 +19,27 @@ package
 			leap.controller.addEventListener( LeapMotionEvent.LEAPMOTION_FRAME, onFrame );
 		}
 
-		public function onInit( event:LeapMotionEvent ):void
+		private function onInit( event:LeapMotionEvent ):void
 		{
 			trace( "Initialized" );
 		}
 
-		public function onConnect( event:LeapMotionEvent ):void
+		private function onConnect( event:LeapMotionEvent ):void
 		{
 			trace( "Connected" );
 		}
 
-		public function onDisconnect( event:LeapMotionEvent ):void
+		private function onDisconnect( event:LeapMotionEvent ):void
 		{
 			trace( "Disconnected" );
 		}
 
-		public function onExit( event:LeapMotionEvent ):void
+		private function onExit( event:LeapMotionEvent ):void
 		{
 			trace( "Exited" );
 		}
 
-		public function onFrame( event:LeapMotionEvent ):void
+		private function onFrame( event:LeapMotionEvent ):void
 		{
 			// Get the most recent frame and report some basic information
 			var frame:Frame = event.frame;

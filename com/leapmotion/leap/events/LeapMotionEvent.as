@@ -54,7 +54,7 @@ package com.leapmotion.leap.events
 		public function LeapMotionEvent( type:String, frame:Frame = null )
 		{
 			this.frame = frame;
-			super( type, true, false );
+			super( type, false, false );
 		}
 	}
 }
