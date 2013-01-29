@@ -8,9 +8,8 @@ package com.leapmotion.leap
 	 * reporting their positions, orientations and motions in frames at
 	 * the Leap frame rate.
 	 * 
-	 * Access Frame objects through an instance of a Leap Controller.
-	 * Implement a Listener subclass to receive a callback event when
-	 * a new Frame is available.
+	 * Access Frame objects through a listener of a Leap Controller.
+	 * Add a listener to receive events when a new Frame is available.
 	 *  
 	 * @author logotype
 	 * 

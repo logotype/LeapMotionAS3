@@ -20,18 +20,17 @@ package com.leapmotion.leap
 	 * listener to LeapMotion.controller to handle events as
 	 * they occur. The Leap dispatches events to the listener upon initialization
 	 * and exiting, on connection changes, and when a new frame of tracking data
-	 * is available. When these events occur, the controller object invokes the
-	 * appropriate callback function defined in your subclass of Listener.
+	 * is available.
 	 *
-	 * The onInit() event is dispatched when the Leap is ready for use.
+	 * The LEAPMOTION_INIT event is dispatched when the Leap is ready for use.
 	 * When a connection is established between the controller and the Leap,
-	 * the controller dispatches the onConnect() event. At this point,
+	 * the controller dispatches the LEAPMOTION_CONNECTED event. At this point,
 	 * your application will start receiving frames of data. The controller
 	 * dispatches the onFrame() event each time a new frame is available.
 	 * If the controller loses its connection with the Leap software or device
-	 * for any reason, it dispatches the onDisconnect() event.
+	 * for any reason, it dispatches the LEAPMOTION_DISCONNECTED event.
 	 * If the listener is removed from the controller or the controller is
-	 * destroyed, it dispatches the onExit() event. At that point,
+	 * destroyed, it dispatches the LEAPMOTION_EXIT event. At that point,
 	 * unless the listener is added to another controller again, it will no
 	 * longer receive frames of tracking data.
 	 *
