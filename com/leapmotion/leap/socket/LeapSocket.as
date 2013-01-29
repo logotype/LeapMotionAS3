@@ -99,7 +99,7 @@ package com.leapmotion.leap.socket
 			encoder.encodeBytes( nonce );
 			base64nonce = encoder.flush();
 
-			socket = new Socket( this.host, 6437 );
+			socket = new Socket( host, 6437 );
 			socket.addEventListener( Event.CONNECT, onSocketConnectHandler );
 			socket.addEventListener( IOErrorEvent.IO_ERROR, onIOErrorHandler );
 			socket.addEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityErrorHandler );
@@ -369,7 +369,7 @@ package com.leapmotion.leap.socket
 		{
 			var text:String = "";
 			text += "GET / HTTP/1.1\r\n";
-			text += "Host: " + this.host + ":6437\r\n";
+			text += "Host: " + host + ":6437\r\n";
 			text += "Upgrade: websocket\r\n";
 			text += "Connection: Upgrade\r\n";
 			text += "Sec-WebSocket-Key: " + base64nonce + "\r\n";

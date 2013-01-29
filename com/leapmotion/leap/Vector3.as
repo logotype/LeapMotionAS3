@@ -65,9 +65,9 @@ package com.leapmotion.leap
 		 */
 		public function plusAssign( other:Vector3 ):Vector3
 		{
-			this.x + other.x;
-			this.y + other.y;
-			this.z + other.z;
+			x + other.x;
+			y + other.y;
+			z + other.z;
 			return this;
 		}
 
@@ -90,9 +90,9 @@ package com.leapmotion.leap
 		 */
 		public function minusAssign( other:Vector3 ):Vector3
 		{
-			this.x - other.x;
-			this.y - other.y;
-			this.z - other.z;
+			x - other.x;
+			y - other.y;
+			z - other.z;
 			return this;
 		}
 
@@ -115,9 +115,9 @@ package com.leapmotion.leap
 		 */
 		public function multiplyAssign( scalar:Number ):Vector3
 		{
-			this.x * scalar;
-			this.y * scalar;
-			this.z * scalar;
+			x * scalar;
+			y * scalar;
+			z * scalar;
 			return this;
 		}
 
@@ -140,9 +140,9 @@ package com.leapmotion.leap
 		 */
 		public function divideAssign( scalar:Number ):Vector3
 		{
-			this.x / scalar;
-			this.y / scalar;
-			this.z / scalar;
+			x / scalar;
+			y / scalar;
+			z / scalar;
 			return this;
 		}
 
@@ -156,7 +156,7 @@ package com.leapmotion.leap
 		{
 			var returnValue:Boolean = true;
 
-			if ( this.x != other.x || this.y != other.y || this.z != other.z )
+			if ( x != other.x || y != other.y || z != other.z )
 				returnValue = false;
 
 			return returnValue;
@@ -170,11 +170,11 @@ package com.leapmotion.leap
 		 */
 		public function angleTo( other:Vector3 ):Number
 		{
-			var denom:Number = this.magnitudeSquared() * other.magnitudeSquared();
+			var denom:Number = magnitudeSquared() * other.magnitudeSquared();
 			if ( denom <= 0.0 )
 				return 0.0;
 
-			return Math.acos( this.dot( other ) / Math.sqrt( denom ));
+			return Math.acos( dot( other ) / Math.sqrt( denom ));
 		}
 
 		/**
@@ -247,7 +247,7 @@ package com.leapmotion.leap
 		 */
 		public function normalized():Vector3
 		{
-			var denom:Number = this.magnitudeSquared();
+			var denom:Number = magnitudeSquared();
 			if ( denom <= 0.0 )
 				return new Vector3( 0, 0, 0 );
 
@@ -392,7 +392,7 @@ package com.leapmotion.leap
 		 */
 		public function toString():String
 		{
-			return "[Vector3 x:" + this.x + " y:" + this.y + " z:" + this.z + "]";
+			return "[Vector3 x:" + x + " y:" + y + " z:" + z + "]";
 		}
 	}
 }

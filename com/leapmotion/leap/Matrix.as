@@ -41,12 +41,12 @@ package com.leapmotion.leap
 		{
 			if ( x && y && z )
 			{
-				this.xBasis = x;
-				this.yBasis = y;
-				this.zBasis = z;
+				xBasis = x;
+				yBasis = y;
+				zBasis = z;
 			}
 			if ( origin )
-				this.origin = origin;
+				origin = origin;
 		}
 
 		/**
@@ -119,10 +119,10 @@ package com.leapmotion.leap
 		 */
 		public function multiplyAssign( other:Matrix ):Matrix
 		{
-			this.xBasis = transformDirection( other.xBasis );
-			this.yBasis = transformDirection( other.yBasis );
-			this.zBasis = transformDirection( other.zBasis );
-			this.origin = transformPoint( other.origin );
+			xBasis = transformDirection( other.xBasis );
+			yBasis = transformDirection( other.yBasis );
+			zBasis = transformDirection( other.zBasis );
+			origin = transformPoint( other.origin );
 			return this;
 		}
 
