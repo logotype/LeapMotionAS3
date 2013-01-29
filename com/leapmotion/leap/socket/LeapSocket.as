@@ -178,7 +178,6 @@ package com.leapmotion.leap.socket
 			var currentFrame:Frame;
 			var hand:Hand;
 			var pointable:Pointable;
-			var vector:Vector3;
 			var isTool:Boolean;
 			var length:int;
 			var length2:int;
@@ -188,8 +187,6 @@ package com.leapmotion.leap.socket
 			{
 				leapSocketFrame.binaryPayload.position = 0;
 				utf8data = leapSocketFrame.binaryPayload.readUTFBytes( leapSocketFrame.length );
-				i = 0;
-				j = 0;
 				json = JSON.parse( utf8data );
 				currentFrame = new Frame();
 
@@ -209,11 +206,10 @@ package com.leapmotion.leap.socket
 						hand.palmVelocity = new Vector3( json.hands[ i ].palmPosition[ 0 ], json.hands[ i ].palmPosition[ 1 ], json.hands[ i ].palmPosition[ 2 ]);
 						j = 0;
 						length2 = json.hands[ i ].r.length;
+
 						for ( j; j < length2; ++j )
-						{
-							vector = new Vector3( json.hands[ i ].r[ j ][ 0 ], json.hands[ i ].r[ j ][ 1 ], json.hands[ i ].r[ j ][ 2 ]);
-							hand.r.push( vector );
-						}
+							hand.r.push( new Vector3( json.hands[ i ].r[ j ][ 0 ], json.hands[ i ].r[ j ][ 1 ], json.hands[ i ].r[ j ][ 2 ]) );
+
 						hand.s = json.hands[ i ].s;
 						hand.sphereCenter = new Vector3( json.hands[ i ].sphereCenter[ 0 ], json.hands[ i ].sphereCenter[ 1 ], json.hands[ i ].sphereCenter[ 2 ]);
 						hand.sphereRadius = json.hands[ i ].sphereRadius;
@@ -297,11 +293,9 @@ package com.leapmotion.leap.socket
 				{
 					i = 0;
 					length = json.r.length;
+
 					for ( i; i < length; ++i )
-					{
-						vector = new Vector3( json.r[ i ][ 0 ], json.r[ i ][ 1 ], json.r[ i ][ 2 ]);
-						currentFrame.r.push( vector );
-					}
+						currentFrame.r.push( new Vector3( json.r[ i ][ 0 ], json.r[ i ][ 1 ], json.r[ i ][ 2 ]) );
 				}
 
 				// Scale factor (since last frame), interpolate for smoother motion
