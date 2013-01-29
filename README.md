@@ -15,16 +15,16 @@ Clone the repo, `git clone git://github.com/logotype/LeapMotionAS3.git`.
 Create an instance of the LeapMotion class:
 
     leap = new LeapMotion();
-    leap.controller.addEventListener( LeapMotionEvent.LEAPMOTION_INIT, onInit );
-    leap.controller.addEventListener( LeapMotionEvent.LEAPMOTION_CONNECTED, onConnect );
-    leap.controller.addEventListener( LeapMotionEvent.LEAPMOTION_DISCONNECTED, onDisconnect );
-    leap.controller.addEventListener( LeapMotionEvent.LEAPMOTION_EXIT, onExit );
-    leap.controller.addEventListener( LeapMotionEvent.LEAPMOTION_FRAME, onFrame );
+    leap.controller.addEventListener( LeapEvent.LEAPMOTION_INIT, onInit );
+    leap.controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, onConnect );
+    leap.controller.addEventListener( LeapEvent.LEAPMOTION_DISCONNECTED, onDisconnect );
+    leap.controller.addEventListener( LeapEvent.LEAPMOTION_EXIT, onExit );
+    leap.controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, onFrame );
 
 What you'll get from the `LEAPMOTION_FRAME` handler is a `Frame` object, with strongly
 typed properties such as `Hands`, `Pointables`, `Direction` and more:
 
-    private function onFrame( event:LeapMotionEvent ):void
+    private function onFrame( event:LeapEvent ):void
     {
     	// Get the most recent frame and report some basic information
     	var frame:Frame = event.frame;

@@ -7,22 +7,22 @@ package com.leapmotion.leap.events
 	 * @author logotype
 	 * 
 	 */
-	public class LeapMotionEventProxy extends EventDispatcher
+	public class LeapProxy extends EventDispatcher
 	{
 		/**
 		 * The singleton instance variable. 
 		 */
-		static private var instance:LeapMotionEventProxy;
+		static private var instance:LeapProxy;
 
-		public function LeapMotionEventProxy()
+		public function LeapProxy()
 		{
 			super();
 		}
 
-		static public function getInstance():LeapMotionEventProxy
+		static public function getInstance():LeapProxy
 		{
 			if ( instance == null )
-				instance = new LeapMotionEventProxy();
+				instance = new LeapProxy();
 
 			return instance;
 		}

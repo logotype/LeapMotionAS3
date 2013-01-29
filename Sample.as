@@ -12,34 +12,34 @@ package
 		public function Sample()
 		{
 			leap = new LeapMotion();
-			leap.controller.addEventListener( LeapMotionEvent.LEAPMOTION_INIT, onInit );
-			leap.controller.addEventListener( LeapMotionEvent.LEAPMOTION_CONNECTED, onConnect );
-			leap.controller.addEventListener( LeapMotionEvent.LEAPMOTION_DISCONNECTED, onDisconnect );
-			leap.controller.addEventListener( LeapMotionEvent.LEAPMOTION_EXIT, onExit );
-			leap.controller.addEventListener( LeapMotionEvent.LEAPMOTION_FRAME, onFrame );
+			leap.controller.addEventListener( LeapEvent.LEAPMOTION_INIT, onInit );
+			leap.controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, onConnect );
+			leap.controller.addEventListener( LeapEvent.LEAPMOTION_DISCONNECTED, onDisconnect );
+			leap.controller.addEventListener( LeapEvent.LEAPMOTION_EXIT, onExit );
+			leap.controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, onFrame );
 		}
 
-		private function onInit( event:LeapMotionEvent ):void
+		private function onInit( event:LeapEvent ):void
 		{
 			trace( "Initialized" );
 		}
 
-		private function onConnect( event:LeapMotionEvent ):void
+		private function onConnect( event:LeapEvent ):void
 		{
 			trace( "Connected" );
 		}
 
-		private function onDisconnect( event:LeapMotionEvent ):void
+		private function onDisconnect( event:LeapEvent ):void
 		{
 			trace( "Disconnected" );
 		}
 
-		private function onExit( event:LeapMotionEvent ):void
+		private function onExit( event:LeapEvent ):void
 		{
 			trace( "Exited" );
 		}
 
-		private function onFrame( event:LeapMotionEvent ):void
+		private function onFrame( event:LeapEvent ):void
 		{
 			// Get the most recent frame and report some basic information
 			var frame:Frame = event.frame;

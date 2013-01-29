@@ -3,7 +3,7 @@ package com.leapmotion.leap.events
 	import flash.events.Event;
 	import com.leapmotion.leap.Frame;
 
-	public class LeapMotionEvent extends Event
+	public class LeapEvent extends Event
 	{
 		/**
 		 * Called once, when this Listener object is newly added to a Controller. 
@@ -51,7 +51,7 @@ package com.leapmotion.leap.events
 		 */
 		public var frame:Frame;
 
-		public function LeapMotionEvent( type:String, frame:Frame = null )
+		public function LeapEvent( type:String, frame:Frame = null )
 		{
 			this.frame = frame;
 			super( type, false, false );

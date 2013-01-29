@@ -1,6 +1,6 @@
 package com.leapmotion.leap
 {
-	import com.leapmotion.leap.events.LeapMotionEventProxy;
+	import com.leapmotion.leap.events.LeapProxy;
 	import com.leapmotion.leap.socket.LeapSocket;
 
 	import flash.events.EventDispatcher;
@@ -53,11 +53,13 @@ package com.leapmotion.leap
 	public class LeapMotion extends EventDispatcher
 	{
 		private var socket:LeapSocket;
-		public var controller:LeapMotionEventProxy;
+		public var controller:LeapProxy;
+
+		private var frameHistory:Vector.<Frame> = new Vector.<Frame>();
 
 		public function LeapMotion( host:String = null )
 		{
-			controller = LeapMotionEventProxy.getInstance();
+			controller = LeapProxy.getInstance();
 			socket = new LeapSocket( host );
 		}
 
