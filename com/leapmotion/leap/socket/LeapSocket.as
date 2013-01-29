@@ -10,7 +10,7 @@ package com.leapmotion.leap.socket
 	import com.leapmotion.leap.events.LeapMotionEventProxy;
 	import com.leapmotion.leap.util.Base64Encoder;
 	import com.leapmotion.leap.util.SHA1;
-	
+
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IOErrorEvent;
@@ -35,17 +35,17 @@ package com.leapmotion.leap.socket
 		 * The raw socket connection to Leap.
 		 */
 		private var socket:Socket;
-		
+
 		/**
 		 * The current state of the parser.
 		 */
 		private var currentState:int;
-		
+
 		/**
 		 * Event Dispatcher singleton.
 		 */
 		private var eventDispatcher:LeapMotionEventProxy;
-		
+
 		/**
 		 * Specifies which host to connect to, default localhost.
 		 */
@@ -55,27 +55,27 @@ package com.leapmotion.leap.socket
 		 * Number of byts of the handshake response.
 		 */
 		private var handshakeBytesReceived:int;
-		
+
 		/**
 		 * The device handshake response from Leap.
 		 */
 		private var leapMotionDeviceHandshakeResponse:String = "";
-		
+
 		/**
 		 * Base64 encoded cryptographic nonce value.
 		 */
 		private var base64nonce:String;
-		
+
 		/**
 		 * Most recent non-parsed Frame received from Socket.
 		 */
 		private var leapSocketFrame:LeapSocketFrame = new LeapSocketFrame();
-		
+
 		/**
-		 * Most recent parsed Frame received from Socket. 
+		 * Most recent parsed Frame received from Socket.
 		 */
 		public var frame:Frame;
-		
+
 		/**
 		 * Whether the Leap is currently connected.
 		 */
@@ -83,9 +83,9 @@ package com.leapmotion.leap.socket
 
 		public function LeapSocket( host:String = null )
 		{
-			if( host )
+			if ( host )
 				this.host = host;
-			
+
 			eventDispatcher = LeapMotionEventProxy.getInstance();
 
 			// Generate nonce
@@ -94,7 +94,7 @@ package com.leapmotion.leap.socket
 				nonce.writeByte( Math.round( Math.random() * 0xFF ));
 
 			nonce.position = 0;
-			
+
 			var encoder:Base64Encoder = new Base64Encoder();
 			encoder.encodeBytes( nonce );
 			base64nonce = encoder.flush();
@@ -107,9 +107,9 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Triggered once the Socket-connection is established, send handshake 
+		 * Triggered once the Socket-connection is established, send handshake
 		 * @param event
-		 * 
+		 *
 		 */
 		private function onSocketConnectHandler( event:Event ):void
 		{
@@ -121,9 +121,9 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Triggered when network-error occurs 
+		 * Triggered when network-error occurs
 		 * @param event
-		 * 
+		 *
 		 */
 		private function onIOErrorHandler( event:IOErrorEvent ):void
 		{
@@ -132,9 +132,9 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Triggered if socket policy-file is missing, or other security related error occurs 
+		 * Triggered if socket policy-file is missing, or other security related error occurs
 		 * @param event
-		 * 
+		 *
 		 */
 		private function onSecurityErrorHandler( event:SecurityErrorEvent ):void
 		{
@@ -143,9 +143,9 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Triggered when the socket-connection is closed 
+		 * Triggered when the socket-connection is closed
 		 * @param event
-		 * 
+		 *
 		 */
 		private function onSocketCloseHandler( event:Event ):void
 		{
@@ -155,10 +155,10 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Inline method where data is read until a complete LeapSocketFrame is parsed 
+		 * Inline method where data is read until a complete LeapSocketFrame is parsed
 		 * @param event
 		 * @see LeapSocketFrame
-		 * 
+		 *
 		 */
 		[Inline]
 		final private function onSocketDataHandler( event:ProgressEvent = null ):void
@@ -180,6 +180,8 @@ package com.leapmotion.leap.socket
 			var pointable:Pointable;
 			var vector:Vector3;
 			var isTool:Boolean;
+			var length:int;
+			var length2:int;
 
 			// Loop until data has been completely added to the frame
 			while ( socket.connected && leapSocketFrame.addData( socket ))
@@ -194,7 +196,9 @@ package com.leapmotion.leap.socket
 				// Hands
 				if ( json.hands )
 				{
-					for ( i = 0; i < json.hands.length; ++i )
+					i = 0;
+					length = json.hands.length;
+					for ( i; i < length; ++i )
 					{
 						hand = new Hand();
 						hand.frame = currentFrame;
@@ -203,7 +207,9 @@ package com.leapmotion.leap.socket
 						hand.palmNormal = new Vector3( json.hands[ i ].palmNormal[ 0 ], json.hands[ i ].palmNormal[ 1 ], json.hands[ i ].palmNormal[ 2 ]);
 						hand.palmPosition = new Vector3( json.hands[ i ].palmPosition[ 0 ], json.hands[ i ].palmPosition[ 1 ], json.hands[ i ].palmPosition[ 2 ]);
 						hand.palmVelocity = new Vector3( json.hands[ i ].palmPosition[ 0 ], json.hands[ i ].palmPosition[ 1 ], json.hands[ i ].palmPosition[ 2 ]);
-						for ( j = 0; j < json.hands[ i ].r.length; ++j )
+						j = 0;
+						length2 = json.hands[ i ].r.length;
+						for ( j; j < length2; ++j )
 						{
 							vector = new Vector3( json.hands[ i ].r[ j ][ 0 ], json.hands[ i ].r[ j ][ 1 ], json.hands[ i ].r[ j ][ 2 ]);
 							hand.r.push( vector );
@@ -226,7 +232,9 @@ package com.leapmotion.leap.socket
 				// Pointables
 				if ( json.pointables )
 				{
-					for ( i = 0; i < json.pointables.length; ++i )
+					i = 0;
+					length = json.pointables.length;
+					for ( i; i < length; ++i )
 					{
 						isTool = json.pointables[ i ].tool;
 						if ( isTool )
@@ -287,7 +295,9 @@ package com.leapmotion.leap.socket
 				// Rotation (since last frame), interpolate for smoother motion
 				if ( json.r )
 				{
-					for ( i = 0; i < json.r.length; ++i )
+					i = 0;
+					length = json.r.length;
+					for ( i; i < length; ++i )
 					{
 						vector = new Vector3( json.r[ i ][ 0 ], json.r[ i ][ 1 ], json.r[ i ][ 2 ]);
 						currentFrame.r.push( vector );
@@ -306,7 +316,7 @@ package com.leapmotion.leap.socket
 
 				// Dispatches the prepared data
 				eventDispatcher.dispatchEvent( new LeapMotionEvent( LeapMotionEvent.LEAPMOTION_FRAME, currentFrame ));
-				
+
 				frame = currentFrame;
 
 				// Release current frame and create a new one
@@ -315,11 +325,11 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Inline method. Finds a Hand object by ID 
+		 * Inline method. Finds a Hand object by ID
 		 * @param frame The Frame object in which the Hand contains
 		 * @param id The ID of the Hand object
 		 * @return The Hand object if found, otherwise null
-		 * 
+		 *
 		 */
 		[Inline]
 		final private function getHandByID( frame:Frame, id:int ):Hand
@@ -337,10 +347,10 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Parses the HTTP header received from the Leap 
+		 * Parses the HTTP header received from the Leap
 		 * @param line
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		private function parseHTTPHeader( line:String ):Object
 		{
@@ -349,9 +359,9 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Reads the handshake received from the Leap 
-		 * @return 
-		 * 
+		 * Reads the handshake received from the Leap
+		 * @return
+		 *
 		 */
 		private function readHandshakeLine():Boolean
 		{
@@ -368,8 +378,8 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Sends the HTTP handshake to the Leap 
-		 * 
+		 * Sends the HTTP handshake to the Leap
+		 *
 		 */
 		private function sendHandshake():void
 		{
@@ -387,8 +397,8 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Reads the handshake response from the Leap 
-		 * 
+		 * Reads the handshake response from the Leap
+		 *
 		 */
 		private function readLeapMotionHandshake():void
 		{
