@@ -114,6 +114,7 @@ package com.leapmotion.leap
 
 		/**
 		 * Multiply transform matrices and assign the product.
+		 * @param other A Matrix to multiply on the right hand side.
 		 * @return This Matrix representing the transformation equivalent to applying the other transformation followed by this transformation.
 		 *
 		 */
