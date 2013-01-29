@@ -60,14 +60,15 @@ package com.leapmotion.leap
 		/**
 		 * Add vectors component-wise and assign the value.
 		 * @param other
-		 * @return
+		 * @return This Vector3.
 		 *
 		 */
-		public function plusAssign( other:Vector3 ):void
+		public function plusAssign( other:Vector3 ):Vector3
 		{
 			this.x + other.x;
 			this.y + other.y;
 			this.z + other.z;
+			return this;
 		}
 
 		/**
@@ -84,14 +85,15 @@ package com.leapmotion.leap
 		/**
 		 * A copy of this vector pointing in the opposite direction and assign the value.
 		 * @param other
-		 * @return
+		 * @return This Vector3.
 		 *
 		 */
-		public function minusAssign( other:Vector3 ):void
+		public function minusAssign( other:Vector3 ):Vector3
 		{
 			this.x - other.x;
 			this.y - other.y;
 			this.z - other.z;
+			return this;
 		}
 
 		/**
@@ -108,14 +110,15 @@ package com.leapmotion.leap
 		/**
 		 * Multiply vector by a scalar and assign the value.
 		 * @param scalar
-		 * @return
+		 * @return This Vector3.
 		 *
 		 */
-		public function multiplyAssign( scalar:Number ):void
+		public function multiplyAssign( scalar:Number ):Vector3
 		{
 			this.x * scalar;
 			this.y * scalar;
 			this.z * scalar;
+			return this;
 		}
 
 		/**
@@ -132,14 +135,31 @@ package com.leapmotion.leap
 		/**
 		 * Divide vector by a scalar and assign the value.
 		 * @param scalar
-		 * @return
+		 * @return This Vector3.
 		 *
 		 */
-		public function divideAssign( scalar:Number ):void
+		public function divideAssign( scalar:Number ):Vector3
 		{
 			this.x / scalar;
 			this.y / scalar;
 			this.z / scalar;
+			return this;
+		}
+
+		/**
+		 * Compare Vector equality/inequality component-wise. 
+		 * @param other The Vector3 to compare with.
+		 * @return True; if equal, False otherwise.
+		 * 
+		 */
+		public function isEqualTo( other:Vector3 ):Boolean
+		{
+			var returnValue:Boolean = true;
+
+			if ( this.x != other.x || this.y != other.y || this.z != other.z )
+				returnValue = false;
+
+			return returnValue;
 		}
 
 		/**
