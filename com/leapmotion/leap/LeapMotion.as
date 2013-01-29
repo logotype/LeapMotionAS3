@@ -26,7 +26,7 @@ package com.leapmotion.leap
 	 * When a connection is established between the controller and the Leap,
 	 * the controller dispatches the LEAPMOTION_CONNECTED event. At this point,
 	 * your application will start receiving frames of data. The controller
-	 * dispatches the onFrame() event each time a new frame is available.
+	 * dispatches the LEAPMOTION_FRAME event each time a new frame is available.
 	 * If the controller loses its connection with the Leap software or device
 	 * for any reason, it dispatches the LEAPMOTION_DISCONNECTED event.
 	 * If the listener is removed from the controller or the controller is
