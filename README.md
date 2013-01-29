@@ -5,8 +5,6 @@
 
 This is the AS3 framework for working with the Leap.
 
-Created and maintained by [Victor Norgren](http://logotype.se)
-
 Quick start
 -----------
 
