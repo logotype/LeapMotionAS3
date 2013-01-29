@@ -116,10 +116,10 @@ package com.leapmotion.leap
 		{
 			var returnValue:Boolean = true;
 
-			if ( this.frame != other.frame )
+			if ( frame != other.frame )
 				returnValue = false;
 
-			if ( this.hand != other.hand )
+			if ( hand != other.hand )
 				returnValue = false;
 
 			if ( !direction.isEqualTo( other.direction ))
