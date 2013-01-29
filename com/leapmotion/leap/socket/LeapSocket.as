@@ -171,19 +171,25 @@ package com.leapmotion.leap.socket
 
 			isConnected = true;
 
+			var utf8data:String;
+			var i:uint;
+			var j:uint;
+			var json:Object;
+			var currentFrame:Frame;
+			var hand:Hand;
+			var pointable:Pointable;
+			var vector:Vector3;
+			var isTool:Boolean;
+
 			// Loop until data has been completely added to the frame
 			while ( socket.connected && leapSocketFrame.addData( socket ))
 			{
 				leapSocketFrame.binaryPayload.position = 0;
-				var utf8data:String = leapSocketFrame.binaryPayload.readMultiByte( leapSocketFrame.length, "utf-8" );
-				var i:uint = 0;
-				var j:uint = 0;
-				var json:Object = JSON.parse( utf8data );
-				var currentFrame:Frame = new Frame();
-				var hand:Hand;
-				var pointable:Pointable;
-				var vector:Vector3;
-				var isTool:Boolean;
+				utf8data = leapSocketFrame.binaryPayload.readMultiByte( leapSocketFrame.length, "utf-8" );
+				i = 0;
+				j = 0;
+				json = JSON.parse( utf8data );
+				currentFrame = new Frame();
 
 				// Hands
 				if ( json.hands )
