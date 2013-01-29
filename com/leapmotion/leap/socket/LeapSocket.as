@@ -187,7 +187,7 @@ package com.leapmotion.leap.socket
 			while ( socket.connected && leapSocketFrame.addData( socket ))
 			{
 				leapSocketFrame.binaryPayload.position = 0;
-				utf8data = leapSocketFrame.binaryPayload.readMultiByte( leapSocketFrame.length, "utf-8" );
+				utf8data = leapSocketFrame.binaryPayload.readUTFBytes( leapSocketFrame.length );
 				i = 0;
 				j = 0;
 				json = JSON.parse( utf8data );
