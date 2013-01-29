@@ -14,7 +14,7 @@ package com.leapmotion.leap
 	 * using an ID from an earlier frame when no Tool objects with that ID
 	 * exist in the current frame. A Tool object created from the Tool
 	 * constructor is also invalid. Test for validity with the
-	 * Tool::isValid() function.
+	 * Tool.isValid() function.
 	 *  
 	 * @author logotype
 	 * 

@@ -13,7 +13,7 @@ package com.leapmotion.leap
 	 * Invalid Hand objects can be the result of asking for a Hand object using
 	 * an ID from an earlier frame when no Hand objects with that ID exist in
 	 * the current frame. A Hand object created from the Hand constructor is
-	 * also invalid. Test for validity with the Hand::isValid() function.
+	 * also invalid. Test for validity with the Hand.isValid() function.
 	 *
 	 * @author logotype
 	 *

@@ -317,6 +317,8 @@ package com.leapmotion.leap.socket
 
 				// Dispatches the prepared data
 				eventDispatcher.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_FRAME, currentFrame ));
+				
+				// TODO: Add to frame history
 
 				frame = currentFrame;
 

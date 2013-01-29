@@ -12,7 +12,7 @@ package com.leapmotion.leap
 	 * using an ID from an earlier frame when no Finger objects with that ID
 	 * exist in the current frame. A Finger object created from the Finger
 	 * constructor is also invalid.
-	 * Test for validity with the Finger::isValid() function.
+	 * Test for validity with the Finger.sValid() function.
 	 *  
 	 * @author logotype
 	 * 

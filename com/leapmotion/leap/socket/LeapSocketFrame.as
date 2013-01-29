@@ -5,7 +5,7 @@ package com.leapmotion.leap.socket
 	import flash.utils.Endian;
 
 	/**
-	 * A WebSocket frame, not yet parsed to a LeapMotion::Frame.
+	 * A WebSocket frame, not yet parsed to a LeapMotion Frame.
 	 *  
 	 * @author logotype
 	 * 

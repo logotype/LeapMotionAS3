@@ -3,9 +3,9 @@ package com.leapmotion.leap
 
 	/**
 	 * The Pointable class reports the physical characteristics of a detected finger or tool.
-	 * Both fingers and tools are classified as Pointable objects. Use the Pointable::isFinger()
-	 * function to determine whether a Pointable object represents a finger. Use the
-	 * Pointable::isTool() function to determine whether a Pointable object represents a tool.
+	 * Both fingers and tools are classified as Pointable objects. Use the Pointable.isFinger
+	 * property to determine whether a Pointable object represents a finger. Use the
+	 * Pointable.isTool property to determine whether a Pointable object represents a tool.
 	 * The Leap classifies a detected entity as a tool when it is thinner, straighter,
 	 * and longer than a typical finger.
 	 *
@@ -14,7 +14,7 @@ package com.leapmotion.leap
 	 * can be the result of asking for a Pointable object using an ID from an earlier frame
 	 * when no Pointable objects with that ID exist in the current frame. A Pointable object
 	 * created from the Pointable constructor is also invalid. Test for validity with
-	 * the Pointable::isValid() function.
+	 * the Pointable.isValid() function.
 	 *
 	 * @author logotype
 	 *

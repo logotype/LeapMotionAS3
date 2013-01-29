@@ -38,7 +38,7 @@ package com.leapmotion.leap.events
 		 * handler executes. If your implementation takes too long to return, one
 		 * or more frames can be skipped. The Controller still inserts the skipped
 		 * frames into the frame history. You can access recent frames by setting
-		 * the history parameter when calling the Controller::frame() function.
+		 * the history parameter when calling the LeapMotion.frame() function.
 		 * You can determine if any pending onFrame events were skipped by
 		 * comparing the ID of the most recent frame with the ID of the last
 		 * received frame. 
