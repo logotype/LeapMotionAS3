@@ -28,7 +28,14 @@ package com.leapmotion.leap.socket
 	 */
 	public class LeapSocket extends EventDispatcher
 	{
+		/**
+		 * The initial state before handshake. 
+		 */
 		static public const STATE_CONNECTING:int = 0;
+		
+		/**
+		 * The established connection state, after handshake process is complete. 
+		 */
 		static public const STATE_OPEN:int = 1;
 
 		/**
@@ -52,7 +59,7 @@ package com.leapmotion.leap.socket
 		private var host:String = "localhost";
 
 		/**
-		 * Number of byts of the handshake response.
+		 * Number of bytes of the handshake response.
 		 */
 		private var handshakeBytesReceived:int;
 
@@ -240,7 +247,7 @@ package com.leapmotion.leap.socket
 
 						pointable.frame = currentFrame;
 						pointable.id = json.pointables[ i ].id;
-						pointable.hand = getHandByID( currentFrame, int( json.pointables[ i ].handId ));
+						pointable.hand = getHandByID( currentFrame, json.pointables[ i ].handId );
 						pointable.length = json.pointables[ i ].length;
 						pointable.direction = new Vector3( json.pointables[ i ].direction[ 0 ], json.pointables[ i ].direction[ 1 ], json.pointables[ i ].direction[ 2 ]);
 						pointable.tipPosition = new Vector3( json.pointables[ i ].tipPosition[ 0 ], json.pointables[ i ].tipPosition[ 1 ], json.pointables[ i ].tipPosition[ 2 ]);
