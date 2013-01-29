@@ -99,7 +99,7 @@ package com.leapmotion.leap.socket
 			encoder.encodeBytes( nonce );
 			base64nonce = encoder.flush();
 
-			socket = new Socket( host, 6437 );
+			socket = new Socket( this.host, 6437 );
 			socket.addEventListener( Event.CONNECT, onSocketConnectHandler );
 			socket.addEventListener( IOErrorEvent.IO_ERROR, onIOErrorHandler );
 			socket.addEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityErrorHandler );
