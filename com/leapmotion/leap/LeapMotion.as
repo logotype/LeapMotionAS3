@@ -55,6 +55,16 @@ package com.leapmotion.leap
 
 		/**
 		 * Reports whether this Controller is connected to the Leap device.
+		 *
+		 * When you first create a Controller object, isConnected() returns false.
+		 * After the controller finishes initializing and connects to
+		 * the Leap, isConnected() will return true.
+		 *
+		 * You can either handle the onConnect event using a event listener
+		 * or poll the isConnected() function if you need to wait for your
+		 * application to be connected to the Leap before performing
+		 * some other action.
+		 *
 		 * @return True, if connected; false otherwise.
 		 *
 		 */
@@ -82,8 +92,16 @@ package com.leapmotion.leap
 		 */
 		public function frame( history:int = 0 ):Frame
 		{
-			// TODO: Implement frame history.
-			return socket.frame;
+			var returnValue:Frame;
+
+			if ( history >= 59 )
+				returnValue = null;
+			else if ( history == 0 )
+				returnValue = socket.frame;
+			else
+				returnValue = controller.frameHistory[ history ];
+
+			return returnValue;
 		}
 	}
 }

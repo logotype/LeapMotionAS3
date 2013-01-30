@@ -51,7 +51,7 @@ package com.leapmotion.leap.socket
 		/**
 		 * Event Dispatcher singleton.
 		 */
-		private var eventDispatcher:LeapProxy;
+		private var controller:LeapProxy;
 
 		/**
 		 * Specifies which host to connect to, default localhost.
@@ -93,7 +93,7 @@ package com.leapmotion.leap.socket
 			if ( host )
 				this.host = host;
 
-			eventDispatcher = LeapProxy.getInstance();
+			controller = LeapProxy.getInstance();
 
 			// Generate nonce
 			var nonce:ByteArray = new ByteArray();
@@ -121,7 +121,7 @@ package com.leapmotion.leap.socket
 		private function onSocketConnectHandler( event:Event ):void
 		{
 			isConnected = false;
-			eventDispatcher.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_INIT ));
+			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_INIT ));
 			currentState = LeapSocket.STATE_CONNECTING;
 			socket.endian = Endian.BIG_ENDIAN;
 			sendHandshake();
@@ -135,7 +135,7 @@ package com.leapmotion.leap.socket
 		private function onIOErrorHandler( event:IOErrorEvent ):void
 		{
 			isConnected = false;
-			eventDispatcher.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_DISCONNECTED ));
+			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_DISCONNECTED ));
 		}
 
 		/**
@@ -146,7 +146,7 @@ package com.leapmotion.leap.socket
 		private function onSecurityErrorHandler( event:SecurityErrorEvent ):void
 		{
 			isConnected = false;
-			eventDispatcher.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_DISCONNECTED ));
+			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_DISCONNECTED ));
 		}
 
 		/**
@@ -157,8 +157,8 @@ package com.leapmotion.leap.socket
 		private function onSocketCloseHandler( event:Event ):void
 		{
 			isConnected = false;
-			eventDispatcher.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_DISCONNECTED ));
-			eventDispatcher.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_EXIT ));
+			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_DISCONNECTED ));
+			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_EXIT ));
 		}
 
 		/**
@@ -316,9 +316,13 @@ package com.leapmotion.leap.socket
 				currentFrame.timestamp = json.timestamp;
 
 				// Dispatches the prepared data
-				eventDispatcher.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_FRAME, currentFrame ));
+				controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_FRAME, currentFrame ));
 				
-				// TODO: Add to frame history
+				// Add frame to history
+				if ( controller.frameHistory.length > 59 )
+					controller.frameHistory.splice( 59, 1 );
+				
+				controller.frameHistory.push( frame );
 
 				frame = currentFrame;
 
@@ -474,7 +478,7 @@ package com.leapmotion.leap.socket
 
 			leapMotionDeviceHandshakeResponse = null;
 			currentState = LeapSocket.STATE_OPEN;
-			eventDispatcher.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_CONNECTED ));
+			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_CONNECTED ));
 			return;
 		}
 	}

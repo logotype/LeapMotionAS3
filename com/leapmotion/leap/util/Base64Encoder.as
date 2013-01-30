@@ -48,7 +48,6 @@ package com.leapmotion.leap.util
 		
 		public function Base64Encoder()
 		{
-			super();
 			reset();
 		}
 
