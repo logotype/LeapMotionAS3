@@ -62,13 +62,13 @@ Features
 --------
 
 <img src="http://logotype.se/leapImageTelemetry.png">
-+ High performance, less than 1ms processing per frame
++ High performance, less than 1ms processing per frame (typically 2% CPU usage on a recent MacBook Pro)
 + Same structure as official API
 + Clean, lightweight and documented code
 + No external dependencies, creates a optimized socket directly to the Leap
 + Uses ASC 2.0 compiler features (be sure to add the `-inline` and `-swf-version=19` compiler arguments)
 + Connect multiple computers to the same Leap device (via an optional "host" argument)
-+ Works great with Starling and Away3D
++ Works great with Starling(https://github.com/PrimaryFeather/Starling-Framework) and Away3D(https://github.com/away3d/away3d-core-fp11)
 + Compatible with Mac and PC
 
 Upcoming features
