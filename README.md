@@ -68,6 +68,7 @@ Features
 + No external dependencies, creates a optimized socket directly to the Leap
 + Uses ASC 2.0 compiler features (be sure to add the `-inline` and `-swf-version=19` compiler arguments)
 + Connect multiple computers to the same Leap device (via an optional "host" argument)
++ Works great with Starling and Away3D
 + Compatible with Mac and PC
 
 Upcoming features
@@ -75,6 +76,8 @@ Upcoming features
 
 + Multi-threading using Workers
 + Optional dispatch model using Signals
++ Interpolation for even smoother performance
++ Frame history support
 + AIR Native Extension (ANE) which directly interfaces with the C++ library
 + Additional example code will be added
 
