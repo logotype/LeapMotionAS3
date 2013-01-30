@@ -94,12 +94,12 @@ package com.leapmotion.leap
 		{
 			var returnValue:Frame;
 
-			if ( history >= 59 )
+			if ( history >= 60 )
 				returnValue = null;
 			else if ( history == 0 )
 				returnValue = socket.frame;
 			else
-				returnValue = controller.frameHistory[ history ];
+				returnValue = controller.frameHistory[( controller.frameHistory.length - 1 ) - history ];
 
 			return returnValue;
 		}
