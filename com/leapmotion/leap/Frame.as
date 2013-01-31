@@ -24,11 +24,6 @@ package com.leapmotion.leap
 		public var fingers:Vector.<Pointable> = new Vector.<Pointable>();
 
 		/**
-		 * The Hand object with the specified ID in this frame.
-		 */
-		public var hand:Hand;
-
-		/**
 		 * The list of Hand objects detected in this frame, given in arbitrary order.
 		 */
 		public var hands:Vector.<Hand> = new Vector.<Hand>();
@@ -97,20 +92,58 @@ package com.leapmotion.leap
 		}
 
 		/**
+		 * The Hand object with the specified ID in this frame.
+		 *
+		 * Use the Frame.hand() function to retrieve the Hand object
+		 * from this frame using an ID value obtained from a previous frame.
+		 * This function always returns a Hand object, but if no hand
+		 * with the specified ID is present, an invalid Hand object is returned.
+		 *
+		 * Note that ID values persist across frames, but only until tracking
+		 * of a particular object is lost. If tracking of a hand is lost
+		 * and subsequently regained, the new Hand object representing
+		 * that physical hand may have a different ID than that
+		 * representing the physical hand in an earlier frame.
+		 *
+		 * @param id The ID value of a Hand object from a previous frame.
+		 * @return The Hand object with the matching ID if one exists
+		 * in this frame; otherwise, an invalid Hand object is returned.
+		 *
+		 */
+		public function hand( id:int ):Hand
+		{
+			var returnValue:Hand = Hand( Hand.invalid());
+
+			var i:int = 0;
+			var length:int = hands.length;
+
+			for ( i; i < length; ++i )
+			{
+				if ( hands[ i ].id == id )
+				{
+					returnValue = hands[ i ];
+					break;
+				}
+			}
+
+			return returnValue;
+		}
+
+		/**
 		 * The Finger object with the specified ID in this frame.
-		 * 
+		 *
 		 * Use the Frame.finger() function to retrieve the Finger
 		 * object from this frame using an ID value obtained from a
 		 * previous frame. This function always returns a Finger object,
 		 * but if no finger with the specified ID is present, an
 		 * invalid Finger object is returned.
-		 * 
+		 *
 		 * Note that ID values persist across frames, but only until
 		 * tracking of a particular object is lost. If tracking of a
 		 * finger is lost and subsequently regained, the new Finger
 		 * object representing that physical finger may have a different
 		 * ID than that representing the finger in an earlier frame.
-		 * 
+		 *
 		 * @param id The ID value of a Finger object from a previous frame.
 		 * @return The Finger object with the matching ID if one exists
 		 * in this frame; otherwise, an invalid Finger object is returned.
@@ -118,9 +151,7 @@ package com.leapmotion.leap
 		 */
 		public function finger( id:int ):Finger
 		{
-			var returnValue:Finger = Finger( Pointable.invalid());
-			returnValue.isFinger = true;
-			returnValue.isTool = false;
+			var returnValue:Finger = Finger.invalid();
 			var i:int = 0;
 			var length:int = fingers.length;
 
@@ -138,32 +169,30 @@ package com.leapmotion.leap
 
 		/**
 		 * The Tool object with the specified ID in this frame.
-		 * 
+		 *
 		 * Use the Frame.tool() function to retrieve the Tool
 		 * object from this frame using an ID value obtained from
 		 * a previous frame. This function always returns a Tool
 		 * object, but if no tool with the specified ID is present,
 		 * an invalid Tool object is returned.
-		 * 
+		 *
 		 * Note that ID values persist across frames, but only until
 		 * tracking of a particular object is lost. If tracking of a
 		 * tool is lost and subsequently regained, the new Tool
 		 * object representing that tool may have a different ID
 		 * than that representing the tool in an earlier frame.
-		 *  
+		 *
 		 * @param id The ID value of a Tool object from a previous frame.
 		 * @return The Tool object with the matching ID if one exists in
 		 * this frame; otherwise, an invalid Tool object is returned.
-		 * 
+		 *
 		 */
 		public function tool( id:int ):Tool
 		{
-			var returnValue:Tool = Tool( Pointable.invalid());
-			returnValue.isFinger = false;
-			returnValue.isTool = true;
+			var returnValue:Tool = Tool.invalid();
 			var i:int = 0;
 			var length:int = fingers.length;
-			
+
 			for ( i; i < length; ++i )
 			{
 				if ( tools[ i ].id == id )
@@ -172,7 +201,7 @@ package com.leapmotion.leap
 					break;
 				}
 			}
-			
+
 			return returnValue;
 		}
 

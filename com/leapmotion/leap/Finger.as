@@ -21,6 +21,24 @@ package com.leapmotion.leap
 	{
 		public function Finger()
 		{
+			isFinger = true;
+			isTool = false;
+		}
+		
+		/**
+		 * Returns an invalid Finger object.
+		 *
+		 * You can use the instance returned by this function in
+		 * comparisons testing whether a given Finger instance
+		 * is valid or invalid.
+		 * (You can also use the Finger.isValid property.)
+		 *
+		 * @return The invalid Finger instance.
+		 *
+		 */
+		static public function invalid():Finger
+		{
+			return new Finger();
 		}
 	}
 }

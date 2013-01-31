@@ -111,22 +111,10 @@ package com.leapmotion.leap
 		 */
 		public function isValid():Boolean
 		{
-			var returnValue:Boolean = true;
+			var returnValue:Boolean = false;
 
-			if ( !direction.isValid())
-				returnValue = false;
-
-			if ( !palmNormal.isValid())
-				returnValue = false;
-
-			if ( !palmPosition.isValid())
-				returnValue = false;
-
-			if ( !palmVelocity.isValid())
-				returnValue = false;
-
-			if ( !sphereCenter.isValid())
-				returnValue = false;
+			if (( direction && direction.isValid()) && ( palmNormal && palmNormal.isValid()) && ( palmPosition && palmPosition.isValid()) && ( palmVelocity && palmVelocity.isValid()) && ( sphereCenter && sphereCenter.isValid()))
+				returnValue = true;
 
 			return returnValue;
 		}
@@ -151,9 +139,7 @@ package com.leapmotion.leap
 		 */
 		public function finger( id:int ):Finger
 		{
-			var returnValue:Finger = Finger( Pointable.invalid());
-			returnValue.isFinger = true;
-			returnValue.isTool = false;
+			var returnValue:Finger = Finger.invalid();
 			var i:int = 0;
 			var length:int = fingers.length;
 
@@ -190,9 +176,7 @@ package com.leapmotion.leap
 		 */
 		public function tool( id:int ):Tool
 		{
-			var returnValue:Tool = Tool( Pointable.invalid());
-			returnValue.isFinger = false;
-			returnValue.isTool = true;
+			var returnValue:Tool = Tool.invalid();
 			var i:int = 0;
 			var length:int = fingers.length;
 
@@ -347,6 +331,21 @@ package com.leapmotion.leap
 				returnValue = new Vector3( translationVector.x - sinceFrame.hand.translationVector.x, translationVector.y - sinceFrame.hand.translationVector.y, translationVector.z - sinceFrame.hand.translationVector.z );
 
 			return returnValue;
+		}
+
+		/**
+		 * Returns an invalid Hand object.
+		 *
+		 * You can use the instance returned by this function in comparisons
+		 * testing whether a given Hand instance is valid or invalid.
+		 * (You can also use the Hand::isValid() function.)
+		 *
+		 * @return The invalid Hand instance.
+		 *
+		 */
+		static public function invalid():Hand
+		{
+			return new Hand();
 		}
 	}
 }
