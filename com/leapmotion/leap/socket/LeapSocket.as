@@ -214,12 +214,8 @@ package com.leapmotion.leap.socket
 						hand.scaleFactor = json.hands[ i ].s;
 						hand.sphereCenter = new Vector3( json.hands[ i ].sphereCenter[ 0 ], json.hands[ i ].sphereCenter[ 1 ], json.hands[ i ].sphereCenter[ 2 ]);
 						hand.sphereRadius = json.hands[ i ].sphereRadius;
-						hand._translation = new Vector3( json.hands[ i ].t[ 0 ], json.hands[ i ].t[ 1 ], json.hands[ i ].t[ 2 ]);
+						hand.translationVector = new Vector3( json.hands[ i ].t[ 0 ], json.hands[ i ].t[ 1 ], json.hands[ i ].t[ 2 ]);
 						currentFrame.hands.push( hand );
-
-						// Set primary hand
-						if ( i == 0 )
-							currentFrame.hand = hand;
 					}
 				}
 
@@ -246,45 +242,26 @@ package com.leapmotion.leap.socket
 						pointable.direction = new Vector3( json.pointables[ i ].direction[ 0 ], json.pointables[ i ].direction[ 1 ], json.pointables[ i ].direction[ 2 ]);
 						pointable.tipPosition = new Vector3( json.pointables[ i ].tipPosition[ 0 ], json.pointables[ i ].tipPosition[ 1 ], json.pointables[ i ].tipPosition[ 2 ]);
 						pointable.tipVelocity = new Vector3( json.pointables[ i ].tipVelocity[ 0 ], json.pointables[ i ].tipVelocity[ 1 ], json.pointables[ i ].tipVelocity[ 2 ]);
+						currentFrame.pointables.push( pointable );
+
+						if( pointable.hand )
+							pointable.hand.pointables.push( pointable );
 
 						if ( isTool )
 						{
 							pointable.isTool = true;
 							pointable.isFinger = false;
 							currentFrame.tools.push( pointable );
-							if ( currentFrame.hand )
-								currentFrame.hand.tools.push( pointable );
+							if ( pointable.hand )
+								pointable.hand.tools.push( pointable );
 						}
 						else
 						{
 							pointable.isTool = false;
 							pointable.isFinger = true;
 							currentFrame.fingers.push( pointable );
-							if ( currentFrame.hand )
-								currentFrame.hand.fingers.push( pointable );
-						}
-
-						// Set first as primary
-						if ( i == 0 )
-						{
-							if ( isTool )
-							{
-								currentFrame.tool = Tool( pointable );
-								if ( currentFrame.hand )
-								{
-									currentFrame.hand.tool = Tool( pointable );
-									currentFrame.hand.pointable = pointable;
-								}
-							}
-							else
-							{
-								currentFrame.finger = Finger( pointable );
-								if ( currentFrame.hand )
-								{
-									currentFrame.hand.finger = Finger( pointable );
-									currentFrame.hand.pointable = pointable;
-								}
-							}
+							if ( pointable.hand )
+								pointable.hand.fingers.push( pointable );
 						}
 					}
 				}
@@ -294,11 +271,11 @@ package com.leapmotion.leap.socket
 					currentFrame.rotation = new Matrix( new Vector3( json.r[ 0 ][ 0 ], json.r[ 0 ][ 1 ], json.r[ 0 ][ 2 ]), new Vector3( json.r[ 1 ][ 0 ], json.r[ 1 ][ 1 ], json.r[ 1 ][ 2 ]), new Vector3( json.r[ 2 ][ 0 ], json.r[ 2 ][ 1 ], json.r[ 2 ][ 2 ]));
 
 				// Scale factor (since last frame), interpolate for smoother motion
-				currentFrame.scaleFactor = json.s;
+				currentFrame.scaleFactorNumber = json.s;
 
 				// Translation (since last frame), interpolate for smoother motion
 				if ( json._translation )
-					currentFrame._translation = new Vector3( json.t[ 0 ], json.t[ 1 ], json.t[ 2 ]);
+					currentFrame.translationVector = new Vector3( json.t[ 0 ], json.t[ 1 ], json.t[ 2 ]);
 
 				// Timestamp
 				currentFrame.timestamp = json.timestamp;

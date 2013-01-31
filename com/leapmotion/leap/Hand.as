@@ -27,12 +27,6 @@ package com.leapmotion.leap
 		public var direction:Vector3;
 
 		/**
-		 * The Finger object with the specified ID attached to this hand.
-		 * @see Finger
-		 */
-		public var finger:Finger;
-
-		/**
 		 * The list of Finger objects detected in this frame that are attached to this hand, given in arbitrary order.
 		 */
 		public var fingers:Vector.<Finger> = new Vector.<Finger>();
@@ -62,10 +56,20 @@ package com.leapmotion.leap
 		 * The rate of change of the palm position in millimeters/second.
 		 */
 		public var palmVelocity:Vector3;
+
 		/**
-		 * The Pointable object with the specified ID associated with this hand.
+		 * The list of Pointable objects (fingers and tools) detected in this
+		 * frame that are associated with this hand, given in arbitrary order.
+		 *
+		 * The list can be empty if no fingers or tools associated with this hand are detected.
+		 * Use the Pointable.isFinger() function to determine whether or not an item in the
+		 * list represents a finger. Use the Pointable.isTool() function to determine
+		 * whether or not an item in the list represents a tool. You can also get
+		 * only fingers using the Hand.fingers() function or only tools using
+		 * the Hand.tools() function.
+		 *
 		 */
-		public var pointable:Pointable;
+		public var pointables:Vector.<Pointable> = new Vector.<Pointable>();
 
 		/**
 		 * The center of a sphere fit to the curvature of this hand.
@@ -75,11 +79,6 @@ package com.leapmotion.leap
 		 * The radius of a sphere fit to the curvature of this hand.
 		 */
 		public var sphereRadius:Number;
-
-		/**
-		 * The Tool object with the specified ID held by this hand.
-		 */
-		public var tool:Tool;
 
 		/**
 		 * The list of Tool objects detected in this frame that are held by this hand, given in arbitrary order.
@@ -99,7 +98,7 @@ package com.leapmotion.leap
 		/**
 		 * Translation since last Frame.
 		 */
-		public var _translation:Vector3;
+		public var translationVector:Vector3;
 
 		public function Hand()
 		{
@@ -128,6 +127,119 @@ package com.leapmotion.leap
 
 			if ( !sphereCenter.isValid())
 				returnValue = false;
+
+			return returnValue;
+		}
+
+		/**
+		 * The Finger object with the specified ID attached to this hand.
+		 *
+		 * Use the Hand.finger() function to retrieve a Finger object attached
+		 * to this hand using an ID value obtained from a previous frame.
+		 * This function always returns a Finger object, but if no finger
+		 * with the specified ID is present, an invalid Finger object is returned.
+		 *
+		 * Note that ID values persist across frames, but only until tracking of
+		 * a particular object is lost. If tracking of a finger is lost and
+		 * subsequently regained, the new Finger object representing that
+		 * finger may have a different ID than that representing the finger in an earlier frame.
+		 *
+		 * @param id The ID value of a Finger object from a previous frame.
+		 * @return The Finger object with the matching ID if one exists for
+		 * this hand in this frame; otherwise, an invalid Finger object is returned.
+		 *
+		 */
+		public function finger( id:int ):Finger
+		{
+			var returnValue:Finger = Finger( Pointable.invalid());
+			returnValue.isFinger = true;
+			returnValue.isTool = false;
+			var i:int = 0;
+			var length:int = fingers.length;
+
+			for ( i; i < length; ++i )
+			{
+				if ( fingers[ i ].id == id )
+				{
+					returnValue = fingers[ i ];
+					break;
+				}
+			}
+
+			return returnValue;
+		}
+
+		/**
+		 * The Tool object with the specified ID held by this hand.
+		 *
+		 * Use the Hand.tool() function to retrieve a Tool object held
+		 * by this hand using an ID value obtained from a previous frame.
+		 * This function always returns a Tool object, but if no tool
+		 * with the specified ID is present, an invalid Tool object is returned.
+		 *
+		 * Note that ID values persist across frames, but only until
+		 * tracking of a particular object is lost. If tracking of a tool
+		 * is lost and subsequently regained, the new Tool object
+		 * representing that tool may have a different ID than that
+		 * representing the tool in an earlier frame.
+		 *
+		 * @param id The ID value of a Tool object from a previous frame.
+		 * @return The Tool object with the matching ID if one exists for
+		 * this hand in this frame; otherwise, an invalid Tool object is returned.
+		 *
+		 */
+		public function tool( id:int ):Tool
+		{
+			var returnValue:Tool = Tool( Pointable.invalid());
+			returnValue.isFinger = false;
+			returnValue.isTool = true;
+			var i:int = 0;
+			var length:int = fingers.length;
+
+			for ( i; i < length; ++i )
+			{
+				if ( tools[ i ].id == id )
+				{
+					returnValue = tools[ i ];
+					break;
+				}
+			}
+
+			return returnValue;
+		}
+
+		/**
+		 * The Pointable object with the specified ID associated with this hand.
+		 *
+		 * Use the Hand::pointable() function to retrieve a Pointable object
+		 * associated with this hand using an ID value obtained from a previous frame.
+		 * This function always returns a Pointable object, but if no finger or
+		 * tool with the specified ID is present, an invalid Pointable object is returned.
+		 *
+		 * Note that ID values persist across frames, but only until tracking
+		 * of a particular object is lost. If tracking of a finger or tool is
+		 * lost and subsequently regained, the new Pointable object representing
+		 * that finger or tool may have a different ID than that representing
+		 * the finger or tool in an earlier frame.
+		 *
+		 * @param id
+		 * @return
+		 *
+		 */
+		public function pointable( id:int ):Pointable
+		{
+			var returnValue:Pointable = Pointable.invalid();
+			var i:int = 0;
+			var length:int = pointables.length;
+
+			for ( i; i < length; ++i )
+			{
+				if ( pointables[ i ].id == id )
+				{
+					returnValue = pointables[ i ];
+					break;
+				}
+			}
 
 			return returnValue;
 		}
@@ -231,8 +343,8 @@ package com.leapmotion.leap
 		{
 			var returnValue:Vector3 = new Vector3( 0, 0, 0 );
 
-			if ( sinceFrame.hand && sinceFrame.hand._translation )
-				returnValue = new Vector3( _translation.x - sinceFrame.hand._translation.x, _translation.y - sinceFrame.hand._translation.y, _translation.z - sinceFrame.hand._translation.z );
+			if ( sinceFrame.hand && sinceFrame.hand.translationVector )
+				returnValue = new Vector3( translationVector.x - sinceFrame.hand.translationVector.x, translationVector.y - sinceFrame.hand.translationVector.y, translationVector.z - sinceFrame.hand.translationVector.z );
 
 			return returnValue;
 		}

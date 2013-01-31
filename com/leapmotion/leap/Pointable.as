@@ -87,16 +87,10 @@ package com.leapmotion.leap
 		 */
 		public function isValid():Boolean
 		{
-			var returnValue:Boolean = true;
+			var returnValue:Boolean = false;
 
-			if ( !direction.isValid())
-				returnValue = false;
-
-			if ( !tipPosition.isValid())
-				returnValue = false;
-
-			if ( !tipVelocity.isValid())
-				returnValue = false;
+			if (( direction && direction.isValid()) && ( tipPosition && tipPosition.isValid()) && ( tipVelocity && tipVelocity.isValid()))
+				returnValue = true;
 
 			return returnValue;
 		}
@@ -144,6 +138,22 @@ package com.leapmotion.leap
 				returnValue = false;
 
 			return returnValue;
+		}
+
+		/**
+		 * Returns an invalid Pointable object.
+		 *
+		 * You can use the instance returned by this function in
+		 * comparisons testing whether a given Pointable instance
+		 * is valid or invalid.
+		 * (You can also use the Pointable.isValid property.)
+		 *
+		 * @return The invalid Pointable instance.
+		 *
+		 */
+		static public function invalid():Pointable
+		{
+			return new Pointable();
 		}
 
 		/**
