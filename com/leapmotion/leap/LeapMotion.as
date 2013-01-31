@@ -99,7 +99,7 @@ package com.leapmotion.leap
 			else if ( history == 0 )
 				returnValue = socket.frame;
 			else
-				returnValue = controller.frameHistory[( controller.frameHistory.length - 1 ) - history ];
+				returnValue = controller.frameHistory[ history ];
 
 			return returnValue;
 		}

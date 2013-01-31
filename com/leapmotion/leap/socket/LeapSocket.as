@@ -3,6 +3,7 @@ package com.leapmotion.leap.socket
 	import com.leapmotion.leap.Finger;
 	import com.leapmotion.leap.Frame;
 	import com.leapmotion.leap.Hand;
+	import com.leapmotion.leap.Matrix;
 	import com.leapmotion.leap.Pointable;
 	import com.leapmotion.leap.Tool;
 	import com.leapmotion.leap.Vector3;
@@ -29,12 +30,12 @@ package com.leapmotion.leap.socket
 	public class LeapSocket extends EventDispatcher
 	{
 		/**
-		 * The initial state before handshake. 
+		 * The initial state before handshake.
 		 */
 		static public const STATE_CONNECTING:int = 0;
-		
+
 		/**
-		 * The established connection state, after handshake process is complete. 
+		 * The established connection state, after handshake process is complete.
 		 */
 		static public const STATE_OPEN:int = 1;
 
@@ -180,14 +181,12 @@ package com.leapmotion.leap.socket
 
 			var utf8data:String;
 			var i:uint;
-			var j:uint;
 			var json:Object;
 			var currentFrame:Frame;
 			var hand:Hand;
 			var pointable:Pointable;
 			var isTool:Boolean;
 			var length:int;
-			var length2:int;
 
 			// Loop until data has been completely added to the frame
 			while ( socket.connected && leapSocketFrame.addData( socket ))
@@ -211,16 +210,11 @@ package com.leapmotion.leap.socket
 						hand.palmNormal = new Vector3( json.hands[ i ].palmNormal[ 0 ], json.hands[ i ].palmNormal[ 1 ], json.hands[ i ].palmNormal[ 2 ]);
 						hand.palmPosition = new Vector3( json.hands[ i ].palmPosition[ 0 ], json.hands[ i ].palmPosition[ 1 ], json.hands[ i ].palmPosition[ 2 ]);
 						hand.palmVelocity = new Vector3( json.hands[ i ].palmPosition[ 0 ], json.hands[ i ].palmPosition[ 1 ], json.hands[ i ].palmPosition[ 2 ]);
-						j = 0;
-						length2 = json.hands[ i ].r.length;
-
-						for ( j; j < length2; ++j )
-							hand.r.push( new Vector3( json.hands[ i ].r[ j ][ 0 ], json.hands[ i ].r[ j ][ 1 ], json.hands[ i ].r[ j ][ 2 ]) );
-
-						hand.s = json.hands[ i ].s;
+						hand.rotation = new Matrix( new Vector3( json.hands[ i ].r[ 0 ][ 0 ], json.hands[ i ].r[ 0 ][ 1 ], json.hands[ i ].r[ 0 ][ 2 ]), new Vector3( json.hands[ i ].r[ 1 ][ 0 ], json.hands[ i ].r[ 1 ][ 1 ], json.hands[ i ].r[ 1 ][ 2 ]), new Vector3( json.hands[ i ].r[ 2 ][ 0 ], json.hands[ i ].r[ 2 ][ 1 ], json.hands[ i ].r[ 2 ][ 2 ]));
+						hand.scaleFactor = json.hands[ i ].s;
 						hand.sphereCenter = new Vector3( json.hands[ i ].sphereCenter[ 0 ], json.hands[ i ].sphereCenter[ 1 ], json.hands[ i ].sphereCenter[ 2 ]);
 						hand.sphereRadius = json.hands[ i ].sphereRadius;
-						hand.t = new Vector3( json.hands[ i ].t[ 0 ], json.hands[ i ].t[ 1 ], json.hands[ i ].t[ 2 ]);
+						hand._translation = new Vector3( json.hands[ i ].t[ 0 ], json.hands[ i ].t[ 1 ], json.hands[ i ].t[ 2 ]);
 						currentFrame.hands.push( hand );
 
 						// Set primary hand
@@ -297,32 +291,26 @@ package com.leapmotion.leap.socket
 
 				// Rotation (since last frame), interpolate for smoother motion
 				if ( json.r )
-				{
-					i = 0;
-					length = json.r.length;
-
-					for ( i; i < length; ++i )
-						currentFrame.r.push( new Vector3( json.r[ i ][ 0 ], json.r[ i ][ 1 ], json.r[ i ][ 2 ]) );
-				}
+					currentFrame.rotation = new Matrix( new Vector3( json.r[ 0 ][ 0 ], json.r[ 0 ][ 1 ], json.r[ 0 ][ 2 ]), new Vector3( json.r[ 1 ][ 0 ], json.r[ 1 ][ 1 ], json.r[ 1 ][ 2 ]), new Vector3( json.r[ 2 ][ 0 ], json.r[ 2 ][ 1 ], json.r[ 2 ][ 2 ]));
 
 				// Scale factor (since last frame), interpolate for smoother motion
-				currentFrame.s = json.s;
+				currentFrame.scaleFactor = json.s;
 
 				// Translation (since last frame), interpolate for smoother motion
-				if ( json.t )
-					currentFrame.t = new Vector3( json.t[ 0 ], json.t[ 1 ], json.t[ 2 ]);
+				if ( json._translation )
+					currentFrame._translation = new Vector3( json.t[ 0 ], json.t[ 1 ], json.t[ 2 ]);
 
 				// Timestamp
 				currentFrame.timestamp = json.timestamp;
 
 				// Dispatches the prepared data
 				controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_FRAME, currentFrame ));
-				
+
 				// Add frame to history
 				if ( controller.frameHistory.length > 59 )
 					controller.frameHistory.splice( 59, 1 );
-				
-				controller.frameHistory.push( frame );
+
+				controller.frameHistory.unshift( frame );
 
 				frame = currentFrame;
 

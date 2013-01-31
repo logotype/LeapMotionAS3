@@ -20,22 +20,22 @@ package com.leapmotion.leap
 		/**
 		 * The translation factors for all three axes.
 		 */
-		private var origin:Vector3 = new Vector3( 0, 0, 0 );
+		public var origin:Vector3 = new Vector3( 0, 0, 0 );
 
 		/**
 		 * The rotation and scale factors for the x-axis.
 		 */
-		private var xBasis:Vector3 = new Vector3( 0, 0, 0 );
+		public var xBasis:Vector3 = new Vector3( 0, 0, 0 );
 
 		/**
 		 * The rotation and scale factors for the y-axis.
 		 */
-		private var yBasis:Vector3 = new Vector3( 0, 0, 0 );
+		public var yBasis:Vector3 = new Vector3( 0, 0, 0 );
 
 		/**
 		 * The rotation and scale factors for the z-axis.
 		 */
-		private var zBasis:Vector3 = new Vector3( 0, 0, 0 );
+		public var zBasis:Vector3 = new Vector3( 0, 0, 0 );
 
 		public function Matrix( x:Vector3 = null, y:Vector3 = null, z:Vector3 = null, origin:Vector3 = null )
 		{
@@ -45,6 +45,13 @@ package com.leapmotion.leap
 				yBasis = y;
 				zBasis = z;
 			}
+			else
+			{
+				xBasis = new Vector3( 1, 0, 0 );
+				yBasis = new Vector3( 0, 1, 0 );
+				zBasis = new Vector3( 0, 0, 1 );
+			}
+
 			if ( origin )
 				origin = origin;
 		}
@@ -128,10 +135,10 @@ package com.leapmotion.leap
 		}
 
 		/**
-		 * Compare Matrix equality/inequality component-wise. 
+		 * Compare Matrix equality/inequality component-wise.
 		 * @param other The Matrix to compare with.
 		 * @return True; if equal, False otherwise.
-		 * 
+		 *
 		 */
 		public function isEqualTo( other:Matrix ):Boolean
 		{

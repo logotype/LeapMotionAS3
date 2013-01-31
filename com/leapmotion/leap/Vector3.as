@@ -147,10 +147,10 @@ package com.leapmotion.leap
 		}
 
 		/**
-		 * Compare Vector equality/inequality component-wise. 
+		 * Compare Vector equality/inequality component-wise.
 		 * @param other The Vector3 to compare with.
 		 * @return True; if equal, False otherwise.
-		 * 
+		 *
 		 */
 		public function isEqualTo( other:Vector3 ):Boolean
 		{
