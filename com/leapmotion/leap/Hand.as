@@ -1,7 +1,5 @@
 package com.leapmotion.leap
 {
-	import com.leapmotion.leap.util.LeapMath;
-
 	/**
 	 * The Hand class reports the physical characteristics of a detected hand.
 	 *
@@ -28,6 +26,7 @@ package com.leapmotion.leap
 
 		/**
 		 * The list of Finger objects detected in this frame that are attached to this hand, given in arbitrary order.
+		 * @see Finger
 		 */
 		public var fingers:Vector.<Finger> = new Vector.<Finger>();
 
@@ -40,7 +39,7 @@ package com.leapmotion.leap
 		/**
 		 * A unique ID assigned to this Hand object, whose value remains the same across consecutive frames while the tracked hand remains visible.
 		 */
-		public var id:Number;
+		public var id:int;
 
 		/**
 		 * The normal vector to the palm.
@@ -67,6 +66,7 @@ package com.leapmotion.leap
 		 * whether or not an item in the list represents a tool. You can also get
 		 * only fingers using the Hand.fingers() function or only tools using
 		 * the Hand.tools() function.
+		 * @see Pointable
 		 *
 		 */
 		public var pointables:Vector.<Pointable> = new Vector.<Pointable>();
@@ -82,6 +82,7 @@ package com.leapmotion.leap
 
 		/**
 		 * The list of Tool objects detected in this frame that are held by this hand, given in arbitrary order.
+		 * @see Tool
 		 */
 		public var tools:Vector.<Tool> = new Vector.<Tool>();
 
@@ -135,6 +136,7 @@ package com.leapmotion.leap
 		 * @param id The ID value of a Finger object from a previous frame.
 		 * @return The Finger object with the matching ID if one exists for
 		 * this hand in this frame; otherwise, an invalid Finger object is returned.
+		 * @see Finger
 		 *
 		 */
 		public function finger( id:int ):Finger
@@ -172,6 +174,7 @@ package com.leapmotion.leap
 		 * @param id The ID value of a Tool object from a previous frame.
 		 * @return The Tool object with the matching ID if one exists for
 		 * this hand in this frame; otherwise, an invalid Tool object is returned.
+		 * @see Tool
 		 *
 		 */
 		public function tool( id:int ):Tool
@@ -208,6 +211,7 @@ package com.leapmotion.leap
 		 *
 		 * @param id
 		 * @return
+		 * @see Pointable
 		 *
 		 */
 		public function pointable( id:int ):Pointable
@@ -243,6 +247,7 @@ package com.leapmotion.leap
 		 * @return A normalized direction Vector representing the heuristically
 		 * determined axis of rotational change of the hand between the current
 		 * frame and that specified in the sinceFrame parameter.
+		 * @see Vector3
 		 *
 		 */
 		public function rotationAxis( sinceFrame:Frame ):Vector3
@@ -252,7 +257,7 @@ package com.leapmotion.leap
 			if ( sinceFrame.hand )
 			{
 				var vector:Vector3 = new Vector3( this.rotation.zBasis.y - sinceFrame.hand.rotation.yBasis.z, this.rotation.xBasis.z - sinceFrame.hand.rotation.zBasis.x, this.rotation.yBasis.x - sinceFrame.hand.rotation.xBasis.y );
-				returnValue = LeapMath.normalizeVector( vector );
+				returnValue = Vector3.normalizeVector( vector );
 			}
 
 			return returnValue;
@@ -302,12 +307,16 @@ package com.leapmotion.leap
 		 * then this method returns an identity matrix.
 		 *
 		 * @param sinceFrame
-		 * @return
+		 * @return A transformation Matrix representing the heuristically
+		 * determined rotational change of the hand between the current
+		 * frame and that specified in the sinceFrame parameter.
+		 * @see Matrix
+		 * @see Frame
 		 *
 		 */
 		public function rotationMatrix( sinceFrame:Frame ):Matrix
 		{
-			var returnValue:Matrix = new Matrix();
+			var returnValue:Matrix = Matrix.identity();
 
 			if ( sinceFrame.hand && sinceFrame.hand.rotation )
 				returnValue = rotation.multiply( sinceFrame.hand.rotation );
@@ -317,10 +326,12 @@ package com.leapmotion.leap
 
 		/**
 		 * The change of position of this hand between the current frame and the specified frame.
+		 * 
 		 * @param sinceFrame The starting frame for computing the translation.
 		 * @return A Vector representing the heuristically determined change
 		 * in hand position between the current frame and that specified
 		 * in the sinceFrame parameter.
+		 * @see Vector3
 		 *
 		 */
 		public function translation( sinceFrame:Frame ):Vector3

@@ -41,7 +41,7 @@ package com.leapmotion.leap
 		/**
 		 * A unique ID assigned to this Pointable object, whose value remains the same across consecutive frames while the tracked finger or tool remains visible.
 		 */
-		public var id:Number;
+		public var id:int;
 
 		/**
 		 * The estimated length of the finger or tool in millimeters.

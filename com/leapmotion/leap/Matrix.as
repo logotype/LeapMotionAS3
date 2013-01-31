@@ -37,23 +37,14 @@ package com.leapmotion.leap
 		 */
 		public var zBasis:Vector3 = new Vector3( 0, 0, 0 );
 
-		public function Matrix( x:Vector3 = null, y:Vector3 = null, z:Vector3 = null, origin:Vector3 = null )
+		public function Matrix( x:Vector3, y:Vector3, z:Vector3, _origin:Vector3 = null )
 		{
-			if ( x && y && z )
-			{
-				xBasis = x;
-				yBasis = y;
-				zBasis = z;
-			}
-			else
-			{
-				xBasis = new Vector3( 1, 0, 0 );
-				yBasis = new Vector3( 0, 1, 0 );
-				zBasis = new Vector3( 0, 0, 1 );
-			}
+			xBasis = x;
+			yBasis = y;
+			zBasis = z;
 
-			if ( origin )
-				origin = origin;
+			if ( _origin )
+				origin = _origin;
 		}
 
 		/**
@@ -157,6 +148,20 @@ package com.leapmotion.leap
 				returnValue = false;
 
 			return returnValue;
+		}
+		
+		/**
+		 * Returns the identity matrix specifying no translation, rotation, and scale. 
+		 * @return The identity matrix.
+		 * 
+		 */
+		static public function identity():Matrix
+		{
+			var xBasis:Vector3 = new Vector3( 1, 0, 0 );
+			var yBasis:Vector3 = new Vector3( 0, 1, 0 );
+			var zBasis:Vector3 = new Vector3( 0, 0, 1 );
+			
+			return new Matrix( xBasis, yBasis, zBasis );
 		}
 
 		/**
