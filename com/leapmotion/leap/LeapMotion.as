@@ -2,7 +2,7 @@ package com.leapmotion.leap
 {
 	import com.leapmotion.leap.events.LeapProxy;
 	import com.leapmotion.leap.socket.LeapSocket;
-
+	
 	import flash.events.EventDispatcher;
 
 	/**
@@ -94,8 +94,8 @@ package com.leapmotion.leap
 		{
 			var returnValue:Frame;
 
-			if ( history >= 60 )
-				returnValue = null;
+			if ( history >= controller.frameHistory.length )
+				returnValue = Frame.invalid();
 			else if ( history == 0 )
 				returnValue = socket.frame;
 			else

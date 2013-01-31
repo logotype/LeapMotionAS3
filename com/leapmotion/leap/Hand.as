@@ -257,7 +257,7 @@ package com.leapmotion.leap
 			if ( sinceFrame.hand )
 			{
 				var vector:Vector3 = new Vector3( this.rotation.zBasis.y - sinceFrame.hand.rotation.yBasis.z, this.rotation.xBasis.z - sinceFrame.hand.rotation.zBasis.x, this.rotation.yBasis.x - sinceFrame.hand.rotation.xBasis.y );
-				returnValue = Vector3.normalizeVector( vector );
+				returnValue = vector.normalized();
 			}
 
 			return returnValue;

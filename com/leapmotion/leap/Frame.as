@@ -1,5 +1,6 @@
 package com.leapmotion.leap
 {
+
 	/**
 	 * The Frame class represents a set of hand and finger tracking
 	 * data detected in a single frame.
@@ -18,13 +19,13 @@ package com.leapmotion.leap
 	{
 		/**
 		 * The list of Finger objects detected in this frame, given in arbitrary order.
-		 * The list can be empty if no fingers are detected. 
+		 * The list can be empty if no fingers are detected.
 		 */
 		public var fingers:Vector.<Finger> = new Vector.<Finger>();
 
 		/**
 		 * The list of Hand objects detected in this frame, given in arbitrary order.
-		 * The list can be empty if no hands are detected. 
+		 * The list can be empty if no hands are detected.
 		 */
 		public var hands:Vector.<Hand> = new Vector.<Hand>();
 
@@ -42,7 +43,7 @@ package com.leapmotion.leap
 		 * lost and subsequently regained, the new Pointable object representing
 		 * that finger or tool may have a different ID than that representing
 		 * the finger or tool in an earlier frame.
-		 * 
+		 *
 		 * @see Pointable
 		 *
 		 */
@@ -50,7 +51,7 @@ package com.leapmotion.leap
 
 		/**
 		 * A unique ID for this Frame.
-		 * Consecutive frames processed by the Leap have consecutive increasing values. 
+		 * Consecutive frames processed by the Leap have consecutive increasing values.
 		 */
 		public var id:int;
 
@@ -61,7 +62,7 @@ package com.leapmotion.leap
 
 		/**
 		 * The list of Tool objects detected in this frame, given in arbitrary order.
-		 * 
+		 *
 		 * @see Tool
 		 */
 		public var tools:Vector.<Tool> = new Vector.<Tool>();
@@ -84,8 +85,8 @@ package com.leapmotion.leap
 		/**
 		 * Constructs a Frame object.
 		 * Frame instances created with this constructor are invalid.
-		 * Get valid Frame objects by calling the LeapMotion.frame() function. 
-		 * 
+		 * Get valid Frame objects by calling the LeapMotion.frame() function.
+		 *
 		 */
 		public function Frame()
 		{
@@ -247,19 +248,22 @@ package com.leapmotion.leap
 		}
 
 		/**
-		 * The axis of rotation derived from the change in orientation
-		 * of this hand, and any associated fingers and tools,
-		 * between the current frame and the specified frame.
+		 * The axis of rotation derived from the overall rotational
+		 * motion between the current frame and the specified frame.
 		 *
 		 * The returned direction vector is normalized.
 		 *
-		 * If a corresponding Hand object is not found in sinceFrame,
-		 * or if either this frame or sinceFrame are invalid Frame objects,
-		 * then this method returns a zero vector.
+		 * The Leap derives frame rotation from the relative change
+		 * in position and orientation of all objects detected in
+		 * the field of view.
+		 *
+		 * If either this frame or sinceFrame is an invalid Frame
+		 * object, or if no rotation is detected between the
+		 * two frames, a zero vector is returned.
 		 *
 		 * @param sinceFrame The starting frame for computing the relative rotation.
-		 * @return A normalized direction Vector representing the heuristically
-		 * determined axis of rotational change of the hand between the current
+		 * @return A normalized direction Vector representing the axis of the
+		 * heuristically determined rotational change between the current
 		 * frame and that specified in the sinceFrame parameter.
 		 *
 		 */
@@ -267,10 +271,10 @@ package com.leapmotion.leap
 		{
 			var returnValue:Vector3 = new Vector3( 0, 0, 0 );
 
-			if ( sinceFrame )
+			if ( sinceFrame && sinceFrame.rotation )
 			{
 				var vector:Vector3 = new Vector3( rotation.zBasis.y - sinceFrame.rotation.yBasis.z, rotation.xBasis.z - sinceFrame.rotation.zBasis.x, rotation.yBasis.x - sinceFrame.rotation.xBasis.y );
-				returnValue = Vector3.normalizeVector( vector );
+				returnValue = vector.normalized();
 			}
 
 			return returnValue;
@@ -299,12 +303,12 @@ package com.leapmotion.leap
 		public function rotationAngle( sinceFrame:Frame, axis:Vector3 = null ):Number
 		{
 			var returnValue:Number = 0;
-			if( !axis )
+			if ( !axis )
 			{
 				var rotationSinceFrameMatrix:Matrix = rotationMatrix( sinceFrame );
 				var cs:Number = ( rotationSinceFrameMatrix.xBasis.x + rotationSinceFrameMatrix.yBasis.y + rotationSinceFrameMatrix.zBasis.z ) * 0.5;
 				var angle:Number = Math.acos( cs );
-				returnValue = angle;
+				returnValue = isNaN( angle ) ? 0 : angle;
 			}
 			else
 			{
@@ -330,7 +334,7 @@ package com.leapmotion.leap
 		{
 			var returnValue:Matrix = Matrix.identity();
 
-			if ( sinceFrame.rotation )
+			if ( sinceFrame && sinceFrame.rotation )
 				returnValue = rotation.multiply( sinceFrame.rotation );
 
 			return returnValue;
@@ -359,7 +363,11 @@ package com.leapmotion.leap
 		 */
 		public function scaleFactor( sinceFrame:Frame ):Number
 		{
-			return Math.exp( this.scaleFactorNumber - sinceFrame.scaleFactorNumber );
+			var returnValue:Number = 1;
+			if ( sinceFrame && sinceFrame.scaleFactorNumber )
+				returnValue = Math.exp( this.scaleFactorNumber - sinceFrame.scaleFactorNumber );
+
+			return returnValue;
 		}
 
 		/**
@@ -390,40 +398,40 @@ package com.leapmotion.leap
 
 			return returnValue;
 		}
-		
+
 		/**
 		 * Reports whether this Frame instance is valid.
-		 * 
+		 *
 		 * A valid Frame is one generated by the LeapMotion object that contains
 		 * tracking data for all detected entities. An invalid Frame contains
 		 * no actual tracking data, but you can call its functions without risk
 		 * of a null pointer exception. The invalid Frame mechanism makes it
 		 * more convenient to track individual data across the frame history.
-		 * 
+		 *
 		 * For example, you can invoke: var finger:Finger = leap.frame(n).finger(fingerID);
 		 * for an arbitrary Frame history value, "n", without first checking whether
 		 * frame(n) returned a null object.
 		 * (You should still check that the returned Finger instance is valid.)
-		 *  
-		 * @return True, if this is a valid Frame object; false otherwise. 
-		 * 
+		 *
+		 * @return True, if this is a valid Frame object; false otherwise.
+		 *
 		 */
-		public function isValid() :Boolean
+		public function isValid():Boolean
 		{
 			// TODO: Implement validity checking.
 			var returnValue:Boolean = true;
 			return returnValue;
 		}
-		
+
 		/**
 		 * Returns an invalid Frame object.
-		 * 
+		 *
 		 * You can use the instance returned by this function in comparisons
 		 * testing whether a given Frame instance is valid or invalid.
 		 * (You can also use the Frame.isValid() function.)
-		 *  
+		 *
 		 * @return The invalid Frame instance.
-		 * 
+		 *
 		 */
 		static public function invalid():Frame
 		{
