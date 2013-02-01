@@ -1,11 +1,13 @@
 package com.leapmotion.leap
 {
-	import com.leapmotion.leap.events.LeapProxy;
-	import com.leapmotion.leap.socket.LeapSocket;
-	
-	import flash.events.EventDispatcher;
+    import com.leapmotion.leap.connection.ILeapConnection;
+    import com.leapmotion.leap.events.LeapProxy;
+    import com.leapmotion.leap.native.LeapNative;
+    import com.leapmotion.leap.socket.LeapSocket;
 
-	/**
+    import flash.events.EventDispatcher;
+
+    /**
 	 * The LeapMotion class is your main interface to the Leap device.
 	 *
 	 * Create an instance of this LeapMotion class to access frames of tracking
@@ -42,7 +44,7 @@ package com.leapmotion.leap
 	 */
 	public class LeapMotion extends EventDispatcher
 	{
-		private var socket:LeapSocket;
+		private var connection:ILeapConnection;
 		public var controller:LeapProxy;
 
 		private var frameHistory:Vector.<Frame> = new Vector.<Frame>();
@@ -50,7 +52,14 @@ package com.leapmotion.leap
 		public function LeapMotion( host:String = null )
 		{
 			controller = LeapProxy.getInstance();
-			socket = new LeapSocket( host );
+            if(LeapNative.isSupported())
+            {
+                connection = new LeapNative();
+            }
+            else
+            {
+                connection = new LeapSocket( host );
+            }
 		}
 
 		/**
@@ -70,7 +79,7 @@ package com.leapmotion.leap
 		 */
 		public function isConnected():Boolean
 		{
-			return socket.isConnected;
+			return connection.isConnected;
 		}
 
 		/**
@@ -97,7 +106,7 @@ package com.leapmotion.leap
 			if ( history >= controller.frameHistory.length )
 				returnValue = Frame.invalid();
 			else if ( history == 0 )
-				returnValue = socket.frame;
+				returnValue = connection.frame;
 			else
 				returnValue = controller.frameHistory[ history ];
 
