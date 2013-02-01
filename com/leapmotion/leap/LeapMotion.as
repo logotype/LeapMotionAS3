@@ -1,13 +1,13 @@
 package com.leapmotion.leap
 {
-    import com.leapmotion.leap.connection.ILeapConnection;
-    import com.leapmotion.leap.events.LeapProxy;
-    import com.leapmotion.leap.native.LeapNative;
-    import com.leapmotion.leap.socket.LeapSocket;
+	import com.leapmotion.leap.connection.ILeapConnection;
+	import com.leapmotion.leap.events.LeapProxy;
+	import com.leapmotion.leap.native.LeapNative;
+	import com.leapmotion.leap.socket.LeapSocket;
 
-    import flash.events.EventDispatcher;
+	import flash.events.EventDispatcher;
 
-    /**
+	/**
 	 * The LeapMotion class is your main interface to the Leap device.
 	 *
 	 * Create an instance of this LeapMotion class to access frames of tracking
@@ -52,14 +52,14 @@ package com.leapmotion.leap
 		public function LeapMotion( host:String = null )
 		{
 			controller = LeapProxy.getInstance();
-            if(LeapNative.isSupported())
-            {
-                connection = new LeapNative();
-            }
-            else
-            {
-                connection = new LeapSocket( host );
-            }
+			if ( LeapNative.isSupported())
+			{
+				connection = new LeapNative();
+			}
+			else
+			{
+				connection = new LeapSocket( host );
+			}
 		}
 
 		/**

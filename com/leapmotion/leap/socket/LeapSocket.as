@@ -7,8 +7,8 @@ package com.leapmotion.leap.socket
 	import com.leapmotion.leap.Pointable;
 	import com.leapmotion.leap.Tool;
 	import com.leapmotion.leap.Vector3;
-    import com.leapmotion.leap.connection.ILeapConnection;
-    import com.leapmotion.leap.events.LeapEvent;
+	import com.leapmotion.leap.connection.ILeapConnection;
+	import com.leapmotion.leap.events.LeapEvent;
 	import com.leapmotion.leap.events.LeapProxy;
 	import com.leapmotion.leap.util.Base64Encoder;
 	import com.leapmotion.leap.util.SHA1;
@@ -83,12 +83,12 @@ package com.leapmotion.leap.socket
 		/**
 		 * Most recent parsed Frame received from Socket.
 		 */
-        private var _frame:Frame;
+		private var _frame:Frame;
 
 		/**
 		 * Whether the Leap is currently connected.
 		 */
-        private var _isConnected:Boolean = false;
+		private var _isConnected:Boolean = false;
 
 		public function LeapSocket( host:String = null )
 		{
@@ -245,7 +245,7 @@ package com.leapmotion.leap.socket
 						pointable.tipVelocity = new Vector3( json.pointables[ i ].tipVelocity[ 0 ], json.pointables[ i ].tipVelocity[ 1 ], json.pointables[ i ].tipVelocity[ 2 ]);
 						currentFrame.pointables.push( pointable );
 
-						if( pointable.hand )
+						if ( pointable.hand )
 							pointable.hand.pointables.push( pointable );
 
 						if ( isTool )
@@ -448,20 +448,20 @@ package com.leapmotion.leap.socket
 			return;
 		}
 
-        /**
-         * Most recent parsed Frame received from Socket.
-         */
-        public function get isConnected():Boolean
-        {
-            return _isConnected;
-        }
+		/**
+		 * Whether the Leap is currently connected.
+		 */
+		public function get isConnected():Boolean
+		{
+			return _isConnected;
+		}
 
-        /**
-         * Whether the Leap is currently connected.
-         */
-        public function get frame():Frame
-        {
-            return _frame;
-        }
-    }
+		/**
+		 * Most recent parsed Frame received from Socket.
+		 */
+		public function get frame():Frame
+		{
+			return _frame;
+		}
+	}
 }
