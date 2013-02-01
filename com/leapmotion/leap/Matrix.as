@@ -95,7 +95,8 @@ package com.leapmotion.leap
 		public function rigidInverse():Matrix
 		{
 			var rotInverse:Matrix = new Matrix( new Vector3( xBasis.x, yBasis.x, zBasis.x ), new Vector3( xBasis.y, yBasis.y, zBasis.y ), new Vector3( xBasis.z, yBasis.z, zBasis.z ));
-			rotInverse.origin = rotInverse.transformDirection( origin.opposite());
+			if ( origin )
+				rotInverse.origin = rotInverse.transformDirection( origin.opposite());
 			return rotInverse;
 		}
 
@@ -149,18 +150,18 @@ package com.leapmotion.leap
 
 			return returnValue;
 		}
-		
+
 		/**
-		 * Returns the identity matrix specifying no translation, rotation, and scale. 
+		 * Returns the identity matrix specifying no translation, rotation, and scale.
 		 * @return The identity matrix.
-		 * 
+		 *
 		 */
 		static public function identity():Matrix
 		{
 			var xBasis:Vector3 = new Vector3( 1, 0, 0 );
 			var yBasis:Vector3 = new Vector3( 0, 1, 0 );
 			var zBasis:Vector3 = new Vector3( 0, 0, 1 );
-			
+
 			return new Matrix( xBasis, yBasis, zBasis );
 		}
 

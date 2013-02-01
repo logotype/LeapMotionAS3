@@ -274,7 +274,7 @@ package com.leapmotion.leap.socket
 				currentFrame.scaleFactorNumber = json.s;
 
 				// Translation (since last frame), interpolate for smoother motion
-				if ( json._translation )
+				if ( json.t )
 					currentFrame.translationVector = new Vector3( json.t[ 0 ], json.t[ 1 ], json.t[ 2 ]);
 
 				// Timestamp
