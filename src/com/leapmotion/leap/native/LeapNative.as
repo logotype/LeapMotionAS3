@@ -4,7 +4,7 @@ package com.leapmotion.leap.native
 	import com.leapmotion.leap.connection.ILeapConnection;
 	import com.leapmotion.leap.events.LeapEvent;
 	import com.leapmotion.leap.events.LeapProxy;
-
+	
 	import flash.events.EventDispatcher;
 	import flash.events.StatusEvent;
 	import flash.utils.getDefinitionByName;
@@ -15,6 +15,11 @@ package com.leapmotion.leap.native
 		 * Called when the Controller object connects to the Leap software, or when this Listener object is added to a Controller that is alrady connected.
 		 */
 		static public const LEAPNATIVE_CONNECTED:String = "onConnect";
+		
+		/**
+		 * Called when the Controller object disconnects from the Leap software
+		 */
+		static public const LEAPNATIVE_DISCONNECTED:String = "onDisconnect";
 
 		/**
 		 * Called when a new frame of hand and finger tracking data is available.
@@ -80,8 +85,10 @@ package com.leapmotion.leap.native
 			switch ( event.code )
 			{
 				case LeapNative.LEAPNATIVE_CONNECTED:
-					_isConnected = true;
-					controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_CONNECTED ));
+					handleOnConnect();
+					break;
+				case LeapNative.LEAPNATIVE_DISCONNECTED:
+					handleOnDisconnect();
 					break;
 				case LeapNative.LEAPNATIVE_FRAME:
 					handleOnFrame();
@@ -90,6 +97,29 @@ package com.leapmotion.leap.native
 					trace( "[LeapNative] status", event.code, event.level );
 					break;
 			}
+		}
+		
+		/**
+		 * Inline method. Triggered when native extension context connects to the Leap
+		 *
+		 */
+		[Inline]
+		final private function handleOnConnect():void
+		{
+			_isConnected = true;
+			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_CONNECTED ));
+		}
+		
+		/**
+		 * Inline method. Triggered when native extension context disconnects from the Leap
+		 *
+		 */
+		[Inline]
+		final private function handleOnDisconnect():void
+		{
+			_isConnected = false;
+			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_DISCONNECTED ));
+			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_EXIT ));
 		}
 
 		/**
