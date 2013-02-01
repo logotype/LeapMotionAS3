@@ -89,6 +89,12 @@ Authors
 + http://github.com/logotype
 + http://logotype.se
 
+**Wouter Verweirder**
+
++ http://twitter.com/wouter
++ http://github.com/wouterverweirder
++ http://blog.aboutme.be
+
 
 Copyright and license
 ---------------------
