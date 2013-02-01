@@ -29,6 +29,8 @@ nbproject
 *.sublime-project
 *.sublime-workspace
 *.iml
+.actionScriptProperties
+.flexLibProperties
 
 # Folders to ignore
 .hg
