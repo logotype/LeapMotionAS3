@@ -176,7 +176,7 @@ package com.leapmotion.leap.native
 		}
 
 		/**
-		 * Most recent parsed Frame received from Socket.
+		 * Whether the Leap is currently connected.
 		 */
 		public function get isConnected():Boolean
 		{
@@ -184,7 +184,7 @@ package com.leapmotion.leap.native
 		}
 
 		/**
-		 * Whether the Leap is currently connected.
+		 * Most recent parsed Frame received from Socket.
 		 */
 		public function get frame():Frame
 		{

@@ -19,7 +19,7 @@ Create an instance of the LeapMotion class:
     leap.controller.addEventListener( LeapEvent.LEAPMOTION_EXIT, onExit );
     leap.controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, onFrame );
 
-What you'll get from the `LEAPMOTION_FRAME` handler is a `Frame` object, with strongly
+What you'll get from the `LEAPMOTION_FRAME` handler is a `Frame` instance, with strongly
 typed properties such as `Hands`, `Pointables`, `Direction` and more:
 
     private function onFrame( event:LeapEvent ):void
@@ -75,8 +75,6 @@ Upcoming features
 -----------------
 
 + Multi-threading using Workers
-+ Optional dispatch model using Signals
-+ Interpolation for even smoother performance
 + AIR Native Extension (ANE) which directly interfaces with the C++ library
 + Additional example code will be added
 
