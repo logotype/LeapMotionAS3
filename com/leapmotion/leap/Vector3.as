@@ -65,9 +65,9 @@ package com.leapmotion.leap
 		 */
 		public function plusAssign( other:Vector3 ):Vector3
 		{
-			x + other.x;
-			y + other.y;
-			z + other.z;
+			x += other.x;
+			y += other.y;
+			z += other.z;
 			return this;
 		}
 
@@ -90,9 +90,9 @@ package com.leapmotion.leap
 		 */
 		public function minusAssign( other:Vector3 ):Vector3
 		{
-			x - other.x;
-			y - other.y;
-			z - other.z;
+			x -= other.x;
+			y -= other.y;
+			z -= other.z;
 			return this;
 		}
 
@@ -115,9 +115,9 @@ package com.leapmotion.leap
 		 */
 		public function multiplyAssign( scalar:Number ):Vector3
 		{
-			x * scalar;
-			y * scalar;
-			z * scalar;
+			x *= scalar;
+			y *= scalar;
+			z *= scalar;
 			return this;
 		}
 
@@ -140,9 +140,9 @@ package com.leapmotion.leap
 		 */
 		public function divideAssign( scalar:Number ):Vector3
 		{
-			x / scalar;
-			y / scalar;
-			z / scalar;
+			x /= scalar;
+			y /= scalar;
+			z /= scalar;
 			return this;
 		}
 
