@@ -254,9 +254,9 @@ package com.leapmotion.leap
 		{
 			var returnValue:Vector3 = new Vector3( 0, 0, 0 );
 
-			if ( sinceFrame.hand )
+            if ( sinceFrame.hand(id) )
 			{
-				var vector:Vector3 = new Vector3( this.rotation.zBasis.y - sinceFrame.hand.rotation.yBasis.z, this.rotation.xBasis.z - sinceFrame.hand.rotation.zBasis.x, this.rotation.yBasis.x - sinceFrame.hand.rotation.xBasis.y );
+				var vector:Vector3 = new Vector3( this.rotation.zBasis.y - sinceFrame.hand(id).rotation.yBasis.z, this.rotation.xBasis.z - sinceFrame.hand(id).rotation.zBasis.x, this.rotation.yBasis.x - sinceFrame.hand(id).rotation.xBasis.y );
 				returnValue = vector.normalized();
 			}
 
@@ -287,9 +287,9 @@ package com.leapmotion.leap
 		{
 			// TODO: Implement rotation angle around axis
 			var returnValue:Number = 0;
-			if ( sinceFrame.hand && sinceFrame.hand.frame )
+			if ( sinceFrame.hand(id) && sinceFrame.hand(id).frame )
 			{
-				var rotationSinceFrameMatrix:Matrix = rotationMatrix( sinceFrame.hand.frame );
+				var rotationSinceFrameMatrix:Matrix = rotationMatrix( sinceFrame.hand(id).frame );
 				var cs:Number = ( rotationSinceFrameMatrix.xBasis.x + rotationSinceFrameMatrix.yBasis.y + rotationSinceFrameMatrix.zBasis.z ) * 0.5;
 				var angle:Number = Math.acos( cs );
 				returnValue = angle;
@@ -318,8 +318,8 @@ package com.leapmotion.leap
 		{
 			var returnValue:Matrix = Matrix.identity();
 
-			if ( sinceFrame.hand && sinceFrame.hand.rotation )
-				returnValue = rotation.multiply( sinceFrame.hand.rotation );
+			if ( sinceFrame.hand(id) && sinceFrame.hand(id).rotation )
+				returnValue = rotation.multiply( sinceFrame.hand(id).rotation );
 
 			return returnValue;
 		}
@@ -338,8 +338,8 @@ package com.leapmotion.leap
 		{
 			var returnValue:Vector3 = new Vector3( 0, 0, 0 );
 
-			if ( sinceFrame.hand && sinceFrame.hand.translationVector )
-				returnValue = new Vector3( translationVector.x - sinceFrame.hand.translationVector.x, translationVector.y - sinceFrame.hand.translationVector.y, translationVector.z - sinceFrame.hand.translationVector.z );
+			if ( sinceFrame.hand(id) && sinceFrame.hand(id).translationVector )
+				returnValue = new Vector3( translationVector.x - sinceFrame.hand(id).translationVector.x, translationVector.y - sinceFrame.hand(id).translationVector.y, translationVector.z - sinceFrame.hand(id).translationVector.z );
 
 			return returnValue;
 		}
