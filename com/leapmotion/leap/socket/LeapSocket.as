@@ -7,7 +7,8 @@ package com.leapmotion.leap.socket
 	import com.leapmotion.leap.Pointable;
 	import com.leapmotion.leap.Tool;
 	import com.leapmotion.leap.Vector3;
-	import com.leapmotion.leap.events.LeapEvent;
+    import com.leapmotion.leap.connection.ILeapConnection;
+    import com.leapmotion.leap.events.LeapEvent;
 	import com.leapmotion.leap.events.LeapProxy;
 	import com.leapmotion.leap.util.Base64Encoder;
 	import com.leapmotion.leap.util.SHA1;
@@ -27,7 +28,7 @@ package com.leapmotion.leap.socket
 	 * @author logotype
 	 *
 	 */
-	public class LeapSocket extends EventDispatcher
+	public class LeapSocket extends EventDispatcher implements ILeapConnection
 	{
 		/**
 		 * The initial state before handshake.
@@ -82,12 +83,12 @@ package com.leapmotion.leap.socket
 		/**
 		 * Most recent parsed Frame received from Socket.
 		 */
-		public var frame:Frame;
+        private var _frame:Frame;
 
 		/**
 		 * Whether the Leap is currently connected.
 		 */
-		public var isConnected:Boolean = false;
+        private var _isConnected:Boolean = false;
 
 		public function LeapSocket( host:String = null )
 		{
@@ -121,7 +122,7 @@ package com.leapmotion.leap.socket
 		 */
 		private function onSocketConnectHandler( event:Event ):void
 		{
-			isConnected = false;
+			_isConnected = false;
 			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_INIT ));
 			currentState = LeapSocket.STATE_CONNECTING;
 			socket.endian = Endian.BIG_ENDIAN;
@@ -135,7 +136,7 @@ package com.leapmotion.leap.socket
 		 */
 		private function onIOErrorHandler( event:IOErrorEvent ):void
 		{
-			isConnected = false;
+			_isConnected = false;
 			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_DISCONNECTED ));
 		}
 
@@ -146,7 +147,7 @@ package com.leapmotion.leap.socket
 		 */
 		private function onSecurityErrorHandler( event:SecurityErrorEvent ):void
 		{
-			isConnected = false;
+			_isConnected = false;
 			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_DISCONNECTED ));
 		}
 
@@ -157,7 +158,7 @@ package com.leapmotion.leap.socket
 		 */
 		private function onSocketCloseHandler( event:Event ):void
 		{
-			isConnected = false;
+			_isConnected = false;
 			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_DISCONNECTED ));
 			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_EXIT ));
 		}
@@ -177,7 +178,7 @@ package com.leapmotion.leap.socket
 				return;
 			}
 
-			isConnected = true;
+			_isConnected = true;
 
 			var utf8data:String;
 			var i:uint;
@@ -287,9 +288,9 @@ package com.leapmotion.leap.socket
 				if ( controller.frameHistory.length > 59 )
 					controller.frameHistory.splice( 59, 1 );
 
-				controller.frameHistory.unshift( frame );
+				controller.frameHistory.unshift( _frame );
 
-				frame = currentFrame;
+				_frame = currentFrame;
 
 				// Release current frame and create a new one
 				leapSocketFrame = new LeapSocketFrame();
@@ -446,5 +447,21 @@ package com.leapmotion.leap.socket
 			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_CONNECTED ));
 			return;
 		}
-	}
+
+        /**
+         * Most recent parsed Frame received from Socket.
+         */
+        public function get isConnected():Boolean
+        {
+            return _isConnected;
+        }
+
+        /**
+         * Whether the Leap is currently connected.
+         */
+        public function get frame():Frame
+        {
+            return _frame;
+        }
+    }
 }
