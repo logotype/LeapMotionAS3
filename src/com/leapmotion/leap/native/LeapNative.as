@@ -157,6 +157,17 @@ package com.leapmotion.leap.native
 					sharedContext = tryCreatingExtensionContext( "shared" );
 					if ( sharedContext )
 					{
+						try
+						{
+							var supported:Boolean = sharedContext.call("isSupported");
+							return supported;
+						}
+						catch ( error:Error)
+						{
+							trace( "Leap Native Extension is not supported" );
+							trace( "If you are on windows, add the Leap software folder to your PATH" );
+							trace( "Falling back on socket implementation" );
+						}
 						return true;
 					}
 				}
@@ -178,9 +189,9 @@ package com.leapmotion.leap.native
 				ExtensionContextClass = getDefinitionByName( "flash.external.ExtensionContext" );
 				return true;
 			}
-			catch ( event:Error )
+			catch ( error:Error )
 			{
-				trace( event.message );
+				trace( error.message );
 			}
 			return false;
 		}
