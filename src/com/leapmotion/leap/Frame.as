@@ -32,7 +32,7 @@ package com.leapmotion.leap
 		/**
 		 * The Pointable object with the specified ID in this frame.
 		 *
-		 * Use the Frame::pointable() function to retrieve the Pointable
+		 * Use the Frame.pointable() function to retrieve the Pointable
 		 * object from this frame using an ID value obtained from a previous frame.
 		 * This function always returns a Pointable object, but if no finger
 		 * or tool with the specified ID is present, an invalid Pointable

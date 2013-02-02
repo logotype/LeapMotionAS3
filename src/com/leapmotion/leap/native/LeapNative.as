@@ -80,6 +80,7 @@ package com.leapmotion.leap.native
 			controller = LeapProxy.getInstance();
 		}
 
+		[Inline]
 		private function contextStatusHandler( event:StatusEvent ):void
 		{
 			switch ( event.code )
