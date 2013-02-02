@@ -31,6 +31,8 @@ nbproject
 *.iml
 .actionScriptProperties
 .flexLibProperties
+.externalToolBuilders
+.launch
 
 # Folders to ignore
 .hg
