@@ -69,13 +69,54 @@ Features
 + Uses ASC 2.0 compiler features (be sure to add the `-inline` and `-swf-version=19` compiler arguments)
 + Connect multiple computers to the same Leap device (via an optional "host" argument)
 + Works great with [Starling](https://github.com/PrimaryFeather/Starling-Framework) and [Away3D](https://github.com/away3d/away3d-core-fp11)
++ AIR Native Extension (ANE) which directly interfaces with the C++ library
 + Compatible with Mac and PC
+
+AIR Native Extension
+--------------------
+
+You can use this library on both web and air projects. If you are using it on an AIR for Desktop project, you can take advantage of the AIR Native Extension.
+
+[Download the ane-file](https://github.com/logotype/LeapMotionAS3/blob/master/bin/LeapMotionAS3.ane?raw=true) and place it somewhere in your project (preferably in the directory where you would put your swc files). Link the ane file to your project:
+
+####Flash Builder 4.6
+
+
+1. Right click on your AIR for desktop project and choose properties.
+2. Select Actionscript build path > Library path and click on Add SWC… Select the ane file you just downloaded.
+3. In that same window, choose Native Extensions and click on Add ANE… Select that same ane file.
+4. Select Actionscript Build Packaging > Native extensions. Check the checkbox next to the native extension. Ignore the warning that says the extension isn't used.
+
+####Flash CS6
+
+
+1. Go the File > Actionscript settings.
+2. On the Library Path tab, click on the "Browse to a Native Extension (ANE)" button (button to the right of the SWC button)
+3. Choose the ane file you just downloaded.
+
+####IntelliJ IDEA
+
+
+1. Right click on your module and choose "Open Module Settings".
+2. Select the build configuration for your Module and open the Dependencies tab
+3. Click on the plus (+) button on the bottom of that window and choose "New Library…"
+4. Choose the ane file you just downloaded
+
+###Using the ANE on Windows
+
+If you are using the ANE on windows, you need to do one more thing: add the Leap Motion program folder to your PATH.
+
+1. From the Desktop, right-click My Computer and click Properties.
+2. Click Advanced System Settings link in the left column.
+3. In the System Properties window click the Environment Variables button.
+4. In the Environment Variables window, highlight the Path variable in the Systems Variable section and click the Edit button.
+5. Add the Leap Motion folder from your program files at the end of that line (ex: C:\Program Files (x86)\Leap Motion\Leap)
+
 
 Upcoming features
 -----------------
 
 + Multi-threading using Workers
-+ AIR Native Extension (ANE) which directly interfaces with the C++ library
 + Additional example code will be added
 
 Authors
