@@ -252,6 +252,7 @@ package com.leapmotion.leap.socket
 						{
 							pointable.isTool = true;
 							pointable.isFinger = false;
+							pointable.width = json.pointables[ i ].width;
 							currentFrame.tools.push( pointable );
 							if ( pointable.hand )
 								pointable.hand.tools.push( pointable );
