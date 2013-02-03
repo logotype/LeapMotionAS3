@@ -287,9 +287,9 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../Leap_SDK/include";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../runtimes/air/mac @executable_path/../Frameworks /Library/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = macosx10.6;
 				VALID_ARCHS = i386;
 			};
 			name = Debug;
@@ -316,8 +316,9 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../Leap_SDK/include";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../runtimes/air/mac @executable_path/../Frameworks /Library/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				SDKROOT = macosx10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.6;
 				VALID_ARCHS = i386;
 			};
 			name = Release;
@@ -330,16 +331,14 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SYSTEM_APPS_DIR)/Adobe Flash Builder 4.7/eclipse/plugins/com.adobe.flash.compiler_4.7.0.349722/AIRSDK/runtimes/air/mac\"",
+					"\"$(SYSTEM_APPS_DIR)/Adobe Flash Builder 4.7/sdks/4.6.0/runtimes/air/mac\"",
 				);
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LeapNative/LeapNative-Prefix.pch";
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "LeapNative/LeapNative-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../external-libraries/boost\"",
 					"\"$(SRCROOT)/../Leap_SDK/lib\"",
 					"\"$(SRCROOT)/../Leap_SDK/lib/libc++\"",
 				);
@@ -356,16 +355,14 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SYSTEM_APPS_DIR)/Adobe Flash Builder 4.7/eclipse/plugins/com.adobe.flash.compiler_4.7.0.349722/AIRSDK/runtimes/air/mac\"",
+					"\"$(SYSTEM_APPS_DIR)/Adobe Flash Builder 4.7/sdks/4.6.0/runtimes/air/mac\"",
 				);
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LeapNative/LeapNative-Prefix.pch";
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "LeapNative/LeapNative-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../external-libraries/boost\"",
 					"\"$(SRCROOT)/../Leap_SDK/lib\"",
 					"\"$(SRCROOT)/../Leap_SDK/lib/libc++\"",
 				);
