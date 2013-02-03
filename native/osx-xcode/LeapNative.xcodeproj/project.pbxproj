@@ -1,0 +1,401 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		371805AB16BEBA5A00C88F3E /* Adobe AIR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 371805AA16BEBA5A00C88F3E /* Adobe AIR.framework */; };
+		6C2DA04C16BBD08B00FC1899 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C2DA04B16BBD08B00FC1899 /* Cocoa.framework */; };
+		6C2DA05616BBD08B00FC1899 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C2DA05416BBD08B00FC1899 /* InfoPlist.strings */; };
+		6C2DA06916BBD22700FC1899 /* LNExtension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C2DA06716BBD22700FC1899 /* LNExtension.cpp */; };
+		6C2DA06A16BBD22700FC1899 /* LNExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C2DA06816BBD22700FC1899 /* LNExtension.h */; };
+		6C2DA07916BBD63400FC1899 /* LNLeapDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C2DA07716BBD63400FC1899 /* LNLeapDevice.cpp */; };
+		6C2DA07A16BBD63400FC1899 /* LNLeapDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C2DA07816BBD63400FC1899 /* LNLeapDevice.h */; };
+		6C2DA08516BBF41B00FC1899 /* LNLeapListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C2DA08316BBF41B00FC1899 /* LNLeapListener.cpp */; };
+		6C2DA08616BBF41B00FC1899 /* LNLeapListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C2DA08416BBF41B00FC1899 /* LNLeapListener.h */; };
+		6C2DA08816BBF67D00FC1899 /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C2DA08716BBF67D00FC1899 /* libLeap.dylib */; };
+		6C2DA08916BBF68600FC1899 /* libLeap.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6C2DA08716BBF67D00FC1899 /* libLeap.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6C2DA08016BBF0B300FC1899 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				6C2DA08916BBF68600FC1899 /* libLeap.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		371805AA16BEBA5A00C88F3E /* Adobe AIR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Adobe AIR.framework"; path = "/Applications/Adobe Flash Builder 4.7/sdks/4.6.0/runtimes/air/mac/Adobe AIR.framework"; sourceTree = "<absolute>"; };
+		6C2DA04816BBD08B00FC1899 /* LeapNative.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LeapNative.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C2DA04B16BBD08B00FC1899 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		6C2DA04E16BBD08B00FC1899 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		6C2DA04F16BBD08B00FC1899 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		6C2DA05016BBD08B00FC1899 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		6C2DA05316BBD08B00FC1899 /* LeapNative-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LeapNative-Info.plist"; sourceTree = "<group>"; };
+		6C2DA05516BBD08B00FC1899 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6C2DA05716BBD08B00FC1899 /* LeapNative-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LeapNative-Prefix.pch"; sourceTree = "<group>"; };
+		6C2DA06716BBD22700FC1899 /* LNExtension.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LNExtension.cpp; sourceTree = "<group>"; };
+		6C2DA06816BBD22700FC1899 /* LNExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LNExtension.h; sourceTree = "<group>"; };
+		6C2DA07716BBD63400FC1899 /* LNLeapDevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LNLeapDevice.cpp; sourceTree = "<group>"; };
+		6C2DA07816BBD63400FC1899 /* LNLeapDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LNLeapDevice.h; sourceTree = "<group>"; };
+		6C2DA08316BBF41B00FC1899 /* LNLeapListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LNLeapListener.cpp; sourceTree = "<group>"; };
+		6C2DA08416BBF41B00FC1899 /* LNLeapListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LNLeapListener.h; sourceTree = "<group>"; };
+		6C2DA08716BBF67D00FC1899 /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libLeap.dylib; path = "../Leap_SDK/lib/libc++/libLeap.dylib"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6C2DA04416BBD08B00FC1899 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				371805AB16BEBA5A00C88F3E /* Adobe AIR.framework in Frameworks */,
+				6C2DA04C16BBD08B00FC1899 /* Cocoa.framework in Frameworks */,
+				6C2DA08816BBF67D00FC1899 /* libLeap.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6C2DA03C16BBD08B00FC1899 = {
+			isa = PBXGroup;
+			children = (
+				6C2DA07B16BBD7EF00FC1899 /* libraries */,
+				6C2DA06616BBD19B00FC1899 /* src */,
+				6C2DA05116BBD08B00FC1899 /* LeapNative */,
+				6C2DA04A16BBD08B00FC1899 /* Frameworks */,
+				6C2DA04916BBD08B00FC1899 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6C2DA04916BBD08B00FC1899 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6C2DA04816BBD08B00FC1899 /* LeapNative.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6C2DA04A16BBD08B00FC1899 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				371805AA16BEBA5A00C88F3E /* Adobe AIR.framework */,
+				6C2DA04D16BBD08B00FC1899 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6C2DA04D16BBD08B00FC1899 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6C2DA04B16BBD08B00FC1899 /* Cocoa.framework */,
+				6C2DA04E16BBD08B00FC1899 /* AppKit.framework */,
+				6C2DA04F16BBD08B00FC1899 /* CoreData.framework */,
+				6C2DA05016BBD08B00FC1899 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		6C2DA05116BBD08B00FC1899 /* LeapNative */ = {
+			isa = PBXGroup;
+			children = (
+				6C2DA05216BBD08B00FC1899 /* Supporting Files */,
+			);
+			path = LeapNative;
+			sourceTree = "<group>";
+		};
+		6C2DA05216BBD08B00FC1899 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6C2DA05316BBD08B00FC1899 /* LeapNative-Info.plist */,
+				6C2DA05416BBD08B00FC1899 /* InfoPlist.strings */,
+				6C2DA05716BBD08B00FC1899 /* LeapNative-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6C2DA06616BBD19B00FC1899 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				6C2DA06716BBD22700FC1899 /* LNExtension.cpp */,
+				6C2DA06816BBD22700FC1899 /* LNExtension.h */,
+				6C2DA07716BBD63400FC1899 /* LNLeapDevice.cpp */,
+				6C2DA07816BBD63400FC1899 /* LNLeapDevice.h */,
+				6C2DA08316BBF41B00FC1899 /* LNLeapListener.cpp */,
+				6C2DA08416BBF41B00FC1899 /* LNLeapListener.h */,
+			);
+			name = src;
+			path = ../src;
+			sourceTree = "<group>";
+		};
+		6C2DA07B16BBD7EF00FC1899 /* libraries */ = {
+			isa = PBXGroup;
+			children = (
+				6C2DA08716BBF67D00FC1899 /* libLeap.dylib */,
+			);
+			name = libraries;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		6C2DA04516BBD08B00FC1899 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C2DA06A16BBD22700FC1899 /* LNExtension.h in Headers */,
+				6C2DA07A16BBD63400FC1899 /* LNLeapDevice.h in Headers */,
+				6C2DA08616BBF41B00FC1899 /* LNLeapListener.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		6C2DA04716BBD08B00FC1899 /* LeapNative */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6C2DA05D16BBD08B00FC1899 /* Build configuration list for PBXNativeTarget "LeapNative" */;
+			buildPhases = (
+				6C2DA04316BBD08B00FC1899 /* Sources */,
+				6C2DA04416BBD08B00FC1899 /* Frameworks */,
+				6C2DA04516BBD08B00FC1899 /* Headers */,
+				6C2DA04616BBD08B00FC1899 /* Resources */,
+				6C2DA08016BBF0B300FC1899 /* CopyFiles */,
+				6C2DA08216BBF0D600FC1899 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LeapNative;
+			productName = LeapNative;
+			productReference = 6C2DA04816BBD08B00FC1899 /* LeapNative.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6C2DA03E16BBD08B00FC1899 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Wouter Verweirder";
+			};
+			buildConfigurationList = 6C2DA04116BBD08B00FC1899 /* Build configuration list for PBXProject "LeapNative" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 6C2DA03C16BBD08B00FC1899;
+			productRefGroup = 6C2DA04916BBD08B00FC1899 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6C2DA04716BBD08B00FC1899 /* LeapNative */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6C2DA04616BBD08B00FC1899 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C2DA05616BBD08B00FC1899 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6C2DA08216BBF0D600FC1899 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\nBUILT_PRODUCTS_DIR=${PROJECT_DIR}/../bin\nEXECFILE=${BUILT_PRODUCTS_DIR}/LeapNative.framework/LeapNative\nLIBPATH=${BUILT_PRODUCTS_DIR}/LeapNative.framework/Resources\nNEWLIBPATH=\"@loader_path/Resources\"\n\n# space separated list of libraries\nTARGETS=\"libLeap.dylib\"\nfor TARGET in ${TARGETS} ; do\nLIBFILE=${LIBPATH}/${TARGET}\nTARGETID=`otool -DX ${LIBPATH}/$TARGET`\nNEWTARGETID=${NEWLIBPATH}/${TARGET}\n#echo \"LIBFILE: \"${LIBFILE}\n#echo \"TARGETID: \"${TARGETID}\n#echo \"NEWTARGETID: \"${NEWTARGETID}\ninstall_name_tool -id ${NEWTARGETID} ${LIBFILE}\ninstall_name_tool -change ${TARGETID} ${NEWTARGETID} ${EXECFILE}\ndone";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6C2DA04316BBD08B00FC1899 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C2DA06916BBD22700FC1899 /* LNExtension.cpp in Sources */,
+				6C2DA07916BBD63400FC1899 /* LNLeapDevice.cpp in Sources */,
+				6C2DA08516BBF41B00FC1899 /* LNLeapListener.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6C2DA05416BBD08B00FC1899 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6C2DA05516BBD08B00FC1899 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6C2DA05B16BBD08B00FC1899 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CONFIGURATION_BUILD_DIR = ../bin;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../Leap_SDK/include";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../runtimes/air/mac @executable_path/../Frameworks /Library/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.7;
+				VALID_ARCHS = i386;
+			};
+			name = Debug;
+		};
+		6C2DA05C16BBD08B00FC1899 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CONFIGURATION_BUILD_DIR = ../bin;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../Leap_SDK/include";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../runtimes/air/mac @executable_path/../Frameworks /Library/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx10.7;
+				VALID_ARCHS = i386;
+			};
+			name = Release;
+		};
+		6C2DA05E16BBD08B00FC1899 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Adobe Flash Builder 4.7/eclipse/plugins/com.adobe.flash.compiler_4.7.0.349722/AIRSDK/runtimes/air/mac\"",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LeapNative/LeapNative-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "LeapNative/LeapNative-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../external-libraries/boost\"",
+					"\"$(SRCROOT)/../Leap_SDK/lib\"",
+					"\"$(SRCROOT)/../Leap_SDK/lib/libc++\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		6C2DA05F16BBD08B00FC1899 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Adobe Flash Builder 4.7/eclipse/plugins/com.adobe.flash.compiler_4.7.0.349722/AIRSDK/runtimes/air/mac\"",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LeapNative/LeapNative-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "LeapNative/LeapNative-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../external-libraries/boost\"",
+					"\"$(SRCROOT)/../Leap_SDK/lib\"",
+					"\"$(SRCROOT)/../Leap_SDK/lib/libc++\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6C2DA04116BBD08B00FC1899 /* Build configuration list for PBXProject "LeapNative" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C2DA05B16BBD08B00FC1899 /* Debug */,
+				6C2DA05C16BBD08B00FC1899 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6C2DA05D16BBD08B00FC1899 /* Build configuration list for PBXNativeTarget "LeapNative" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C2DA05E16BBD08B00FC1899 /* Debug */,
+				6C2DA05F16BBD08B00FC1899 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6C2DA03E16BBD08B00FC1899 /* Project object */;
+}
