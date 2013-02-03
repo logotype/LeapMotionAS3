@@ -4,7 +4,7 @@ package com.leapmotion.leap.native
 	import com.leapmotion.leap.connection.ILeapConnection;
 	import com.leapmotion.leap.events.LeapEvent;
 	import com.leapmotion.leap.events.LeapProxy;
-	
+
 	import flash.events.EventDispatcher;
 	import flash.events.StatusEvent;
 	import flash.utils.getDefinitionByName;
@@ -15,7 +15,7 @@ package com.leapmotion.leap.native
 		 * Called when the Controller object connects to the Leap software, or when this Listener object is added to a Controller that is alrady connected.
 		 */
 		static public const LEAPNATIVE_CONNECTED:String = "onConnect";
-		
+
 		/**
 		 * Called when the Controller object disconnects from the Leap software
 		 */
@@ -58,7 +58,7 @@ package com.leapmotion.leap.native
 		private var context:Object;
 
 		/**
-		 * Most recent parsed Frame received from Socket.
+		 * Most recent Frame received.
 		 */
 		private var _frame:Frame;
 
@@ -80,6 +80,11 @@ package com.leapmotion.leap.native
 			controller = LeapProxy.getInstance();
 		}
 
+		/**
+		 * Inline method. Triggered when extension context changes status.
+		 * @param event
+		 *
+		 */
 		[Inline]
 		private function contextStatusHandler( event:StatusEvent ):void
 		{
@@ -99,7 +104,7 @@ package com.leapmotion.leap.native
 					break;
 			}
 		}
-		
+
 		/**
 		 * Inline method. Triggered when native extension context connects to the Leap
 		 *
@@ -110,7 +115,7 @@ package com.leapmotion.leap.native
 			_isConnected = true;
 			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_CONNECTED ));
 		}
-		
+
 		/**
 		 * Inline method. Triggered when native extension context disconnects from the Leap
 		 *
@@ -145,7 +150,7 @@ package com.leapmotion.leap.native
 		/**
 		 * Reports whether the native library is supported.
 		 *
-		 * @return True if supported; false otherwise
+		 * @return True if supported; false otherwise.
 		 */
 		public static function isSupported():Boolean
 		{
@@ -159,14 +164,14 @@ package com.leapmotion.leap.native
 					{
 						try
 						{
-							var supported:Boolean = sharedContext.call("isSupported");
+							var supported:Boolean = sharedContext.call( "isSupported" );
 							return supported;
 						}
-						catch ( error:Error)
+						catch ( error:Error )
 						{
-							trace( "Leap Native Extension is not supported" );
-							trace( "If you are on windows, add the Leap software folder to your PATH" );
-							trace( "Falling back on socket implementation" );
+							trace( "LEAPMOTIONAS3: Leap Native Extension is not supported." );
+							trace( "LEAPMOTIONAS3: If you are on Windows, add the Leap software folder to your PATH." );
+							trace( "LEAPMOTIONAS3: Falling back on Socket implementation." );
 						}
 						return true;
 					}
@@ -191,7 +196,7 @@ package com.leapmotion.leap.native
 			}
 			catch ( error:Error )
 			{
-				trace( error.message );
+				trace( "tryCreatingExtensionContextClassReference: " + error.message );
 			}
 			return false;
 		}
@@ -210,9 +215,9 @@ package com.leapmotion.leap.native
 				var context:Object = ExtensionContextClass.createExtensionContext( "com.leapmotion.leap.air.native.LeapNative", contextType );
 				return context;
 			}
-			catch ( event:Error )
+			catch ( error:Error )
 			{
-				trace( event.message );
+				trace( "tryCreatingExtensionContext: " + error.message );
 			}
 			return null;
 		}
@@ -226,7 +231,7 @@ package com.leapmotion.leap.native
 		}
 
 		/**
-		 * Most recent parsed Frame received from Socket.
+		 * Most recent Frame received.
 		 */
 		public function get frame():Frame
 		{
