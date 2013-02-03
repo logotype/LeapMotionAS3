@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="extension-ant-build" default="Build Native Extension">
 	<property file="build.properties"/>
+	<!-- define FLEX_HOME, required for flexTask.tasks -->
+	<property name="FLEX_HOME" value="${AIR_SDK_HOME}"/>
 	<taskdef resource="flexTasks.tasks" classpath="${AIR_SDK_HOME}/ant/lib/flexTasks.jar" />
 	<property name="Flex.ADT" value="${AIR_SDK_HOME}/lib/adt.jar"/>
 
