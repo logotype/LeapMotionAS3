@@ -58,6 +58,8 @@ typed properties such as `Hands`, `Pointables`, `Direction` and more:
     	}
     }
 
+Optionally, you can simply call `leap.frame()` at any time, e.g. in your main loop.
+
 Features
 --------
 
