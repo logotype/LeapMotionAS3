@@ -49,6 +49,8 @@ namespace leapnative {
         
         const Frame frame = controller->frame();
         
+        // TODO: Only continue with valid Frame?
+        
         FREObject freCurrentFrame;
         FRENewObject( (const uint8_t*) "com.leapmotion.leap.Frame", 0, NULL, &freCurrentFrame, NULL);
         
@@ -79,7 +81,6 @@ namespace leapnative {
                 FREObject freHandId;
                 FRENewObjectFromInt32(hand.id(), &freHandId);
                 FRESetObjectProperty(freHand, (const uint8_t*) "id", freHandId, NULL);
-                
                 FRESetObjectProperty(freHand, (const uint8_t*) "palmNormal", createVector3(hand.palmNormal()[0], hand.palmNormal()[1], hand.palmNormal()[2]), NULL);
                 FRESetObjectProperty(freHand, (const uint8_t*) "palmPosition", createVector3(hand.palmPosition()[0], hand.palmPosition()[1], hand.palmPosition()[2]), NULL);
                 FRESetObjectProperty(freHand, (const uint8_t*) "palmVelocity", createVector3(hand.palmVelocity()[0], hand.palmVelocity()[1], hand.palmVelocity()[2]), NULL);
@@ -135,7 +136,6 @@ namespace leapnative {
                 FREObject frePointableLength;
                 FRENewObjectFromInt32(pointable.length(), &frePointableLength);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "length", frePointableLength, NULL);
-                
                 FRESetObjectProperty(frePointable, (const uint8_t*) "direction", createVector3(pointable.direction().x, pointable.direction().y, pointable.direction().z), NULL);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "tipPosition", createVector3(pointable.tipPosition().x, pointable.tipPosition().y, pointable.tipPosition().z), NULL);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "tipVelocity", createVector3(pointable.tipVelocity().x, pointable.tipVelocity().y, pointable.tipVelocity().z), NULL);
@@ -178,19 +178,6 @@ namespace leapnative {
                 FRESetArrayElementAt(freSpecificPointables, numSpecificTools, frePointable);
             }
         }
-        
-        /*
-         // Rotation (since last frame), interpolate for smoother motion
-         if ( json.r )
-         currentFrame.rotation = new Matrix( new Vector3( json.r[ 0 ][ 0 ], json.r[ 0 ][ 1 ], json.r[ 0 ][ 2 ]), new Vector3( json.r[ 1 ][ 0 ], json.r[ 1 ][ 1 ], json.r[ 1 ][ 2 ]), new Vector3( json.r[ 2 ][ 0 ], json.r[ 2 ][ 1 ], json.r[ 2 ][ 2 ]));
-         
-         // Scale factor (since last frame), interpolate for smoother motion
-         currentFrame.scaleFactorNumber = json.s;
-         
-         // Translation (since last frame), interpolate for smoother motion
-         if ( json.t )
-         currentFrame.translationVector = new Vector3( json.t[ 0 ], json.t[ 1 ], json.t[ 2 ]);
-         */
         
         return freCurrentFrame;
     }
