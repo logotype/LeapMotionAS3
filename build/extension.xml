@@ -1,0 +1,20 @@
+<extension xmlns="NATIVE_LIBRARY_XMLNS">
+	<id>com.leapmotion.leap.air.native.LeapNative</id>
+	<versionNumber>0.0.3</versionNumber>
+	<platforms>
+		<platform name="Windows-x86">
+			<applicationDeployment>
+				<nativeLibrary>NATIVE_LIBRARY_WINDOWS</nativeLibrary>
+				<initializer>LeapNativeInitializer</initializer>
+				<finalizer>LeapNativeFinalizer</finalizer>
+			</applicationDeployment>
+		</platform>
+		<platform name="MacOS-x86">
+			<applicationDeployment>
+				<nativeLibrary>NATIVE_LIBRARY_OSX</nativeLibrary>
+				<initializer>LeapNativeInitializer</initializer>
+				<finalizer>LeapNativeFinalizer</finalizer>
+			</applicationDeployment>
+		</platform>
+	</platforms>
+</extension>
