@@ -39,8 +39,6 @@ package com.leapmotion.leap
 	{
 		public var controller:Controller;
 
-		private var frameHistory:Vector.<Frame> = new Vector.<Frame>();
-
 		public function LeapMotion( host:String = null )
 		{
 			controller = Controller.getInstance();

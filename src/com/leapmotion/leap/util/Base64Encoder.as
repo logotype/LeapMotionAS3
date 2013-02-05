@@ -1,8 +1,8 @@
 package com.leapmotion.leap.util
 {
-	import flash.utils.ByteArray;
+    import flash.utils.ByteArray;
 
-	/**
+    /**
 	 * A utility class to encode a String or ByteArray as a Base64 encoded String.
 	 *  
 	 * @author logotype

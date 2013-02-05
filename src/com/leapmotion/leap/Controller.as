@@ -1,14 +1,16 @@
 package com.leapmotion.leap
 {
 
-	import com.leapmotion.leap.interfaces.ILeapConnection;
-	import com.leapmotion.leap.native.LeapNative;
-	import com.leapmotion.leap.socket.LeapSocket;
-	
-	import flash.events.EventDispatcher;
-	import com.leapmotion.leap.interfaces.IListener;
+    import com.leapmotion.leap.callbacks.DefaultCallback;
+    import com.leapmotion.leap.interfaces.ILeapCallback;
+    import com.leapmotion.leap.interfaces.ILeapConnection;
+    import com.leapmotion.leap.namespaces.leapmotion;
+    import com.leapmotion.leap.native.LeapNative;
+    import com.leapmotion.leap.socket.LeapSocket;
 
-	/**
+    import flash.events.EventDispatcher;
+
+    /**
 	 * The main event dispatcher for Leap events.
 	 * @author logotype
 	 *
@@ -16,24 +18,9 @@ package com.leapmotion.leap
 	public class Controller extends EventDispatcher
 	{
 		/**
-		 * Using events for data. 
-		 */
-		static public const MODE_EVENT:int = 0;
-		
-		/**
-		 * Using callbacks for data. 
-		 */
-		static public const MODE_SUBCLASS:int = 1;
-		
-		/**
-		 * Current mode state. 
-		 */
-		public var mode:int = MODE_EVENT;
-		
-		/**
 		 * The Listener subclass instance. 
 		 */
-		public var callback:IListener;
+		leapmotion var callback:ILeapCallback;
 		
 		/**
 		 * Current connection, either native or socket. 
@@ -52,6 +39,7 @@ package com.leapmotion.leap
 		
 		public function Controller()
 		{
+            leapmotion::callback = new DefaultCallback();
 		}
 		
 		/**
@@ -103,6 +91,20 @@ package com.leapmotion.leap
 			
 			return returnValue;
 		}
+
+        /**
+         * Update the object that receives direct updates from the Leap device.
+         * The default callback will make the controller dispatch flash events.
+         * You can override this behaviour, by implementing the IListener interface
+         * in your own classes, and use this method to set the callback to your
+         * own implementation.
+         *
+         * @param callback
+         */
+        public function setCallback(callback:ILeapCallback):void
+        {
+            this.leapmotion::callback = callback;
+        }
 
 		static public function getInstance():Controller
 		{

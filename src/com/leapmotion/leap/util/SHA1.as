@@ -1,8 +1,8 @@
 package com.leapmotion.leap.util
 {
-	import flash.utils.ByteArray;
+    import flash.utils.ByteArray;
 
-	/**
+    /**
 	 *  US Secure Hash Algorithm 1 (SHA1)
 	 *
 	 *  Implementation based on algorithm description at

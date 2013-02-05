@@ -1,10 +1,10 @@
 package com.leapmotion.leap.socket
 {
-	import flash.net.Socket;
-	import flash.utils.ByteArray;
-	import flash.utils.Endian;
+    import flash.net.Socket;
+    import flash.utils.ByteArray;
+    import flash.utils.Endian;
 
-	/**
+    /**
 	 * A WebSocket frame, not yet parsed to a LeapMotion Frame.
 	 *  
 	 * @author logotype

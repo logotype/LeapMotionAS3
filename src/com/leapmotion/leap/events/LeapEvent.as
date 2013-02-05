@@ -1,9 +1,10 @@
 package com.leapmotion.leap.events
 {
-	import flash.events.Event;
-	import com.leapmotion.leap.Frame;
+    import com.leapmotion.leap.Frame;
 
-	public class LeapEvent extends Event
+    import flash.events.Event;
+
+    public class LeapEvent extends Event
 	{
 		/**
 		 * Called once, when this Listener object is newly added to a Controller. 

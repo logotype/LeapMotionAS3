@@ -1,15 +1,15 @@
 package com.leapmotion.leap.native
 {
-	import com.leapmotion.leap.Frame;
-	import com.leapmotion.leap.interfaces.ILeapConnection;
-	import com.leapmotion.leap.events.LeapEvent;
-	import com.leapmotion.leap.Controller;
-	
-	import flash.events.EventDispatcher;
-	import flash.events.StatusEvent;
-	import flash.utils.getDefinitionByName;
-	
-	public class LeapNative extends EventDispatcher implements ILeapConnection
+    import com.leapmotion.leap.Controller;
+    import com.leapmotion.leap.Frame;
+    import com.leapmotion.leap.interfaces.ILeapConnection;
+    import com.leapmotion.leap.namespaces.leapmotion;
+
+    import flash.events.EventDispatcher;
+    import flash.events.StatusEvent;
+    import flash.utils.getDefinitionByName;
+
+    public class LeapNative extends EventDispatcher implements ILeapConnection
 	{
 		/**
 		 * Called when the Controller object connects to the Leap software, or when this Listener object is added to a Controller that is alrady connected.
@@ -76,17 +76,7 @@ package com.leapmotion.leap.native
 		{
 			controller = Controller.getInstance();
 			context = tryCreatingExtensionContext();
-
-			switch( controller.mode )
-			{
-				case Controller.MODE_SUBCLASS:
-					context.addEventListener( StatusEvent.STATUS, contextStatusModeSubClassHandler, false, 0, true );
-					break;
-				case Controller.MODE_EVENT:
-					context.addEventListener( StatusEvent.STATUS, contextStatusModeEventHandler, false, 0, true );
-				default:
-					break;
-			}
+            context.addEventListener( StatusEvent.STATUS, contextStatusModeEventHandler, false, 0, true );
 		}
 		
 		/**
@@ -115,41 +105,6 @@ package com.leapmotion.leap.native
 		}
 		
 		/**
-		 * Inline method. Triggered when extension context changes status.
-		 * @param event
-		 *
-		 */
-		[Inline]
-		private function contextStatusModeSubClassHandler( event:StatusEvent ):void
-		{
-			switch ( event.code )
-			{
-				case LeapNative.LEAPNATIVE_CONNECTED:
-					controller.callback.onConnect( controller );
-					break;
-				case LeapNative.LEAPNATIVE_DISCONNECTED:
-					controller.callback.onDisconnect( controller );
-					break;
-				case LeapNative.LEAPNATIVE_FRAME:
-					var currentFrame:Frame = context.call( "getFrame" );
-					
-					// Add frame to history
-					if ( controller.frameHistory.length > 59 )
-						controller.frameHistory.splice( 59, 1 );
-					
-					controller.frameHistory.unshift( _frame );
-					
-					_frame = currentFrame;
-
-					controller.callback.onFrame( controller );
-					break;
-				default:
-					trace( "[LeapNative] contextStatusModeSubClassHandler: ", event.code, event.level );
-					break;
-			}
-		}
-		
-		/**
 		 * Inline method. Triggered when native extension context connects to the Leap
 		 *
 		 */
@@ -157,7 +112,7 @@ package com.leapmotion.leap.native
 		final private function handleOnConnect():void
 		{
 			_isConnected = true;
-			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_CONNECTED ));
+            controller.leapmotion::callback.onConnect(controller);
 		}
 		
 		/**
@@ -168,8 +123,8 @@ package com.leapmotion.leap.native
 		final private function handleOnDisconnect():void
 		{
 			_isConnected = false;
-			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_DISCONNECTED ));
-			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_EXIT ));
+            controller.leapmotion::callback.onDisconnect( controller );
+            controller.leapmotion::callback.onExit( controller );
 		}
 		
 		/**
@@ -180,7 +135,6 @@ package com.leapmotion.leap.native
 		final private function handleOnFrame():void
 		{
 			var currentFrame:Frame = context.call( "getFrame" );
-			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_FRAME, currentFrame ));
 			
 			// Add frame to history
 			if ( controller.frameHistory.length > 59 )
@@ -189,6 +143,8 @@ package com.leapmotion.leap.native
 			controller.frameHistory.unshift( _frame );
 			
 			_frame = currentFrame;
+
+            controller.leapmotion::callback.onFrame( controller, _frame );
 		}
 		
 		/**

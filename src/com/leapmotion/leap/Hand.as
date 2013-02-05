@@ -286,15 +286,13 @@ package com.leapmotion.leap
 		public function rotationAngle( sinceFrame:Frame, axis:Vector3 = null ):Number
 		{
 			// TODO: Implement rotation angle around axis
-			var returnValue:Number = 0;
 			if ( sinceFrame.hand(id) && sinceFrame.hand(id).frame )
 			{
 				var rotationSinceFrameMatrix:Matrix = rotationMatrix( sinceFrame.hand(id).frame );
 				var cs:Number = ( rotationSinceFrameMatrix.xBasis.x + rotationSinceFrameMatrix.yBasis.y + rotationSinceFrameMatrix.zBasis.z ) * 0.5;
-				var angle:Number = Math.acos( cs );
-				returnValue = angle;
+				return Math.acos( cs );
 			}
-			return returnValue;
+			return 0;
 		}
 
 		/**
