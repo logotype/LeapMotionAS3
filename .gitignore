@@ -41,3 +41,8 @@ nbproject
 .idea
 node_modules
 dist
+
+# Special case for XCode projects
+*.pbxproj -crlf -diff -merge
+*.xcuserstate
+xcuserdata/
