@@ -292,7 +292,7 @@ package com.leapmotion.leap
 				var rotationSinceFrameMatrix:Matrix = rotationMatrix( sinceFrame.hand(id).frame );
 				var cs:Number = ( rotationSinceFrameMatrix.xBasis.x + rotationSinceFrameMatrix.yBasis.y + rotationSinceFrameMatrix.zBasis.z ) * 0.5;
 				var angle:Number = Math.acos( cs );
-				returnValue = angle;
+				returnValue = ( isNaN( angle ) ? 0 : angle );
 			}
 			return returnValue;
 		}
