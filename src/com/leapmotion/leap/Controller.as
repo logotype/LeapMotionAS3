@@ -1,11 +1,12 @@
 package com.leapmotion.leap
 {
 
-	import com.leapmotion.leap.connection.ILeapConnection;
+	import com.leapmotion.leap.interfaces.ILeapConnection;
 	import com.leapmotion.leap.native.LeapNative;
 	import com.leapmotion.leap.socket.LeapSocket;
 	
 	import flash.events.EventDispatcher;
+	import com.leapmotion.leap.interfaces.IListener;
 
 	/**
 	 * The main event dispatcher for Leap events.
@@ -32,7 +33,7 @@ package com.leapmotion.leap
 		/**
 		 * The Listener subclass instance. 
 		 */
-		public var callback:Listener;
+		public var callback:IListener;
 		
 		/**
 		 * Current connection, either native or socket. 
@@ -40,7 +41,7 @@ package com.leapmotion.leap
 		public var connection:ILeapConnection;
 		
 		/**
-		 * The singleton instance variable.
+		 * The singleton instance.
 		 */
 		static private var instance:Controller;
 

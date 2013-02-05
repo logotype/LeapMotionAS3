@@ -1,7 +1,7 @@
 package com.leapmotion.leap.native
 {
 	import com.leapmotion.leap.Frame;
-	import com.leapmotion.leap.connection.ILeapConnection;
+	import com.leapmotion.leap.interfaces.ILeapConnection;
 	import com.leapmotion.leap.events.LeapEvent;
 	import com.leapmotion.leap.Controller;
 	

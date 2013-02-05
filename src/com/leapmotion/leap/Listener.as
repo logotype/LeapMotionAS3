@@ -1,6 +1,7 @@
 package com.leapmotion.leap
 {
 	import flash.display.Sprite;
+	import com.leapmotion.leap.interfaces.IListener;
 
 	/**
 	 * The Listener class defines a set of callback functions that you can
@@ -18,7 +19,7 @@ package com.leapmotion.leap
 	 * @author logotype
 	 *
 	 */
-	public class Listener extends Sprite
+	public class Listener extends Sprite implements IListener
 	{
 		/**
 		 * The Controller object invoking the callback function(s).

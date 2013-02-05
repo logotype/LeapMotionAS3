@@ -7,7 +7,7 @@ package com.leapmotion.leap.socket
 	import com.leapmotion.leap.Pointable;
 	import com.leapmotion.leap.Tool;
 	import com.leapmotion.leap.Vector3;
-	import com.leapmotion.leap.connection.ILeapConnection;
+	import com.leapmotion.leap.interfaces.ILeapConnection;
 	import com.leapmotion.leap.events.LeapEvent;
 	import com.leapmotion.leap.Controller;
 	import com.leapmotion.leap.util.Base64Encoder;
