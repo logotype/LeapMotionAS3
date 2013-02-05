@@ -3,7 +3,7 @@ package com.leapmotion.leap.native
 	import com.leapmotion.leap.Frame;
 	import com.leapmotion.leap.connection.ILeapConnection;
 	import com.leapmotion.leap.events.LeapEvent;
-	import com.leapmotion.leap.events.LeapProxy;
+	import com.leapmotion.leap.Controller;
 	
 	import flash.events.EventDispatcher;
 	import flash.events.StatusEvent;
@@ -70,14 +70,23 @@ package com.leapmotion.leap.native
 		/**
 		 * Event Dispatcher singleton.
 		 */
-		private var controller:LeapProxy;
+		private var controller:Controller;
 		
 		public function LeapNative()
 		{
+			controller = Controller.getInstance();
 			context = tryCreatingExtensionContext();
-			context.addEventListener( StatusEvent.STATUS, contextStatusHandler, false, 0, true );
-			
-			controller = LeapProxy.getInstance();
+
+			switch( controller.mode )
+			{
+				case Controller.MODE_SUBCLASS:
+					context.addEventListener( StatusEvent.STATUS, contextStatusModeSubClassHandler, false, 0, true );
+					break;
+				case Controller.MODE_EVENT:
+					context.addEventListener( StatusEvent.STATUS, contextStatusModeEventHandler, false, 0, true );
+				default:
+					break;
+			}
 		}
 		
 		/**
@@ -86,7 +95,7 @@ package com.leapmotion.leap.native
 		 *
 		 */
 		[Inline]
-		private function contextStatusHandler( event:StatusEvent ):void
+		private function contextStatusModeEventHandler( event:StatusEvent ):void
 		{
 			switch ( event.code )
 			{
@@ -100,7 +109,42 @@ package com.leapmotion.leap.native
 					handleOnFrame();
 					break;
 				default:
-					trace( "[LeapNative] contextStatusHandler: ", event.code, event.level );
+					trace( "[LeapNative] contextStatusModeEventHandler: ", event.code, event.level );
+					break;
+			}
+		}
+		
+		/**
+		 * Inline method. Triggered when extension context changes status.
+		 * @param event
+		 *
+		 */
+		[Inline]
+		private function contextStatusModeSubClassHandler( event:StatusEvent ):void
+		{
+			switch ( event.code )
+			{
+				case LeapNative.LEAPNATIVE_CONNECTED:
+					controller.callback.onConnect( controller );
+					break;
+				case LeapNative.LEAPNATIVE_DISCONNECTED:
+					controller.callback.onDisconnect( controller );
+					break;
+				case LeapNative.LEAPNATIVE_FRAME:
+					var currentFrame:Frame = context.call( "getFrame" );
+					
+					// Add frame to history
+					if ( controller.frameHistory.length > 59 )
+						controller.frameHistory.splice( 59, 1 );
+					
+					controller.frameHistory.unshift( _frame );
+					
+					_frame = currentFrame;
+
+					controller.callback.onFrame( controller );
+					break;
+				default:
+					trace( "[LeapNative] contextStatusModeSubClassHandler: ", event.code, event.level );
 					break;
 			}
 		}
