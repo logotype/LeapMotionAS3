@@ -34,7 +34,7 @@ package com.leapmotion.leap.util
 		 * @param n The int value to output as hex
 		 * @param bigEndian Flag to output the int as big or little endian
 		 * @return A string of length 8 corresponding to the
-		 *		hex representation of n ( minus the leading "0x" )
+		 *        hex representation of n ( minus the leading "0x" )
 		 */
 		public static function toHex( n:int, bigEndian:Boolean = false ):String
 		{
@@ -44,14 +44,14 @@ package com.leapmotion.leap.util
 			{
 				for ( var i:int = 0; i < 4; i++ )
 				{
-					s += hexChars.charAt(( n >> (( 3 - i ) * 8 + 4 )) & 0xF ) + hexChars.charAt(( n >> (( 3 - i ) * 8 )) & 0xF );
+					s += hexChars.charAt( ( n >> (( 3 - i ) * 8 + 4 )) & 0xF ) + hexChars.charAt( ( n >> (( 3 - i ) * 8 )) & 0xF );
 				}
 			}
 			else
 			{
 				for ( var x:int = 0; x < 4; x++ )
 				{
-					s += hexChars.charAt(( n >> ( x * 8 + 4 )) & 0xF ) + hexChars.charAt(( n >> ( x * 8 )) & 0xF );
+					s += hexChars.charAt( ( n >> ( x * 8 + 4 )) & 0xF ) + hexChars.charAt( ( n >> ( x * 8 )) & 0xF );
 				}
 			}
 

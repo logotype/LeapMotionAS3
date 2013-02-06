@@ -89,7 +89,7 @@ package com.leapmotion.leap
 		{
 			var returnValue:Boolean = false;
 
-			if (( direction && direction.isValid()) && ( tipPosition && tipPosition.isValid()) && ( tipVelocity && tipVelocity.isValid()))
+			if ( ( direction && direction.isValid()) && ( tipPosition && tipPosition.isValid()) && ( tipVelocity && tipVelocity.isValid()) )
 				returnValue = true;
 
 			return returnValue;
@@ -116,7 +116,7 @@ package com.leapmotion.leap
 			if ( hand != other.hand )
 				returnValue = false;
 
-			if ( !direction.isEqualTo( other.direction ))
+			if ( !direction.isEqualTo( other.direction ) )
 				returnValue = false;
 
 			if ( length != other.length )
@@ -128,10 +128,10 @@ package com.leapmotion.leap
 			if ( id != other.id )
 				returnValue = false;
 
-			if ( !tipPosition.isEqualTo( other.tipPosition ))
+			if ( !tipPosition.isEqualTo( other.tipPosition ) )
 				returnValue = false;
 
-			if ( !tipVelocity.isEqualTo( other.tipVelocity ))
+			if ( !tipVelocity.isEqualTo( other.tipVelocity ) )
 				returnValue = false;
 
 			if ( isFinger != other.isFinger || isTool != other.isTool )

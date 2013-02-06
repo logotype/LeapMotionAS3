@@ -12,7 +12,7 @@ package com.leapmotion.leap.util
 			return radians * 180 / Math.PI;
 		}
 
-		static public function clamp( inVal:Number, minVal:Number, maxVal:Number ) :Number
+		static public function clamp( inVal:Number, minVal:Number, maxVal:Number ):Number
 		{
 			return ( inVal < minVal ) ? minVal : (( inVal > maxVal ) ? maxVal : inVal );
 		}

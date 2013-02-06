@@ -1,29 +1,29 @@
 package com.leapmotion.leap.socket
 {
-    import com.leapmotion.leap.Controller;
-    import com.leapmotion.leap.Finger;
-    import com.leapmotion.leap.Frame;
-    import com.leapmotion.leap.Hand;
-    import com.leapmotion.leap.Matrix;
-    import com.leapmotion.leap.Pointable;
-    import com.leapmotion.leap.Tool;
-    import com.leapmotion.leap.Vector3;
-    import com.leapmotion.leap.events.LeapEvent;
-    import com.leapmotion.leap.interfaces.ILeapConnection;
-    import com.leapmotion.leap.namespaces.leapmotion;
-    import com.leapmotion.leap.util.Base64Encoder;
-    import com.leapmotion.leap.util.SHA1;
+	import com.leapmotion.leap.Controller;
+	import com.leapmotion.leap.Finger;
+	import com.leapmotion.leap.Frame;
+	import com.leapmotion.leap.Hand;
+	import com.leapmotion.leap.Matrix;
+	import com.leapmotion.leap.Pointable;
+	import com.leapmotion.leap.Tool;
+	import com.leapmotion.leap.Vector3;
+	import com.leapmotion.leap.events.LeapEvent;
+	import com.leapmotion.leap.interfaces.ILeapConnection;
+	import com.leapmotion.leap.namespaces.leapmotion;
+	import com.leapmotion.leap.util.Base64Encoder;
+	import com.leapmotion.leap.util.SHA1;
 
-    import flash.events.Event;
-    import flash.events.EventDispatcher;
-    import flash.events.IOErrorEvent;
-    import flash.events.ProgressEvent;
-    import flash.events.SecurityErrorEvent;
-    import flash.net.Socket;
-    import flash.utils.ByteArray;
-    import flash.utils.Endian;
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	import flash.events.IOErrorEvent;
+	import flash.events.ProgressEvent;
+	import flash.events.SecurityErrorEvent;
+	import flash.net.Socket;
+	import flash.utils.ByteArray;
+	import flash.utils.Endian;
 
-    /**
+	/**
 	 * The LeapSocket class handles the communication via WebSockets.
 	 *
 	 * @author logotype
@@ -101,7 +101,7 @@ package com.leapmotion.leap.socket
 			// Generate nonce
 			var nonce:ByteArray = new ByteArray();
 			for ( var i:int = 0; i < 16; i++ )
-				nonce.writeByte( Math.round( Math.random() * 0xFF ));
+				nonce.writeByte( Math.round( Math.random() * 0xFF ) );
 
 			nonce.position = 0;
 
@@ -111,10 +111,10 @@ package com.leapmotion.leap.socket
 
 			socket = new Socket( this.host, 6437 );
 
-            socket.addEventListener( Event.CONNECT, onSocketConnectHandler );
-            socket.addEventListener( IOErrorEvent.IO_ERROR, onIOErrorHandler );
-            socket.addEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityErrorHandler );
-            socket.addEventListener( ProgressEvent.SOCKET_DATA, onSocketDataHandler );
+			socket.addEventListener( Event.CONNECT, onSocketConnectHandler );
+			socket.addEventListener( IOErrorEvent.IO_ERROR, onIOErrorHandler );
+			socket.addEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityErrorHandler );
+			socket.addEventListener( ProgressEvent.SOCKET_DATA, onSocketDataHandler );
 		}
 
 		/**
@@ -125,12 +125,12 @@ package com.leapmotion.leap.socket
 		private function onSocketConnectHandler( event:Event ):void
 		{
 			_isConnected = false;
-            controller.leapmotion::callback.onInit( controller );
+			controller.leapmotion::callback.onInit( controller );
 			currentState = LeapSocket.STATE_CONNECTING;
 			socket.endian = Endian.BIG_ENDIAN;
 			sendHandshake();
 		}
-		
+
 		/**
 		 * Triggered when network-error occurs
 		 * @param event
@@ -139,9 +139,9 @@ package com.leapmotion.leap.socket
 		private function onIOErrorHandler( event:IOErrorEvent ):void
 		{
 			_isConnected = false;
-            controller.leapmotion::callback.onDisconnect( controller );
+			controller.leapmotion::callback.onDisconnect( controller );
 		}
-		
+
 		/**
 		 * Triggered if socket policy-file is missing, or other security related error occurs
 		 * @param event
@@ -150,9 +150,9 @@ package com.leapmotion.leap.socket
 		private function onSecurityErrorHandler( event:SecurityErrorEvent ):void
 		{
 			_isConnected = false;
-            controller.leapmotion::callback.onDisconnect( controller );
+			controller.leapmotion::callback.onDisconnect( controller );
 		}
-		
+
 		/**
 		 * Triggered when the socket-connection is closed
 		 * @param event
@@ -161,8 +161,8 @@ package com.leapmotion.leap.socket
 		private function onSocketCloseHandler( event:Event ):void
 		{
 			_isConnected = false;
-            controller.leapmotion::callback.onDisconnect( controller );
-            controller.leapmotion::callback.onExit( controller );
+			controller.leapmotion::callback.onDisconnect( controller );
+			controller.leapmotion::callback.onExit( controller );
 		}
 
 		/**
@@ -179,9 +179,9 @@ package com.leapmotion.leap.socket
 				readLeapMotionHandshake();
 				return;
 			}
-			
+
 			_isConnected = true;
-			
+
 			var utf8data:String;
 			var i:uint;
 			var json:Object;
@@ -190,15 +190,15 @@ package com.leapmotion.leap.socket
 			var pointable:Pointable;
 			var isTool:Boolean;
 			var length:int;
-			
+
 			// Loop until data has been completely added to the frame
-			while ( socket.connected && leapSocketFrame.addData( socket ))
+			while ( socket.connected && leapSocketFrame.addData( socket ) )
 			{
 				leapSocketFrame.binaryPayload.position = 0;
 				utf8data = leapSocketFrame.binaryPayload.readUTFBytes( leapSocketFrame.length );
 				json = JSON.parse( utf8data );
 				currentFrame = new Frame();
-				
+
 				// Hands
 				if ( json.hands )
 				{
@@ -208,23 +208,23 @@ package com.leapmotion.leap.socket
 					{
 						hand = new Hand();
 						hand.frame = currentFrame;
-						hand.direction = new Vector3( json.hands[ i ].direction[ 0 ], json.hands[ i ].direction[ 1 ], json.hands[ i ].direction[ 2 ]);
+						hand.direction = new Vector3( json.hands[ i ].direction[ 0 ], json.hands[ i ].direction[ 1 ], json.hands[ i ].direction[ 2 ] );
 						hand.id = json.hands[ i ].id;
-						hand.palmNormal = new Vector3( json.hands[ i ].palmNormal[ 0 ], json.hands[ i ].palmNormal[ 1 ], json.hands[ i ].palmNormal[ 2 ]);
-						hand.palmPosition = new Vector3( json.hands[ i ].palmPosition[ 0 ], json.hands[ i ].palmPosition[ 1 ], json.hands[ i ].palmPosition[ 2 ]);
-						hand.palmVelocity = new Vector3( json.hands[ i ].palmPosition[ 0 ], json.hands[ i ].palmPosition[ 1 ], json.hands[ i ].palmPosition[ 2 ]);
-						hand.rotation = new Matrix( new Vector3( json.hands[ i ].r[ 0 ][ 0 ], json.hands[ i ].r[ 0 ][ 1 ], json.hands[ i ].r[ 0 ][ 2 ]), new Vector3( json.hands[ i ].r[ 1 ][ 0 ], json.hands[ i ].r[ 1 ][ 1 ], json.hands[ i ].r[ 1 ][ 2 ]), new Vector3( json.hands[ i ].r[ 2 ][ 0 ], json.hands[ i ].r[ 2 ][ 1 ], json.hands[ i ].r[ 2 ][ 2 ]));
+						hand.palmNormal = new Vector3( json.hands[ i ].palmNormal[ 0 ], json.hands[ i ].palmNormal[ 1 ], json.hands[ i ].palmNormal[ 2 ] );
+						hand.palmPosition = new Vector3( json.hands[ i ].palmPosition[ 0 ], json.hands[ i ].palmPosition[ 1 ], json.hands[ i ].palmPosition[ 2 ] );
+						hand.palmVelocity = new Vector3( json.hands[ i ].palmPosition[ 0 ], json.hands[ i ].palmPosition[ 1 ], json.hands[ i ].palmPosition[ 2 ] );
+						hand.rotation = new Matrix( new Vector3( json.hands[ i ].r[ 0 ][ 0 ], json.hands[ i ].r[ 0 ][ 1 ], json.hands[ i ].r[ 0 ][ 2 ] ), new Vector3( json.hands[ i ].r[ 1 ][ 0 ], json.hands[ i ].r[ 1 ][ 1 ], json.hands[ i ].r[ 1 ][ 2 ] ), new Vector3( json.hands[ i ].r[ 2 ][ 0 ], json.hands[ i ].r[ 2 ][ 1 ], json.hands[ i ].r[ 2 ][ 2 ] ) );
 						hand.scaleFactor = json.hands[ i ].s;
-						hand.sphereCenter = new Vector3( json.hands[ i ].sphereCenter[ 0 ], json.hands[ i ].sphereCenter[ 1 ], json.hands[ i ].sphereCenter[ 2 ]);
+						hand.sphereCenter = new Vector3( json.hands[ i ].sphereCenter[ 0 ], json.hands[ i ].sphereCenter[ 1 ], json.hands[ i ].sphereCenter[ 2 ] );
 						hand.sphereRadius = json.hands[ i ].sphereRadius;
-						hand.translationVector = new Vector3( json.hands[ i ].t[ 0 ], json.hands[ i ].t[ 1 ], json.hands[ i ].t[ 2 ]);
+						hand.translationVector = new Vector3( json.hands[ i ].t[ 0 ], json.hands[ i ].t[ 1 ], json.hands[ i ].t[ 2 ] );
 						currentFrame.hands.push( hand );
 					}
 				}
-				
+
 				// ID
 				currentFrame.id = json.id;
-				
+
 				// Pointables
 				if ( json.pointables )
 				{
@@ -237,19 +237,19 @@ package com.leapmotion.leap.socket
 							pointable = new Tool();
 						else
 							pointable = new Finger();
-						
+
 						pointable.frame = currentFrame;
 						pointable.id = json.pointables[ i ].id;
 						pointable.hand = getHandByID( currentFrame, json.pointables[ i ].handId );
 						pointable.length = json.pointables[ i ].length;
-						pointable.direction = new Vector3( json.pointables[ i ].direction[ 0 ], json.pointables[ i ].direction[ 1 ], json.pointables[ i ].direction[ 2 ]);
-						pointable.tipPosition = new Vector3( json.pointables[ i ].tipPosition[ 0 ], json.pointables[ i ].tipPosition[ 1 ], json.pointables[ i ].tipPosition[ 2 ]);
-						pointable.tipVelocity = new Vector3( json.pointables[ i ].tipVelocity[ 0 ], json.pointables[ i ].tipVelocity[ 1 ], json.pointables[ i ].tipVelocity[ 2 ]);
+						pointable.direction = new Vector3( json.pointables[ i ].direction[ 0 ], json.pointables[ i ].direction[ 1 ], json.pointables[ i ].direction[ 2 ] );
+						pointable.tipPosition = new Vector3( json.pointables[ i ].tipPosition[ 0 ], json.pointables[ i ].tipPosition[ 1 ], json.pointables[ i ].tipPosition[ 2 ] );
+						pointable.tipVelocity = new Vector3( json.pointables[ i ].tipVelocity[ 0 ], json.pointables[ i ].tipVelocity[ 1 ], json.pointables[ i ].tipVelocity[ 2 ] );
 						currentFrame.pointables.push( pointable );
-						
+
 						if ( pointable.hand )
 							pointable.hand.pointables.push( pointable );
-						
+
 						if ( isTool )
 						{
 							pointable.isTool = true;
@@ -269,36 +269,36 @@ package com.leapmotion.leap.socket
 						}
 					}
 				}
-				
+
 				// Rotation (since last frame), interpolate for smoother motion
 				if ( json.r )
-					currentFrame.rotation = new Matrix( new Vector3( json.r[ 0 ][ 0 ], json.r[ 0 ][ 1 ], json.r[ 0 ][ 2 ]), new Vector3( json.r[ 1 ][ 0 ], json.r[ 1 ][ 1 ], json.r[ 1 ][ 2 ]), new Vector3( json.r[ 2 ][ 0 ], json.r[ 2 ][ 1 ], json.r[ 2 ][ 2 ]));
-				
+					currentFrame.rotation = new Matrix( new Vector3( json.r[ 0 ][ 0 ], json.r[ 0 ][ 1 ], json.r[ 0 ][ 2 ] ), new Vector3( json.r[ 1 ][ 0 ], json.r[ 1 ][ 1 ], json.r[ 1 ][ 2 ] ), new Vector3( json.r[ 2 ][ 0 ], json.r[ 2 ][ 1 ], json.r[ 2 ][ 2 ] ) );
+
 				// Scale factor (since last frame), interpolate for smoother motion
 				currentFrame.scaleFactorNumber = json.s;
-				
+
 				// Translation (since last frame), interpolate for smoother motion
 				if ( json.t )
-					currentFrame.translationVector = new Vector3( json.t[ 0 ], json.t[ 1 ], json.t[ 2 ]);
-				
+					currentFrame.translationVector = new Vector3( json.t[ 0 ], json.t[ 1 ], json.t[ 2 ] );
+
 				// Timestamp
 				currentFrame.timestamp = json.timestamp;
-				
+
 				// Add frame to history
 				if ( controller.frameHistory.length > 59 )
 					controller.frameHistory.splice( 59, 1 );
-				
+
 				controller.frameHistory.unshift( _frame );
-				
+
 				_frame = currentFrame;
 
-                controller.leapmotion::callback.onFrame( controller, _frame );
-				
+				controller.leapmotion::callback.onFrame( controller, _frame );
+
 				// Release current frame and create a new one
 				leapSocketFrame = new LeapSocketFrame();
 			}
 		}
-		
+
 		/**
 		 * Inline method. Finds a Hand object by ID
 		 * @param frame The Frame object in which the Hand contains
@@ -330,7 +330,7 @@ package com.leapmotion.leap.socket
 		private function parseHTTPHeader( line:String ):Object
 		{
 			var header:Array = line.split( /\: +/ );
-			return header.length === 2 ? { name:header[ 0 ], value:header[ 1 ]} : null;
+			return header.length === 2 ? { name: header[ 0 ], value: header[ 1 ]} : null;
 		}
 
 		/**
@@ -383,7 +383,7 @@ package com.leapmotion.leap.socket
 			var headersTerminatorIndex:int = -1;
 
 			// Load in HTTP Header lines until we encounter a double-newline.
-			while ( headersTerminatorIndex === -1 && readHandshakeLine())
+			while ( headersTerminatorIndex === -1 && readHandshakeLine() )
 				headersTerminatorIndex = leapMotionDeviceHandshakeResponse.search( /\r?\n\r?\n/ );
 
 			// Slice off the trailing \r\n\r\n from the handshake data
@@ -446,7 +446,7 @@ package com.leapmotion.leap.socket
 
 			leapMotionDeviceHandshakeResponse = null;
 			currentState = LeapSocket.STATE_OPEN;
-			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_CONNECTED ));
+			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_CONNECTED ) );
 		}
 
 		/**

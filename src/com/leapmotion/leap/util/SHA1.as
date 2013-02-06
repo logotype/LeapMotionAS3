@@ -1,8 +1,8 @@
 package com.leapmotion.leap.util
 {
-    import flash.utils.ByteArray;
+	import flash.utils.ByteArray;
 
-    /**
+	/**
 	 *  US Secure Hash Algorithm 1 (SHA1)
 	 *
 	 *  Implementation based on algorithm description at
@@ -15,8 +15,8 @@ package com.leapmotion.leap.util
 		/**
 		 *  Performs the SHA1 hash algorithm on a string.
 		 *
-		 *  @param s		The string to hash
-		 *  @return			A string containing the hash value of s
+		 *  @param s        The string to hash
+		 *  @return            A string containing the hash value of s
 		 */
 		public static function hash( s:String ):String
 		{
@@ -29,8 +29,8 @@ package com.leapmotion.leap.util
 		/**
 		 *  Performs the SHA1 hash algorithm on a ByteArray.
 		 *
-		 *  @param data		The ByteArray data to hash
-		 *  @return			A string containing the hash value of data
+		 *  @param data        The ByteArray data to hash
+		 *  @return            A string containing the hash value of data
 		 */
 		public static function hashBytes( data:ByteArray ):String
 		{
@@ -44,8 +44,8 @@ package com.leapmotion.leap.util
 		 *  Performs the SHA1 hash algorithm on a string, then does
 		 *  Base64 encoding on the result.
 		 *
-		 *  @param s		The string to hash
-		 *  @return			The base64 encoded hash value of s
+		 *  @param s        The string to hash
+		 *  @return            The base64 encoded hash value of s
 		 */
 		public static function hashToBase64( s:String ):String
 		{
@@ -111,7 +111,7 @@ package com.leapmotion.leap.util
 					}
 
 					// 6.1.d
-					temp = (( a << 5 ) | ( a >>> 27 )) + (( b & c ) | ( ~b & d )) + e + int( w[ t ]) + 0x5a827999;
+					temp = (( a << 5 ) | ( a >>> 27 )) + (( b & c ) | ( ~b & d )) + e + int( w[ t ] ) + 0x5a827999;
 
 					e = d;
 					d = c;
@@ -126,7 +126,7 @@ package com.leapmotion.leap.util
 					w[ t ] = ( temp << 1 ) | ( temp >>> 31 )
 
 					// 6.1.d
-					temp = (( a << 5 ) | ( a >>> 27 )) + ( b ^ c ^ d ) + e + int( w[ t ]) + 0x6ed9eba1;
+					temp = (( a << 5 ) | ( a >>> 27 )) + ( b ^ c ^ d ) + e + int( w[ t ] ) + 0x6ed9eba1;
 
 					e = d;
 					d = c;
@@ -141,7 +141,7 @@ package com.leapmotion.leap.util
 					w[ t ] = ( temp << 1 ) | ( temp >>> 31 )
 
 					// 6.1.d
-					temp = (( a << 5 ) | ( a >>> 27 )) + (( b & c ) | ( b & d ) | ( c & d )) + e + int( w[ t ]) + 0x8f1bbcdc;
+					temp = (( a << 5 ) | ( a >>> 27 )) + (( b & c ) | ( b & d ) | ( c & d )) + e + int( w[ t ] ) + 0x8f1bbcdc;
 
 					e = d;
 					d = c;
@@ -156,7 +156,7 @@ package com.leapmotion.leap.util
 					w[ t ] = ( temp << 1 ) | ( temp >>> 31 )
 
 					// 6.1.d
-					temp = (( a << 5 ) | ( a >>> 27 )) + ( b ^ c ^ d ) + e + int( w[ t ]) + 0xca62c1d6;
+					temp = (( a << 5 ) | ( a >>> 27 )) + ( b ^ c ^ d ) + e + int( w[ t ] ) + 0xca62c1d6;
 
 					e = d;
 					d = c;
@@ -192,8 +192,8 @@ package com.leapmotion.leap.util
 		 *  that we'll do the processing on.  Appends padding
 		 *  and length in the process.
 		 *
-		 *  @param data		The data to split into blocks
-		 *  @return			An array containing the blocks into which data was split
+		 *  @param data        The data to split into blocks
+		 *  @return            An array containing the blocks into which data was split
 		 */
 		private static function createBlocksFromByteArray( data:ByteArray ):Array
 		{
@@ -222,8 +222,8 @@ package com.leapmotion.leap.util
 		 *  that we'll do the processing on.  Appends padding
 		 *  and length in the process.
 		 *
-		 *  @param s	The string to split into blocks
-		 *  @return		An array containing the blocks that s was split into.
+		 *  @param s    The string to split into blocks
+		 *  @return        An array containing the blocks that s was split into.
 		 */
 		private static function createBlocksFromString( s:String ):Array
 		{

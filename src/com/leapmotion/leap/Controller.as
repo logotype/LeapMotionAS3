@@ -1,16 +1,16 @@
 package com.leapmotion.leap
 {
 
-    import com.leapmotion.leap.callbacks.DefaultCallback;
-    import com.leapmotion.leap.interfaces.ILeapCallback;
-    import com.leapmotion.leap.interfaces.ILeapConnection;
-    import com.leapmotion.leap.namespaces.leapmotion;
-    import com.leapmotion.leap.native.LeapNative;
-    import com.leapmotion.leap.socket.LeapSocket;
+	import com.leapmotion.leap.callbacks.DefaultCallback;
+	import com.leapmotion.leap.interfaces.ILeapCallback;
+	import com.leapmotion.leap.interfaces.ILeapConnection;
+	import com.leapmotion.leap.namespaces.leapmotion;
+	import com.leapmotion.leap.native.LeapNative;
+	import com.leapmotion.leap.socket.LeapSocket;
 
-    import flash.events.EventDispatcher;
+	import flash.events.EventDispatcher;
 
-    /**
+	/**
 	 * The main event dispatcher for Leap events.
 	 * @author logotype
 	 *
@@ -18,15 +18,15 @@ package com.leapmotion.leap
 	public class Controller extends EventDispatcher
 	{
 		/**
-		 * The Listener subclass instance. 
+		 * The Listener subclass instance.
 		 */
 		leapmotion var callback:ILeapCallback;
-		
+
 		/**
-		 * Current connection, either native or socket. 
+		 * Current connection, either native or socket.
 		 */
 		public var connection:ILeapConnection;
-		
+
 		/**
 		 * The singleton instance.
 		 */
@@ -36,20 +36,20 @@ package com.leapmotion.leap
 		 * History of frame of tracking data from the Leap.
 		 */
 		public var frameHistory:Vector.<Frame> = new Vector.<Frame>();
-		
+
 		public function Controller()
 		{
-            leapmotion::callback = new DefaultCallback();
+			leapmotion::callback = new DefaultCallback();
 		}
-		
+
 		/**
 		 * Initializes connection to the Leap.
-		 *  
+		 *
 		 * @param host Optional. The host computer with the Leap device
 		 * (currently only supported for socket connections).
-		 * 
+		 *
 		 */
-		public function init( host:String = null ) :void
+		public function init( host:String = null ):void
 		{
 			if ( !host && LeapNative.isSupported() )
 			{
@@ -60,7 +60,7 @@ package com.leapmotion.leap
 				connection = new LeapSocket( host );
 			}
 		}
-		
+
 		/**
 		 * Returns a frame of tracking data from the Leap.
 		 *
@@ -81,30 +81,30 @@ package com.leapmotion.leap
 		public function frame( history:int = 0 ):Frame
 		{
 			var returnValue:Frame;
-			
+
 			if ( history >= frameHistory.length )
 				returnValue = Frame.invalid();
 			else if ( history == 0 )
 				returnValue = connection.frame;
 			else
 				returnValue = frameHistory[ history ];
-			
+
 			return returnValue;
 		}
 
-        /**
-         * Update the object that receives direct updates from the Leap device.
-         * The default callback will make the controller dispatch flash events.
-         * You can override this behaviour, by implementing the IListener interface
-         * in your own classes, and use this method to set the callback to your
-         * own implementation.
-         *
-         * @param callback
-         */
-        public function setCallback(callback:ILeapCallback):void
-        {
-            this.leapmotion::callback = callback;
-        }
+		/**
+		 * Update the object that receives direct updates from the Leap device.
+		 * The default callback will make the controller dispatch flash events.
+		 * You can override this behaviour, by implementing the IListener interface
+		 * in your own classes, and use this method to set the callback to your
+		 * own implementation.
+		 *
+		 * @param callback
+		 */
+		public function setCallback( callback:ILeapCallback ):void
+		{
+			this.leapmotion::callback = callback;
+		}
 
 		static public function getInstance():Controller
 		{
