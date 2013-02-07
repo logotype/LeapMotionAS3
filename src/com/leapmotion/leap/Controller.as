@@ -9,12 +9,18 @@ package com.leapmotion.leap
 	import com.leapmotion.leap.socket.LeapSocket;
 
 	import flash.events.EventDispatcher;
-
+	
 	/**
 	 * The main event dispatcher for Leap events.
 	 * @author logotype
 	 *
 	 */
+	[Event(name="leapmotionInit", type="com.leapmotion.leap.events.LeapEvent")]
+	[Event(name="leapmotionConnected", type="com.leapmotion.leap.events.LeapEvent")]
+	[Event(name="leapmotionDisconnected", type="com.leapmotion.leap.events.LeapEvent")]
+	[Event(name="leapmotionTimeout", type="com.leapmotion.leap.events.LeapEvent")]
+	[Event(name="leapmotionExit", type="com.leapmotion.leap.events.LeapEvent")]
+	[Event(name="leapmotionFrame", type="com.leapmotion.leap.events.LeapEvent")]
 	public class Controller extends EventDispatcher
 	{
 		/**
