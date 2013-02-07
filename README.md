@@ -121,6 +121,12 @@ Upcoming features
 + Multi-threading using Workers
 + Additional example code will be added
 
+Demos
+-----------
+
+[<img src="http://logotype.se/leapmotion/danny1.png">](http://www.youtube.com/watch?v=dJONdYwyN1o) [<img src="http://logotype.se/leapmotion/danny2.png">](http://www.youtube.com/watch?v=x8jLtlErXxk) 
+
+
 Authors
 -------
 
