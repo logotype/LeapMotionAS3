@@ -8,7 +8,7 @@ This is the AS3 framework for working with the Leap.
 Demos
 -----------
 
-[<img src="http://logotype.se/leapmotion/danny1.png">](http://www.youtube.com/watch?v=dJONdYwyN1o) [<img src="http://logotype.se/leapmotion/danny2.png">](http://www.youtube.com/watch?v=x8jLtlErXxk) 
+[<img src="http://logotype.se/leapmotion/victor1.png">](http://www.youtube.com/watch?v=y9SDf5GSDF8) [<img src="http://logotype.se/leapmotion/danny1.png">](http://www.youtube.com/watch?v=dJONdYwyN1o) [<img src="http://logotype.se/leapmotion/danny2.png">](http://www.youtube.com/watch?v=x8jLtlErXxk)
 
 
 Quick start
