@@ -6,9 +6,9 @@ package com.leapmotion.leap.socket
 
 	/**
 	 * A WebSocket frame, not yet parsed to a LeapMotion Frame.
-	 *  
+	 *
 	 * @author logotype
-	 * 
+	 *
 	 */
 	[Inline]
 	final public class LeapSocketFrame
@@ -28,10 +28,10 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Adds data to a buffer until a full Frame is assembled 
+		 * Adds data to a buffer until a full Frame is assembled
 		 * @param input Socket data
 		 * @return Returns true once the Frame is complete
-		 * 
+		 *
 		 */
 		[Inline]
 		final public function addData( input:Socket ):Boolean

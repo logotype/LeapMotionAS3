@@ -1,26 +1,26 @@
 package com.leapmotion.leap.native
 {
+	import com.leapmotion.leap.Controller;
 	import com.leapmotion.leap.Frame;
-	import com.leapmotion.leap.connection.ILeapConnection;
-	import com.leapmotion.leap.events.LeapEvent;
-	import com.leapmotion.leap.events.LeapProxy;
-	
+	import com.leapmotion.leap.interfaces.ILeapConnection;
+	import com.leapmotion.leap.namespaces.leapmotion;
+
 	import flash.events.EventDispatcher;
 	import flash.events.StatusEvent;
 	import flash.utils.getDefinitionByName;
-	
+
 	public class LeapNative extends EventDispatcher implements ILeapConnection
 	{
 		/**
 		 * Called when the Controller object connects to the Leap software, or when this Listener object is added to a Controller that is alrady connected.
 		 */
 		static public const LEAPNATIVE_CONNECTED:String = "onConnect";
-		
+
 		/**
 		 * Called when the Controller object disconnects from the Leap software
 		 */
 		static public const LEAPNATIVE_DISCONNECTED:String = "onDisconnect";
-		
+
 		/**
 		 * Called when a new frame of hand and finger tracking data is available.
 		 *
@@ -36,57 +36,56 @@ package com.leapmotion.leap.native
 		 * received frame.
 		 */
 		static public const LEAPNATIVE_FRAME:String = "onFrame";
-		
+
 		/**
 		 * Boolean toggle to check if the class has been initialized
 		 */
 		private static var initialized:Boolean;
-		
+
 		/**
 		 * Reference to flash.external.ExtensionContext (only available on AIR)
 		 */
 		private static var ExtensionContextClass:*;
-		
+
 		/**
 		 * Reference to the shared extension context
 		 */
 		private static var sharedContext:Object;
-		
+
 		/**
 		 * The native extension context for the device
 		 */
 		private var context:Object;
-		
+
 		/**
 		 * Most recent Frame received.
 		 */
 		private var _frame:Frame;
-		
+
 		/**
 		 * Whether the Leap is currently connected.
 		 */
 		private var _isConnected:Boolean = false;
-		
+
 		/**
 		 * Event Dispatcher singleton.
 		 */
-		private var controller:LeapProxy;
-		
+		private var controller:Controller;
+
 		public function LeapNative()
 		{
+			controller = Controller.getInstance();
 			context = tryCreatingExtensionContext();
-			context.addEventListener( StatusEvent.STATUS, contextStatusHandler, false, 0, true );
-			
-			controller = LeapProxy.getInstance();
+			context.addEventListener( StatusEvent.STATUS, contextStatusModeEventHandler, false, 0, true );
 		}
-		
+
 		/**
 		 * Inline method. Triggered when extension context changes status.
 		 * @param event
 		 *
 		 */
 		[Inline]
-		private function contextStatusHandler( event:StatusEvent ):void
+		private function contextStatusModeEventHandler( event:StatusEvent ):void
 		{
 			switch ( event.code )
 			{
@@ -100,11 +99,11 @@ package com.leapmotion.leap.native
 					handleOnFrame();
 					break;
 				default:
-					trace( "[LeapNative] contextStatusHandler: ", event.code, event.level );
+					trace( "[LeapNative] contextStatusModeEventHandler: ", event.code, event.level );
 					break;
 			}
 		}
-		
+
 		/**
 		 * Inline method. Triggered when native extension context connects to the Leap
 		 *
@@ -113,9 +112,9 @@ package com.leapmotion.leap.native
 		final private function handleOnConnect():void
 		{
 			_isConnected = true;
-			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_CONNECTED ));
+			controller.leapmotion::callback.onConnect( controller );
 		}
-		
+
 		/**
 		 * Inline method. Triggered when native extension context disconnects from the Leap
 		 *
@@ -124,10 +123,10 @@ package com.leapmotion.leap.native
 		final private function handleOnDisconnect():void
 		{
 			_isConnected = false;
-			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_DISCONNECTED ));
-			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_EXIT ));
+			controller.leapmotion::callback.onDisconnect( controller );
+			controller.leapmotion::callback.onExit( controller );
 		}
-		
+
 		/**
 		 * Inline method. Triggered when native extension context dispatches a Frame.
 		 *
@@ -136,17 +135,18 @@ package com.leapmotion.leap.native
 		final private function handleOnFrame():void
 		{
 			var currentFrame:Frame = context.call( "getFrame" );
-			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_FRAME, currentFrame ));
-			
+
 			// Add frame to history
 			if ( controller.frameHistory.length > 59 )
 				controller.frameHistory.splice( 59, 1 );
-			
+
 			controller.frameHistory.unshift( _frame );
-			
+
 			_frame = currentFrame;
+
+			controller.leapmotion::callback.onFrame( controller, _frame );
 		}
-		
+
 		/**
 		 * Reports whether the native library is supported.
 		 *
@@ -157,7 +157,7 @@ package com.leapmotion.leap.native
 			if ( !initialized )
 			{
 				initialized = true;
-				if ( tryCreatingExtensionContextClassReference())
+				if ( tryCreatingExtensionContextClassReference() )
 				{
 					sharedContext = tryCreatingExtensionContext( "shared" );
 					if ( sharedContext )
@@ -179,7 +179,7 @@ package com.leapmotion.leap.native
 			}
 			return false;
 		}
-		
+
 		/**
 		 * Tries to return a reference to the class object of the class
 		 * specified.
@@ -200,7 +200,7 @@ package com.leapmotion.leap.native
 			}
 			return false;
 		}
-		
+
 		/**
 		 * Tries to create a LeapNative class context.
 		 *
@@ -221,7 +221,7 @@ package com.leapmotion.leap.native
 			}
 			return null;
 		}
-		
+
 		/**
 		 * Whether the Leap is currently connected.
 		 */
@@ -229,7 +229,7 @@ package com.leapmotion.leap.native
 		{
 			return _isConnected;
 		}
-		
+
 		/**
 		 * Most recent Frame received.
 		 */

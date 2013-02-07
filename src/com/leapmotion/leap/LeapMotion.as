@@ -1,12 +1,5 @@
 package com.leapmotion.leap
 {
-	import com.leapmotion.leap.connection.ILeapConnection;
-	import com.leapmotion.leap.events.LeapProxy;
-	import com.leapmotion.leap.native.LeapNative;
-	import com.leapmotion.leap.socket.LeapSocket;
-
-	import flash.events.EventDispatcher;
-
 	/**
 	 * The LeapMotion class is your main interface to the Leap device.
 	 *
@@ -42,24 +35,14 @@ package com.leapmotion.leap
 	 * @author logotype
 	 *
 	 */
-	public class LeapMotion extends EventDispatcher
+	public class LeapMotion
 	{
-		private var connection:ILeapConnection;
-		public var controller:LeapProxy;
-
-		private var frameHistory:Vector.<Frame> = new Vector.<Frame>();
+		public var controller:Controller;
 
 		public function LeapMotion( host:String = null )
 		{
-			controller = LeapProxy.getInstance();
-			if ( LeapNative.isSupported())
-			{
-				connection = new LeapNative();
-			}
-			else
-			{
-				connection = new LeapSocket( host );
-			}
+			controller = Controller.getInstance();
+			controller.init( host );
 		}
 
 		/**
@@ -79,7 +62,7 @@ package com.leapmotion.leap
 		 */
 		public function isConnected():Boolean
 		{
-			return connection.isConnected;
+			return controller.connection.isConnected;
 		}
 
 		/**
@@ -101,16 +84,7 @@ package com.leapmotion.leap
 		 */
 		public function frame( history:int = 0 ):Frame
 		{
-			var returnValue:Frame;
-
-			if ( history >= controller.frameHistory.length )
-				returnValue = Frame.invalid();
-			else if ( history == 0 )
-				returnValue = connection.frame;
-			else
-				returnValue = controller.frameHistory[ history ];
-
-			return returnValue;
+			return controller.frame( history );
 		}
 	}
 }

@@ -94,9 +94,9 @@ package com.leapmotion.leap
 		 */
 		public function rigidInverse():Matrix
 		{
-			var rotInverse:Matrix = new Matrix( new Vector3( xBasis.x, yBasis.x, zBasis.x ), new Vector3( xBasis.y, yBasis.y, zBasis.y ), new Vector3( xBasis.z, yBasis.z, zBasis.z ));
+			var rotInverse:Matrix = new Matrix( new Vector3( xBasis.x, yBasis.x, zBasis.x ), new Vector3( xBasis.y, yBasis.y, zBasis.y ), new Vector3( xBasis.z, yBasis.z, zBasis.z ) );
 			if ( origin )
-				rotInverse.origin = rotInverse.transformDirection( origin.opposite());
+				rotInverse.origin = rotInverse.transformDirection( origin.opposite() );
 			return rotInverse;
 		}
 
@@ -108,7 +108,7 @@ package com.leapmotion.leap
 		 */
 		public function multiply( other:Matrix ):Matrix
 		{
-			return new Matrix( transformDirection( other.xBasis ), transformDirection( other.yBasis ), transformDirection( other.zBasis ), transformPoint( other.origin ));
+			return new Matrix( transformDirection( other.xBasis ), transformDirection( other.yBasis ), transformDirection( other.zBasis ), transformPoint( other.origin ) );
 		}
 
 		/**
@@ -136,16 +136,16 @@ package com.leapmotion.leap
 		{
 			var returnValue:Boolean = true;
 
-			if ( !xBasis.isEqualTo( other.xBasis ))
+			if ( !xBasis.isEqualTo( other.xBasis ) )
 				returnValue = false;
 
-			if ( !yBasis.isEqualTo( other.yBasis ))
+			if ( !yBasis.isEqualTo( other.yBasis ) )
 				returnValue = false;
 
-			if ( !zBasis.isEqualTo( other.zBasis ))
+			if ( !zBasis.isEqualTo( other.zBasis ) )
 				returnValue = false;
 
-			if ( !origin.isEqualTo( other.origin ))
+			if ( !origin.isEqualTo( other.origin ) )
 				returnValue = false;
 
 			return returnValue;

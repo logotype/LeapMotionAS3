@@ -4,9 +4,9 @@ package com.leapmotion.leap.util
 
 	/**
 	 * A utility class to encode a String or ByteArray as a Base64 encoded String.
-	 *  
+	 *
 	 * @author logotype
-	 * 
+	 *
 	 */
 	public class Base64Encoder
 	{
@@ -27,7 +27,7 @@ package com.leapmotion.leap.util
 		 * to wrap the encoded output.
 		 */
 		public var insertNewLines:Boolean = true;
-		
+
 		/**
 		 * An Array of buffer Arrays.
 		 */
@@ -35,17 +35,17 @@ package com.leapmotion.leap.util
 		private var _count:uint;
 		private var _line:uint;
 		private var _work:Array = [ 0, 0, 0 ];
-		
+
 		/**
 		 * This value represents a safe number of characters (i.e. arguments) that
 		 * can be passed to String.fromCharCode.apply() without exceeding the AVM+
 		 * stack limit.
 		 */
 		public static const MAX_BUFFER_SIZE:uint = 32767;
-		
+
 		private static const ESCAPE_CHAR_CODE:Number = 61;
 		private static const ALPHABET_CHAR_CODES:Array = [ 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 43, 47 ];
-		
+
 		public function Base64Encoder()
 		{
 			reset();
@@ -62,7 +62,7 @@ package com.leapmotion.leap.util
 			}
 
 			_buffers = [];
-			_buffers.push([]);
+			_buffers.push( [] );
 
 			return result;
 		}
@@ -183,7 +183,7 @@ package com.leapmotion.leap.util
 		public function reset():void
 		{
 			_buffers = [];
-			_buffers.push([]);
+			_buffers.push( [] );
 			_count = 0;
 			_line = 0;
 			_work[ 0 ] = 0;
@@ -212,22 +212,22 @@ package com.leapmotion.leap.util
 				_buffers.push( currentBuffer );
 			}
 
-			currentBuffer.push( ALPHABET_CHAR_CODES[( _work[ 0 ] & 0xFF ) >> 2 ]);
-			currentBuffer.push( ALPHABET_CHAR_CODES[(( _work[ 0 ] & 0x03 ) << 4 ) | (( _work[ 1 ] & 0xF0 ) >> 4 )]);
+			currentBuffer.push( ALPHABET_CHAR_CODES[( _work[ 0 ] & 0xFF ) >> 2 ] );
+			currentBuffer.push( ALPHABET_CHAR_CODES[(( _work[ 0 ] & 0x03 ) << 4 ) | (( _work[ 1 ] & 0xF0 ) >> 4 )] );
 
 			if ( _count > 1 )
-				currentBuffer.push( ALPHABET_CHAR_CODES[(( _work[ 1 ] & 0x0F ) << 2 ) | (( _work[ 2 ] & 0xC0 ) >> 6 )]);
+				currentBuffer.push( ALPHABET_CHAR_CODES[(( _work[ 1 ] & 0x0F ) << 2 ) | (( _work[ 2 ] & 0xC0 ) >> 6 )] );
 			else
 				currentBuffer.push( ESCAPE_CHAR_CODE );
 
 			if ( _count > 2 )
-				currentBuffer.push( ALPHABET_CHAR_CODES[ _work[ 2 ] & 0x3F ]);
+				currentBuffer.push( ALPHABET_CHAR_CODES[ _work[ 2 ] & 0x3F ] );
 			else
 				currentBuffer.push( ESCAPE_CHAR_CODE );
 
 			if ( insertNewLines )
 			{
-				if (( _line += 4 ) == 76 )
+				if ( ( _line += 4 ) == 76 )
 				{
 					currentBuffer.push( newLine );
 					_line = 0;

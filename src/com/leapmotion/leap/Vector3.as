@@ -174,7 +174,7 @@ package com.leapmotion.leap
 			if ( denom <= 0.0 )
 				return 0.0;
 
-			return Math.acos( dot( other ) / Math.sqrt( denom ));
+			return Math.acos( dot( other ) / Math.sqrt( denom ) );
 		}
 
 		/**
@@ -185,7 +185,7 @@ package com.leapmotion.leap
 		 */
 		public function cross( other:Vector3 ):Vector3
 		{
-			return new Vector3(( y * other.z ) - ( z * other.y ), ( z * other.x ) - ( x * other.z ), ( x * other.y ) - ( y * other.x ));
+			return new Vector3( ( y * other.z ) - ( z * other.y ), ( z * other.x ) - ( x * other.z ), ( x * other.y ) - ( y * other.x ) );
 		}
 
 		/**
@@ -196,7 +196,7 @@ package com.leapmotion.leap
 		 */
 		public function distanceTo( other:Vector3 ):Number
 		{
-			return Math.sqrt(( x - other.x ) * ( x - other.x ) + ( y - other.y ) * ( y - other.y ) + ( z - other.z ) * ( z - other.z ));
+			return Math.sqrt( ( x - other.x ) * ( x - other.x ) + ( y - other.y ) * ( y - other.y ) + ( z - other.z ) * ( z - other.z ) );
 		}
 
 		/**
