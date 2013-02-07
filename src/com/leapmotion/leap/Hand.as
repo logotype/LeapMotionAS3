@@ -114,7 +114,7 @@ package com.leapmotion.leap
 		{
 			var returnValue:Boolean = false;
 
-			if (( direction && direction.isValid()) && ( palmNormal && palmNormal.isValid()) && ( palmPosition && palmPosition.isValid()) && ( palmVelocity && palmVelocity.isValid()) && ( sphereCenter && sphereCenter.isValid()))
+			if ( ( direction && direction.isValid()) && ( palmNormal && palmNormal.isValid()) && ( palmPosition && palmPosition.isValid()) && ( palmVelocity && palmVelocity.isValid()) && ( sphereCenter && sphereCenter.isValid()) )
 				returnValue = true;
 
 			return returnValue;
@@ -254,9 +254,9 @@ package com.leapmotion.leap
 		{
 			var returnValue:Vector3 = new Vector3( 0, 0, 0 );
 
-            if ( sinceFrame.hand(id) )
+			if ( sinceFrame.hand( id ) )
 			{
-				var vector:Vector3 = new Vector3( this.rotation.zBasis.y - sinceFrame.hand(id).rotation.yBasis.z, this.rotation.xBasis.z - sinceFrame.hand(id).rotation.zBasis.x, this.rotation.yBasis.x - sinceFrame.hand(id).rotation.xBasis.y );
+				var vector:Vector3 = new Vector3( this.rotation.zBasis.y - sinceFrame.hand( id ).rotation.yBasis.z, this.rotation.xBasis.z - sinceFrame.hand( id ).rotation.zBasis.x, this.rotation.yBasis.x - sinceFrame.hand( id ).rotation.xBasis.y );
 				returnValue = vector.normalized();
 			}
 
@@ -286,15 +286,18 @@ package com.leapmotion.leap
 		public function rotationAngle( sinceFrame:Frame, axis:Vector3 = null ):Number
 		{
 			// TODO: Implement rotation angle around axis
-			var returnValue:Number = 0;
-			if ( sinceFrame.hand(id) && sinceFrame.hand(id).frame )
+			if ( sinceFrame.hand( id ) && sinceFrame.hand( id ).frame )
 			{
-				var rotationSinceFrameMatrix:Matrix = rotationMatrix( sinceFrame.hand(id).frame );
+				var rotationSinceFrameMatrix:Matrix = rotationMatrix( sinceFrame.hand( id ).frame );
 				var cs:Number = ( rotationSinceFrameMatrix.xBasis.x + rotationSinceFrameMatrix.yBasis.y + rotationSinceFrameMatrix.zBasis.z ) * 0.5;
+<<<<<<< HEAD
 				var angle:Number = Math.acos( cs );
 				returnValue = ( isNaN( angle ) ? 0 : angle );
+=======
+				return Math.acos( cs );
+>>>>>>> upstream/master
 			}
-			return returnValue;
+			return 0;
 		}
 
 		/**
@@ -318,15 +321,15 @@ package com.leapmotion.leap
 		{
 			var returnValue:Matrix = Matrix.identity();
 
-			if ( sinceFrame.hand(id) && sinceFrame.hand(id).rotation )
-				returnValue = rotation.multiply( sinceFrame.hand(id).rotation );
+			if ( sinceFrame.hand( id ) && sinceFrame.hand( id ).rotation )
+				returnValue = rotation.multiply( sinceFrame.hand( id ).rotation );
 
 			return returnValue;
 		}
 
 		/**
 		 * The change of position of this hand between the current frame and the specified frame.
-		 * 
+		 *
 		 * @param sinceFrame The starting frame for computing the translation.
 		 * @return A Vector representing the heuristically determined change
 		 * in hand position between the current frame and that specified
@@ -338,8 +341,8 @@ package com.leapmotion.leap
 		{
 			var returnValue:Vector3 = new Vector3( 0, 0, 0 );
 
-			if ( sinceFrame.hand(id) && sinceFrame.hand(id).translationVector )
-				returnValue = new Vector3( translationVector.x - sinceFrame.hand(id).translationVector.x, translationVector.y - sinceFrame.hand(id).translationVector.y, translationVector.z - sinceFrame.hand(id).translationVector.z );
+			if ( sinceFrame.hand( id ) && sinceFrame.hand( id ).translationVector )
+				returnValue = new Vector3( translationVector.x - sinceFrame.hand( id ).translationVector.x, translationVector.y - sinceFrame.hand( id ).translationVector.y, translationVector.z - sinceFrame.hand( id ).translationVector.z );
 
 			return returnValue;
 		}
