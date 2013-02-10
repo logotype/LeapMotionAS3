@@ -77,8 +77,8 @@ Features
 + Uses ASC 2.0 compiler features (be sure to add the `-inline` and `-swf-version=19` compiler arguments)
 + Connect multiple computers to the same Leap device (via an optional "host" argument)
 + Works great with [Starling](https://github.com/PrimaryFeather/Starling-Framework) and [Away3D](https://github.com/away3d/away3d-core-fp11)
-+ AIR Native Extension (ANE) which directly interfaces with the C++ library
-+ Compatible with Mac and PC
++ AIR Native Extension (ANE) which directly interfaces with the C++ library (Mac, PC)
++ Compatible with Mac OSX, Windows, iOS (iPad/iPhone/etc), Android
 
 AIR Native Extension
 --------------------
