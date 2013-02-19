@@ -94,7 +94,7 @@ package com.leapmotion.leap
 		/**
 		 * Scale factor since last Frame.
 		 */
-		public var scaleFactor:Number;
+		public var scaleFactorNumber:Number;
 
 		/**
 		 * Translation since last Frame.
@@ -256,7 +256,7 @@ package com.leapmotion.leap
 
 			if ( sinceFrame.hand( id ) )
 			{
-				var vector:Vector3 = new Vector3( this.rotation.zBasis.y - sinceFrame.hand( id ).rotation.yBasis.z, this.rotation.xBasis.z - sinceFrame.hand( id ).rotation.zBasis.x, this.rotation.yBasis.x - sinceFrame.hand( id ).rotation.xBasis.y );
+				var vector:Vector3 = new Vector3( rotation.zBasis.y - sinceFrame.hand( id ).rotation.yBasis.z, rotation.xBasis.z - sinceFrame.hand( id ).rotation.zBasis.x, rotation.yBasis.x - sinceFrame.hand( id ).rotation.xBasis.y );
 				returnValue = vector.normalized();
 			}
 
@@ -320,6 +320,37 @@ package com.leapmotion.leap
 			if ( sinceFrame.hand( id ) && sinceFrame.hand( id ).rotation )
 				returnValue = rotation.multiply( sinceFrame.hand( id ).rotation );
 
+			return returnValue;
+		}
+
+		/**
+		 * The scale factor derived from this hand's motion between
+		 * the current frame and the specified frame.
+		 * 
+		 * The scale factor is always positive. A value of 1.0 indicates no
+		 * scaling took place. Values between 0.0 and 1.0 indicate contraction
+		 * and values greater than 1.0 indicate expansion.
+		 * 
+		 * The Leap derives scaling from the relative inward or outward motion
+		 * of a hand and its associated fingers and tools (independent of
+		 * translation and rotation).
+		 * 
+		 * If a corresponding Hand object is not found in sinceFrame,
+		 * or if either this frame or sinceFrame are invalid Frame objects,
+		 * then this method returns 1.0.
+		 * 
+		 * @param sinceFrame The starting frame for computing the relative scaling.
+		 * @return A positive value representing the heuristically determined
+		 * scaling change ratio between the current frame and that specified
+		 * in the sinceFrame parameter.
+		 *
+		 */
+		public function scaleFactor( sinceFrame:Frame ):Number
+		{
+			var returnValue:Number = 1;
+			if ( sinceFrame && sinceFrame.hand( id ) && sinceFrame.hand( id ).scaleFactorNumber )
+				returnValue = Math.exp( scaleFactorNumber - sinceFrame.hand( id ).scaleFactorNumber );
+			
 			return returnValue;
 		}
 

@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		371805AB16BEBA5A00C88F3E /* Adobe AIR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 371805AA16BEBA5A00C88F3E /* Adobe AIR.framework */; };
-		6C2DA04C16BBD08B00FC1899 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C2DA04B16BBD08B00FC1899 /* Cocoa.framework */; };
+		3782F5EF16D3C7220089BD7A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3782F5EE16D3C7220089BD7A /* Cocoa.framework */; };
+		3782F5F116D3C7270089BD7A /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3782F5F016D3C7270089BD7A /* AppKit.framework */; };
+		3782F5F316D3C72E0089BD7A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3782F5F216D3C72E0089BD7A /* CoreData.framework */; };
+		3782F5F516D3C7350089BD7A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3782F5F416D3C7350089BD7A /* Foundation.framework */; };
 		6C2DA05616BBD08B00FC1899 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C2DA05416BBD08B00FC1899 /* InfoPlist.strings */; };
 		6C2DA06916BBD22700FC1899 /* LNExtension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C2DA06716BBD22700FC1899 /* LNExtension.cpp */; };
 		6C2DA06A16BBD22700FC1899 /* LNExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C2DA06816BBD22700FC1899 /* LNExtension.h */; };
@@ -35,11 +38,11 @@
 
 /* Begin PBXFileReference section */
 		371805AA16BEBA5A00C88F3E /* Adobe AIR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Adobe AIR.framework"; path = "/Applications/Adobe Flash Builder 4.7/sdks/4.6.0/runtimes/air/mac/Adobe AIR.framework"; sourceTree = "<absolute>"; };
+		3782F5EE16D3C7220089BD7A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		3782F5F016D3C7270089BD7A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
+		3782F5F216D3C72E0089BD7A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		3782F5F416D3C7350089BD7A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		6C2DA04816BBD08B00FC1899 /* LeapNative.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LeapNative.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C2DA04B16BBD08B00FC1899 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		6C2DA04E16BBD08B00FC1899 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		6C2DA04F16BBD08B00FC1899 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		6C2DA05016BBD08B00FC1899 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6C2DA05316BBD08B00FC1899 /* LeapNative-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LeapNative-Info.plist"; sourceTree = "<group>"; };
 		6C2DA05516BBD08B00FC1899 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6C2DA05716BBD08B00FC1899 /* LeapNative-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LeapNative-Prefix.pch"; sourceTree = "<group>"; };
@@ -57,8 +60,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3782F5F516D3C7350089BD7A /* Foundation.framework in Frameworks */,
+				3782F5F316D3C72E0089BD7A /* CoreData.framework in Frameworks */,
+				3782F5F116D3C7270089BD7A /* AppKit.framework in Frameworks */,
+				3782F5EF16D3C7220089BD7A /* Cocoa.framework in Frameworks */,
 				371805AB16BEBA5A00C88F3E /* Adobe AIR.framework in Frameworks */,
-				6C2DA04C16BBD08B00FC1899 /* Cocoa.framework in Frameworks */,
 				6C2DA08816BBF67D00FC1899 /* libLeap.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -97,10 +103,10 @@
 		6C2DA04D16BBD08B00FC1899 /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6C2DA04B16BBD08B00FC1899 /* Cocoa.framework */,
-				6C2DA04E16BBD08B00FC1899 /* AppKit.framework */,
-				6C2DA04F16BBD08B00FC1899 /* CoreData.framework */,
-				6C2DA05016BBD08B00FC1899 /* Foundation.framework */,
+				3782F5F416D3C7350089BD7A /* Foundation.framework */,
+				3782F5F216D3C72E0089BD7A /* CoreData.framework */,
+				3782F5F016D3C7270089BD7A /* AppKit.framework */,
+				3782F5EE16D3C7220089BD7A /* Cocoa.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
@@ -295,7 +301,7 @@
 					"\"$(SRCROOT)/../../../Leap_SDK/lib\"",
 					"\"$(SRCROOT)/../../../Leap_SDK/lib/libc++\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = macosx10.6;
 				VALID_ARCHS = i386;
@@ -332,7 +338,7 @@
 					"\"$(SRCROOT)/../../../Leap_SDK/lib\"",
 					"\"$(SRCROOT)/../../../Leap_SDK/lib/libc++\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx10.6;
 				VALID_ARCHS = i386;
@@ -350,6 +356,7 @@
 				GCC_PREFIX_HEADER = "LeapNative/LeapNative-Prefix.pch";
 				INFOPLIST_FILE = "LeapNative/LeapNative-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.8;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -365,6 +372,7 @@
 				GCC_PREFIX_HEADER = "LeapNative/LeapNative-Prefix.pch";
 				INFOPLIST_FILE = "LeapNative/LeapNative-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.8;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;

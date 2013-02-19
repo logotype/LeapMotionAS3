@@ -35,6 +35,7 @@ namespace leapnative {
         
         Controller*     controller;
         LNLeapListener* listener;
+        Frame           lastFrame;
         
         FREObject createVector3(double x, double y, double z);
         FREObject createMatrix(FREObject xVector3, FREObject yVector3, FREObject zVector3, FREObject originVector3);

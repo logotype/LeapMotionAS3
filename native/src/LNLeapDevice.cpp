@@ -47,7 +47,7 @@ namespace leapnative {
     
     FREObject LNLeapDevice::getFrame() {
         
-        const Frame frame = controller->frame();
+        Frame frame = controller->frame();
         
         // TODO: Only continue with valid Frame?
         
@@ -59,6 +59,21 @@ namespace leapnative {
         FREObject freFrameId;
         FRENewObjectFromInt32((int32_t) frame.id(), &freFrameId);
         FRESetObjectProperty(freCurrentFrame, (const uint8_t*) "id", freFrameId, NULL);
+        
+        const Vector frameTranslation = frame.translation(lastFrame);
+        FRESetObjectProperty(freCurrentFrame, (const uint8_t*) "translationVector", createVector3(frameTranslation.x, frameTranslation.y, frameTranslation.z), NULL);
+        
+        const Matrix frameRotation = frame.rotationMatrix(lastFrame);
+        FRESetObjectProperty(freCurrentFrame, (const uint8_t*) "rotation", createMatrix(
+                     createVector3(frameRotation.xBasis[0], frameRotation.xBasis[1], frameRotation.xBasis[2]),
+                     createVector3(frameRotation.yBasis[0], frameRotation.yBasis[1], frameRotation.yBasis[2]),
+                     createVector3(frameRotation.zBasis[0], frameRotation.zBasis[1], frameRotation.zBasis[2]),
+                     createVector3(frameRotation.origin[0], frameRotation.origin[1], frameRotation.origin[2])
+        ), NULL);
+        
+        FREObject freFrameScaleFactor;
+        FRENewObjectFromDouble(frame.scaleFactor(lastFrame), &freFrameScaleFactor);
+        FRESetObjectProperty(freCurrentFrame, (const uint8_t*) "scaleFactorNumber", freFrameScaleFactor, NULL);
         
         FREObject freTimestamp;
         FRENewObjectFromInt32((int32_t) frame.timestamp(), &freTimestamp);
@@ -85,7 +100,7 @@ namespace leapnative {
                 FRESetObjectProperty(freHand, (const uint8_t*) "palmPosition", createVector3(hand.palmPosition()[0], hand.palmPosition()[1], hand.palmPosition()[2]), NULL);
                 FRESetObjectProperty(freHand, (const uint8_t*) "palmVelocity", createVector3(hand.palmVelocity()[0], hand.palmVelocity()[1], hand.palmVelocity()[2]), NULL);
                 
-                const Matrix rotation = hand.rotationMatrix(frame);
+                const Matrix rotation = hand.rotationMatrix(lastFrame);
                 FRESetObjectProperty(freHand, (const uint8_t*) "rotation", createMatrix(
                                      createVector3(rotation.xBasis[0], rotation.xBasis[1], rotation.xBasis[2]),
                                      createVector3(rotation.yBasis[0], rotation.yBasis[1], rotation.yBasis[2]),
@@ -94,8 +109,8 @@ namespace leapnative {
                 ), NULL);
                 
                 FREObject freScaleFactor;
-                FRENewObjectFromDouble(hand.scaleFactor(frame), &freScaleFactor);
-                FRESetObjectProperty(freHand, (const uint8_t*) "scaleFactor", freScaleFactor, NULL);
+                FRENewObjectFromDouble(hand.scaleFactor(lastFrame), &freScaleFactor);
+                FRESetObjectProperty(freHand, (const uint8_t*) "scaleFactorNumber", freScaleFactor, NULL);
                 
                 FRESetObjectProperty(freHand, (const uint8_t*) "sphereCenter", createVector3(hand.sphereCenter()[0], hand.sphereCenter()[1], hand.sphereCenter()[2]), NULL);
                 
@@ -103,7 +118,7 @@ namespace leapnative {
                 FRENewObjectFromDouble(hand.sphereRadius(), &freSphereRadius);
                 FRESetObjectProperty(freHand, (const uint8_t*) "sphereRadius", freSphereRadius, NULL);
                 
-                const Vector translation = hand.translation(frame);
+                const Vector translation = hand.translation(lastFrame);
                 FRESetObjectProperty(freHand, (const uint8_t*) "translationVector", createVector3(translation.x, translation.y, translation.z), NULL);
                 
                 FRESetArrayElementAt(freHands, i, freHand);
@@ -136,6 +151,9 @@ namespace leapnative {
                 FREObject frePointableLength;
                 FRENewObjectFromInt32(pointable.length(), &frePointableLength);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "length", frePointableLength, NULL);
+                FREObject frePointableWidth;
+                FRENewObjectFromInt32(pointable.width(), &frePointableWidth);
+                FRESetObjectProperty(frePointable, (const uint8_t*) "width", frePointableWidth, NULL);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "direction", createVector3(pointable.direction().x, pointable.direction().y, pointable.direction().z), NULL);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "tipPosition", createVector3(pointable.tipPosition().x, pointable.tipPosition().y, pointable.tipPosition().z), NULL);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "tipVelocity", createVector3(pointable.tipVelocity().x, pointable.tipVelocity().y, pointable.tipVelocity().z), NULL);
@@ -178,6 +196,8 @@ namespace leapnative {
                 FRESetArrayElementAt(freSpecificPointables, numSpecificTools, frePointable);
             }
         }
+        
+        lastFrame = frame;
         
         return freCurrentFrame;
     }
