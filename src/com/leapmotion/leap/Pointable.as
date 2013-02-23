@@ -79,6 +79,9 @@ package com.leapmotion.leap
 
 		public function Pointable()
 		{
+			direction = Vector3.invalid();
+			tipPosition = Vector3.invalid();
+			tipVelocity = Vector3.invalid();
 		}
 
 		/**

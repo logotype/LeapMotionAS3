@@ -265,6 +265,12 @@ namespace leapnative {
                         FREObject freCircleGestureRadius;
                         FRENewObjectFromDouble(circle.radius(), &freCircleGestureRadius);
                         FRESetObjectProperty(freGesture, (const uint8_t*) "radius", freCircleGestureRadius, NULL);
+                    
+                        FREObject frePointable = frePointablesMap[circle.pointable().id()];
+                        if(frePointable != NULL)
+                        {
+                            FRESetObjectProperty(freGesture, (const uint8_t*) "pointable", frePointable, NULL);
+                        }
 
                         break;
                     }

@@ -173,6 +173,10 @@ package com.leapmotion.leap
 		{
 			// TODO: Implement validity checking.
 			var returnValue:Boolean = true;
+			if( isNaN( durationSeconds ) )
+			{
+				return false;
+			}
 			return returnValue;
 		}
 

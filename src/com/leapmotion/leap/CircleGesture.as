@@ -89,6 +89,7 @@ package com.leapmotion.leap
 		 */
 		public function CircleGesture()
 		{
+			pointable = Pointable.invalid();
 		}
 	}
 }

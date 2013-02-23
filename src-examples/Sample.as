@@ -1,8 +1,9 @@
 package
 {
 	import com.leapmotion.leap.*;
-	import com.leapmotion.leap.util.*;
 	import com.leapmotion.leap.events.*;
+	import com.leapmotion.leap.util.*;
+	
 	import flash.display.Sprite;
 
 	public class Sample extends Sprite
@@ -104,8 +105,12 @@ package
 						var sweptAngle:Number = 0;
 						if ( circle.state != Gesture.STATE_START )
 						{
-							var previousUpdate:CircleGesture = CircleGesture( leap.frame( 1 ).gesture( circle.id ) );
-							sweptAngle = ( circle.progress - previousUpdate.progress ) * 2 * Math.PI;
+							var previousGesture:Gesture = leap.frame( 1 ).gesture( circle.id );
+							if( previousGesture.isValid() )
+							{
+								var previousUpdate:CircleGesture = CircleGesture( leap.frame( 1 ).gesture( circle.id ) );
+								sweptAngle = ( circle.progress - previousUpdate.progress ) * 2 * Math.PI;
+							}
 						}
 
 						trace( "Circle id: " + circle.id + ", " + circle.state + ", progress: " + circle.progress + ", radius: " + circle.radius + ", angle: " + LeapMath.toDegrees( sweptAngle ) + ", " + clockwiseness );

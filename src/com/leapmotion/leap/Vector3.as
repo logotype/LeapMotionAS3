@@ -219,6 +219,22 @@ package com.leapmotion.leap
 		{
 			return ( x <= Number.MAX_VALUE && x >= -Number.MAX_VALUE ) && ( y <= Number.MAX_VALUE && y >= -Number.MAX_VALUE ) && ( z <= Number.MAX_VALUE && z >= -Number.MAX_VALUE );
 		}
+		
+		/**
+		 * Returns an invalid Vector3 object.
+		 *
+		 * You can use the instance returned by this function in
+		 * comparisons testing whether a given Vector3 instance
+		 * is valid or invalid.
+		 * (You can also use the Vector3.isValid property.)
+		 *
+		 * @return The invalid Vector3 instance.
+		 *
+		 */
+		static public function invalid():Vector3
+		{
+			return new Vector3(NaN, NaN, NaN);
+		}
 
 		/**
 		 * The magnitude, or length, of this vector.
