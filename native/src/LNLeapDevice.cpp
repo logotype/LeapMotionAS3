@@ -263,7 +263,7 @@ namespace leapnative {
                         FRESetObjectProperty(freGesture, (const uint8_t*) "progress", freCircleGestureProgress, NULL);
                         
                         FREObject freCircleGestureRadius;
-                        FRENewObjectFromDouble(circle.progress(), &freCircleGestureRadius);
+                        FRENewObjectFromDouble(circle.radius(), &freCircleGestureRadius);
                         FRESetObjectProperty(freGesture, (const uint8_t*) "radius", freCircleGestureRadius, NULL);
 
                         break;

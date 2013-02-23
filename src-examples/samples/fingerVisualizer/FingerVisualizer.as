@@ -1,12 +1,18 @@
 package samples.fingerVisualizer
 {
+	import com.greensock.TweenLite;
+	import com.leapmotion.leap.CircleGesture;
 	import com.leapmotion.leap.Gesture;
+	import com.leapmotion.leap.KeyTapGesture;
 	import com.leapmotion.leap.LeapMotion;
 	import com.leapmotion.leap.Pointable;
 	import com.leapmotion.leap.ScreenTapGesture;
+	import com.leapmotion.leap.SwipeGesture;
 	import com.leapmotion.leap.Vector3;
 	import com.leapmotion.leap.events.LeapEvent;
+	import com.leapmotion.leap.util.LeapMath;
 	
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
@@ -23,17 +29,23 @@ package samples.fingerVisualizer
 		
 		private var leap:LeapMotion;
 		private var container:Sprite;
-		private var gesturesContainer:Sprite;
+		
+		private var tapGesturesContainer:Sprite;
+		private var circleGesturesContainer:Sprite;
 		
 		public function FingerVisualizer()
 		{
+			tapGesturesContainer = new Sprite();
+			tapGesturesContainer.mouseChildren = tapGesturesContainer.mouseEnabled = false;
+			addChild(tapGesturesContainer);
+			
+			circleGesturesContainer = new Sprite();
+			circleGesturesContainer.mouseChildren = circleGesturesContainer.mouseEnabled = false;
+			addChild(circleGesturesContainer);
+			
 			container = new Sprite();
 			container.mouseChildren = container.mouseEnabled = false;
 			addChild(container);
-			
-			gesturesContainer = new Sprite();
-			gesturesContainer.mouseChildren = container.mouseEnabled = false;
-			addChild(gesturesContainer);
 			
 			leap = new LeapMotion();
 			leap.controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, leapmotionFrameHandler );
@@ -67,15 +79,46 @@ package samples.fingerVisualizer
 				container.graphics.moveTo(startPos2D.x, startPos2D.y);
 				container.graphics.lineTo(endPos2D.x, endPos2D.y);
 			}
+			circleGesturesContainer.removeChildren();
 			for each ( var gesture:Gesture in event.frame._gestures )
 			{
-				if(gesture is ScreenTapGesture )
+				var gestureVisualization:Shape;
+				var pos3D:Vector3D;
+				if(gesture is CircleGesture )
+				{
+					var circleGesture:CircleGesture = gesture as CircleGesture;
+					pos3D = toVector3D(circleGesture.center);
+					
+					gestureVisualization = new Shape();
+					gestureVisualization.graphics.lineStyle(2, 0x00ff00);
+					gestureVisualization.graphics.drawCircle(0, 0, circleGesture.radius);
+					gestureVisualization.x = pos3D.x;
+					gestureVisualization.y = pos3D.y;
+					gestureVisualization.z = pos3D.z;
+					gestureVisualization.rotationX = LeapMath.toDegrees(circleGesture.normal.pitch);
+					gestureVisualization.rotationY = LeapMath.toDegrees(circleGesture.normal.yaw);
+					gestureVisualization.rotationZ = LeapMath.toDegrees(circleGesture.normal.roll);
+					circleGesturesContainer.addChild(gestureVisualization);
+				}
+				else if( gesture is KeyTapGesture )
+				{
+					var keyTapGesture:KeyTapGesture = gesture as KeyTapGesture;
+				}
+				else if(gesture is ScreenTapGesture )
 				{
 					var screenTapGesture:ScreenTapGesture = gesture as ScreenTapGesture;
 					var pos2D:Point = local3DToGlobal(toVector3D(screenTapGesture.position));
 					
-					gesturesContainer.graphics.lineStyle(2, 0x00ff00);
-					gesturesContainer.graphics.drawCircle(pos2D.x, pos2D.y, 30);
+					gestureVisualization = new Shape();
+					gestureVisualization.graphics.lineStyle(2, 0x00ff00);
+					gestureVisualization.graphics.drawCircle(pos2D.x, pos2D.y, 30);
+					tapGesturesContainer.addChild(gestureVisualization);
+					
+					TweenLite.to(gestureVisualization, 1, {alpha: 0, onComplete: tapGesturesContainer.removeChild, onCompleteParams: [gestureVisualization]});
+				}
+				else if( gesture is SwipeGesture )
+				{
+					var swipeGesture:SwipeGesture = gesture as SwipeGesture;
 				}
 			}
 		}
