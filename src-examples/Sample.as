@@ -47,7 +47,7 @@ package
 		{
 			// Get the most recent frame and report some basic information
 			var frame:Frame = event.frame;
-			trace( "Frame id: " + frame.id + ", timestamp: " + frame.timestamp + ", hands: " + frame.hands.length + ", fingers: " + frame.fingers.length + ", tools: " + frame.tools.length + ", gestures: " + frame.gestures.length );
+			trace( "Frame id: " + frame.id + ", timestamp: " + frame.timestamp + ", hands: " + frame.hands.length + ", fingers: " + frame.fingers.length + ", tools: " + frame.tools.length + ", gestures: " + frame.gestures().length );
 
 			if ( frame.hands.length > 0 )
 			{
