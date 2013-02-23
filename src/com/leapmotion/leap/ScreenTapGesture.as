@@ -44,7 +44,7 @@ package com.leapmotion.leap
 		/**
 		 * The progess value is always 1.0 for a screen tap gesture. 
 		 */
-		public var progress:Number;
+		public var progress:Number = 1;
 		
 		/**
 		 * Constructs a new ScreenTapGesture object.

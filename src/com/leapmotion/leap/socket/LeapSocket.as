@@ -13,7 +13,7 @@ package com.leapmotion.leap.socket
 	import com.leapmotion.leap.namespaces.leapmotion;
 	import com.leapmotion.leap.util.Base64Encoder;
 	import com.leapmotion.leap.util.SHA1;
-
+	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IOErrorEvent;
@@ -463,6 +463,11 @@ package com.leapmotion.leap.socket
 		public function get frame():Frame
 		{
 			return _frame;
+		}
+		
+		public function enableGesture( gesture:int, enable:Boolean = true):void
+		{
+			trace("Gestures not supported for Socket connections, use ANE.");
 		}
 	}
 }

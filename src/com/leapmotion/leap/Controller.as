@@ -127,7 +127,7 @@ package com.leapmotion.leap
 		 */
 		public function enableGesture( type:int, enable:Boolean = true ):void
 		{
-			// TODO: Implement enableGesture
+			connection.enableGesture( type, enable );
 		}
 
 		static public function getInstance():Controller

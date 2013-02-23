@@ -4,7 +4,7 @@ package com.leapmotion.leap.native
 	import com.leapmotion.leap.Frame;
 	import com.leapmotion.leap.interfaces.ILeapConnection;
 	import com.leapmotion.leap.namespaces.leapmotion;
-
+	
 	import flash.events.EventDispatcher;
 	import flash.events.StatusEvent;
 	import flash.utils.getDefinitionByName;
@@ -102,6 +102,11 @@ package com.leapmotion.leap.native
 					trace( "[LeapNative] contextStatusModeEventHandler: ", event.code, event.level );
 					break;
 			}
+		}
+
+		public function enableGesture( gesture:int, enable:Boolean = true):void
+		{
+			context.call( "enableGesture", gesture, enable );
 		}
 
 		/**

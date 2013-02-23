@@ -152,9 +152,11 @@ namespace leapnative {
                 FREObject frePointableLength;
                 FRENewObjectFromInt32(pointable.length(), &frePointableLength);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "length", frePointableLength, NULL);
+
                 FREObject frePointableWidth;
                 FRENewObjectFromInt32(pointable.width(), &frePointableWidth);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "width", frePointableWidth, NULL);
+
                 FRESetObjectProperty(frePointable, (const uint8_t*) "direction", createVector3(pointable.direction().x, pointable.direction().y, pointable.direction().z), NULL);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "tipPosition", createVector3(pointable.tipPosition().x, pointable.tipPosition().y, pointable.tipPosition().z), NULL);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "tipVelocity", createVector3(pointable.tipVelocity().x, pointable.tipVelocity().y, pointable.tipVelocity().z), NULL);
@@ -202,7 +204,7 @@ namespace leapnative {
         if(!frame.gestures().empty()) {
             
             FREObject freGestures;
-            FREGetObjectProperty(freCurrentFrame, (const uint8_t*) "gestures", &freGestures, NULL);
+            FREGetObjectProperty(freCurrentFrame, (const uint8_t*) "_gestures", &freGestures, NULL);
             
             for(int i = 0; i < frame.gestures().count(); i++) {
                 const Gesture gesture = frame.gestures()[i];
@@ -230,25 +232,72 @@ namespace leapnative {
                 FREObject freGesture;
                 switch (gesture.type()) {
                     case Gesture::TYPE_SWIPE:
-                        FRENewObject( (const uint8_t*) "com.leapmotion.leap.SwipeGesture", 0, NULL, &freGesture, NULL);
+                    {
                         type = 5;
+                        SwipeGesture swipe = gesture;
+                        
+                        FRENewObject( (const uint8_t*) "com.leapmotion.leap.SwipeGesture", 0, NULL, &freGesture, NULL);
+                        
+                        FRESetObjectProperty(freGesture, (const uint8_t*) "direction", createVector3(swipe.direction().x, swipe.direction().y, swipe.direction().z), NULL);
+                        FRESetObjectProperty(freGesture, (const uint8_t*) "position", createVector3(swipe.position().x, swipe.position().y, swipe.position().z), NULL);
+                        FRESetObjectProperty(freGesture, (const uint8_t*) "startPosition", createVector3(swipe.startPosition().x, swipe.startPosition().y, swipe.startPosition().z), NULL);
+                        
+                        FREObject freSwipeGestureSpeed;
+                        FRENewObjectFromDouble(swipe.speed(), &freSwipeGestureSpeed);
+                        FRESetObjectProperty(freGesture, (const uint8_t*) "speed", freSwipeGestureSpeed, NULL);
+
                         break;
+                    }
                     case Gesture::TYPE_CIRCLE:
-                        FRENewObject( (const uint8_t*) "com.leapmotion.leap.CircleGesture", 0, NULL, &freGesture, NULL);
+                    {
                         type = 6;
+                        CircleGesture circle = gesture;
+
+                        FRENewObject( (const uint8_t*) "com.leapmotion.leap.CircleGesture", 0, NULL, &freGesture, NULL);
+                        
+                        FRESetObjectProperty(freGesture, (const uint8_t*) "center", createVector3(circle.center().x, circle.center().y, circle.center().z), NULL);
+                        FRESetObjectProperty(freGesture, (const uint8_t*) "normal", createVector3(circle.normal().x, circle.normal().y, circle.normal().z), NULL);
+                        
+                        FREObject freCircleGestureProgress;
+                        FRENewObjectFromDouble(circle.progress(), &freCircleGestureProgress);
+                        FRESetObjectProperty(freGesture, (const uint8_t*) "progress", freCircleGestureProgress, NULL);
+                        
+                        FREObject freCircleGestureRadius;
+                        FRENewObjectFromDouble(circle.progress(), &freCircleGestureRadius);
+                        FRESetObjectProperty(freGesture, (const uint8_t*) "radius", freCircleGestureRadius, NULL);
+
                         break;
+                    }
                     case Gesture::TYPE_SCREEN_TAP:
-                        FRENewObject( (const uint8_t*) "com.leapmotion.leap.ScreenTapGesture", 0, NULL, &freGesture, NULL);
+                    {
                         type = 7;
+                        ScreenTapGesture screentap = gesture;
+                        
+                        FRENewObject( (const uint8_t*) "com.leapmotion.leap.ScreenTapGesture", 0, NULL, &freGesture, NULL);
+
+                        FRESetObjectProperty(freGesture, (const uint8_t*) "direction", createVector3(screentap.direction().x, screentap.direction().y, screentap.direction().z), NULL);
+                        FRESetObjectProperty(freGesture, (const uint8_t*) "position", createVector3(screentap.position().x, screentap.position().y, screentap.position().z), NULL);
+
                         break;
+                    }
                     case Gesture::TYPE_KEY_TAP:
-                        FRENewObject( (const uint8_t*) "com.leapmotion.leap.KeyTapGesture", 0, NULL, &freGesture, NULL);
+                    {
                         type = 8;
+                        KeyTapGesture tap = gesture;
+                        
+                        FRENewObject( (const uint8_t*) "com.leapmotion.leap.KeyTapGesture", 0, NULL, &freGesture, NULL);
+
+                        FRESetObjectProperty(freGesture, (const uint8_t*) "direction", createVector3(tap.direction().x, tap.direction().y, tap.direction().z), NULL);
+                        FRESetObjectProperty(freGesture, (const uint8_t*) "position", createVector3(tap.position().x, tap.position().y, tap.position().z), NULL);
+                        
                         break;
+                    }
                     default:
-                        FRENewObject( (const uint8_t*) "com.leapmotion.leap.Gesture", 0, NULL, &freGesture, NULL);
+                    {
                         type = 4;
+                        FRENewObject( (const uint8_t*) "com.leapmotion.leap.Gesture", 0, NULL, &freGesture, NULL);
                         break;
+                    }
                 }
                 
                 FREObject freGestureState;
