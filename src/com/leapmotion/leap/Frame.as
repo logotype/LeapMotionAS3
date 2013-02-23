@@ -274,13 +274,13 @@ package com.leapmotion.leap
 		{
 			var returnValue:Gesture = Gesture.invalid();
 			var i:int = 0;
-			var length:int = gestures.length;
+			var length:int = _gestures.length;
 
 			for ( i; i < length; ++i )
 			{
-				if ( gestures[ i ].id == id )
+				if ( _gestures[ i ].id == id )
 				{
-					returnValue = gestures[ i ];
+					returnValue = _gestures[ i ];
 					break;
 				}
 			}

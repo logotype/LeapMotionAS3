@@ -1,7 +1,9 @@
 package samples.fingerVisualizer
 {
+	import com.leapmotion.leap.Gesture;
 	import com.leapmotion.leap.LeapMotion;
 	import com.leapmotion.leap.Pointable;
+	import com.leapmotion.leap.ScreenTapGesture;
 	import com.leapmotion.leap.Vector3;
 	import com.leapmotion.leap.events.LeapEvent;
 	
@@ -21,6 +23,7 @@ package samples.fingerVisualizer
 		
 		private var leap:LeapMotion;
 		private var container:Sprite;
+		private var gesturesContainer:Sprite;
 		
 		public function FingerVisualizer()
 		{
@@ -28,8 +31,17 @@ package samples.fingerVisualizer
 			container.mouseChildren = container.mouseEnabled = false;
 			addChild(container);
 			
+			gesturesContainer = new Sprite();
+			gesturesContainer.mouseChildren = container.mouseEnabled = false;
+			addChild(gesturesContainer);
+			
 			leap = new LeapMotion();
 			leap.controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, leapmotionFrameHandler );
+			
+			leap.controller.enableGesture( Gesture.TYPE_CIRCLE );
+			leap.controller.enableGesture( Gesture.TYPE_KEY_TAP );
+			leap.controller.enableGesture( Gesture.TYPE_SCREEN_TAP );
+			leap.controller.enableGesture( Gesture.TYPE_SWIPE );
 			
 			addStageListeners();
 		}
@@ -54,6 +66,17 @@ package samples.fingerVisualizer
 				container.graphics.lineStyle(1);
 				container.graphics.moveTo(startPos2D.x, startPos2D.y);
 				container.graphics.lineTo(endPos2D.x, endPos2D.y);
+			}
+			for each ( var gesture:Gesture in event.frame._gestures )
+			{
+				if(gesture is ScreenTapGesture )
+				{
+					var screenTapGesture:ScreenTapGesture = gesture as ScreenTapGesture;
+					var pos2D:Point = local3DToGlobal(toVector3D(screenTapGesture.position));
+					
+					gesturesContainer.graphics.lineStyle(2, 0x00ff00);
+					gesturesContainer.graphics.drawCircle(pos2D.x, pos2D.y, 30);
+				}
 			}
 		}
 		
