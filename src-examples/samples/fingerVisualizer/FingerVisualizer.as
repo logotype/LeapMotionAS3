@@ -17,7 +17,6 @@ package samples.fingerVisualizer
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
-	import flash.geom.Matrix3D;
 	import flash.geom.Point;
 	import flash.geom.Vector3D;
 	
@@ -32,6 +31,7 @@ package samples.fingerVisualizer
 		
 		private var tapGesturesContainer:Sprite;
 		private var circleGesturesContainer:Sprite;
+		private var swipeGesturesContainer:Sprite;
 		
 		public function FingerVisualizer()
 		{
@@ -42,6 +42,10 @@ package samples.fingerVisualizer
 			circleGesturesContainer = new Sprite();
 			circleGesturesContainer.mouseChildren = circleGesturesContainer.mouseEnabled = false;
 			addChild(circleGesturesContainer);
+			
+			swipeGesturesContainer = new Sprite();
+			swipeGesturesContainer.mouseChildren = swipeGesturesContainer.mouseEnabled = false;
+			addChild(swipeGesturesContainer);
 			
 			container = new Sprite();
 			container.mouseChildren = container.mouseEnabled = false;
@@ -60,15 +64,18 @@ package samples.fingerVisualizer
 		
 		protected function leapmotionFrameHandler( event:LeapEvent ):void
 		{
+			var startPos:Vector3;
+			var endPos:Vector3;
+			var startPos2D:Point;
+			var endPos2D:Point;
 			container.graphics.clear();
-			var m:Matrix3D = new Matrix3D();
 			for each ( var pointable:Pointable in event.frame.pointables )
 			{
-				var startPos:Vector3 = pointable.tipPosition;
-				var endPos:Vector3 = pointable.tipPosition.minus(pointable.direction.multiply(pointable.length));
+				startPos = pointable.tipPosition;
+				endPos = pointable.tipPosition.minus(pointable.direction.multiply(pointable.length));
 				
-				var startPos2D:Point = local3DToGlobal(toVector3D(startPos));
-				var endPos2D:Point = local3DToGlobal(toVector3D(endPos));
+				startPos2D = local3DToGlobal(toVector3D(startPos));
+				endPos2D = local3DToGlobal(toVector3D(endPos));
 				
 				container.graphics.beginFill(0xff0000);
 				container.graphics.lineStyle();
@@ -80,9 +87,11 @@ package samples.fingerVisualizer
 				container.graphics.lineTo(endPos2D.x, endPos2D.y);
 			}
 			circleGesturesContainer.removeChildren();
+			swipeGesturesContainer.graphics.clear();
 			for each ( var gesture:Gesture in event.frame._gestures )
 			{
 				var gestureVisualization:Shape;
+				var pos2D:Point;
 				var pos3D:Vector3D;
 				if(gesture is CircleGesture )
 				{
@@ -103,11 +112,19 @@ package samples.fingerVisualizer
 				else if( gesture is KeyTapGesture )
 				{
 					var keyTapGesture:KeyTapGesture = gesture as KeyTapGesture;
+					pos2D = local3DToGlobal(toVector3D(keyTapGesture.position));
+					
+					gestureVisualization = new Shape();
+					gestureVisualization.graphics.lineStyle(2, 0x0000ff);
+					gestureVisualization.graphics.drawCircle(pos2D.x, pos2D.y, 30);
+					tapGesturesContainer.addChild(gestureVisualization);
+					
+					TweenLite.to(gestureVisualization, 1, {alpha: 0, onComplete: tapGesturesContainer.removeChild, onCompleteParams: [gestureVisualization]});
 				}
 				else if(gesture is ScreenTapGesture )
 				{
 					var screenTapGesture:ScreenTapGesture = gesture as ScreenTapGesture;
-					var pos2D:Point = local3DToGlobal(toVector3D(screenTapGesture.position));
+					pos2D = local3DToGlobal(toVector3D(screenTapGesture.position));
 					
 					gestureVisualization = new Shape();
 					gestureVisualization.graphics.lineStyle(2, 0x00ff00);
@@ -119,6 +136,15 @@ package samples.fingerVisualizer
 				else if( gesture is SwipeGesture )
 				{
 					var swipeGesture:SwipeGesture = gesture as SwipeGesture;
+					startPos = swipeGesture.startPosition;
+					endPos = swipeGesture.position;
+					
+					startPos2D = local3DToGlobal(toVector3D(startPos));
+					endPos2D = local3DToGlobal(toVector3D(endPos));
+					
+					swipeGesturesContainer.graphics.lineStyle(1, 0xff00ff);
+					swipeGesturesContainer.graphics.moveTo(startPos2D.x, startPos2D.y);
+					swipeGesturesContainer.graphics.lineTo(endPos2D.x, endPos2D.y);
 				}
 			}
 		}
