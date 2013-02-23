@@ -27,12 +27,38 @@ extern "C" {
         return device->getFrame();
     }
     
+    FREObject LeapNative_enableGesture(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        int gestureClassType;
+        FREGetObjectAsInt32(argv[0], &gestureClassType);
+        switch (gestureClassType) {
+            case 5:
+                device->controller->enableGesture(Gesture::TYPE_SWIPE);
+                break;
+            case 6:
+                device->controller->enableGesture(Gesture::TYPE_CIRCLE);
+                break;
+            case 7:
+                device->controller->enableGesture(Gesture::TYPE_SCREEN_TAP);
+                break;
+            case 8:
+                device->controller->enableGesture(Gesture::TYPE_KEY_TAP);
+                break;
+            default:
+                std::cout << "LeapNative_enableGesture: invalid argument" << std::endl;
+                break;
+        }
+        return NULL;
+    }
+    
     FRENamedFunction _Shared_methods[] = {
         { (const uint8_t*) "isSupported", 0, LeapNative_isSupported }
 	};
     
 	FRENamedFunction _Instance_methods[] = {
-  		{ (const uint8_t*) "getFrame", 0, LeapNative_getFrame }
+  		{ (const uint8_t*) "getFrame", 0, LeapNative_getFrame },
+  		{ (const uint8_t*) "enableGesture", 0, LeapNative_enableGesture }
 	};
     
     void contextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctions, const FRENamedFunction** functions) {

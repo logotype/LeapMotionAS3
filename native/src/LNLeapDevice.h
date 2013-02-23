@@ -28,12 +28,13 @@ namespace leapnative {
         LNLeapDevice(FREContext ctx);
         ~LNLeapDevice();
         
+        Controller*     controller;
+
         FREObject getFrame();
         
     private:
         FREContext m_ctx;
         
-        Controller*     controller;
         LNLeapListener* listener;
         Frame           lastFrame;
         

@@ -83,7 +83,7 @@ package
 			{
 				var gesture:Gesture = gestures[ i ];
 
-				switch ( gesture.classType )
+				switch ( gesture.type )
 				{
 					case Gesture.TYPE_CIRCLE:
 						var circle:CircleGesture = CircleGesture( gesture );
@@ -108,7 +108,7 @@ package
 							sweptAngle = ( circle.progress - previousUpdate.progress ) * 2 * Math.PI;
 						}
 
-						trace( "Circle id: " + circle.id + ", " + circle.state + ", progress: " + circle.progress + ", radius: " + circle.radius + ", angle: " + Math.toDegrees( sweptAngle ) + ", " + clockwiseness );
+						trace( "Circle id: " + circle.id + ", " + circle.state + ", progress: " + circle.progress + ", radius: " + circle.radius + ", angle: " + LeapMath.toDegrees( sweptAngle ) + ", " + clockwiseness );
 						break;
 					case Gesture.TYPE_SWIPE:
 						var swipe:SwipeGesture = SwipeGesture( gesture );

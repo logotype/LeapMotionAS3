@@ -127,6 +127,7 @@ namespace leapnative {
             }
         }
         
+        std::map<int, FREObject> frePointablesMap;
         if(!frame.pointables().empty()) {
             
             FREObject frePointables;
@@ -194,6 +195,112 @@ namespace leapnative {
                 uint32_t numSpecificTools;
                 FREGetArrayLength(freSpecificPointables, &numSpecificTools);
                 FRESetArrayElementAt(freSpecificPointables, numSpecificTools, frePointable);
+                frePointablesMap[pointable.id()] = frePointable;
+            }
+        }
+        
+        if(!frame.gestures().empty()) {
+            
+            FREObject freGestures;
+            FREGetObjectProperty(freCurrentFrame, (const uint8_t*) "gestures", &freGestures, NULL);
+            
+            for(int i = 0; i < frame.gestures().count(); i++) {
+                const Gesture gesture = frame.gestures()[i];
+                
+                int state;
+                switch (gesture.state()) {
+                    case Gesture::STATE_INVALID:
+                        state = 0;
+                        break;
+                    case Gesture::STATE_START:
+                        state = 1;
+                        break;
+                    case Gesture::STATE_UPDATE:
+                        state = 2;
+                        break;
+                    case Gesture::STATE_STOP:
+                        state = 3;
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+                int type;
+                FREObject freGesture;
+                switch (gesture.type()) {
+                    case Gesture::TYPE_SWIPE:
+                        FRENewObject( (const uint8_t*) "com.leapmotion.leap.SwipeGesture", 0, NULL, &freGesture, NULL);
+                        type = 5;
+                        break;
+                    case Gesture::TYPE_CIRCLE:
+                        FRENewObject( (const uint8_t*) "com.leapmotion.leap.CircleGesture", 0, NULL, &freGesture, NULL);
+                        type = 6;
+                        break;
+                    case Gesture::TYPE_SCREEN_TAP:
+                        FRENewObject( (const uint8_t*) "com.leapmotion.leap.ScreenTapGesture", 0, NULL, &freGesture, NULL);
+                        type = 7;
+                        break;
+                    case Gesture::TYPE_KEY_TAP:
+                        FRENewObject( (const uint8_t*) "com.leapmotion.leap.KeyTapGesture", 0, NULL, &freGesture, NULL);
+                        type = 8;
+                        break;
+                    default:
+                        FRENewObject( (const uint8_t*) "com.leapmotion.leap.Gesture", 0, NULL, &freGesture, NULL);
+                        type = 4;
+                        break;
+                }
+                
+                FREObject freGestureState;
+                FRENewObjectFromInt32(state, &freGestureState);
+                FRESetObjectProperty(freGesture, (const uint8_t*) "state", freGestureState, NULL);
+                
+                FREObject freGestureType;
+                FRENewObjectFromInt32(type, &freGestureType);
+                FRESetObjectProperty(freGesture, (const uint8_t*) "type", freGestureType, NULL);
+
+                FREObject freGestureDuration;
+                FRENewObjectFromInt32((int32_t) gesture.duration(), &freGestureDuration);
+                FRESetObjectProperty(freGesture, (const uint8_t*) "duration", freGestureDuration, NULL);
+                
+                FREObject freGestureDurationSeconds;
+                FRENewObjectFromDouble(gesture.durationSeconds(), &freGestureDurationSeconds);
+                FRESetObjectProperty(freGesture, (const uint8_t*) "durationSeconds", freGestureDurationSeconds, NULL);
+                
+                FRESetObjectProperty(freGesture, (const uint8_t*) "frame", freCurrentFrame, NULL);
+                
+                FREObject freGestureId;
+                FRENewObjectFromInt32(gesture.id(), &freGestureId);
+                FRESetObjectProperty(freGesture, (const uint8_t*) "id", freGestureId, NULL);
+                
+                if (!gesture.hands().empty()) {
+                    
+                    FREObject freGestureHands;
+                    FREGetObjectProperty(freGesture, (const uint8_t*) "hands", &freGestureHands, NULL);
+                    
+                    for(int i = 0; i < gesture.hands().count(); i++) {
+                        const Hand hand = gesture.hands()[i];
+                        
+                        FREObject freHand = freHandsMap[hand.id()];
+                        FRESetArrayElementAt(freGestureHands, i, freHand);
+                    }
+                }
+                
+                if (!gesture.pointables().empty()) {
+                    
+                    FREObject freGesturePointables;
+                    FREGetObjectProperty(freGesture, (const uint8_t*) "pointables", &freGesturePointables, NULL);
+                    
+                    for(int i = 0; i < gesture.pointables().count(); i++) {
+                        const Pointable pointable = gesture.pointables()[i];
+                        
+                        FREObject frePointable = frePointablesMap[pointable.id()];
+                        FRESetArrayElementAt(freGesturePointables, i, frePointable);
+                    }
+                }
+                
+                //push it in current gesture vector
+                FRESetArrayElementAt(freGestures, i, freGesture);
             }
         }
         
