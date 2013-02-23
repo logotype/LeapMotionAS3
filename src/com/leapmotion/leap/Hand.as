@@ -198,7 +198,7 @@ package com.leapmotion.leap
 		/**
 		 * The Pointable object with the specified ID associated with this hand.
 		 *
-		 * Use the Hand::pointable() function to retrieve a Pointable object
+		 * Use the Hand.pointable() function to retrieve a Pointable object
 		 * associated with this hand using an ID value obtained from a previous frame.
 		 * This function always returns a Pointable object, but if no finger or
 		 * tool with the specified ID is present, an invalid Pointable object is returned.
@@ -379,7 +379,7 @@ package com.leapmotion.leap
 		 *
 		 * You can use the instance returned by this function in comparisons
 		 * testing whether a given Hand instance is valid or invalid.
-		 * (You can also use the Hand::isValid() function.)
+		 * (You can also use the Hand.isValid() function.)
 		 *
 		 * @return The invalid Hand instance.
 		 *

@@ -50,6 +50,14 @@ package com.leapmotion.leap
 		public var pointables:Vector.<Pointable> = new Vector.<Pointable>();
 
 		/**
+		 * The gestures recognized or continuing in this frame.
+		 *
+		 * Circle and swipe gestures are updated every frame.
+		 * Tap gestures only appear in the list when they start.
+		 */
+		public var _gestures:Vector.<Gesture> = new Vector.<Gesture>();
+
+		/**
 		 * A unique ID for this Frame.
 		 * Consecutive frames processed by the Leap have consecutive increasing values.
 		 */
@@ -245,6 +253,66 @@ package com.leapmotion.leap
 			}
 
 			return returnValue;
+		}
+
+		/**
+		 * The Gesture object with the specified ID in this frame.
+		 *
+		 * Use the Frame.gesture() function to return a Gesture object in this frame
+		 * using an ID obtained in an earlier frame. The function always returns a
+		 * Gesture object, but if there was no update for the gesture in this frame,
+		 * then an invalid Gesture object is returned.
+		 *
+		 * All Gesture objects representing the same recognized movement share the same ID.
+		 *
+		 * @param id The ID of an Gesture object from a previous frame.
+		 * @return The Gesture object in the frame with the specified ID if one
+		 * exists; Otherwise, an Invalid Gesture object.
+		 *
+		 */
+		public function gesture( id:int ):Gesture
+		{
+			var returnValue:Gesture = Gesture.invalid();
+			var i:int = 0;
+			var length:int = gestures.length;
+
+			for ( i; i < length; ++i )
+			{
+				if ( gestures[ i ].id == id )
+				{
+					returnValue = gestures[ i ];
+					break;
+				}
+			}
+
+			return returnValue;
+		}
+		
+		/**
+		 * Returns a Gesture vector containing all gestures that have occured
+		 * since the specified frame.
+		 * 
+		 * If no frame is specifed, the gestures recognized or continuing in
+		 * this frame will be returned.
+		 * 
+		 * @param sinceFrame An earlier Frame object. The starting frame must
+		 * still be in the frame history cache, which has a default length of 60 frames.
+		 * @return The list of gestures.
+		 * 
+		 */
+		public function gestures( sinceFrame:Frame = null ):Vector.<Gesture>
+		{
+			if( !sinceFrame )
+			{
+				// The gestures recognized or continuing in this frame.
+				return _gestures;
+			}
+			else
+			{
+				// Returns a Gesture vector containing all gestures that have occured since the specified frame.
+				// TODO: Implement gestures since Frame
+				return new Vector.<Gesture>();
+			}
 		}
 
 		/**

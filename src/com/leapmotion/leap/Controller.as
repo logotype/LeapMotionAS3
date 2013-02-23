@@ -9,18 +9,18 @@ package com.leapmotion.leap
 	import com.leapmotion.leap.socket.LeapSocket;
 
 	import flash.events.EventDispatcher;
-	
+
 	/**
 	 * The main event dispatcher for Leap events.
 	 * @author logotype
 	 *
 	 */
-	[Event(name="leapmotionInit", type="com.leapmotion.leap.events.LeapEvent")]
-	[Event(name="leapmotionConnected", type="com.leapmotion.leap.events.LeapEvent")]
-	[Event(name="leapmotionDisconnected", type="com.leapmotion.leap.events.LeapEvent")]
-	[Event(name="leapmotionTimeout", type="com.leapmotion.leap.events.LeapEvent")]
-	[Event(name="leapmotionExit", type="com.leapmotion.leap.events.LeapEvent")]
-	[Event(name="leapmotionFrame", type="com.leapmotion.leap.events.LeapEvent")]
+	[Event( name = "leapmotionInit", type = "com.leapmotion.leap.events.LeapEvent" )]
+	[Event( name = "leapmotionConnected", type = "com.leapmotion.leap.events.LeapEvent" )]
+	[Event( name = "leapmotionDisconnected", type = "com.leapmotion.leap.events.LeapEvent" )]
+	[Event( name = "leapmotionTimeout", type = "com.leapmotion.leap.events.LeapEvent" )]
+	[Event( name = "leapmotionExit", type = "com.leapmotion.leap.events.LeapEvent" )]
+	[Event( name = "leapmotionFrame", type = "com.leapmotion.leap.events.LeapEvent" )]
 	public class Controller extends EventDispatcher
 	{
 		/**
@@ -110,6 +110,24 @@ package com.leapmotion.leap
 		public function setCallback( callback:ILeapCallback ):void
 		{
 			this.leapmotion::callback = callback;
+		}
+
+		/**
+		 * Enables or disables reporting of a specified gesture type.
+		 * By default, all gesture types are disabled. When disabled, gestures of
+		 * the disabled type are never reported and will not appear in the frame
+		 * gesture list.
+		 * 
+		 * As a performance optimization, only enable recognition for the types
+		 * of movements that you use in your application.
+		 *  
+		 * @param type The type of gesture to enable or disable. Must be a member of the Gesture::Type enumeration.
+		 * @param enable True, to enable the specified gesture type; False, to disable.
+		 * 
+		 */
+		public function enableGesture( type:int, enable:Boolean = true ):void
+		{
+			// TODO: Implement enableGesture
 		}
 
 		static public function getInstance():Controller
