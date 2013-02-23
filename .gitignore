@@ -47,3 +47,7 @@ bin-debug
 *.pbxproj -crlf -diff -merge
 *.xcuserstate
 xcuserdata/
+
+# Visual Studio
+*.sdf
+*.vcxproj.user
