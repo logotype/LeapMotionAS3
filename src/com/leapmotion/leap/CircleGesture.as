@@ -15,12 +15,12 @@ package com.leapmotion.leap
 	 * Circle gestures are continuous. The CircleGesture objects for
 	 * the gesture have three possible states:
 	 * 
-	 * State.STATE_START – The circle gesture has just started.
+	 * Gesture.STATE_START – The circle gesture has just started.
 	 * The movement has progressed far enough for the recognizer to classify it as a circle.
 	 * 
-	 * State.STATE_UPDATE – The circle gesture is continuing.
+	 * Gesture.STATE_UPDATE – The circle gesture is continuing.
 	 * 
-	 * State.STATE_STOP – The circle gesture is finished.
+	 * Gesture.STATE_STOP – The circle gesture is finished.
 	 *  
 	 * @author logotype
 	 * @see Gesture

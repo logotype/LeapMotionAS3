@@ -27,6 +27,10 @@ package
 		private function onConnect( event:LeapEvent ):void
 		{
 			trace( "Connected" );
+			leap.controller.enableGesture( Gesture.TYPE_SWIPE );
+			leap.controller.enableGesture( Gesture.TYPE_CIRCLE );
+			leap.controller.enableGesture( Gesture.TYPE_SCREEN_TAP );
+			leap.controller.enableGesture( Gesture.TYPE_KEY_TAP );
 		}
 
 		private function onDisconnect( event:LeapEvent ):void
@@ -43,7 +47,7 @@ package
 		{
 			// Get the most recent frame and report some basic information
 			var frame:Frame = event.frame;
-			trace( "Frame id: " + frame.id + ", timestamp: " + frame.timestamp + ", hands: " + frame.hands.length + ", fingers: " + frame.fingers.length + ", tools: " + frame.tools.length );
+			trace( "Frame id: " + frame.id + ", timestamp: " + frame.timestamp + ", hands: " + frame.hands.length + ", fingers: " + frame.fingers.length + ", tools: " + frame.tools.length + ", gestures: " + frame.gestures.length );
 
 			if ( frame.hands.length > 0 )
 			{
@@ -72,6 +76,56 @@ package
 
 				// Calculate the hand's pitch, roll, and yaw angles
 				trace( "Hand pitch: " + LeapMath.toDegrees( direction.pitch ) + " degrees, " + "roll: " + LeapMath.toDegrees( normal.roll ) + " degrees, " + "yaw: " + LeapMath.toDegrees( direction.yaw ) + " degrees\n" );
+			}
+
+			var gestures:Vector.<Gesture> = frame.gestures();
+			for ( var i:int = 0; i < gestures.length; i++ )
+			{
+				var gesture:Gesture = gestures[ i ];
+
+				switch ( gesture.classType )
+				{
+					case Gesture.TYPE_CIRCLE:
+						var circle:CircleGesture = CircleGesture( gesture );
+
+						// Calculate clock direction using the angle between circle normal and pointable
+						var clockwiseness:String;
+						if ( circle.pointable.direction.angleTo( circle.normal ) <= Math.PI / 4 )
+						{
+							// Clockwise if angle is less than 90 degrees
+							clockwiseness = "clockwise";
+						}
+						else
+						{
+							clockwiseness = "counterclockwise";
+						}
+
+						// Calculate angle swept since last frame
+						var sweptAngle:Number = 0;
+						if ( circle.state != Gesture.STATE_START )
+						{
+							var previousUpdate:CircleGesture = CircleGesture( leap.frame( 1 ).gesture( circle.id ) );
+							sweptAngle = ( circle.progress - previousUpdate.progress ) * 2 * Math.PI;
+						}
+
+						trace( "Circle id: " + circle.id + ", " + circle.state + ", progress: " + circle.progress + ", radius: " + circle.radius + ", angle: " + Math.toDegrees( sweptAngle ) + ", " + clockwiseness );
+						break;
+					case Gesture.TYPE_SWIPE:
+						var swipe:SwipeGesture = SwipeGesture( gesture );
+						trace( "Swipe id: " + swipe.id + ", " + swipe.state + ", position: " + swipe.position + ", direction: " + swipe.direction + ", speed: " + swipe.speed );
+						break;
+					case Gesture.TYPE_SCREEN_TAP:
+						var screenTap:ScreenTapGesture = ScreenTapGesture( gesture );
+						trace( "Screen Tap id: " + screenTap.id + ", " + screenTap.state + ", position: " + screenTap.position + ", direction: " + screenTap.direction );
+						break;
+					case Gesture.TYPE_KEY_TAP:
+						var keyTap:KeyTapGesture = KeyTapGesture( gesture );
+						trace( "Key Tap id: " + keyTap.id + ", " + keyTap.state + ", position: " + keyTap.position + ", direction: " + keyTap.direction );
+						break;
+					default:
+						trace( "Unknown gesture type." );
+						break;
+				}
 			}
 		}
 	}
