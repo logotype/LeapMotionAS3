@@ -26,7 +26,7 @@ Create an instance of the LeapMotion class:
     leap.controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, onFrame );
 
 What you'll get from the `LEAPMOTION_FRAME` handler is a `Frame` instance, with strongly
-typed properties such as `Hands`, `Pointables`, `Direction` and more:
+typed properties such as `Hands`, `Pointables`, `Direction`, `Gestures` and more:
 
     private function onFrame( event:LeapEvent ):void
     {
@@ -72,11 +72,12 @@ Features
 <img src="http://logotype.se/leapImageTelemetry.png">
 + High performance, less than 1ms processing per frame (typically 2% CPU usage on a recent MacBook Pro)
 + Same structure as official API
-+ Clean, lightweight and documented code
-+ No external dependencies, creates a optimized socket directly to the Leap
-+ Uses ASC 2.0 compiler features (be sure to add the `-inline` and `-swf-version=19` compiler arguments)
-+ Connect multiple computers to the same Leap device (via an optional "host" argument)
++ Gestures (Circle, Key Tap, Screen Tap, Swipe)
 + Works great with [Starling](https://github.com/PrimaryFeather/Starling-Framework) and [Away3D](https://github.com/away3d/away3d-core-fp11)
++ Connect multiple computers to the same Leap device (via an optional "host" argument)
++ Clean, lightweight and documented code
++ Uses ASC 2.0 compiler features (be sure to add the `-inline` and `-swf-version=19` compiler arguments)
++ No external dependencies, creates a optimized socket directly to the Leap
 + AIR Native Extension (ANE) which directly interfaces with the C++ library (Mac, PC)
 + Compatible with Mac OSX, Windows, iOS (iPad/iPhone/etc), Android
 
@@ -119,13 +120,6 @@ If you are using the ANE on Windows, you need to add the Leap Motion program fol
 3. In the System Properties window click the Environment Variables button.
 4. In the Environment Variables window, highlight the Path variable in the Systems Variable section and click the Edit button.
 5. Add the Leap Motion folder from your program files at the end of that line (ex: C:\Program Files (x86)\Leap Motion\Leap).
-
-
-Upcoming features
------------------
-
-+ Multi-threading using Workers
-+ Additional example code will be added
 
 
 Authors
