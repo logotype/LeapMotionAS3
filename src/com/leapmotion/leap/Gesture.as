@@ -151,8 +151,8 @@ package com.leapmotion.leap
 		 */
 		public function isEqualTo( other:Gesture ):Boolean
 		{
-			var returnValue:Boolean = true;
-			return returnValue;
+			// TODO: Implement equality check
+			return true;
 		}
 
 		/**
@@ -174,9 +174,8 @@ package com.leapmotion.leap
 			// TODO: Implement validity checking.
 			var returnValue:Boolean = true;
 			if( isNaN( durationSeconds ) )
-			{
-				return false;
-			}
+				returnValue = false;
+
 			return returnValue;
 		}
 
