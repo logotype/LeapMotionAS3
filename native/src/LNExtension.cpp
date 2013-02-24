@@ -34,7 +34,7 @@ extern "C" {
         int gestureClassType;
         FREGetObjectAsInt32(argv[0], &gestureClassType);
         
-        int gestureEnabled;
+        bool gestureEnabled;
         FREGetObjectAsBool(argv[1], &gestureEnabled);
                 
         switch (gestureClassType) {
