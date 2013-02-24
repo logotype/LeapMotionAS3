@@ -148,8 +148,8 @@ package com.leapmotion.leap.util
 			var fHeading:Number  = vSpherical.y;
 			var fElevation:Number = vSpherical.z;
 			
-			for ( ; fElevation <= -Math.PI; fElevation += TWO_PI );
-			for ( ; fElevation > Math.PI; fElevation -= TWO_PI );
+			while ( fElevation <= -Math.PI ) fElevation += TWO_PI;
+			while ( fElevation > Math.PI ) fElevation -= TWO_PI;
 			
 			if ( Math.abs( fElevation ) > HALF_PI )
 			{
@@ -157,8 +157,8 @@ package com.leapmotion.leap.util
 				fElevation = fElevation > 0 ? ( Math.PI - fElevation ) : -( Math.PI + fElevation );
 			}
 			
-			for ( ; fHeading <= -Math.PI; fHeading += TWO_PI );
-			for ( ; fHeading > Math.PI; fHeading -= TWO_PI );
+			while ( fHeading <= -Math.PI ) fHeading += TWO_PI;
+			while ( fHeading > Math.PI ) fHeading -= TWO_PI;
 			
 			return new Vector3( 1, fHeading, fElevation );
 		}
