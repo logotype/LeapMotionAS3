@@ -212,7 +212,7 @@ package com.leapmotion.leap
 
 		/**
 		 * Returns true if all of the vector's components are finite.
-		 * @return
+		 * @return If any component is NaN or infinite, then this returns false.
 		 *
 		 */
 		public function isValid():Boolean

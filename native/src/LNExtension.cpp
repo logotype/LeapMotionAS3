@@ -30,20 +30,25 @@ extern "C" {
     FREObject LeapNative_enableGesture(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
         leapnative::LNLeapDevice* device;
         FREGetContextNativeData(ctx, (void **) &device);
+
         int gestureClassType;
         FREGetObjectAsInt32(argv[0], &gestureClassType);
+        
+        int gestureEnabled;
+        FREGetObjectAsBool(argv[1], &gestureEnabled);
+                
         switch (gestureClassType) {
             case 5:
-                device->controller->enableGesture(Gesture::TYPE_SWIPE);
+                device->controller->enableGesture(Gesture::TYPE_SWIPE, gestureEnabled);
                 break;
             case 6:
-                device->controller->enableGesture(Gesture::TYPE_CIRCLE);
+                device->controller->enableGesture(Gesture::TYPE_CIRCLE, gestureEnabled);
                 break;
             case 7:
-                device->controller->enableGesture(Gesture::TYPE_SCREEN_TAP);
+                device->controller->enableGesture(Gesture::TYPE_SCREEN_TAP, gestureEnabled);
                 break;
             case 8:
-                device->controller->enableGesture(Gesture::TYPE_KEY_TAP);
+                device->controller->enableGesture(Gesture::TYPE_KEY_TAP, gestureEnabled);
                 break;
             default:
                 std::cout << "LeapNative_enableGesture: invalid argument" << std::endl;

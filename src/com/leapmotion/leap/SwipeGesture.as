@@ -6,7 +6,7 @@ package com.leapmotion.leap
 	 * Important: To use swipe gestures in your application, you must enable
 	 * recognition of the swipe gesture. You can enable recognition with:
 	 * 
-	 * leap.controllerenableGesture(Gesture.TYPE_SWIPE);
+	 * leap.controller.enableGesture(Gesture.TYPE_SWIPE);
 	 * 
 	 * Swipe gestures are continuous.
 	 *  

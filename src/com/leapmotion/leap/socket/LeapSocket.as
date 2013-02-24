@@ -465,6 +465,19 @@ package com.leapmotion.leap.socket
 			return _frame;
 		}
 		
+		/**
+		 * Enables or disables reporting of a specified gesture type.
+		 * By default, all gesture types are disabled. When disabled, gestures of
+		 * the disabled type are never reported and will not appear in the frame
+		 * gesture list.
+		 * 
+		 * As a performance optimization, only enable recognition for the types
+		 * of movements that you use in your application.
+		 *  
+		 * @param type The type of gesture to enable or disable. Must be a member of the Gesture::Type enumeration.
+		 * @param enable True, to enable the specified gesture type; False, to disable.
+		 * 
+		 */
 		public function enableGesture( gesture:int, enable:Boolean = true):void
 		{
 			trace("Gestures not supported for Socket connections, use ANE.");
