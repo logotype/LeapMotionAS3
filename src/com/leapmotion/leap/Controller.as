@@ -129,6 +129,18 @@ package com.leapmotion.leap
 		{
 			connection.enableGesture( type, enable );
 		}
+		
+		/**
+		 * Reports whether the specified gesture type is enabled.
+		 *  
+		 * @param type The Gesture.TYPE parameter.
+		 * @return True, if the specified type is enabled; false, otherwise.
+		 * 
+		 */
+		public function isGestureEnabled( type:int ):Boolean
+		{
+			return connection.isGestureEnabled( type );
+		}
 
 		static public function getInstance():Controller
 		{

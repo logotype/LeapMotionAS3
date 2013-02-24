@@ -255,5 +255,18 @@ package com.leapmotion.leap.native
 		{
 			context.call( "enableGesture", gesture, enable );
 		}
+		
+		/**
+		 * Reports whether the specified gesture type is enabled.
+		 *  
+		 * @param type The Gesture.TYPE parameter.
+		 * @return True, if the specified type is enabled; false, otherwise.
+		 * 
+		 */
+		public function isGestureEnabled( type:int ):Boolean
+		{
+			var isEnabled:Boolean = context.call( "isGestureEnabled", type );
+			return isEnabled;
+		}
 	}
 }
