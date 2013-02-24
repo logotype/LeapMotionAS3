@@ -7,5 +7,6 @@ package com.leapmotion.leap.interfaces
 		function get isConnected():Boolean;
 		function get frame():Frame;
 		function enableGesture( gesture:int, enable:Boolean = true):void;
+		function isGestureEnabled( gesture:int ):Boolean;
 	}
 }

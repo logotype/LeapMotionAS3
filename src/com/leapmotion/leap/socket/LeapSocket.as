@@ -480,7 +480,20 @@ package com.leapmotion.leap.socket
 		 */
 		public function enableGesture( gesture:int, enable:Boolean = true):void
 		{
-			trace("Gestures not supported for Socket connections, use ANE.");
+			trace( "Gestures not supported for Socket connections, use ANE." );
+		}
+		
+		/**
+		 * Reports whether the specified gesture type is enabled.
+		 *  
+		 * @param type The Gesture.TYPE parameter.
+		 * @return True, if the specified type is enabled; false, otherwise.
+		 * 
+		 */
+		public function isGestureEnabled( type:int ):Boolean
+		{
+			trace( "Gestures not supported for Socket connections, use ANE." );
+			return false;
 		}
 	}
 }

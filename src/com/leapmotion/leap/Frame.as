@@ -310,8 +310,21 @@ package com.leapmotion.leap
 			else
 			{
 				// Returns a Gesture vector containing all gestures that have occured since the specified frame.
-				// TODO: Implement gestures since Frame
-				return new Vector.<Gesture>();
+				var gesturesSinceFrame:Vector.<Gesture> = new Vector.<Gesture>();
+				var i:int = 0;
+				var j:int = 0;
+				var controller:Controller = Controller.getInstance();
+				
+				for( i; i < controller.frameHistory.length; ++i )
+				{
+					for( j; j < controller.frameHistory[ i ]._gestures.length; ++j )
+						gesturesSinceFrame.push( controller.frameHistory[ i ]._gestures[ j ] );
+
+					if( sinceFrame == controller.frameHistory[ i ] )
+						break;
+				}
+				
+				return gesturesSinceFrame;
 			}
 		}
 

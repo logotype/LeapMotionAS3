@@ -140,7 +140,7 @@ package com.leapmotion.leap
 		}
 
 		/**
-		 * Compare Gesture object equality.
+		 * Compare Gesture object equality/inequiality.
 		 *
 		 * Two Gestures are equal if they represent the same snapshot of
 		 * the same recognized movement.
