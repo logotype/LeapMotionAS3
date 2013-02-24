@@ -5,6 +5,21 @@ package com.leapmotion.leap.util
 
 	public class LeapMath
 	{
+		/** The constant pi as a single precision floating point number. */
+		static public const PI:Number = 3.1415926536;
+
+		/**
+		 * The constant ratio to convert an angle measure from degrees to radians.
+		 * Multiply a value in degrees by this constant to convert to radians.
+		 */
+		static public const DEG_TO_RAD:Number = 0.0174532925;
+
+		/**
+		 * The constant ratio to convert an angle measure from radians to degrees.
+		 * Multiply a value in radians by this constant to convert to degrees.
+		 */
+		static public const RAD_TO_DEG:Number = 57.295779513;
+
 		static public const TWO_PI:Number = Math.PI + Math.PI;
 		static public const HALF_PI:Number = Math.PI * 0.5;
 		static public const EPSILON:Number = 0.00001;
