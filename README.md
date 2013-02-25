@@ -1,4 +1,4 @@
-[LeapMotionAS3](http://github.com/logotype/LeapMotionAS3)
+LeapMotionAS3
 =================
 
 This is the AS3 framework for working with the Leap.
