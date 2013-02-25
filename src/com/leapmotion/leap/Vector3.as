@@ -41,6 +41,11 @@ package com.leapmotion.leap
 			this.z = z;
 		}
 
+		/**
+		 * A copy of this vector pointing in the opposite direction.
+		 * @return A Vector3 object with all components negated.
+		 *
+		 */
 		public function opposite():Vector3
 		{
 			return new Vector3( -x, -y, -z );
