@@ -7,7 +7,7 @@ package com.leapmotion.leap
 	import com.leapmotion.leap.namespaces.leapmotion;
 	import com.leapmotion.leap.native.LeapNative;
 	import com.leapmotion.leap.socket.LeapSocket;
-
+	
 	import flash.events.EventDispatcher;
 
 	/**
@@ -110,6 +110,74 @@ package com.leapmotion.leap
 		public function setCallback( callback:ILeapCallback ):void
 		{
 			this.leapmotion::callback = callback;
+		}
+		
+		/**
+		 * The list of screens whose positions have been identified by using
+		 * the Leap application Screen Locator.
+		 * 
+		 * The list always contains at least one entry representing the
+		 * default screen. If the user has not registered the location of
+		 * this default screen, then the coordinates, directions, and other
+		 * values reported by the functions in its Screen object will not
+		 * be accurate. Other monitor screens only appear in the list if
+		 * their positions have been registered using the Leap Screen Locator.
+		 * 
+		 * A Screen object represents the position and orientation of a
+		 * display monitor screen within the Leap coordinate system.
+		 * For example, if the screen location is known, you can get Leap
+		 * coordinates for the bottom-left corner of the screen.
+		 * Registering the screen location also allows the Leap to calculate
+		 * the point on the screen at which a finger or tool is pointing.
+		 * 
+		 * A user can run the Screen Locator tool from the Leap application
+		 * Settings window. Avoid assuming that a screen location is known
+		 * or that an existing position is still correct. The registered
+		 * position is only valid as long as the relative position of the
+		 * Leap device and the monitor screen remain constant.
+		 *  
+		 * @return ScreenList A list containing the screens whose positions
+		 * have been registered by the user using the Screen Locator tool.
+		 * The list always contains at least one entry representing the
+		 * default monitor. If the user has not run the Screen Locator or
+		 * has moved the Leap device or screen since running it, the
+		 * Screen object for this entry only contains default values. 
+		 * 
+		 */
+		public function calibratedScreens():Vector.<Screen>
+		{
+			throw new Error("Not implemented yet.");
+			return new Vector.<Screen>();
+		}
+		
+		/**
+		 * Gets the closest Screen intercepting a ray projecting from the
+		 * specified Pointable object.
+		 * 
+		 * The projected ray emanates from the Pointable tipPosition along
+		 * the Pointable's direction vector. If the projected ray does not
+		 * intersect any screen surface directly, then the Leap checks for
+		 * intersection with the planes extending from the surfaces of the
+		 * known screens and returns the Screen with the closest intersection.
+		 * 
+		 * If no intersections are found (i.e. the ray is directed parallel
+		 * to or away from all known screens), then an invalid Screen object
+		 * is returned.
+		 * 
+		 * Note: Be sure to test whether the Screen object returned by this
+		 * method is valid. Attempting to use an invalid Screen object will
+		 * lead to incorrect results.
+		 *  
+		 * @param pointable The Pointable object to check for screen intersection.
+		 * @return The closest Screen toward which the specified Pointable object
+		 * is pointing, or, if the pointable is not pointing in the direction
+		 * of any known screen, an invalid Screen object.
+		 * 
+		 */
+		public function closestScreenHit( pointable:Pointable ):Screen
+		{
+			throw new Error("Not implemented yet.");
+			return Screen.invalid();
 		}
 
 		/**
