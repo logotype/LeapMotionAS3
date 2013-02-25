@@ -33,12 +33,22 @@ package com.leapmotion.leap.util
 			return radians * 180 / Math.PI;
 		}
 		
+		/**
+		 * Determines if a value is equal to or less than 0.00001.
+		 *
+		 * @return True, if equal to or less than 0.00001; false otherwise.
+		 */
 		[Inline]
 		static public function isNearZero( value:Number ):Boolean 
 		{
 			return Math.abs( value ) <= EPSILON; 
 		}
 		
+		/**
+		 * Determines if all Vector3 components is equal to or less than 0.00001.
+		 *
+		 * @return True, if equal to or less than 0.00001; false otherwise.
+		 */
 		[Inline]
 		static public function vectorIsNearZero( inVector:Vector3 ):Boolean
 		{
@@ -130,17 +140,11 @@ package com.leapmotion.leap.util
 		}
 		
 		/**
-		 * Convert from Cartesian (rectangular) coordinates to spherical coordinates
-		 * (magnitude, heading, elevation).
-		 */
-		[Inline]
-		static public function cartesianToSpherical( vCartesian:Vector3 ):Vector3
-		{
-			return new Vector3( vCartesian.magnitude(), heading( vCartesian ), elevation( vCartesian ) );
-		}
-		
-		/**
-		 * Set magnitude to 1 and bring heading to (-Pi,Pi], elevation into [-Pi/2, Pi/2]  
+		 * Set magnitude to 1 and bring heading to [-Pi,Pi], elevation into [-Pi/2, Pi/2]
+		 *
+		 * @param The Vector3 to convert.
+		 * @return The normalized spherical Vector3.
+		 * 
 		 */
 		[Inline]
 		static public function normalizeSpherical( vSpherical:Vector3 ):Vector3
@@ -162,13 +166,27 @@ package com.leapmotion.leap.util
 			
 			return new Vector3( 1, fHeading, fElevation );
 		}
-		
+
+		/**
+		 * Convert from Cartesian (rectangular) coordinates to spherical coordinates
+		 * (magnitude, heading, elevation).
+		 *
+		 * @param The Vector3 to convert.
+		 * @return The cartesian Vector3 converted to spherical.
+		 *
+		 */
+		[Inline]
+		static public function cartesianToSpherical( vCartesian:Vector3 ):Vector3
+		{
+			return new Vector3( vCartesian.magnitude(), heading( vCartesian ), elevation( vCartesian ) );
+		}
+				
 		/**
 		 * Convert from spherical coordinates (magnitude, heading, elevation) to
 		 * Cartesian (rectangular) coordinates.
 		 * 
-		 * @param 
-		 * @return 
+		 * @param The Vector3 to convert.
+		 * @return The spherical Vector3 converted to cartesian.
 		 * 
 		 */
 		[Inline]
@@ -185,6 +203,15 @@ package com.leapmotion.leap.util
 								 fSinHeading   * fCosElevation  * fMagnitude);
 		}
 
+		/**
+		 * Clamps a value between a minimum Number and maximum Number value.
+		 * 
+		 * @param inVal The number to clamp.
+		 * @param minVal The minimum value.
+		 * @param maxVal The maximum value.
+		 * @return The value clamped between minVal and maxVal.
+		 * 
+		 */
 		static public function clamp( inVal:Number, minVal:Number, maxVal:Number ):Number
 		{
 			return ( inVal < minVal ) ? minVal : (( inVal > maxVal ) ? maxVal : inVal );
