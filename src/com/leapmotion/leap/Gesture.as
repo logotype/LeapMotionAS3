@@ -140,7 +140,7 @@ package com.leapmotion.leap
 		}
 
 		/**
-		 * Compare Gesture object equality/inequiality.
+		 * Compare Gesture object equality/inequality.
 		 *
 		 * Two Gestures are equal if they represent the same snapshot of
 		 * the same recognized movement.
@@ -151,8 +151,8 @@ package com.leapmotion.leap
 		 */
 		public function isEqualTo( other:Gesture ):Boolean
 		{
-			// TODO: Implement equality check
-			return true;
+			// TODO: Implement equality/inequality check
+			return false;
 		}
 
 		/**
@@ -171,8 +171,8 @@ package com.leapmotion.leap
 		 */
 		public function isValid():Boolean
 		{
-			// TODO: Implement validity checking.
 			var returnValue:Boolean = true;
+
 			if( isNaN( durationSeconds ) )
 				returnValue = false;
 
