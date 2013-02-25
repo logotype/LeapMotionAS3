@@ -1,9 +1,11 @@
 [LeapMotionAS3](http://github.com/logotype/LeapMotionAS3)
 =================
 
-<img src="http://logotype.se/leapImage.png">
-
 This is the AS3 framework for working with the Leap.
+
+Leap Motion is a motion-control software and hardware company developing the world's most powerful and sensitive 3D motion-control and motion-sensing technology.
+
+[leapmotion.com](http://www.leapmotion.com)
 
 Demos
 -----------
