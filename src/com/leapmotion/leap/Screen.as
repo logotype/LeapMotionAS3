@@ -1,5 +1,7 @@
 package com.leapmotion.leap
 {
+	import flash.display.Screen;
+
 	/**
 	 * The Screen class represents a computer monitor screen.
 	 * 
@@ -32,6 +34,8 @@ package com.leapmotion.leap
 	 */
 	public class Screen
 	{
+		public var _screen:flash.display.Screen;
+		
 		/**
 		 * A unique identifier for this screen based on the screen information
 		 * in the configuration.
@@ -76,8 +80,7 @@ package com.leapmotion.leap
 		 */
 		public function heightPixels():int
 		{
-			throw new Error("Not implemented yet.");
-			return 0;
+			return _screen.bounds.height;
 		}
 
 		/**
@@ -87,8 +90,7 @@ package com.leapmotion.leap
 		 */
 		public function widthPixels():int
 		{
-			throw new Error("Not implemented yet.");
-			return 0;
+			return _screen.bounds.width;
 		}
 
 		/**
@@ -240,10 +242,10 @@ package com.leapmotion.leap
 		 * @return The invalid Screen instance.
 		 * 
 		 */
-		static public function invalid():Screen
+		static public function invalid():com.leapmotion.leap.Screen
 		{
 			throw new Error("Not implemented yet.");
-			return new Screen();
+			return new com.leapmotion.leap.Screen();
 		}
 		
 		/**
@@ -292,7 +294,7 @@ package com.leapmotion.leap
 		 * @return True, if this Screen object is equal; false otherwise.
 		 * 
 		 */
-		public function isEqualTo( other:Screen ):Boolean
+		public function isEqualTo( other:com.leapmotion.leap.Screen ):Boolean
 		{
 			throw new Error("Not implemented yet.");
 			return false;
