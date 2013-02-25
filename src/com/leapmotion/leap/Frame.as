@@ -499,8 +499,11 @@ package com.leapmotion.leap
 		 */
 		public function isValid():Boolean
 		{
-			// TODO: Implement validity checking.
 			var returnValue:Boolean = true;
+
+			if(!id)
+				returnValue = false;
+
 			return returnValue;
 		}
 
