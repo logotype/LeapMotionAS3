@@ -1,6 +1,5 @@
 package com.leapmotion.leap
 {
-
 	import com.leapmotion.leap.callbacks.DefaultCallback;
 	import com.leapmotion.leap.interfaces.ILeapCallback;
 	import com.leapmotion.leap.interfaces.ILeapConnection;
@@ -8,7 +7,6 @@ package com.leapmotion.leap
 	import com.leapmotion.leap.native.LeapNative;
 	import com.leapmotion.leap.socket.LeapSocket;
 	
-	import flash.display.Screen;
 	import flash.events.EventDispatcher;
 
 	/**
@@ -145,21 +143,28 @@ package com.leapmotion.leap
 		 * Screen object for this entry only contains default values. 
 		 * 
 		 */
-		public function calibratedScreens():Vector.<com.leapmotion.leap.Screen>
+		public function calibratedScreens():Vector.<Screen>
 		{
-			var screenList:Vector.<com.leapmotion.leap.Screen> = new Vector.<com.leapmotion.leap.Screen>();
-			var screen:com.leapmotion.leap.Screen;
-			var i:int = 0;
-			var length:int = flash.display.Screen.screens.length;
+			throw new Error("Not implemented yet.");
 			
-			for( i; i < length; ++i )
-			{
-				screen = new com.leapmotion.leap.Screen();
-				screen._screen = flash.display.Screen.screens[ i ];
-				screen.id = i;
-				screenList.push( screen );
-			}
+			var screenList:Vector.<Screen> = new Vector.<Screen>();
 
+			if( Screen.tryCreatingScreenClassReference() )
+			{
+				var screen:Screen;
+				var screenArray:Array = Screen.ScreenClass.screens;
+				var i:int = 0;
+				var length:int = screenArray.length;
+
+				for( i; i < length; ++i )
+				{
+					screen = new Screen();
+					screen._screen = screenArray[ i ];
+					screen.id = i;
+					screenList.push( screen );
+				}
+			}
+			
 			return screenList;
 		}
 		
@@ -187,10 +192,10 @@ package com.leapmotion.leap
 		 * of any known screen, an invalid Screen object.
 		 * 
 		 */
-		public function closestScreenHit( pointable:Pointable ):com.leapmotion.leap.Screen
+		public function closestScreenHit( pointable:Pointable ):Screen
 		{
 			throw new Error("Not implemented yet.");
-			return com.leapmotion.leap.Screen.invalid();
+			return Screen.invalid();
 		}
 
 		/**
