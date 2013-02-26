@@ -1,6 +1,6 @@
 package com.leapmotion.leap
 {
-	import flash.display.Screen;
+	import flash.utils.getDefinitionByName;
 
 	/**
 	 * The Screen class represents a computer monitor screen.
@@ -34,7 +34,12 @@ package com.leapmotion.leap
 	 */
 	public class Screen
 	{
-		public var _screen:flash.display.Screen;
+		public var _screen:Object;
+		
+		/**
+		 * Reference to flash.display.Screen (only available in AIR) 
+		 */
+		public static var ScreenClass:*;
 		
 		/**
 		 * A unique identifier for this screen based on the screen information
@@ -58,6 +63,27 @@ package com.leapmotion.leap
 			throw new Error("Not implemented yet.");
 		}
 		
+		/**
+		 * Tries to return a reference to the class object of the class
+		 * specified.
+		 *
+		 * @return True, if definition could be found; False otherwise.
+		 *
+		 */
+		public static function tryCreatingScreenClassReference():Boolean
+		{
+			try
+			{
+				ScreenClass = getDefinitionByName( "flash.display.Screen" );
+				return true;
+			}
+			catch ( error:Error )
+			{
+				trace( "[Screen] tryCreatingScreenClassReference: " + error.message );
+			}
+			return false;
+		}
+
 		/**
 		 * The shortest distance from the specified point to the plane
 		 * in which this Screen lies.
@@ -242,10 +268,10 @@ package com.leapmotion.leap
 		 * @return The invalid Screen instance.
 		 * 
 		 */
-		static public function invalid():com.leapmotion.leap.Screen
+		static public function invalid():Screen
 		{
 			throw new Error("Not implemented yet.");
-			return new com.leapmotion.leap.Screen();
+			return new Screen();
 		}
 		
 		/**
@@ -294,7 +320,7 @@ package com.leapmotion.leap
 		 * @return True, if this Screen object is equal; false otherwise.
 		 * 
 		 */
-		public function isEqualTo( other:com.leapmotion.leap.Screen ):Boolean
+		public function isEqualTo( other:Screen ):Boolean
 		{
 			throw new Error("Not implemented yet.");
 			return false;
