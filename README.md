@@ -10,7 +10,7 @@ Leap Motion is a motion-control software and hardware company developing the wor
 Demos
 -----------
 
-[<img src="http://logotype.se/leapmotion/victor1.png">](http://www.youtube.com/watch?v=y9SDf5GSDF8) [<img src="http://logotype.se/leapmotion/victor2.png">](http://www.youtube.com/watch?v=Hduiif_GfsU) [<img src="http://logotype.se/leapmotion/danny1.png">](http://www.youtube.com/watch?v=dJONdYwyN1o) [<img src="http://logotype.se/leapmotion/danny2.png">](http://www.youtube.com/watch?v=x8jLtlErXxk) [<img src="http://www.aboutme.be/images/labyrinth.png">](https://vimeo.com/60170459)
+[<img src="http://logotype.se/leapmotion/victor1.png">](http://www.youtube.com/watch?v=y9SDf5GSDF8) [<img src="http://logotype.se/leapmotion/victor2.png">](http://www.youtube.com/watch?v=Hduiif_GfsU) [<img src="http://www.aboutme.be/images/labyrinth.png">](https://vimeo.com/60170459)
 
 
 Quick start
