@@ -1,14 +1,16 @@
-[LeapMotionAS3](http://github.com/logotype/LeapMotionAS3)
+LeapMotionAS3
 =================
 
-<img src="http://logotype.se/leapImage.png">
-
 This is the AS3 framework for working with the Leap.
+
+Leap Motion is a motion-control software and hardware company developing the world's most powerful and sensitive 3D motion-control and motion-sensing technology.
+
+[leapmotion.com](http://www.leapmotion.com)
 
 Demos
 -----------
 
-[<img src="http://logotype.se/leapmotion/victor1.png">](http://www.youtube.com/watch?v=y9SDf5GSDF8) [<img src="http://logotype.se/leapmotion/victor2.png">](http://www.youtube.com/watch?v=Hduiif_GfsU) [<img src="http://logotype.se/leapmotion/danny1.png">](http://www.youtube.com/watch?v=dJONdYwyN1o) [<img src="http://logotype.se/leapmotion/danny2.png">](http://www.youtube.com/watch?v=x8jLtlErXxk) [<img src="http://www.aboutme.be/images/labyrinth.png">](https://vimeo.com/60170459)
+[<img src="http://logotype.se/leapmotion/victor1.png">](http://www.youtube.com/watch?v=y9SDf5GSDF8) [<img src="http://logotype.se/leapmotion/victor2.png">](http://www.youtube.com/watch?v=Hduiif_GfsU) [<img src="http://www.aboutme.be/images/labyrinth.png">](https://vimeo.com/60170459)
 
 
 Quick start
@@ -26,12 +28,12 @@ Create an instance of the LeapMotion class:
     leap.controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, onFrame );
 
 What you'll get from the `LEAPMOTION_FRAME` handler is a `Frame` instance, with strongly
-typed properties such as `Hands`, `Pointables`, `Direction` and more:
+typed properties such as `Hands`, `Pointables`, `Direction`, `Gestures` and more:
 
     private function onFrame( event:LeapEvent ):void
     {
         // Get the most recent frame and report some basic information
-    	var frame:Frame = event.frame;
+        var frame:Frame = event.frame;
     	trace( "Frame id: " + frame.id + ", timestamp: " + frame.timestamp + ", hands: " + frame.hands.length + ", fingers: " + frame.fingers.length + ", tools: " + frame.tools.length );
     
     	if ( frame.hands.length > 0 )
@@ -72,11 +74,12 @@ Features
 <img src="http://logotype.se/leapImageTelemetry.png">
 + High performance, less than 1ms processing per frame (typically 2% CPU usage on a recent MacBook Pro)
 + Same structure as official API
-+ Clean, lightweight and documented code
-+ No external dependencies, creates a optimized socket directly to the Leap
-+ Uses ASC 2.0 compiler features (be sure to add the `-inline` and `-swf-version=19` compiler arguments)
-+ Connect multiple computers to the same Leap device (via an optional "host" argument)
++ Gestures (Circle, Key Tap, Screen Tap, Swipe)
 + Works great with [Starling](https://github.com/PrimaryFeather/Starling-Framework) and [Away3D](https://github.com/away3d/away3d-core-fp11)
++ Connect multiple computers to the same Leap device (via an optional "host" argument)
++ Clean, lightweight and documented code
++ Uses ASC 2.0 compiler features (be sure to add the `-inline` and `-swf-version=19` compiler arguments)
++ No external dependencies, creates a optimized socket directly to the Leap
 + AIR Native Extension (ANE) which directly interfaces with the C++ library (Mac, PC)
 + Compatible with Mac OSX, Windows, iOS (iPad/iPhone/etc), Android
 
@@ -119,13 +122,6 @@ If you are using the ANE on Windows, you need to add the Leap Motion program fol
 3. In the System Properties window click the Environment Variables button.
 4. In the Environment Variables window, highlight the Path variable in the Systems Variable section and click the Edit button.
 5. Add the Leap Motion folder from your program files at the end of that line (ex: C:\Program Files (x86)\Leap Motion\Leap).
-
-
-Upcoming features
------------------
-
-+ Multi-threading using Workers
-+ Additional example code will be added
 
 
 Authors
