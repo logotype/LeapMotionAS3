@@ -1,43 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="extension-ant-build" default="Build Native Extension">
+<project name="extension-ant-build" default="build-native-extension">
 	<property file="build.properties"/>
-	<!-- define FLEX_HOME, required for flexTask.tasks -->
-	<property name="FLEX_HOME" value="${AIR_SDK_HOME}"/>
-	<taskdef resource="flexTasks.tasks" classpath="${AIR_SDK_HOME}/ant/lib/flexTasks.jar" />
-	<property name="Flex.ADT" value="${AIR_SDK_HOME}/lib/adt.jar"/>
 
-	<!-- Folder Properties -->
+	<condition property="isMac">
+        <os family="mac"/>
+    </condition>
+    <condition property="isWindows">
+        <os family="windows"/>
+    </condition>
+
 	<dirname property="Extension.BUILD_ROOT" file="${ant.file.extension-ant-build}"/>
+
 	<property name="Extension.NATIVE_BIN_ROOT" value="${Extension.BUILD_ROOT}/../native/bin" />
 	<property name="Extension.AS3_ROOT" value="${Extension.BUILD_ROOT}/../src"/>
-
-	<!-- Project properties -->
-	<property name="Extension.AS3_SRC_ROOT" value="${Extension.AS3_ROOT}/com"/>
-	<property name="Extension.AS3_LIBS_ROOT" value="${Extension.AS3_ROOT}/libs"/>
 	<property name="Extension.BIN_ROOT" location="${Extension.BUILD_ROOT}/../bin"/>
-
-	<!-- Certificate Properties -->
 	<property name="Extension.AIR_CERTIFICATE_ROOT" location="${Extension.BIN_ROOT}/cert"/>
+	<property name="Extension.TMP_ROOT" value="${Extension.BUILD_ROOT}/tmp"/>
 
-	<!-- Native Extension -->
-	<property name="Extension.EXTENSION_TMP_ROOT" value="${Extension.BUILD_ROOT}/tmp"/>
+	<dirname property="Examples.BUILD_ROOT" file="${ant.file.extension-ant-build}"/>
 
-	<target name="Clean TMP Folder">
-        <delete includeemptydirs="true" failonerror="false">
-            <fileset dir="${Extension.EXTENSION_TMP_ROOT}"/>
-        </delete>
-        <mkdir dir="${Extension.EXTENSION_TMP_ROOT}"/>
+	<property name="Examples.AS3_ROOT" value="${Examples.BUILD_ROOT}/../src-examples"/>
+	<property name="Examples.LIBS_ROOT" location="${Examples.BUILD_ROOT}/../libs"/>
+	<property name="Examples.DEBUG_ROOT" location="${Examples.BUILD_ROOT}/../bin-debug"/>
+	<property name="Examples.DEBUG_EXTENSIONS_ROOT" location="${Examples.DEBUG_ROOT}/extensions"/>
+	<property name="Examples.RELEASE_ROOT" location="${Examples.BUILD_ROOT}/../bin-release"/>
+	<property name="Examples.AIR_CERTIFICATE_ROOT" location="${Examples.BIN_ROOT}/cert"/>
+	<property name="Examples.TMP_ROOT" value="${Examples.BUILD_ROOT}/tmp"/>
+
+	<property name="Examples.MAIN_SWF" value="${Examples.MAIN_NAME}.swf"/>
+    <property name="Examples.MAIN_SRC_FILE"
+              value="${Examples.AS3_ROOT}/${Examples.MAIN_NAME}${Examples.MAIN_EXTENSION}"/>
+	<property name="Examples.MAIN_SRC_DESCRIPTOR" value="${Examples.BUILD_ROOT}/app.xml"/>
+
+    <property name="Examples.MAIN_DEBUG_DESCRIPTOR" value="${Examples.DEBUG_ROOT}/app.xml"/>
+    <property name="Examples.MAIN_RELEASE_DESCRIPTOR" value="${Examples.RELEASE_ROOT}/app.xml"/>
+
+	<target name="config-sdk-extension">
+		<property name="FLEX_HOME" value="${Extension.AIR_SDK_HOME}"/>
+		<taskdef resource="flexTasks.tasks" classpath="${Extension.AIR_SDK_HOME}/ant/lib/flexTasks.jar" />
+		<property name="Flex.ADT" value="${Extension.AIR_SDK_HOME}/lib/adt.jar"/>
+	</target>
+
+	<target name="config-sdk-examples">
+		<property name="FLEX_HOME" value="${Examples.AIR_SDK_HOME}"/>
+		<taskdef resource="flexTasks.tasks" classpath="${Examples.AIR_SDK_HOME}/ant/lib/flexTasks.jar" />
+		<property name="Flex.ADT" value="${Examples.AIR_SDK_HOME}/lib/adt.jar"/>
+    	<property name="Flex.MXMLC" value="${FLEX_HOME}/lib/mxmlc-cli.jar"/>
+	</target>
+
+	<!-- GET ANT CONTRIB IF IT DOESNT EXIST -->
+    <!-- task found on http://stackoverflow.com/questions/653552/how-to-install-ant-contrib-under-windows -->
+    <available property="ant-contrib-exists" file="${ant.library.dir}/ant-contrib-1.0b3.jar"/>
+    <target name="download-ant-contrib" unless="ant-contrib-exists">
+        <mkdir dir="${ant.library.dir}"/>
+        <get src="http://downloads.sourceforge.net/project/ant-contrib/ant-contrib/1.0b3/ant-contrib-1.0b3-bin.zip?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fant-contrib%2Ffiles%2Fant-contrib%2F1.0b3%2F&amp;use_mirror=cdnetworks-us-1"
+             dest="${ant.library.dir}/ant-contrib-1.0b3-bin.zip" username="true"/>
+        <unzip src="${ant.library.dir}/ant-contrib-1.0b3-bin.zip" dest="${ant.library.dir}" overwrite="no"/>
+        <move todir="${ant.library.dir}">
+            <fileset file="${ant.library.dir}/ant-contrib/*.jar"/>
+            <fileset file="${ant.library.dir}/ant-contrib/lib/*.jar"/>
+        </move>
+        <delete file="${ant.library.dir}/ant-contrib-1.0b3-bin.zip"/>
+        <delete dir="${ant.library.dir}/ant-contrib"/>
+    </target>
+    <target name="init-ant-contrib" depends="download-ant-contrib">
+        <taskdef resource="net/sf/antcontrib/antlib.xml" classpath="${ant.library.dir}/ant-contrib-1.0b3.jar"/>
     </target>
 
-	<target name="Build Extension SWC">
+	<target name="clean-tmp-folder">
+        <delete includeemptydirs="true" failonerror="false">
+            <fileset dir="${Extension.TMP_ROOT}"/>
+        </delete>
+        <mkdir dir="${Extension.TMP_ROOT}"/>
+    </target>
+
+    <target name="clean-examples-debug-folder">
+        <delete includeemptydirs="true" failonerror="false">
+            <fileset dir="${Examples.DEBUG_ROOT}"/>
+        </delete>
+        <mkdir dir="${Examples.DEBUG_ROOT}"/>
+    </target>
+
+    <target name="clean-examples-release-folder">
+        <delete includeemptydirs="true" failonerror="false">
+            <fileset dir="${Examples.RELEASE_ROOT}"/>
+        </delete>
+        <mkdir dir="${Examples.RELEASE_ROOT}"/>
+    </target>
+
+	<target name="build-extension-swc">
 		<compc output="${Extension.BIN_ROOT}/${Extension.EXTENSION_NAME}.swc">
-			<load-config filename="${AIR_SDK_HOME}/frameworks/air-config.xml" />
-			<include-sources file="${Extension.AS3_SRC_ROOT}/"/>
-			<include-libraries file="${Extension.AS3_LIBS_ROOT}/"/>
+			<load-config filename="${Extension.AIR_SDK_HOME}/frameworks/air-config.xml" />
+			<include-sources file="${Extension.AS3_ROOT}/"/>
 		</compc>
 	</target>
 
-	<target name="Generate Certificate">
+	<target name="generate-extension-certificate">
 		<mkdir dir="${Extension.AIR_CERTIFICATE_ROOT}"/>
 		<java jar="${Flex.ADT}" fork="true">
 			<arg value="-certificate"/>
@@ -55,33 +113,51 @@
 		</java>
 	</target>
 
-	<target name="Build Native Extension">
-		<antcall target="Clean TMP Folder" />
-		<antcall target="Build Extension SWC" />
-		<antcall target="Generate Certificate" />
-		<unzip src="${Extension.BIN_ROOT}/${Extension.EXTENSION_NAME}.swc" dest="${Extension.EXTENSION_TMP_ROOT}"/>
+	<target name="generate-examples-certificate">
+		<mkdir dir="${Examples.AIR_CERTIFICATE_ROOT}"/>
+		<java jar="${Flex.ADT}" fork="true">
+			<arg value="-certificate"/>
+			<arg value="-cn"/>
+			<arg value="${Examples.AIR_CERTIFICATE_NAME}"/>
+			<arg value="-ou"/>
+			<arg value="${Examples.AIR_ORG_UNIT}"/>
+			<arg value="-o"/>
+			<arg value="${Examples.AIR_ORG_NAME}"/>
+			<arg value="-c"/>
+			<arg value="${Examples.AIR_COUNTRY}"/>
+			<arg value="${Examples.AIR_KEY_TYPE}"/>
+			<arg value="${Examples.AIR_CERTIFICATE_ROOT}/${Examples.AIR_CERTIFICATE_FILE}"/>
+			<arg value="${Examples.AIR_CERTIFICATE_PASSWORD}"/>
+		</java>
+	</target>
+
+	<target name="build-native-extension" depends="config-sdk-extension">
+		<antcall target="clean-tmp-folder" />
+		<antcall target="build-extension-swc" />
+		<antcall target="generate-extension-certificate" />
+		<unzip src="${Extension.BIN_ROOT}/${Extension.EXTENSION_NAME}.swc" dest="${Extension.TMP_ROOT}"/>
 		
 		<!-- copy the mac framework to the tmp folder -->
-		<copy todir="${Extension.EXTENSION_TMP_ROOT}/${Extension.NATIVE_LIBRARY_OSX}">
+		<copy todir="${Extension.TMP_ROOT}/${Extension.NATIVE_LIBRARY_OSX}">
 			<fileset dir="${Extension.NATIVE_BIN_ROOT}/${Extension.NATIVE_LIBRARY_OSX}" />
 		</copy>
 		
 		<!-- copy the windows dll to the tmp folder -->
-		<copy todir="${Extension.EXTENSION_TMP_ROOT}">
+		<copy todir="${Extension.TMP_ROOT}">
 			<fileset file="${Extension.NATIVE_BIN_ROOT}/${Extension.NATIVE_LIBRARY_WINDOWS}" />
 		</copy>
 		
 		<!-- copy the extension.xml to the tmp folder -->
-		<copy todir="${Extension.EXTENSION_TMP_ROOT}">
+		<copy todir="${Extension.TMP_ROOT}">
 			<fileset file="${Extension.BUILD_ROOT}/extension.xml" />
 		</copy>
 		
 		<!-- replace placeholders in the extension.xml -->
-		<replace file="${Extension.EXTENSION_TMP_ROOT}/extension.xml" token="NATIVE_LIBRARY_XMLNS" value="${Extension.NATIVE_LIBRARY_XMLNS}" />
-		<replace file="${Extension.EXTENSION_TMP_ROOT}/extension.xml" token="NATIVE_LIBRARY_WINDOWS" value="${Extension.NATIVE_LIBRARY_WINDOWS}" />
-		<replace file="${Extension.EXTENSION_TMP_ROOT}/extension.xml" token="NATIVE_LIBRARY_OSX" value="${Extension.NATIVE_LIBRARY_OSX}" />
+		<replace file="${Extension.TMP_ROOT}/extension.xml" token="NATIVE_LIBRARY_XMLNS" value="${Extension.NATIVE_LIBRARY_XMLNS}" />
+		<replace file="${Extension.TMP_ROOT}/extension.xml" token="NATIVE_LIBRARY_WINDOWS" value="${Extension.NATIVE_LIBRARY_WINDOWS}" />
+		<replace file="${Extension.TMP_ROOT}/extension.xml" token="NATIVE_LIBRARY_OSX" value="${Extension.NATIVE_LIBRARY_OSX}" />
 		
-		<java jar="${Flex.ADT}" fork="true" dir="${Extension.EXTENSION_TMP_ROOT}" failonerror="true">
+		<java jar="${Flex.ADT}" fork="true" dir="${Extension.TMP_ROOT}" failonerror="true">
 			<arg value="-package"/>
 			<arg value="-storetype"/>
 			<arg value="pkcs12"/>
@@ -106,7 +182,76 @@
 			<arg value="library.swf"/>
 			<arg line="'${Extension.NATIVE_LIBRARY_OSX}'"/>
 		</java>
-		<delete dir="${Extension.EXTENSION_TMP_ROOT}"/>
+		<delete dir="${Extension.TMP_ROOT}"/>
 		<delete dir="${Extension.AIR_CERTIFICATE_ROOT}"/>
 	</target>
+
+	<target name="list-external-libraries">
+        <pathconvert property="aneFiles" pathsep="' '" dirsep="/">
+            <path>
+                <fileset dir="${Extension.BIN_ROOT}" includes="**/*.ane"/>
+            </path>
+        </pathconvert>
+        <pathconvert property="swcFiles" pathsep="," dirsep="/">
+            <path>
+                <fileset dir="${Examples.LIBS_ROOT}" includes="**/*.swc"/>
+            </path>
+        </pathconvert>
+    </target>
+
+    <target name="unpack-native-extensions" depends="init-ant-contrib">
+        <for param="nativeExtensionFile">
+            <path>
+                <fileset dir="${Extension.BIN_ROOT}" includes="**/*.ane"/>
+            </path>
+            <sequential>
+                <propertyregex override="yes" property="nativeExtensionBaseName" input="@{nativeExtensionFile}"
+                               regexp=".*[\\/]+([^\.]*)\.ane" replace="\1"/>
+                <unzip src="@{nativeExtensionFile}"
+                       dest="${Examples.DEBUG_EXTENSIONS_ROOT}/${nativeExtensionBaseName}.ane"/>
+            </sequential>
+        </for>
+    </target>
+
+    <target name="compile-debug-swf" depends="clean-examples-debug-folder, list-external-libraries, config-sdk-examples, unpack-native-extensions">
+
+        <copy filtering="true" file="${Examples.MAIN_SRC_DESCRIPTOR}" tofile="${Examples.MAIN_DEBUG_DESCRIPTOR}"/>
+
+        <replace file="${Examples.MAIN_DEBUG_DESCRIPTOR}" token="APPLICATION_XMLNS" value="${Examples.APPLICATION_XMLNS}" />
+        
+        <replace file="${Examples.MAIN_DEBUG_DESCRIPTOR}">
+            <replacefilter token="APPLICATION_SWF"
+                           value="${Examples.MAIN_SWF}"/>
+        </replace>
+
+        <java jar="${Flex.MXMLC}" fork="true" failonerror="true" maxmemory="256m">
+            <arg value="-debug=true"/>
+            <arg value="-load-config=${FLEX_HOME}/frameworks/air-config.xml"/>
+            <arg value="+flexlib=${FLEX_HOME}/frameworks"/>
+            <arg value="-advanced-telemetry=true"/>
+            <arg value="-external-library-path+=${aneFiles}"/>
+            <arg value="-library-path+=${swcFiles}"/>
+            <arg value="-file-specs=${Examples.MAIN_SRC_FILE}"/>
+            <arg value="-output=${Examples.DEBUG_ROOT}/${Examples.MAIN_SWF}"/>
+        </java>
+    </target>
+
+    <target name="run-debug-swf" depends="compile-debug-swf, init-ant-contrib">
+        <if>
+            <equals arg1="${isWindows}" arg2="true"/>
+            <then>
+                <property name="ADL" value="${FLEX_HOME}/bin/adl.exe"/>
+            </then>
+            <else>
+                <property name="ADL" value="${FLEX_HOME}/bin/adl"/>
+            </else>
+        </if>
+
+        <exec executable="${ADL}">
+            <arg value="${Examples.MAIN_DEBUG_DESCRIPTOR}"/>
+            <arg value="-extdir"/>
+            <arg value="${Examples.DEBUG_EXTENSIONS_ROOT}"/>
+            <arg value="${Examples.DEBUG_ROOT}"/>
+        </exec>
+    </target>
 </project>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<application xmlns="APPLICATION_XMLNS">
+	<id>com.leapmotion.leap.Sample</id>
+	<filename>Sample</filename>
+	<name>Sample</name>
+	<versionNumber>0.0.0</versionNumber>
+	<initialWindow>
+		<content>APPLICATION_SWF</content>
+		<autoOrients>false</autoOrients>
+        <fullScreen>false</fullScreen>
+        <visible>true</visible>
+    </initialWindow>
+	<supportedProfiles>extendedDesktop</supportedProfiles>
+	<extensions>
+        <extensionID>com.leapmotion.leap.air.native.LeapNative</extensionID>
+    </extensions>
+</application>
