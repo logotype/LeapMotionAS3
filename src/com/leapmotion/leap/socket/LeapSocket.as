@@ -285,7 +285,7 @@ package com.leapmotion.leap.socket
 								break;
 
 							default:
-								throw "unkown gesture type";
+								throw new Error( "unkown gesture type" );
 						}
 						
 						var j:int = 0;
