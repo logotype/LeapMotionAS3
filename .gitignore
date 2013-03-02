@@ -42,6 +42,7 @@ nbproject
 node_modules
 dist
 bin-debug
+bin-release
 
 # Special case for XCode projects
 *.pbxproj -crlf -diff -merge

@@ -24,7 +24,8 @@
 	<property name="Examples.DEBUG_ROOT" location="${Examples.BUILD_ROOT}/../bin-debug"/>
 	<property name="Examples.DEBUG_EXTENSIONS_ROOT" location="${Examples.DEBUG_ROOT}/extensions"/>
 	<property name="Examples.RELEASE_ROOT" location="${Examples.BUILD_ROOT}/../bin-release"/>
-	<property name="Examples.AIR_CERTIFICATE_ROOT" location="${Examples.BIN_ROOT}/cert"/>
+	<property name="Examples.RELEASE_EXTENSIONS_ROOT" location="${Examples.RELEASE_ROOT}/extensions"/>
+	<property name="Examples.AIR_CERTIFICATE_ROOT" location="${Examples.RELEASE_ROOT}/cert"/>
 	<property name="Examples.TMP_ROOT" value="${Examples.BUILD_ROOT}/tmp"/>
 
 	<property name="Examples.MAIN_SWF" value="${Examples.MAIN_NAME}.swf"/>
@@ -199,21 +200,7 @@
         </pathconvert>
     </target>
 
-    <target name="unpack-native-extensions" depends="init-ant-contrib">
-        <for param="nativeExtensionFile">
-            <path>
-                <fileset dir="${Extension.BIN_ROOT}" includes="**/*.ane"/>
-            </path>
-            <sequential>
-                <propertyregex override="yes" property="nativeExtensionBaseName" input="@{nativeExtensionFile}"
-                               regexp=".*[\\/]+([^\.]*)\.ane" replace="\1"/>
-                <unzip src="@{nativeExtensionFile}"
-                       dest="${Examples.DEBUG_EXTENSIONS_ROOT}/${nativeExtensionBaseName}.ane"/>
-            </sequential>
-        </for>
-    </target>
-
-    <target name="compile-debug-swf" depends="clean-examples-debug-folder, list-external-libraries, config-sdk-examples, unpack-native-extensions">
+    <target name="compile-debug-swf" depends="clean-examples-debug-folder, list-external-libraries, config-sdk-examples">
 
         <copy filtering="true" file="${Examples.MAIN_SRC_DESCRIPTOR}" tofile="${Examples.MAIN_DEBUG_DESCRIPTOR}"/>
 
@@ -236,7 +223,21 @@
         </java>
     </target>
 
-    <target name="run-debug-swf" depends="compile-debug-swf, init-ant-contrib">
+    <target name="unpack-native-extensions-debug" depends="init-ant-contrib">
+        <for param="nativeExtensionFile">
+            <path>
+                <fileset dir="${Extension.BIN_ROOT}" includes="**/*.ane"/>
+            </path>
+            <sequential>
+                <propertyregex override="yes" property="nativeExtensionBaseName" input="@{nativeExtensionFile}"
+                               regexp=".*[\\/]+([^\.]*)\.ane" replace="\1"/>
+                <unzip src="@{nativeExtensionFile}"
+                       dest="${Examples.DEBUG_EXTENSIONS_ROOT}/${nativeExtensionBaseName}.ane"/>
+            </sequential>
+        </for>
+    </target>
+
+    <target name="run-debug-swf" depends="compile-debug-swf, init-ant-contrib, unpack-native-extensions-debug">
         <if>
             <equals arg1="${isWindows}" arg2="true"/>
             <then>
@@ -253,5 +254,93 @@
             <arg value="${Examples.DEBUG_EXTENSIONS_ROOT}"/>
             <arg value="${Examples.DEBUG_ROOT}"/>
         </exec>
+    </target>
+
+    <target name="compile-release-swf" depends="clean-examples-release-folder, list-external-libraries, config-sdk-examples">
+
+        <copy filtering="true" file="${Examples.MAIN_SRC_DESCRIPTOR}" tofile="${Examples.MAIN_RELEASE_DESCRIPTOR}"/>
+
+        <replace file="${Examples.MAIN_RELEASE_DESCRIPTOR}" token="APPLICATION_XMLNS" value="${Examples.APPLICATION_XMLNS}" />
+        
+        <replace file="${Examples.MAIN_RELEASE_DESCRIPTOR}">
+            <replacefilter token="APPLICATION_SWF"
+                           value="${Examples.MAIN_SWF}"/>
+        </replace>
+
+        <java jar="${Flex.MXMLC}" fork="true" failonerror="true" maxmemory="256m">
+            <arg value="-debug=false"/>
+            <arg value="-load-config=${FLEX_HOME}/frameworks/air-config.xml"/>
+            <arg value="+flexlib=${FLEX_HOME}/frameworks"/>
+            <arg value="-advanced-telemetry=true"/>
+            <arg value="-external-library-path+=${aneFiles}"/>
+            <arg value="-library-path+=${swcFiles}"/>
+            <arg value="-file-specs=${Examples.MAIN_SRC_FILE}"/>
+            <arg value="-output=${Examples.RELEASE_ROOT}/${Examples.MAIN_SWF}"/>
+        </java>
+    </target>
+
+    <target name="unpack-native-extensions-release" depends="init-ant-contrib">
+        <for param="nativeExtensionFile">
+            <path>
+                <fileset dir="${Extension.BIN_ROOT}" includes="**/*.ane"/>
+            </path>
+            <sequential>
+                <propertyregex override="yes" property="nativeExtensionBaseName" input="@{nativeExtensionFile}"
+                               regexp=".*[\\/]+([^\.]*)\.ane" replace="\1"/>
+                <unzip src="@{nativeExtensionFile}"
+                       dest="${Examples.RELEASE_EXTENSIONS_ROOT}/${nativeExtensionBaseName}.ane"/>
+            </sequential>
+        </for>
+    </target>
+
+    <target name="run-release-swf" depends="compile-release-swf, init-ant-contrib, unpack-native-extensions-release">
+        <if>
+            <equals arg1="${isWindows}" arg2="true"/>
+            <then>
+                <property name="ADL" value="${FLEX_HOME}/bin/adl.exe"/>
+            </then>
+            <else>
+                <property name="ADL" value="${FLEX_HOME}/bin/adl"/>
+            </else>
+        </if>
+
+        <exec executable="${ADL}">
+            <arg value="${Examples.MAIN_RELEASE_DESCRIPTOR}"/>
+            <arg value="-extdir"/>
+            <arg value="${Examples.RELEASE_EXTENSIONS_ROOT}"/>
+            <arg value="${Examples.RELEASE_ROOT}"/>
+        </exec>
+    </target>
+
+    <target name="create-standalone-application" depends="compile-release-swf, init-ant-contrib">
+    	<antcall target="generate-examples-certificate" />
+        <if>
+            <equals arg1="${isWindows}" arg2="true"/>
+            <then>
+                <property name="STANDALONE_EXTENSION" value=".exe"/>
+            </then>
+            <else>
+                <property name="STANDALONE_EXTENSION" value=".app"/>
+            </else>
+        </if>
+        <copy filtering="true" file="${Examples.MAIN_SRC_DESCRIPTOR}" tofile="${Examples.MAIN_RELEASE_DESCRIPTOR}"/>
+        <java jar="${Flex.ADT}" fork="true" failonerror="true">
+            <arg value="-package"/>
+            <arg value="-storetype"/>
+            <arg value="pkcs12"/>
+            <arg value="-keystore"/>
+            <arg value="${Examples.AIR_CERTIFICATE_ROOT}/${Examples.AIR_CERTIFICATE_FILE}"/>
+            <arg value="-storepass"/>
+            <arg value="${Examples.AIR_CERTIFICATE_PASSWORD}"/>
+            <arg value="-target"/>
+            <arg value="bundle"/>
+            <arg value="${Examples.RELEASE_ROOT}/${Examples.MAIN_NAME}${STANDALONE_EXTENSION}"/>
+            <arg value="${Examples.MAIN_RELEASE_DESCRIPTOR}"/>
+            <arg value="-extdir"/>
+            <arg value="${Extension.BIN_ROOT}"/>
+            <arg value="-C"/>
+            <arg value="${Examples.RELEASE_ROOT}"/>
+            <arg value="${Examples.MAIN_SWF}"/>
+        </java>
     </target>
 </project>
