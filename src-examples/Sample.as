@@ -6,6 +6,7 @@ package
 	
 	import flash.display.Sprite;
 
+	[SWF(frameRate=60)]
 	public class Sample extends Sprite
 	{
 		private var leap:LeapMotion;
