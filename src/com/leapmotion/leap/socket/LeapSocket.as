@@ -1,11 +1,16 @@
 package com.leapmotion.leap.socket
 {
+	import com.leapmotion.leap.CircleGesture;
 	import com.leapmotion.leap.Controller;
 	import com.leapmotion.leap.Finger;
 	import com.leapmotion.leap.Frame;
+	import com.leapmotion.leap.Gesture;
 	import com.leapmotion.leap.Hand;
+	import com.leapmotion.leap.KeyTapGesture;
 	import com.leapmotion.leap.Matrix;
 	import com.leapmotion.leap.Pointable;
+	import com.leapmotion.leap.ScreenTapGesture;
+	import com.leapmotion.leap.SwipeGesture;
 	import com.leapmotion.leap.Tool;
 	import com.leapmotion.leap.Vector3;
 	import com.leapmotion.leap.events.LeapEvent;
@@ -188,8 +193,10 @@ package com.leapmotion.leap.socket
 			var currentFrame:Frame;
 			var hand:Hand;
 			var pointable:Pointable;
+			var gesture:Gesture;
 			var isTool:Boolean;
 			var length:int;
+			var type:int;
 
 			// Loop until data has been completely added to the frame
 			while ( socket.connected && leapSocketFrame.addData( socket ) )
@@ -225,6 +232,112 @@ package com.leapmotion.leap.socket
 				// ID
 				currentFrame.id = json.id;
 
+				// Gestures
+				if ( json.gestures )
+				{
+					i = 0;
+					length = json.gestures.length;
+					for ( i; i < length; ++i )
+					{
+						switch( json.gestures[ i ].type )
+						{
+							case "circle":
+								gesture = new CircleGesture();
+								type = Gesture.TYPE_CIRCLE;
+								var circle:CircleGesture = CircleGesture( gesture );
+
+								circle.center = new Vector3( json.gestures[ i ].center[ 0 ], json.gestures[ i ].center[ 1 ], json.gestures[ i ].center[ 2 ] );
+								circle.normal = new Vector3( json.gestures[ i ].normal[ 0 ], json.gestures[ i ].normal[ 1 ], json.gestures[ i ].normal[ 2 ] );
+								circle.progress = json.gestures[ i ].progress;
+								circle.radius = json.gestures[ i ].radius;
+								break;
+
+							case "swipe":
+								gesture = new SwipeGesture();
+								type = Gesture.TYPE_SWIPE;
+								
+								var swipe:SwipeGesture = SwipeGesture( gesture );
+								
+								swipe.startPosition = new Vector3( json.gestures[ i ].startPosition[ 0 ], json.gestures[ i ].startPosition[ 1 ], json.gestures[ i ].startPosition[ 2 ] );
+								swipe.position = new Vector3( json.gestures[ i ].position[ 0 ], json.gestures[ i ].position[ 1 ], json.gestures[ i ].position[ 2 ] );
+								swipe.direction = new Vector3( json.gestures[ i ].direction[ 0 ], json.gestures[ i ].direction[ 1 ], json.gestures[ i ].direction[ 2 ] );
+								swipe.speed = json.gestures[ i ].speed;
+								break;
+
+							case "screenTap":
+								gesture = new ScreenTapGesture();
+								type = Gesture.TYPE_SCREEN_TAP;
+								
+								var screenTap:ScreenTapGesture = ScreenTapGesture( gesture );
+								screenTap.position = new Vector3( json.gestures[ i ].position[ 0 ], json.gestures[ i ].position[ 1 ], json.gestures[ i ].position[ 2 ] );
+								screenTap.direction = new Vector3( json.gestures[ i ].direction[ 0 ], json.gestures[ i ].direction[ 1 ], json.gestures[ i ].direction[ 2 ] );
+								screenTap.progress = json.gestures[ i ].progress;
+								break;
+
+							case "keyTap":
+								gesture = new KeyTapGesture();
+								type = Gesture.TYPE_KEY_TAP;
+
+								var keyTap:KeyTapGesture = KeyTapGesture( gesture );
+								keyTap.position = new Vector3( json.gestures[ i ].position[ 0 ], json.gestures[ i ].position[ 1 ], json.gestures[ i ].position[ 2 ] );
+								keyTap.direction = new Vector3( json.gestures[ i ].direction[ 0 ], json.gestures[ i ].direction[ 1 ], json.gestures[ i ].direction[ 2 ] );
+								keyTap.progress = json.gestures[ i ].progress;
+								break;
+
+							default:
+								throw "unkown gesture type";
+						}
+						
+						var j:int = 0;
+						var lengthInner:int = 0;
+						
+						if( json.gestures[ i ].handIds )
+						{
+							j = 0;
+							lengthInner = json.gestures[ i ].handIds.length;
+							for( j; j < lengthInner; ++j )
+							{
+								var gestureHand:Hand = getHandByID( currentFrame, json.gestures[ i ].handIds );
+								gesture.hands.push( gestureHand );
+							}
+						}
+						
+						if( json.gestures[ i ].pointableIds )
+						{
+							j = 0;
+							lengthInner = json.gestures[ i ].pointableIds.length;
+							for( j; j < lengthInner; ++j )
+							{
+								var gesturePointable:Pointable = getPointableByID( currentFrame, json.gestures[ i ].pointableIds );
+								gesture.pointables.push( gesturePointable );
+							}
+						}
+						
+						gesture.frame = currentFrame;
+						gesture.id = json.gestures[ i ].id;
+						gesture.duration = json.gestures[ i ].duration;
+						
+						switch( json.gestures[ i ].state )
+						{
+							case "start":
+								gesture.state = Gesture.STATE_START;
+								break;
+							case "update":
+								gesture.state = Gesture.STATE_UPDATE;
+								break;
+							case "stop":
+								gesture.state = Gesture.STATE_STOP;
+								break;
+							default:
+								gesture.state = Gesture.STATE_INVALID;
+						}
+						
+						gesture.type = type;
+						
+						currentFrame._gestures.push( gesture );
+					}
+				}
+				
 				// Pointables
 				if ( json.pointables )
 				{
@@ -237,7 +350,7 @@ package com.leapmotion.leap.socket
 							pointable = new Tool();
 						else
 							pointable = new Finger();
-
+						
 						pointable.frame = currentFrame;
 						pointable.id = json.pointables[ i ].id;
 						pointable.hand = getHandByID( currentFrame, json.pointables[ i ].handId );
@@ -246,10 +359,10 @@ package com.leapmotion.leap.socket
 						pointable.tipPosition = new Vector3( json.pointables[ i ].tipPosition[ 0 ], json.pointables[ i ].tipPosition[ 1 ], json.pointables[ i ].tipPosition[ 2 ] );
 						pointable.tipVelocity = new Vector3( json.pointables[ i ].tipVelocity[ 0 ], json.pointables[ i ].tipVelocity[ 1 ], json.pointables[ i ].tipVelocity[ 2 ] );
 						currentFrame.pointables.push( pointable );
-
+						
 						if ( pointable.hand )
 							pointable.hand.pointables.push( pointable );
-
+						
 						if ( isTool )
 						{
 							pointable.isTool = true;
@@ -269,7 +382,7 @@ package com.leapmotion.leap.socket
 						}
 					}
 				}
-
+				
 				// Rotation (since last frame), interpolate for smoother motion
 				if ( json.r )
 					currentFrame.rotation = new Matrix( new Vector3( json.r[ 0 ][ 0 ], json.r[ 0 ][ 1 ], json.r[ 0 ][ 2 ] ), new Vector3( json.r[ 1 ][ 0 ], json.r[ 1 ][ 1 ], json.r[ 1 ][ 2 ] ), new Vector3( json.r[ 2 ][ 0 ], json.r[ 2 ][ 1 ], json.r[ 2 ][ 2 ] ) );
@@ -320,7 +433,29 @@ package com.leapmotion.leap.socket
 			}
 			return returnValue;
 		}
-
+		
+		/**
+		 * Inline method. Finds a Pointable object by ID
+		 * @param frame The Frame object in which the Pointable contains
+		 * @param id The ID of the Pointable object
+		 * @return The Pointable object if found, otherwise null
+		 *
+		 */
+		[Inline]
+		final private function getPointableByID( frame:Frame, id:int ):Pointable
+		{
+			var returnValue:Pointable = null;
+			for each ( var pointable:Pointable in frame.pointables )
+			{
+				if ( pointable.id == id )
+				{
+					returnValue = pointable;
+					break;
+				}
+			}
+			return returnValue;
+		}
+		
 		/**
 		 * Parses the HTTP header received from the Leap
 		 * @param line
@@ -466,7 +601,7 @@ package com.leapmotion.leap.socket
 		}
 		
 		/**
-		 * Enables or disables reporting of a specified gesture type.
+		 * Enables or disables reporting of gestures.
 		 * By default, all gesture types are disabled. When disabled, gestures of
 		 * the disabled type are never reported and will not appear in the frame
 		 * gesture list.
@@ -474,13 +609,21 @@ package com.leapmotion.leap.socket
 		 * As a performance optimization, only enable recognition for the types
 		 * of movements that you use in your application.
 		 *  
-		 * @param type The type of gesture to enable or disable. Must be a member of the Gesture::Type enumeration.
-		 * @param enable True, to enable the specified gesture type; False, to disable.
+		 * @param type The type of gesture to enable or disable. Not available for Socket connections.
+		 * @param enable True, to enable gestures; False, to disable.
 		 * 
 		 */
 		public function enableGesture( gesture:int, enable:Boolean = true):void
 		{
-			trace( "Gestures not supported for Socket connections, use ANE." );
+			if( socket.connected )
+			{
+				var enableString:String = "{enableGestures: " + enable + "}";
+				socket.writeUTFBytes( enableString );
+			}
+			else
+			{
+				trace( "Call enableGesture after you've received the onConnected event." );
+			}
 		}
 		
 		/**
@@ -492,7 +635,7 @@ package com.leapmotion.leap.socket
 		 */
 		public function isGestureEnabled( type:int ):Boolean
 		{
-			trace( "Gestures not supported for Socket connections, use ANE." );
+			trace( "Method not supported for Socket connections, use ANE." );
 			return false;
 		}
 	}
