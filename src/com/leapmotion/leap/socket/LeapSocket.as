@@ -95,6 +95,11 @@ package com.leapmotion.leap.socket
 		 * Whether the Leap is currently connected.
 		 */
 		private var _isConnected:Boolean = false;
+		
+		/**
+		 * Whether the Leap is reporting gestures.
+		 */
+		private var _isGesturesEnabled:Boolean = false;
 
 		public function LeapSocket( host:String = null )
 		{
@@ -617,26 +622,26 @@ package com.leapmotion.leap.socket
 		{
 			if( socket.connected )
 			{
+				_isGesturesEnabled = enable;
 				var enableString:String = "{enableGestures: " + enable + "}";
 				socket.writeUTFBytes( enableString );
 			}
 			else
 			{
-				trace( "Call enableGesture after you've received the onConnected event." );
+				trace( "Call enableGesture after you've received the leapmotionConnected event." );
 			}
 		}
 		
 		/**
 		 * Reports whether the specified gesture type is enabled.
 		 *  
-		 * @param type The Gesture.TYPE parameter.
-		 * @return True, if the specified type is enabled; false, otherwise.
+		 * @param type The Gesture.TYPE parameter. Not available for Socket connections.
+		 * @return True, if gestures is enabled; false, otherwise.
 		 * 
 		 */
 		public function isGestureEnabled( type:int ):Boolean
 		{
-			trace( "Method not supported for Socket connections, use ANE." );
-			return false;
+			return _isGesturesEnabled;
 		}
 	}
 }
