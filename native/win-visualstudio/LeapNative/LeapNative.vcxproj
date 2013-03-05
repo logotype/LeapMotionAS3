@@ -68,6 +68,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\LNExtension.h" />
+    <ClInclude Include="..\..\src\LNFREUtilities.h" />
     <ClInclude Include="..\..\src\LNLeapDevice.h" />
     <ClInclude Include="..\..\src\LNLeapListener.h" />
     <ClInclude Include="FlashRuntimeExtensions.h" />
