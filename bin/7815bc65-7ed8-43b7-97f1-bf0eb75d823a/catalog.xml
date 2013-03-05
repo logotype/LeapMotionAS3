@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding ="utf-8"?>
+<swc xmlns="http://www.adobe.com/flash/swccatalog/9">
+  <versions>
+    <swc version="1.2" />
+    <flex version="4.6.0" build="23201" minimumSupportedVersion="3.0.0" />
+  </versions>
+  <features>
+    <feature-script-deps />
+    <feature-files />
+  </features>
+  <libraries>
+    <library path="library.swf">
+      <script name="com/leapmotion/leap/Gesture" mod="1362511443000" signatureChecksum="2168777408" >
+        <def id="com.leapmotion.leap:Gesture" /> 
+        <dep id="com.leapmotion.leap:Pointable" type="e" /> 
+        <dep id="__AS3__.vec:Vector" type="e" /> 
+        <dep id="com.leapmotion.leap:Hand" type="e" /> 
+        <dep id="com.leapmotion.leap:Pointable" type="s" /> 
+        <dep id="com.leapmotion.leap:Frame" type="s" /> 
+        <dep id="__AS3__.vec:Vector" type="s" /> 
+        <dep id="com.leapmotion.leap:Hand" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/interfaces/ILeapCallback" mod="1362511443000" signatureChecksum="3263656870" >
+        <def id="com.leapmotion.leap.interfaces:ILeapCallback" /> 
+        <dep id="com.leapmotion.leap:Frame" type="s" /> 
+        <dep id="com.leapmotion.leap:Controller" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/callbacks/DefaultCallback" mod="1362511443000" signatureChecksum="223649057" >
+        <def id="com.leapmotion.leap.callbacks:DefaultCallback" /> 
+        <dep id="com.leapmotion.leap.events:LeapEvent" type="e" /> 
+        <dep id="com.leapmotion.leap:Frame" type="s" /> 
+        <dep id="com.leapmotion.leap:Controller" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.leapmotion.leap.interfaces:ILeapCallback" type="i" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/Frame" mod="1362511443000" signatureChecksum="2695304342" >
+        <def id="com.leapmotion.leap:Frame" /> 
+        <dep id="com.leapmotion.leap:Finger" type="e" /> 
+        <dep id="com.leapmotion.leap:Pointable" type="e" /> 
+        <dep id="com.leapmotion.leap:Gesture" type="e" /> 
+        <dep id="com.leapmotion.leap:Tool" type="e" /> 
+        <dep id="com.leapmotion.leap:Vector3" type="e" /> 
+        <dep id="__AS3__.vec:Vector" type="e" /> 
+        <dep id="Math" type="e" /> 
+        <dep id="com.leapmotion.leap:Matrix" type="e" /> 
+        <dep id="com.leapmotion.leap:Hand" type="e" /> 
+        <dep id="com.leapmotion.leap:Controller" type="e" /> 
+        <dep id="com.leapmotion.leap:Finger" type="s" /> 
+        <dep id="com.leapmotion.leap:Pointable" type="s" /> 
+        <dep id="com.leapmotion.leap:Gesture" type="s" /> 
+        <dep id="com.leapmotion.leap:Tool" type="s" /> 
+        <dep id="com.leapmotion.leap:Vector3" type="s" /> 
+        <dep id="__AS3__.vec:Vector" type="s" /> 
+        <dep id="com.leapmotion.leap:Matrix" type="s" /> 
+        <dep id="com.leapmotion.leap:Hand" type="s" /> 
+        <dep id="com.leapmotion.leap:Controller" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/interfaces/ILeapConnection" mod="1362511443000" signatureChecksum="1487099821" >
+        <def id="com.leapmotion.leap.interfaces:ILeapConnection" /> 
+        <dep id="com.leapmotion.leap:Frame" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/socket/LeapSocket" mod="1362515297000" signatureChecksum="229809965" >
+        <def id="com.leapmotion.leap.socket:LeapSocket" /> 
+        <dep id="com.leapmotion.leap:Finger" type="e" /> 
+        <dep id="flash.events:Event" type="e" /> 
+        <dep id="flash.utils:ByteArray" type="e" /> 
+        <dep id="Math" type="e" /> 
+        <dep id="com.leapmotion.leap.events:LeapEvent" type="e" /> 
+        <dep id="com.leapmotion.leap:Gesture" type="e" /> 
+        <dep id="com.leapmotion.leap:Frame" type="e" /> 
+        <dep id="com.leapmotion.leap:KeyTapGesture" type="e" /> 
+        <dep id="com.leapmotion.leap:CircleGesture" type="e" /> 
+        <dep id="com.leapmotion.leap.util:Base64Encoder" type="e" /> 
+        <dep id="JSON" type="e" /> 
+        <dep id="flash.net:Socket" type="e" /> 
+        <dep id="com.leapmotion.leap:Vector3" type="e" /> 
+        <dep id="trace" type="e" /> 
+        <dep id="flash.events:IOErrorEvent" type="e" /> 
+        <dep id="com.leapmotion.leap:Matrix" type="e" /> 
+        <dep id="com.leapmotion.leap.util:SHA1" type="e" /> 
+        <dep id="flash.events:SecurityErrorEvent" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="com.leapmotion.leap:SwipeGesture" type="e" /> 
+        <dep id="com.leapmotion.leap:Tool" type="e" /> 
+        <dep id="flash.events:ProgressEvent" type="e" /> 
+        <dep id="flash.utils:Endian" type="e" /> 
+        <dep id="com.leapmotion.leap.socket:LeapSocketFrame" type="e" /> 
+        <dep id="com.leapmotion.leap:ScreenTapGesture" type="e" /> 
+        <dep id="com.leapmotion.leap:Hand" type="e" /> 
+        <dep id="com.leapmotion.leap:Controller" type="e" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="com.leapmotion.leap.util:Base64Encoder" type="s" /> 
+        <dep id="flash.net:Socket" type="s" /> 
+        <dep id="flash.utils:ByteArray" type="s" /> 
+        <dep id="flash.events:IOErrorEvent" type="s" /> 
+        <dep id="flash.events:SecurityErrorEvent" type="s" /> 
+        <dep id="Error" type="s" /> 
+        <dep id="com.leapmotion.leap:Pointable" type="s" /> 
+        <dep id="com.leapmotion.leap:SwipeGesture" type="s" /> 
+        <dep id="com.leapmotion.leap:Gesture" type="s" /> 
+        <dep id="com.leapmotion.leap:Frame" type="s" /> 
+        <dep id="com.leapmotion.leap:KeyTapGesture" type="s" /> 
+        <dep id="flash.events:ProgressEvent" type="s" /> 
+        <dep id="com.leapmotion.leap.socket:LeapSocketFrame" type="s" /> 
+        <dep id="com.leapmotion.leap:ScreenTapGesture" type="s" /> 
+        <dep id="com.leapmotion.leap:Hand" type="s" /> 
+        <dep id="com.leapmotion.leap:Controller" type="s" /> 
+        <dep id="com.leapmotion.leap:CircleGesture" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.leapmotion.leap.namespaces:leapmotion" type="n" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="com.leapmotion.leap.interfaces:ILeapConnection" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/LeapMotion" mod="1362511443000" signatureChecksum="149634670" >
+        <def id="com.leapmotion.leap:LeapMotion" /> 
+        <dep id="com.leapmotion.leap:Controller" type="e" /> 
+        <dep id="com.leapmotion.leap:Frame" type="s" /> 
+        <dep id="com.leapmotion.leap:Controller" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="_0d4684995ed6126907bfda384508730bf2a024ff72bc90297214d9387f3aaee0_flash_display_Sprite" mod="1362515303449" signatureChecksum="1954380069" >
+        <def id="_0d4684995ed6126907bfda384508730bf2a024ff72bc90297214d9387f3aaee0_flash_display_Sprite" /> 
+        <dep id="flash.system:Security" type="e" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.display:Sprite" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/Pointable" mod="1362511443000" signatureChecksum="2677052900" >
+        <def id="com.leapmotion.leap:Pointable" /> 
+        <dep id="com.leapmotion.leap:Vector3" type="e" /> 
+        <dep id="com.leapmotion.leap:Frame" type="s" /> 
+        <dep id="com.leapmotion.leap:Vector3" type="s" /> 
+        <dep id="com.leapmotion.leap:Hand" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/Finger" mod="1362511443000" signatureChecksum="2303797418" >
+        <def id="com.leapmotion.leap:Finger" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.leapmotion.leap:Pointable" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/util/Base64Encoder" mod="1362511443000" signatureChecksum="996254712" >
+        <def id="com.leapmotion.leap.util:Base64Encoder" /> 
+        <dep id="flash.utils:ByteArray" type="e" /> 
+        <dep id="flash.utils:ByteArray" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/Vector3" mod="1362511443000" signatureChecksum="1415021646" >
+        <def id="com.leapmotion.leap:Vector3" /> 
+        <dep id="Math" type="e" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/socket/LeapSocketFrame" mod="1362511443000" signatureChecksum="1613977546" >
+        <def id="com.leapmotion.leap.socket:LeapSocketFrame" /> 
+        <dep id="flash.utils:ByteArray" type="e" /> 
+        <dep id="flash.utils:Endian" type="e" /> 
+        <dep id="flash.utils:ByteArray" type="s" /> 
+        <dep id="flash.net:Socket" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/Controller" mod="1362511443000" signatureChecksum="818464881" >
+        <def id="com.leapmotion.leap:Controller" /> 
+        <dep id="com.leapmotion.leap.callbacks:DefaultCallback" type="e" /> 
+        <dep id="com.leapmotion.leap:Frame" type="e" /> 
+        <dep id="com.leapmotion.leap.native:LeapNative" type="e" /> 
+        <dep id="com.leapmotion.leap.socket:LeapSocket" type="e" /> 
+        <dep id="__AS3__.vec:Vector" type="e" /> 
+        <dep id="com.leapmotion.leap.events:LeapEvent" type="e" /> 
+        <dep id="com.leapmotion.leap:Screen" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="com.leapmotion.leap:Pointable" type="s" /> 
+        <dep id="com.leapmotion.leap:Frame" type="s" /> 
+        <dep id="__AS3__.vec:Vector" type="s" /> 
+        <dep id="com.leapmotion.leap:Screen" type="s" /> 
+        <dep id="com.leapmotion.leap.interfaces:ILeapCallback" type="s" /> 
+        <dep id="com.leapmotion.leap.interfaces:ILeapConnection" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.leapmotion.leap.namespaces:leapmotion" type="n" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/KeyTapGesture" mod="1362511443000" signatureChecksum="1044205910" >
+        <def id="com.leapmotion.leap:KeyTapGesture" /> 
+        <dep id="com.leapmotion.leap:Pointable" type="s" /> 
+        <dep id="com.leapmotion.leap:Vector3" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.leapmotion.leap:Gesture" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/util/LeapMath" mod="1362511443000" signatureChecksum="2152122965" >
+        <def id="com.leapmotion.leap.util:LeapMath" /> 
+        <dep id="com.leapmotion.leap:Vector3" type="e" /> 
+        <dep id="Math" type="e" /> 
+        <dep id="com.leapmotion.leap:Matrix" type="e" /> 
+        <dep id="com.leapmotion.leap:Vector3" type="s" /> 
+        <dep id="com.leapmotion.leap:Matrix" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/ScreenTapGesture" mod="1362511443000" signatureChecksum="883643332" >
+        <def id="com.leapmotion.leap:ScreenTapGesture" /> 
+        <dep id="com.leapmotion.leap:Pointable" type="s" /> 
+        <dep id="com.leapmotion.leap:Vector3" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.leapmotion.leap:Gesture" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/util/SHA1" mod="1362511443000" signatureChecksum="581981029" >
+        <def id="com.leapmotion.leap.util:SHA1" /> 
+        <dep id="com.leapmotion.leap.util:IntUtil" type="e" /> 
+        <dep id="com.leapmotion.leap.util:Base64Encoder" type="e" /> 
+        <dep id="flash.utils:ByteArray" type="e" /> 
+        <dep id="com.leapmotion.leap.util:Base64Encoder" type="s" /> 
+        <dep id="flash.utils:ByteArray" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/Hand" mod="1362511443000" signatureChecksum="2713720233" >
+        <def id="com.leapmotion.leap:Hand" /> 
+        <dep id="com.leapmotion.leap:Finger" type="e" /> 
+        <dep id="com.leapmotion.leap:Pointable" type="e" /> 
+        <dep id="com.leapmotion.leap:Tool" type="e" /> 
+        <dep id="com.leapmotion.leap:Vector3" type="e" /> 
+        <dep id="__AS3__.vec:Vector" type="e" /> 
+        <dep id="Math" type="e" /> 
+        <dep id="com.leapmotion.leap:Matrix" type="e" /> 
+        <dep id="com.leapmotion.leap:Finger" type="s" /> 
+        <dep id="com.leapmotion.leap:Pointable" type="s" /> 
+        <dep id="com.leapmotion.leap:Frame" type="s" /> 
+        <dep id="com.leapmotion.leap:Tool" type="s" /> 
+        <dep id="com.leapmotion.leap:Vector3" type="s" /> 
+        <dep id="__AS3__.vec:Vector" type="s" /> 
+        <dep id="com.leapmotion.leap:Matrix" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/namespaces/leapmotion" mod="1362511443000" signatureChecksum="3820034830" >
+        <def id="com.leapmotion.leap.namespaces:leapmotion" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="com/leapmotion/leap/CircleGesture" mod="1362511443000" signatureChecksum="2695779889" >
+        <def id="com.leapmotion.leap:CircleGesture" /> 
+        <dep id="com.leapmotion.leap:Pointable" type="e" /> 
+        <dep id="com.leapmotion.leap:Pointable" type="s" /> 
+        <dep id="com.leapmotion.leap:Vector3" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.leapmotion.leap:Gesture" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/Screen" mod="1362511443000" signatureChecksum="2203178219" >
+        <def id="com.leapmotion.leap:Screen" /> 
+        <dep id="com.leapmotion.leap:Vector3" type="e" /> 
+        <dep id="trace" type="e" /> 
+        <dep id="flash.utils:getDefinitionByName" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="com.leapmotion.leap:Pointable" type="s" /> 
+        <dep id="com.leapmotion.leap:Vector3" type="s" /> 
+        <dep id="Error" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/native/LeapNative" mod="1362511443000" signatureChecksum="89648371" >
+        <def id="com.leapmotion.leap.native:LeapNative" /> 
+        <dep id="trace" type="e" /> 
+        <dep id="flash.events:StatusEvent" type="e" /> 
+        <dep id="flash.utils:getDefinitionByName" type="e" /> 
+        <dep id="com.leapmotion.leap:Controller" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="com.leapmotion.leap:Frame" type="s" /> 
+        <dep id="flash.events:StatusEvent" type="s" /> 
+        <dep id="com.leapmotion.leap:Controller" type="s" /> 
+        <dep id="Error" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.leapmotion.leap.namespaces:leapmotion" type="n" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="com.leapmotion.leap.interfaces:ILeapConnection" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/events/LeapEvent" mod="1362511443000" signatureChecksum="4136276757" >
+        <def id="com.leapmotion.leap.events:LeapEvent" /> 
+        <dep id="com.leapmotion.leap:Frame" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/util/IntUtil" mod="1362511443000" signatureChecksum="836844677" >
+        <def id="com.leapmotion.leap.util:IntUtil" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/Matrix" mod="1362511443000" signatureChecksum="1273083790" >
+        <def id="com.leapmotion.leap:Matrix" /> 
+        <dep id="com.leapmotion.leap:Vector3" type="e" /> 
+        <dep id="Math" type="e" /> 
+        <dep id="com.leapmotion.leap:Vector3" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/SwipeGesture" mod="1362511443000" signatureChecksum="1944934813" >
+        <def id="com.leapmotion.leap:SwipeGesture" /> 
+        <dep id="com.leapmotion.leap:Pointable" type="s" /> 
+        <dep id="com.leapmotion.leap:Vector3" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.leapmotion.leap:Gesture" type="i" /> 
+      </script>
+      <script name="com/leapmotion/leap/Tool" mod="1362511443000" signatureChecksum="2661361267" >
+        <def id="com.leapmotion.leap:Tool" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.leapmotion.leap:Pointable" type="i" /> 
+      </script>
+      <digests>
+        <digest type="SHA-256" signed="false" value="1b43e2c5d34b6bce575348f20c7c15e7154effa06d6575d9c3d7fffc04c9cdb7"   />
+      </digests>
+    </library>
+  </libraries>
+  <files>
+  </files>
+</swc>

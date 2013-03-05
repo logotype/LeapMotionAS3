@@ -267,6 +267,46 @@
         </exec>
     </target>
 
+    <target name="compile-debug-swf-socket" depends="clean-examples-debug-folder, list-external-libraries, config-sdk-examples">
+
+        <copy filtering="true" file="${Examples.MAIN_SRC_DESCRIPTOR}" tofile="${Examples.MAIN_DEBUG_DESCRIPTOR}"/>
+
+        <replace file="${Examples.MAIN_DEBUG_DESCRIPTOR}" token="APPLICATION_XMLNS" value="${Examples.APPLICATION_XMLNS}" />
+        
+        <replace file="${Examples.MAIN_DEBUG_DESCRIPTOR}">
+            <replacefilter token="APPLICATION_SWF"
+                           value="${Examples.MAIN_SWF}"/>
+        </replace>
+
+        <java jar="${Flex.MXMLC}" fork="true" failonerror="true" maxmemory="256m">
+            <arg value="-debug=true"/>
+            <arg value="-load-config=${FLEX_HOME}/frameworks/air-config.xml"/>
+            <arg value="+flexlib=${FLEX_HOME}/frameworks"/>
+            <arg value="-advanced-telemetry=true"/>
+            <arg value="-library-path+=${aneFiles}"/>
+            <arg value="-library-path+=${swcFiles}"/>
+            <arg value="-file-specs=${Examples.MAIN_SRC_FILE}"/>
+            <arg value="-output=${Examples.DEBUG_ROOT}/${Examples.MAIN_SWF}"/>
+        </java>
+    </target>
+
+    <target name="run-debug-swf-socket" depends="compile-debug-swf-socket, init-ant-contrib, unpack-native-extensions-debug" description="Runs the Sample.as in debug mode using socket fallback">
+        <if>
+            <equals arg1="${isWindows}" arg2="true"/>
+            <then>
+                <property name="ADL" value="${FLEX_HOME}/bin/adl.exe"/>
+            </then>
+            <else>
+                <property name="ADL" value="${FLEX_HOME}/bin/adl"/>
+            </else>
+        </if>
+
+        <exec executable="${ADL}">
+            <arg value="${Examples.MAIN_DEBUG_DESCRIPTOR}"/>
+            <arg value="${Examples.DEBUG_ROOT}"/>
+        </exec>
+    </target>
+
     <target name="compile-release-swf" depends="clean-examples-release-folder, list-external-libraries, config-sdk-examples">
 
         <copy filtering="true" file="${Examples.MAIN_SRC_DESCRIPTOR}" tofile="${Examples.MAIN_RELEASE_DESCRIPTOR}"/>

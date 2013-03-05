@@ -623,8 +623,9 @@ package com.leapmotion.leap.socket
 			if( socket.connected )
 			{
 				_isGesturesEnabled = enable;
-				var enableString:String = "{enableGestures: " + enable + "}";
-				socket.writeUTFBytes( enableString );
+				//TODO: not needed for JS? socket.writeUTFBytes stops websocket reception
+				//var enableString:String = "{enableGestures: " + enable + "}";
+				//socket.writeUTFBytes( enableString );
 			}
 			else
 			{
