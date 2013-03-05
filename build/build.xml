@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="extension-ant-build" default="build-native-extension">
+<project name="extension-ant-build" default="help">
+
+    <description>
+        LeapMotionAS3 is the AS3 framework for working with the Leap.
+        This set of tasks allows you to rebuild the ANE &amp; run the Sample, and more.
+    </description>
+
+    <target name="help">
+        <echo message="run ant -p to see a list of available targets" />
+    </target>
+
 	<property file="build.properties"/>
 
 	<condition property="isMac">
@@ -132,7 +142,8 @@
 		</java>
 	</target>
 
-	<target name="build-native-extension" depends="config-sdk-extension">
+	<target name="build-native-extension" depends="config-sdk-extension" description="Rebuilds the ANE &amp; SWC files">
+
 		<antcall target="clean-tmp-folder" />
 		<antcall target="build-extension-swc" />
 		<antcall target="generate-extension-certificate" />
@@ -237,7 +248,7 @@
         </for>
     </target>
 
-    <target name="run-debug-swf" depends="compile-debug-swf, init-ant-contrib, unpack-native-extensions-debug">
+    <target name="run-debug-swf" depends="compile-debug-swf, init-ant-contrib, unpack-native-extensions-debug" description="Runs the Sample.as in debug mode">
         <if>
             <equals arg1="${isWindows}" arg2="true"/>
             <then>
@@ -293,7 +304,7 @@
         </for>
     </target>
 
-    <target name="run-release-swf" depends="compile-release-swf, init-ant-contrib, unpack-native-extensions-release">
+    <target name="run-release-swf" depends="compile-release-swf, init-ant-contrib, unpack-native-extensions-release" description="Runs the Sample.as in release mode">
         <if>
             <equals arg1="${isWindows}" arg2="true"/>
             <then>
@@ -312,7 +323,7 @@
         </exec>
     </target>
 
-    <target name="create-standalone-application" depends="compile-release-swf, init-ant-contrib">
+    <target name="create-standalone-application" depends="compile-release-swf, init-ant-contrib" description="Creates a captive runtime version of Sample.as">
     	<antcall target="generate-examples-certificate" />
         <if>
             <equals arg1="${isWindows}" arg2="true"/>
