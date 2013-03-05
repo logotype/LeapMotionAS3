@@ -11,6 +11,7 @@
 #include <iostream>
 #include "LNExtension.h"
 #include "LNLeapDevice.h"
+#include "LNFREUtilities.h"
 
 extern "C" {
     
@@ -34,8 +35,7 @@ extern "C" {
         int gestureClassType;
         FREGetObjectAsInt32(argv[0], &gestureClassType);
         
-        bool gestureEnabled;
-        FREGetObjectAsBool(argv[1], &gestureEnabled);
+        bool gestureEnabled = createBoolFromFREObject(argv[1]);
         
         switch (gestureClassType) {
             case 5:
@@ -81,13 +81,11 @@ extern "C" {
                 break;
             default:
                 std::cout << "LeapNative_isGestureEnabled: invalid argument" << std::endl;
-                gestureEnabled = FALSE;
+                gestureEnabled = false;
                 break;
         }
-		
-        FREObject freIsGestureEnabled;
-		FRENewObjectFromBool(1, &gestureEnabled);
-		return freIsGestureEnabled;
+        
+        return createFREObjectForBool(gestureEnabled);
     }
     
     FRENamedFunction _Shared_methods[] = {

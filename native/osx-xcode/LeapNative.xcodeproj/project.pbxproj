@@ -53,6 +53,7 @@
 		6C2DA08316BBF41B00FC1899 /* LNLeapListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LNLeapListener.cpp; sourceTree = "<group>"; };
 		6C2DA08416BBF41B00FC1899 /* LNLeapListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LNLeapListener.h; sourceTree = "<group>"; };
 		6C2DA08716BBF67D00FC1899 /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libLeap.dylib; path = "../../../LeapSDK/lib/libc++/libLeap.dylib"; sourceTree = "<group>"; };
+		6CD8E59016E66ED9009C8ACA /* LNFREUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LNFREUtilities.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +139,7 @@
 				6C2DA07816BBD63400FC1899 /* LNLeapDevice.h */,
 				6C2DA08316BBF41B00FC1899 /* LNLeapListener.cpp */,
 				6C2DA08416BBF41B00FC1899 /* LNLeapListener.h */,
+				6CD8E59016E66ED9009C8ACA /* LNFREUtilities.h */,
 			);
 			name = src;
 			path = ../src;
