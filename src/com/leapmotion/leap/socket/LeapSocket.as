@@ -101,6 +101,16 @@ package com.leapmotion.leap.socket
 		 */
 		private var _isGesturesEnabled:Boolean = false;
 
+		/**
+		 * Bytearray which is used for sending data over the websocket
+		 */
+		private var output:ByteArray;
+
+		/**
+		 * Bytearray which is used to encode data as binary data for sending it over the websocket
+		 */
+		private var binaryPayload:ByteArray;
+
 		public function LeapSocket( host:String = null )
 		{
 			if ( host )
@@ -118,6 +128,9 @@ package com.leapmotion.leap.socket
 			var encoder:Base64Encoder = new Base64Encoder();
 			encoder.encodeBytes( nonce );
 			base64nonce = encoder.flush();
+
+			binaryPayload = new ByteArray();
+			output = new ByteArray();
 
 			socket = new Socket( this.host, 6437 );
 
@@ -623,14 +636,54 @@ package com.leapmotion.leap.socket
 			if( socket.connected )
 			{
 				_isGesturesEnabled = enable;
-				//TODO: not needed for JS? socket.writeUTFBytes stops websocket reception
-				//var enableString:String = "{enableGestures: " + enable + "}";
-				//socket.writeUTFBytes( enableString );
+				var enableString:String = "{\"enableGestures\": " + enable + "}";
+				sendUTF(enableString);
 			}
 			else
 			{
 				trace( "Call enableGesture after you've received the leapmotionConnected event." );
 			}
+		}
+
+		/**
+		 * Encodes & sends a string over the websocket connection
+		 *
+		 * @param str the string to send
+		 */
+		private function sendUTF(str:String):void
+		{
+			binaryPayload.writeMultiByte(str, 'utf-8');
+			binaryPayload.endian = Endian.BIG_ENDIAN;
+			binaryPayload.position = 0;
+
+			var length:uint = binaryPayload.length;
+
+			var lengthByte:int = 0x80;
+			if (length <= 125)
+				lengthByte |= (length & 0x7F);
+			else if (length > 125 && length <= 0xFFFF)
+				lengthByte |= 126;
+			else if (length > 0xFFFF)
+				lengthByte |= 127;
+
+			output.writeByte(0x81);
+			output.writeByte(lengthByte);
+
+			if (length > 125 && length <= 0xFFFF)
+				output.writeShort(length);
+			else if (length > 0xFFFF) {
+				output.writeUnsignedInt(0x00000000);
+				output.writeUnsignedInt(length);
+			}
+
+			output.writeUnsignedInt(0);
+			output.writeBytes(binaryPayload, 0, binaryPayload.length);
+
+			output.position = 0;
+			socket.writeBytes(output, 0, output.bytesAvailable);
+			socket.flush();
+			output.clear();
+			binaryPayload.clear();
 		}
 		
 		/**
