@@ -166,6 +166,7 @@
 		
 		<!-- replace placeholders in the extension.xml -->
 		<replace file="${Extension.TMP_ROOT}/extension.xml" token="NATIVE_LIBRARY_XMLNS" value="${Extension.NATIVE_LIBRARY_XMLNS}" />
+        <replace file="${Extension.TMP_ROOT}/extension.xml" token="NATIVE_EXTENSION_ID" value="${Extension.ID}" />
 		<replace file="${Extension.TMP_ROOT}/extension.xml" token="NATIVE_LIBRARY_WINDOWS" value="${Extension.NATIVE_LIBRARY_WINDOWS}" />
 		<replace file="${Extension.TMP_ROOT}/extension.xml" token="NATIVE_LIBRARY_OSX" value="${Extension.NATIVE_LIBRARY_OSX}" />
 		
@@ -216,6 +217,7 @@
         <copy filtering="true" file="${Examples.MAIN_SRC_DESCRIPTOR}" tofile="${Examples.MAIN_DEBUG_DESCRIPTOR}"/>
 
         <replace file="${Examples.MAIN_DEBUG_DESCRIPTOR}" token="APPLICATION_XMLNS" value="${Examples.APPLICATION_XMLNS}" />
+        <replace file="${Examples.MAIN_DEBUG_DESCRIPTOR}" token="APPLICATION_NATIVE_EXTENSION_TAG" value="&lt;extensionID&gt;${Extension.ID}&lt;/extensionID&gt;" />
         
         <replace file="${Examples.MAIN_DEBUG_DESCRIPTOR}">
             <replacefilter token="APPLICATION_SWF"
@@ -272,6 +274,7 @@
         <copy filtering="true" file="${Examples.MAIN_SRC_DESCRIPTOR}" tofile="${Examples.MAIN_DEBUG_DESCRIPTOR}"/>
 
         <replace file="${Examples.MAIN_DEBUG_DESCRIPTOR}" token="APPLICATION_XMLNS" value="${Examples.APPLICATION_XMLNS}" />
+        <replace file="${Examples.MAIN_DEBUG_DESCRIPTOR}" token="APPLICATION_NATIVE_EXTENSION_TAG" value="" />
         
         <replace file="${Examples.MAIN_DEBUG_DESCRIPTOR}">
             <replacefilter token="APPLICATION_SWF"

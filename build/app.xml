@@ -12,6 +12,6 @@
     </initialWindow>
 	<supportedProfiles>extendedDesktop</supportedProfiles>
 	<extensions>
-        <extensionID>com.leapmotion.leap.air.native.LeapNative</extensionID>
+        APPLICATION_NATIVE_EXTENSION_TAG
     </extensions>
 </application>
