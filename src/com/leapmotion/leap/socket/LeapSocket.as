@@ -249,6 +249,51 @@ package com.leapmotion.leap.socket
 
 				// ID
 				currentFrame.id = json.id;
+				
+				// Pointables
+				if ( json.pointables )
+				{
+					i = 0;
+					length = json.pointables.length;
+					for ( i; i < length; ++i )
+					{
+						isTool = json.pointables[ i ].tool;
+						if ( isTool )
+							pointable = new Tool();
+						else
+							pointable = new Finger();
+						
+						pointable.frame = currentFrame;
+						pointable.id = json.pointables[ i ].id;
+						pointable.hand = getHandByID( currentFrame, json.pointables[ i ].handId );
+						pointable.length = json.pointables[ i ].length;
+						pointable.direction = new Vector3( json.pointables[ i ].direction[ 0 ], json.pointables[ i ].direction[ 1 ], json.pointables[ i ].direction[ 2 ] );
+						pointable.tipPosition = new Vector3( json.pointables[ i ].tipPosition[ 0 ], json.pointables[ i ].tipPosition[ 1 ], json.pointables[ i ].tipPosition[ 2 ] );
+						pointable.tipVelocity = new Vector3( json.pointables[ i ].tipVelocity[ 0 ], json.pointables[ i ].tipVelocity[ 1 ], json.pointables[ i ].tipVelocity[ 2 ] );
+						currentFrame.pointables.push( pointable );
+						
+						if ( pointable.hand )
+							pointable.hand.pointables.push( pointable );
+						
+						if ( isTool )
+						{
+							pointable.isTool = true;
+							pointable.isFinger = false;
+							pointable.width = json.pointables[ i ].width;
+							currentFrame.tools.push( pointable );
+							if ( pointable.hand )
+								pointable.hand.tools.push( pointable );
+						}
+						else
+						{
+							pointable.isTool = false;
+							pointable.isFinger = true;
+							currentFrame.fingers.push( pointable );
+							if ( pointable.hand )
+								pointable.hand.fingers.push( pointable );
+						}
+					}
+				}
 
 				// Gestures
 				if ( json.gestures )
@@ -315,7 +360,7 @@ package com.leapmotion.leap.socket
 							lengthInner = json.gestures[ i ].handIds.length;
 							for( j; j < lengthInner; ++j )
 							{
-								var gestureHand:Hand = getHandByID( currentFrame, json.gestures[ i ].handIds );
+								var gestureHand:Hand = getHandByID( currentFrame, json.gestures[ i ].handIds[ j ] );
 								gesture.hands.push( gestureHand );
 							}
 						}
@@ -326,8 +371,15 @@ package com.leapmotion.leap.socket
 							lengthInner = json.gestures[ i ].pointableIds.length;
 							for( j; j < lengthInner; ++j )
 							{
-								var gesturePointable:Pointable = getPointableByID( currentFrame, json.gestures[ i ].pointableIds );
-								gesture.pointables.push( gesturePointable );
+								var gesturePointable:Pointable = getPointableByID( currentFrame, json.gestures[ i ].pointableIds[ j ] );
+								if( gesturePointable )
+								{
+									gesture.pointables.push( gesturePointable );
+								}
+							}
+							if( gesture is CircleGesture && gesture.pointables.length > 0 )
+							{
+								( gesture as CircleGesture ).pointable = gesture.pointables[ 0 ];
 							}
 						}
 						
@@ -353,51 +405,6 @@ package com.leapmotion.leap.socket
 						gesture.type = type;
 						
 						currentFrame._gestures.push( gesture );
-					}
-				}
-				
-				// Pointables
-				if ( json.pointables )
-				{
-					i = 0;
-					length = json.pointables.length;
-					for ( i; i < length; ++i )
-					{
-						isTool = json.pointables[ i ].tool;
-						if ( isTool )
-							pointable = new Tool();
-						else
-							pointable = new Finger();
-						
-						pointable.frame = currentFrame;
-						pointable.id = json.pointables[ i ].id;
-						pointable.hand = getHandByID( currentFrame, json.pointables[ i ].handId );
-						pointable.length = json.pointables[ i ].length;
-						pointable.direction = new Vector3( json.pointables[ i ].direction[ 0 ], json.pointables[ i ].direction[ 1 ], json.pointables[ i ].direction[ 2 ] );
-						pointable.tipPosition = new Vector3( json.pointables[ i ].tipPosition[ 0 ], json.pointables[ i ].tipPosition[ 1 ], json.pointables[ i ].tipPosition[ 2 ] );
-						pointable.tipVelocity = new Vector3( json.pointables[ i ].tipVelocity[ 0 ], json.pointables[ i ].tipVelocity[ 1 ], json.pointables[ i ].tipVelocity[ 2 ] );
-						currentFrame.pointables.push( pointable );
-						
-						if ( pointable.hand )
-							pointable.hand.pointables.push( pointable );
-						
-						if ( isTool )
-						{
-							pointable.isTool = true;
-							pointable.isFinger = false;
-							pointable.width = json.pointables[ i ].width;
-							currentFrame.tools.push( pointable );
-							if ( pointable.hand )
-								pointable.hand.tools.push( pointable );
-						}
-						else
-						{
-							pointable.isTool = false;
-							pointable.isFinger = true;
-							currentFrame.fingers.push( pointable );
-							if ( pointable.hand )
-								pointable.hand.fingers.push( pointable );
-						}
 					}
 				}
 				
