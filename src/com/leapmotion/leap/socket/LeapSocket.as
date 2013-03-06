@@ -386,6 +386,7 @@ package com.leapmotion.leap.socket
 						gesture.frame = currentFrame;
 						gesture.id = json.gestures[ i ].id;
 						gesture.duration = json.gestures[ i ].duration;
+						gesture.durationSeconds = gesture.duration / 1000000;
 						
 						switch( json.gestures[ i ].state )
 						{
