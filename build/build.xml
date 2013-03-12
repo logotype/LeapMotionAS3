@@ -38,9 +38,6 @@
 	<property name="Examples.AIR_CERTIFICATE_ROOT" location="${Examples.RELEASE_ROOT}/cert"/>
 	<property name="Examples.TMP_ROOT" value="${Examples.BUILD_ROOT}/tmp"/>
 
-	<property name="Examples.MAIN_SWF" value="${Examples.MAIN_NAME}.swf"/>
-    <property name="Examples.MAIN_SRC_FILE"
-              value="${Examples.AS3_ROOT}/${Examples.MAIN_NAME}${Examples.MAIN_EXTENSION}"/>
 	<property name="Examples.MAIN_SRC_DESCRIPTOR" value="${Examples.BUILD_ROOT}/app.xml"/>
 
     <property name="Examples.MAIN_DEBUG_DESCRIPTOR" value="${Examples.DEBUG_ROOT}/app.xml"/>
@@ -58,6 +55,25 @@
 		<property name="Flex.ADT" value="${Examples.AIR_SDK_HOME}/lib/adt.jar"/>
     	<property name="Flex.MXMLC" value="${FLEX_HOME}/lib/mxmlc-cli.jar"/>
 	</target>
+
+    <target name="config-example" depends="init-ant-contrib">
+        <property name="Examples.MAIN_SWF" value="${Examples.MAIN_NAME}.swf"/>
+        <condition property="Examples.MAIN_IS_IN_SUBPACKAGE"> 
+            <length string="${Examples.MAIN_PACKAGE}" when="gt" length="0" /> 
+        </condition>
+        <if>
+            <equals arg1="${Examples.MAIN_IS_IN_SUBPACKAGE}" arg2="true"/>
+            <then>
+                <propertyregex property="Examples.MAIN_FOLDER_TMP" input="${Examples.MAIN_PACKAGE}" regexp="\." replace="/" global="true" />
+                <property name="Examples.MAIN_FOLDER" value="${Examples.AS3_ROOT}/${Examples.MAIN_FOLDER_TMP}/"/>
+            </then>
+            <else>
+                <property name="Examples.MAIN_FOLDER" value="${Examples.AS3_ROOT}/"/>
+            </else>
+        </if>
+        <property name="Examples.MAIN_SRC_FILE"
+              value="${Examples.MAIN_FOLDER}${Examples.MAIN_NAME}${Examples.MAIN_EXTENSION}"/>
+    </target>
 
 	<!-- GET ANT CONTRIB IF IT DOESNT EXIST -->
     <!-- task found on http://stackoverflow.com/questions/653552/how-to-install-ant-contrib-under-windows -->
@@ -212,7 +228,7 @@
         </pathconvert>
     </target>
 
-    <target name="compile-debug-swf" depends="clean-examples-debug-folder, list-external-libraries, config-sdk-examples">
+    <target name="compile-debug-swf" depends="clean-examples-debug-folder, list-external-libraries, config-sdk-examples, config-example">
 
         <copy filtering="true" file="${Examples.MAIN_SRC_DESCRIPTOR}" tofile="${Examples.MAIN_DEBUG_DESCRIPTOR}"/>
 
@@ -231,6 +247,7 @@
             <arg value="-advanced-telemetry=true"/>
             <arg value="-external-library-path+=${aneFiles}"/>
             <arg value="-library-path+=${swcFiles}"/>
+            <arg value="-source-path=${Examples.AS3_ROOT}"/>
             <arg value="-file-specs=${Examples.MAIN_SRC_FILE}"/>
             <arg value="-output=${Examples.DEBUG_ROOT}/${Examples.MAIN_SWF}"/>
         </java>
@@ -269,7 +286,7 @@
         </exec>
     </target>
 
-    <target name="compile-debug-swf-socket" depends="clean-examples-debug-folder, list-external-libraries, config-sdk-examples">
+    <target name="compile-debug-swf-socket" depends="clean-examples-debug-folder, list-external-libraries, config-sdk-examples, config-example">
 
         <copy filtering="true" file="${Examples.MAIN_SRC_DESCRIPTOR}" tofile="${Examples.MAIN_DEBUG_DESCRIPTOR}"/>
 
@@ -288,6 +305,7 @@
             <arg value="-advanced-telemetry=true"/>
             <arg value="-library-path+=${aneFiles}"/>
             <arg value="-library-path+=${swcFiles}"/>
+            <arg value="-source-path=${Examples.AS3_ROOT}"/>
             <arg value="-file-specs=${Examples.MAIN_SRC_FILE}"/>
             <arg value="-output=${Examples.DEBUG_ROOT}/${Examples.MAIN_SWF}"/>
         </java>
@@ -310,11 +328,12 @@
         </exec>
     </target>
 
-    <target name="compile-release-swf" depends="clean-examples-release-folder, list-external-libraries, config-sdk-examples">
+    <target name="compile-release-swf" depends="clean-examples-release-folder, list-external-libraries, config-sdk-examples, config-example">
 
         <copy filtering="true" file="${Examples.MAIN_SRC_DESCRIPTOR}" tofile="${Examples.MAIN_RELEASE_DESCRIPTOR}"/>
 
         <replace file="${Examples.MAIN_RELEASE_DESCRIPTOR}" token="APPLICATION_XMLNS" value="${Examples.APPLICATION_XMLNS}" />
+        <replace file="${Examples.MAIN_RELEASE_DESCRIPTOR}" token="APPLICATION_NATIVE_EXTENSION_TAG" value="&lt;extensionID&gt;${Extension.ID}&lt;/extensionID&gt;" />
         
         <replace file="${Examples.MAIN_RELEASE_DESCRIPTOR}">
             <replacefilter token="APPLICATION_SWF"
@@ -328,6 +347,7 @@
             <arg value="-advanced-telemetry=true"/>
             <arg value="-external-library-path+=${aneFiles}"/>
             <arg value="-library-path+=${swcFiles}"/>
+            <arg value="-source-path=${Examples.AS3_ROOT}"/>
             <arg value="-file-specs=${Examples.MAIN_SRC_FILE}"/>
             <arg value="-output=${Examples.RELEASE_ROOT}/${Examples.MAIN_SWF}"/>
         </java>
