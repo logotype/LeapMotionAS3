@@ -53,13 +53,17 @@ package samples.fingerVisualizer
 			
 			leap = new LeapMotion();
 			leap.controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, leapmotionFrameHandler );
-			
-			leap.controller.enableGesture( Gesture.TYPE_CIRCLE );
-			leap.controller.enableGesture( Gesture.TYPE_KEY_TAP );
-			leap.controller.enableGesture( Gesture.TYPE_SCREEN_TAP );
-			leap.controller.enableGesture( Gesture.TYPE_SWIPE );
+			leap.controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, leapmotionConnectedHandler );
 			
 			addStageListeners();
+		}
+
+		protected function leapmotionConnectedHandler( event:LeapEvent ):void
+		{
+			leap.controller.enableGesture( Gesture.TYPE_SWIPE );
+			leap.controller.enableGesture( Gesture.TYPE_CIRCLE );
+			leap.controller.enableGesture( Gesture.TYPE_SCREEN_TAP );
+			leap.controller.enableGesture( Gesture.TYPE_KEY_TAP );
 		}
 		
 		protected function leapmotionFrameHandler( event:LeapEvent ):void
