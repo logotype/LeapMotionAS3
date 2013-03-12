@@ -9,6 +9,8 @@
 		<autoOrients>false</autoOrients>
         <fullScreen>false</fullScreen>
         <visible>true</visible>
+        <renderMode>direct</renderMode>
+        <depthAndStencil>true</depthAndStencil>
     </initialWindow>
 	<supportedProfiles>extendedDesktop</supportedProfiles>
 	<extensions>
