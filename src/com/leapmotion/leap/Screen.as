@@ -1,5 +1,7 @@
 package com.leapmotion.leap
 {
+	import flash.utils.getDefinitionByName;
+
 	/**
 	 * The Screen class represents a computer monitor screen.
 	 * 
@@ -45,6 +47,16 @@ package com.leapmotion.leap
 		 * Native Extension context. 
 		 */		
 		private var context:Object;
+
+		/**
+		 * Reference to flash.display.Screen (only available on AIR)
+		 */
+		public static var ScreenClass:*;
+
+		/**
+		 * Reference to the AIR builtin Screen instance
+		 */
+		public var _screen:*;
 		
 		/**
 		 * Constructs a Screen object.
@@ -60,6 +72,25 @@ package com.leapmotion.leap
 				throw new Error( "Native Context not available. The Screen class is only available in Adobe AIR." );
 			else
 				context = Controller.getInstance().context;
+		}
+
+		/**
+		 * Tries to return a reference to the Screen class
+		 *
+		 * @return True, if definition could be found; False otherwise.
+		 *
+		 */
+		public static function tryCreatingScreenClassReference():Boolean
+		{
+			try
+			{
+				ScreenClass = getDefinitionByName( "flash.display.Screen" );
+				return true;
+			}
+			catch ( error:Error )
+			{
+			}
+			return false;
 		}
 		
 		/**

@@ -29,8 +29,9 @@ package samples.visualizer
 			addChild(lengthMesh);
 
 			tipMesh = new Mesh(tipGeometry, m);
-			tipMesh.z = 0;
 			addChild(tipMesh);
+
+			//addChild(new Trident(100));
 		}
 	}
 }
