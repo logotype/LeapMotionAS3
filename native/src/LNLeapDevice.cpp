@@ -363,4 +363,88 @@ namespace leapnative {
         
         return freCurrentFrame;
     }
+
+    //screen class
+    FREObject LNLeapDevice::getScreenDistanceToPoint(int screenId, float pX, float pY, float pZ) {
+        ScreenList screenList = controller->calibratedScreens();
+        Screen screen = screenList[screenId];
+        
+        Vector vectorPoint = Vector(pX, pY, pZ);
+        
+        FREObject freScreenDistance;
+        FRENewObjectFromDouble((double) screen.distanceToPoint(vectorPoint), &freScreenDistance);
+        
+        return freScreenDistance;
+    }
+    
+    FREObject LNLeapDevice::getScreenHeightPixels(int screenId) {
+        ScreenList screenList = controller->calibratedScreens();
+        Screen screen = screenList[screenId];
+        
+        FREObject freReturnValue;
+        FRENewObjectFromInt32((int32_t) screen.heightPixels(), &freReturnValue);
+        
+        return freReturnValue;
+    }
+    
+    FREObject LNLeapDevice::getScreenWidthPixels(int screenId) {
+        ScreenList screenList = controller->calibratedScreens();
+        Screen screen = screenList[screenId];
+        
+        FREObject freReturnValue;
+        FRENewObjectFromInt32((int32_t) screen.widthPixels(), &freReturnValue);
+        
+        return freReturnValue;
+    }
+    
+    FREObject LNLeapDevice::getScreenHorizontalAxis(int screenId) {
+        ScreenList screenList = controller->calibratedScreens();
+        Screen screen = screenList[screenId];
+        
+        const Vector vector = screen.horizontalAxis();
+        return createVector3(vector.x, vector.y, vector.z);
+    }
+    
+    FREObject LNLeapDevice::getScreenVerticalAxis(int screenId) {
+        ScreenList screenList = controller->calibratedScreens();
+        Screen screen = screenList[screenId];
+        
+        const Vector vector = screen.verticalAxis();
+        return createVector3(vector.x, vector.y, vector.z);
+    }
+    
+    FREObject LNLeapDevice::getScreenBottomLeftCorner(int screenId) {
+        ScreenList screenList = controller->calibratedScreens();
+        Screen screen = screenList[screenId];
+        
+        const Vector vector = screen.bottomLeftCorner();
+        return createVector3(vector.x, vector.y, vector.z);
+    }
+    
+    FREObject LNLeapDevice::getScreenIntersect(int screenId, Pointable pointable, bool normalize, float clampRatio) {
+        ScreenList screenList = controller->calibratedScreens();
+        Screen screen = screenList[screenId];
+        
+        const Vector vector = screen.intersect(pointable, normalize, clampRatio);
+        return createVector3(vector.x, vector.y, vector.z);
+    }
+    
+    FREObject LNLeapDevice::getScreenIsValid(int screenId) {
+        ScreenList screenList = controller->calibratedScreens();
+        Screen screen = screenList[screenId];
+        
+        FREObject freReturnValue;
+        FRENewObjectFromBool(screen.isValid(), &freReturnValue);
+        
+        return freReturnValue;
+    }
+    
+    FREObject LNLeapDevice::getScreenNormal(int screenId) {
+        ScreenList screenList = controller->calibratedScreens();
+        Screen screen = screenList[screenId];
+        
+        const Vector vector = screen.normal();
+        return createVector3(vector.x, vector.y, vector.z);
+    }
+    //screen class
 }

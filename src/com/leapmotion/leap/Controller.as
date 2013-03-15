@@ -41,6 +41,12 @@ package com.leapmotion.leap
 		 * History of frame of tracking data from the Leap.
 		 */
 		public var frameHistory:Vector.<Frame> = new Vector.<Frame>();
+		
+		/**
+		 * Native Extension context object. 
+		 * 
+		 */
+		public var context:Object;
 
 		public function Controller()
 		{
