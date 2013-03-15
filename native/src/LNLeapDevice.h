@@ -39,10 +39,11 @@ namespace leapnative {
         FREObject getScreenHorizontalAxis(int screenId);
         FREObject getScreenVerticalAxis(int screenId);
         FREObject getScreenBottomLeftCorner(int screenId);
-        FREObject getScreenIntersect(int screenId, Pointable pointable, bool normalize, float clampRatio);
+        FREObject getScreenIntersect(int screenId, Pointable pointable, bool normalize, float clampRatio = 1.0f);
         FREObject getScreenIsValid(int screenId);
         FREObject getScreenNormal(int screenId);
-        
+        FREObject getClosestScreenHit(Pointable pointable);
+
     private:
         FREContext m_ctx;
         

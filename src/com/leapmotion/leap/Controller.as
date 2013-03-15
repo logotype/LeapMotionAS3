@@ -47,6 +47,11 @@ package com.leapmotion.leap
 		 * 
 		 */
 		public var context:Object;
+		
+		/**
+		 * List of Screen objects, created by calibratedScreens(). 
+		 */
+		private var _screenList:Vector.<Screen> = new Vector.<Screen>();
 
 		public function Controller()
 		{
@@ -151,27 +156,29 @@ package com.leapmotion.leap
 		 */
 		public function calibratedScreens():Vector.<Screen>
 		{
-			throw new Error("Not implemented yet.");
-			
-			var screenList:Vector.<Screen> = new Vector.<Screen>();
-
-			if( Screen.tryCreatingScreenClassReference() )
+			if( _screenList.length == 0 )
 			{
-				var screen:Screen;
-				var screenArray:Array = Screen.ScreenClass.screens;
-				var i:int = 0;
-				var length:int = screenArray.length;
-
-				for( i; i < length; ++i )
+				if( Screen.tryCreatingScreenClassReference() )
 				{
-					screen = new Screen();
-					screen._screen = screenArray[ i ];
-					screen.id = i;
-					screenList.push( screen );
+					var screen:Screen;
+					var screenArray:Array = Screen.ScreenClass.screens;
+					var i:int = 0;
+					var length:int = screenArray.length;
+					
+					for( i; i < length; ++i )
+					{
+						screen = new Screen();
+						screen._screen = screenArray[ i ];
+						screen.id = i;
+						_screenList.push( screen );
+					}
 				}
+				return _screenList;
 			}
-			
-			return screenList;
+			else
+			{
+				return _screenList;
+			}
 		}
 		
 		/**
@@ -200,8 +207,20 @@ package com.leapmotion.leap
 		 */
 		public function closestScreenHit( pointable:Pointable ):Screen
 		{
-			throw new Error("Not implemented yet.");
-			return Screen.invalid();
+			var screenId:int = context.call( "getClosestScreenHit", pointable.tipPosition.x, pointable.tipPosition.y, pointable.tipPosition.z, pointable.direction.x, pointable.direction.y, pointable.direction.z );
+			var returnValue:Screen = null;
+			var screenList:Vector.<Screen> = calibratedScreens();
+			
+			for each ( var screen:Screen in screenList )
+			{
+				if( screen.id == screenId )
+				{
+					returnValue = screen;
+					break;
+				}
+			}
+			
+			return returnValue;
 		}
 
 		/**

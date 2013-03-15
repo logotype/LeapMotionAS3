@@ -89,7 +89,6 @@ extern "C" {
     }
     
     //start screen class
-    
     FREObject LeapNative_getScreenDistanceToPoint(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
         leapnative::LNLeapDevice* device;
         FREGetContextNativeData(ctx, (void **) &device);
@@ -192,6 +191,16 @@ extern "C" {
         
         return device->getScreenIntersect(screenId, pointable, normalize, (float) clampRatio);
     }
+    
+    FREObject LeapNative_getScreenIsValid(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        int screenId;
+        FREGetObjectAsInt32(argv[0], &screenId);
+        
+        return device->getScreenIsValid(screenId);
+    }
 
     FREObject LeapNative_getScreenNormal(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
         leapnative::LNLeapDevice* device;
@@ -203,6 +212,38 @@ extern "C" {
         return device->getScreenNormal(screenId);
     }
     
+    FREObject LeapNative_getClosestScreenHit(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        int screenId;
+        FREGetObjectAsInt32(argv[0], &screenId);
+
+        //pointable tip position
+        double pTX;
+        double pTY;
+        double pTZ;
+        FREGetObjectAsDouble(argv[0], &pTX);
+        FREGetObjectAsDouble(argv[1], &pTY);
+        FREGetObjectAsDouble(argv[2], &pTZ);
+        
+        //pointable direction
+        double pDX;
+        double pDY;
+        double pDZ;
+        FREGetObjectAsDouble(argv[3], &pDX);
+        FREGetObjectAsDouble(argv[4], &pDY);
+        FREGetObjectAsDouble(argv[5], &pDZ);
+        
+        Vector tipPosition = Vector((float) pTX, (float) pTY, (float) pTZ);
+        Vector direction = Vector((float) pDX, (float) pDY, (float) pDZ);
+        
+        Pointable pointable = Pointable();
+        pointable.tipPosition() = tipPosition;
+        pointable.direction() = direction;
+        
+        return device->getClosestScreenHit(pointable);
+    }
     //end screen class
     
     FRENamedFunction _Shared_methods[] = {
@@ -212,7 +253,16 @@ extern "C" {
 	FRENamedFunction _Instance_methods[] = {
   		{ (const uint8_t*) "getFrame", 0, LeapNative_getFrame },
   		{ (const uint8_t*) "enableGesture", 0, LeapNative_enableGesture },
-  		{ (const uint8_t*) "isGestureEnabled", 0, LeapNative_isGestureEnabled }
+  		{ (const uint8_t*) "getScreenDistanceToPoint", 0, LeapNative_getScreenDistanceToPoint },
+  		{ (const uint8_t*) "getScreenHeightPixels", 0, LeapNative_getScreenHeightPixels },
+  		{ (const uint8_t*) "getScreenWidthPixels", 0, LeapNative_getScreenWidthPixels },
+  		{ (const uint8_t*) "getScreenHorizontalAxis", 0, LeapNative_getScreenHorizontalAxis },
+  		{ (const uint8_t*) "getScreenVerticalAxis", 0, LeapNative_getScreenVerticalAxis },
+  		{ (const uint8_t*) "getScreenBottomLeftCorner", 0, LeapNative_getScreenBottomLeftCorner },
+  		{ (const uint8_t*) "getScreenIntersect", 0, LeapNative_getScreenIntersect },
+  		{ (const uint8_t*) "getScreenIsValid", 0, LeapNative_getScreenIsValid },
+  		{ (const uint8_t*) "getScreenNormal", 0, LeapNative_getScreenNormal },
+  		{ (const uint8_t*) "getClosestScreenHit", 0, LeapNative_getClosestScreenHit }
 	};
     
     void contextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctions, const FRENamedFunction** functions) {

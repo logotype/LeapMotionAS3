@@ -446,5 +446,14 @@ namespace leapnative {
         const Vector vector = screen.normal();
         return createVector3(vector.x, vector.y, vector.z);
     }
+    
+    FREObject LNLeapDevice::getClosestScreenHit(Pointable pointable) {
+        ScreenList screenList = controller->calibratedScreens();
+        Screen screen = screenList.closestScreenHit(pointable);
+        
+        FREObject freReturnValue;
+        FRENewObjectFromInt32((int32_t) screen.id(), &freReturnValue);
+        return freReturnValue;
+    }
     //screen class
 }

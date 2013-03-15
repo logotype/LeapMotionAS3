@@ -257,17 +257,9 @@ package com.leapmotion.leap
 		 * between this Screen and a ray projecting from the specified Pointable object.
 		 * 
 		 */
-		public function intersect( pointable:Pointable, normalize:Boolean, clampRatio:Number ):Vector3
+		public function intersect( pointable:Pointable, normalize:Boolean, clampRatio:Number = 1.0 ):Vector3
 		{
-			var pointableTipPositionX:Number = pointable.tipPosition.x;
-			var pointableTipPositionY:Number = pointable.tipPosition.y;
-			var pointableTipPositionZ:Number = pointable.tipPosition.z;
-			
-			var pointableDirectionX:Number = pointable.direction.x;
-			var pointableDirectionY:Number = pointable.direction.y;
-			var pointableDirectionZ:Number = pointable.direction.z;
-
-			return context.call( "getScreenIntersect", id, pointableTipPositionX, pointableTipPositionY, pointableTipPositionZ, pointableDirectionX, pointableDirectionY, pointableDirectionZ, normalize, clampRatio );
+			return context.call( "getScreenIntersect", id, pointable.tipPosition.x, pointable.tipPosition.y, pointable.tipPosition.z, pointable.direction.x, pointable.direction.y, pointable.direction.z, normalize, clampRatio );
 		}
 		
 		/**
