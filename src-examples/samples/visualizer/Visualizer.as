@@ -13,17 +13,24 @@ package samples.visualizer
 	import away3d.lights.DirectionalLight;
 	import away3d.materials.ColorMaterial;
 	import away3d.materials.lightpickers.StaticLightPicker;
-	import away3d.primitives.SphereGeometry;
+	import away3d.primitives.CubeGeometry;
 	import away3d.primitives.WireframePlane;
 
+	import com.leapmotion.leap.Hand;
+
 	import com.leapmotion.leap.LeapMotion;
+	import com.leapmotion.leap.Pointable;
+	import com.leapmotion.leap.Vector3;
 	import com.leapmotion.leap.events.LeapEvent;
+	import com.leapmotion.leap.util.LeapMath;
 
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.geom.Vector3D;
+
+	import samples.visualizer.Pointable3D;
 
 	[SWF(frameRate=60)]
 	public class Visualizer extends Sprite
@@ -34,8 +41,11 @@ package samples.visualizer
 
 		private var leap:LeapMotion;
 
-		private var sphereMeshes:Vector.<Mesh>;
+		private var pointable3Ds:Vector.<Pointable3D>;
 		private var numSpheres:int = 20;
+
+		private var palm3Ds:Vector.<Mesh>;
+		private var numPalms:int = 4;
 
 		public function Visualizer()
 		{
@@ -66,14 +76,26 @@ package samples.visualizer
 
 			var sphereMaterial:ColorMaterial = new ColorMaterial( 0xff0000 );
 			sphereMaterial.lightPicker = lightPicker;
-			sphereMeshes = new Vector.<Mesh>();
-			var sphere:SphereGeometry = new SphereGeometry( 10, 16, 12, true );
-			for ( var i:int = 0; i < numSpheres; i++ )
+			pointable3Ds = new Vector.<Pointable3D>();
+			//var geometry:ConeGeometry = new ConeGeometry(10, 50);
+			//var geometry:CubeGeometry = new CubeGeometry(10, 10, 50);
+			//var sphere:SphereGeometry = new SphereGeometry( 10, 16, 12, true );
+			var i:int = 0;
+			for ( i = 0; i < numSpheres; i++ )
 			{
-				var sphereMesh:Mesh = new Mesh( sphere, sphereMaterial );
-				sphereMesh.visible = false;
-				sphereMeshes.push( sphereMesh );
-				_view.scene.addChild( sphereMesh );
+				var pointable3D:Pointable3D = new Pointable3D(sphereMaterial);
+				pointable3D.visible = false;
+				pointable3Ds.push( pointable3D );
+				_view.scene.addChild( pointable3D );
+			}
+
+			var i:int = 0;
+			for ( i = 0; i < numPalms; i++ )
+			{
+				var pointable3D:Pointable3D = new Pointable3D(sphereMaterial);
+				pointable3D.visible = false;
+				pointable3Ds.push( pointable3D );
+				_view.scene.addChild( pointable3D );
 			}
 
 			leap = new LeapMotion();
@@ -93,20 +115,39 @@ package samples.visualizer
 		private function leapmotionFrameHandler( event:LeapEvent ):void
 		{
 			var numPointables:int = event.frame.pointables.length;
-			for ( var i:int = 0; i < numSpheres; i++ )
+			var i:int;
+			for ( i = 0; i < numSpheres; i++ )
 			{
-				var sphereMesh:Mesh = sphereMeshes[i];
+				var pointable3D:Pointable3D = pointable3Ds[i];
 				if ( i < numPointables )
 				{
-					sphereMesh.x = event.frame.pointables[i].tipPosition.x;
-					sphereMesh.y = event.frame.pointables[i].tipPosition.y;
-					sphereMesh.z = -event.frame.pointables[i].tipPosition.z;
-					sphereMesh.visible = true;
+					var pointable:Pointable = event.frame.pointables[i];
+					//startPos = pointable.tipPosition;
+					//endPos = pointable.tipPosition.minus(pointable.direction.multiply(pointable.length));
+
+					var dir:Vector3 = pointable.direction;
+
+					pointable3D.x = pointable.tipPosition.x;
+					pointable3D.y = pointable.tipPosition.y;
+					pointable3D.z = -pointable.tipPosition.z;
+
+					//pointable3D.rotationX = 90 - LeapMath.RAD_TO_DEG * dir.pitch;
+					//pointable3D.rotationX = 90;
+					//pointable3D.rotationX = LeapMath.RAD_TO_DEG * dir.pitch;
+					//pointable3D.rotationY = LeapMath.RAD_TO_DEG * dir.yaw;
+					//pointable3D.rotationZ = LeapMath.RAD_TO_DEG * dir.roll;
+
+					pointable3D.visible = true;
 				}
 				else
 				{
-					sphereMesh.visible = false;
+					pointable3D.visible = false;
 				}
+			}
+			var numHands:int = event.frame.hands.length;
+			for( i = 0; i < numHands; i++ )
+			{
+				var hand:Hand = event.frame.hands[i];
 			}
 		}
 
