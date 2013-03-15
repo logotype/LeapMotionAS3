@@ -44,6 +44,7 @@ dist
 bin-debug
 bin-release
 out
+*-app.xml
 
 # Special case for XCode projects
 *.pbxproj -crlf -diff -merge
