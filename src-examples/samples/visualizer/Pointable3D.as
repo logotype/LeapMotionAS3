@@ -16,22 +16,20 @@ package samples.visualizer
 	public class Pointable3D extends ObjectContainer3D
 	{
 
-		private static var tipGeometry:SphereGeometry = new SphereGeometry(15);
-		private static var lengthGeometry:CubeGeometry = new CubeGeometry(10, 10, 50);
+		private static var tipGeometry:SphereGeometry = new SphereGeometry( 10 );
+		private static var lengthGeometry:CubeGeometry = new CubeGeometry( 5, 5, 50 );
 
 		private var tipMesh:Mesh;
 		private var lengthMesh:Mesh;
 
-		public function Pointable3D(m:MaterialBase)
+		public function Pointable3D( m:MaterialBase )
 		{
-			lengthMesh = new Mesh(lengthGeometry, m);
+			lengthMesh = new Mesh( lengthGeometry, m );
 			lengthMesh.z = -25;
-			addChild(lengthMesh);
+			addChild( lengthMesh );
 
-			tipMesh = new Mesh(tipGeometry, m);
-			addChild(tipMesh);
-
-			//addChild(new Trident(100));
+			tipMesh = new Mesh( tipGeometry, m );
+			addChild( tipMesh );
 		}
 	}
 }
