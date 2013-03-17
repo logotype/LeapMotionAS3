@@ -386,10 +386,8 @@ namespace leapnative {
             FRENewObjectFromInt32(screen.id(), &freScreenId);
             
             return freScreenId;
-        }
-        else
-        {
-            return createVector3(3, 2, 1);
+        } else {
+            return 0;
         }
     }
 
@@ -469,10 +467,8 @@ namespace leapnative {
         if(didFind) {
             const Vector vector = screen.intersect(pointable, normalize, clampRatio);
             return createVector3(vector.x, vector.y, vector.z);
-        }
-        else
-        {
-            return createVector3(3, 2, 1);
+        } else {
+            return createVector3(NAN, NAN, NAN);
         }
     }
     
