@@ -31,6 +31,7 @@ namespace leapnative {
         Controller*     controller;
 
         FREObject getFrame();
+        FREObject getClosestScreenHit(int pointableId);
 
         //screen class
         FREObject getScreenDistanceToPoint(int screenId, float pX, float pY, float pZ);
@@ -39,10 +40,9 @@ namespace leapnative {
         FREObject getScreenHorizontalAxis(int screenId);
         FREObject getScreenVerticalAxis(int screenId);
         FREObject getScreenBottomLeftCorner(int screenId);
-        FREObject getScreenIntersect(int screenId, Pointable pointable, bool normalize, float clampRatio = 1.0f);
+        FREObject getScreenIntersect(int screenId, int pointableId, bool normalize, float clampRatio = 1.0f);
         FREObject getScreenIsValid(int screenId);
         FREObject getScreenNormal(int screenId);
-        FREObject getClosestScreenHit(Pointable pointable);
 
     private:
         FREContext m_ctx;

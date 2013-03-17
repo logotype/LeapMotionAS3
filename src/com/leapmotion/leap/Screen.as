@@ -259,7 +259,7 @@ package com.leapmotion.leap
 		 */
 		public function intersect( pointable:Pointable, normalize:Boolean, clampRatio:Number = 1.0 ):Vector3
 		{
-			return context.call( "getScreenIntersect", id, pointable.tipPosition.x, pointable.tipPosition.y, pointable.tipPosition.z, pointable.direction.x, pointable.direction.y, pointable.direction.z, normalize, clampRatio );
+			return context.call( "getScreenIntersect", id, pointable.id, normalize, clampRatio );
 		}
 		
 		/**

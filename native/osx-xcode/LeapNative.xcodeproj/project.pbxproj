@@ -37,7 +37,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		371805AA16BEBA5A00C88F3E /* Adobe AIR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Adobe AIR.framework"; path = "/Developer/SDKs/air3-4_p5_sdk_asc2_mac_011413/runtimes/air/mac/Adobe AIR.framework"; sourceTree = "<absolute>"; };
+		371805AA16BEBA5A00C88F3E /* Adobe AIR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Adobe AIR.framework"; path = "/Applications/Adobe Flash Builder 4.7/eclipse/plugins/com.adobe.flash.compiler_4.7.0.349722/AIRSDK/runtimes/air/mac/Adobe AIR.framework"; sourceTree = "<absolute>"; };
 		3782F5EE16D3C7220089BD7A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		3782F5F016D3C7270089BD7A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
 		3782F5F216D3C72E0089BD7A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
@@ -356,8 +356,10 @@
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LeapNative/LeapNative-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INFOPLIST_FILE = "LeapNative/LeapNative-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -371,8 +373,10 @@
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LeapNative/LeapNative-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INFOPLIST_FILE = "LeapNative/LeapNative-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;

@@ -207,7 +207,7 @@ package com.leapmotion.leap
 		 */
 		public function closestScreenHit( pointable:Pointable ):Screen
 		{
-			var screenId:int = context.call( "getClosestScreenHit", pointable.tipPosition.x, pointable.tipPosition.y, pointable.tipPosition.z, pointable.direction.x, pointable.direction.y, pointable.direction.z );
+			var screenId:int = context.call( "getClosestScreenHit", pointable.id );
 			var returnValue:Screen = null;
 			var screenList:Vector.<Screen> = calibratedScreens();
 			

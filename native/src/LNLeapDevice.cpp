@@ -364,6 +364,35 @@ namespace leapnative {
         return freCurrentFrame;
     }
 
+    FREObject LNLeapDevice::getClosestScreenHit(int pointableId) {
+        ScreenList screenList = controller->calibratedScreens();
+        Frame frame = controller->frame();
+        PointableList pointables = frame.pointables();
+        Pointable pointable;
+        
+        bool didFind = false;
+        for (int i = 0; i < pointables.count(); i++) {
+            if (pointables[i].id() == pointableId) {
+                pointable = pointables[i];
+                didFind = true;
+                break;
+            }
+        }
+        
+        if(didFind) {
+            Screen screen = screenList.closestScreenHit(pointable);
+            
+            FREObject freScreenId;
+            FRENewObjectFromInt32(screen.id(), &freScreenId);
+            
+            return freScreenId;
+        }
+        else
+        {
+            return createVector3(3, 2, 1);
+        }
+    }
+
     //screen class
     FREObject LNLeapDevice::getScreenDistanceToPoint(int screenId, float pX, float pY, float pZ) {
         ScreenList screenList = controller->calibratedScreens();
@@ -421,12 +450,30 @@ namespace leapnative {
         return createVector3(vector.x, vector.y, vector.z);
     }
     
-    FREObject LNLeapDevice::getScreenIntersect(int screenId, Pointable pointable, bool normalize, float clampRatio) {
+    FREObject LNLeapDevice::getScreenIntersect(int screenId, int pointableId, bool normalize, float clampRatio) {
         ScreenList screenList = controller->calibratedScreens();
         Screen screen = screenList[screenId];
+        Frame frame = controller->frame();
+        PointableList pointables = frame.pointables();
+        Pointable pointable;
         
-        const Vector vector = screen.intersect(pointable, normalize, clampRatio);
-        return createVector3(vector.x, vector.y, vector.z);
+        bool didFind = false;
+        for (int i = 0; i < pointables.count(); i++) {
+            if (pointables[i].id() == pointableId) {
+                pointable = pointables[i];
+                didFind = true;
+                break;
+            }
+        }
+
+        if(didFind) {
+            const Vector vector = screen.intersect(pointable, normalize, clampRatio);
+            return createVector3(vector.x, vector.y, vector.z);
+        }
+        else
+        {
+            return createVector3(3, 2, 1);
+        }
     }
     
     FREObject LNLeapDevice::getScreenIsValid(int screenId) {
@@ -445,15 +492,6 @@ namespace leapnative {
         
         const Vector vector = screen.normal();
         return createVector3(vector.x, vector.y, vector.z);
-    }
-    
-    FREObject LNLeapDevice::getClosestScreenHit(Pointable pointable) {
-        ScreenList screenList = controller->calibratedScreens();
-        Screen screen = screenList.closestScreenHit(pointable);
-        
-        FREObject freReturnValue;
-        FRENewObjectFromInt32((int32_t) screen.id(), &freReturnValue);
-        return freReturnValue;
     }
     //screen class
 }
