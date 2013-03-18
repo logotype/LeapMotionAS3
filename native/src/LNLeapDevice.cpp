@@ -378,17 +378,16 @@ namespace leapnative {
                 break;
             }
         }
-        
+
+        FREObject freScreenId;
+
         if(didFind) {
             Screen screen = screenList.closestScreenHit(pointable);
-            
-            FREObject freScreenId;
             FRENewObjectFromInt32(screen.id(), &freScreenId);
-            
-            return freScreenId;
         } else {
-            return 0;
+            FRENewObjectFromInt32(0, &freScreenId);
         }
+        return freScreenId;
     }
 
     //screen class
