@@ -370,6 +370,7 @@ namespace leapnative {
         PointableList pointables = frame.pointables();
         Pointable pointable;
         
+        // TODO: Create a fake pointable width tipPosition and direction instead of looping
         bool didFind = false;
         for (int i = 0; i < pointables.count(); i++) {
             if (pointables[i].id() == pointableId) {
@@ -454,6 +455,7 @@ namespace leapnative {
         PointableList pointables = frame.pointables();
         Pointable pointable;
         
+        // TODO: Create a fake pointable width tipPosition and direction instead of looping
         bool didFind = false;
         for (int i = 0; i < pointables.count(); i++) {
             if (pointables[i].id() == pointableId) {
