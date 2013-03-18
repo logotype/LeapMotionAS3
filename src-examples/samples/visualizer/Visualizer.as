@@ -39,7 +39,7 @@ package samples.visualizer
 
 		private var leap:LeapMotion;
 
-		private var pointableSegmentSets:Vector.<Trail>;
+		private var trails:Vector.<Trail>;
 		private var pointable3Ds:Vector.<Pointable3D>;
 		private var numPointable3Ds:int = 20;
 
@@ -76,7 +76,7 @@ package samples.visualizer
 			var sphereMaterial:ColorMaterial = new ColorMaterial( 0xff0000 );
 			sphereMaterial.lightPicker = lightPicker;
 			pointable3Ds = new Vector.<Pointable3D>();
-			pointableSegmentSets = new Vector.<Trail>();
+			trails = new Vector.<Trail>();
 			var i:int = 0;
 			for ( i = 0; i < numPointable3Ds; i++ )
 			{
@@ -84,9 +84,9 @@ package samples.visualizer
 				pointable3D.visible = false;
 				pointable3Ds.push( pointable3D );
 				_view.scene.addChild( pointable3D );
-				var pointableSegmentSet:Trail = new Trail();
-				pointableSegmentSets.push( pointableSegmentSet );
-				_view.scene.addChild( pointableSegmentSet );
+				var trail:Trail = new Trail();
+				trails.push( trail );
+				_view.scene.addChild( trail );
 			}
 
 			var palmMaterial:ColorMaterial = new ColorMaterial( 0x0000ff );
@@ -123,7 +123,7 @@ package samples.visualizer
 			for ( i = 0; i < numPointable3Ds; i++ )
 			{
 				var pointable3D:Pointable3D = pointable3Ds[i];
-				var pointableSegmentSet:Trail = pointableSegmentSets[i];
+				var trail:Trail = trails[i];
 				if ( i < numPointables )
 				{
 					var pointable:Pointable = event.frame.pointables[i];
@@ -145,14 +145,20 @@ package samples.visualizer
 						var previousPointable:Pointable = previousFrame.pointable( pointable.id );
 						if ( previousPointable && previousPointable.isValid() )
 						{
-							pointableSegmentSet.getLineSegment().updateSegment( createVector3D( previousPointable.tipPosition ), createVector3D( pointable.tipPosition ), new Vector3D(), 0xff0000, 0xff0000, 2 );
+							trail.getLineSegment().updateSegment(
+									createVector3D( previousPointable.tipPosition ),
+									createVector3D( pointable.tipPosition ),
+									new Vector3D(),
+									0xff0000,
+									0xff0000,
+									2 );
 						}
 					}
 				}
 				else
 				{
 					pointable3D.visible = false;
-					pointableSegmentSet.getLineSegment().updateSegment( new Vector3D(), new Vector3D(), new Vector3D(), 0, 0, 0 );
+					trail.getLineSegment().updateSegment( new Vector3D(), new Vector3D(), new Vector3D(), 0, 0, 0 );
 				}
 			}
 			var numHands:int = event.frame.hands.length;
