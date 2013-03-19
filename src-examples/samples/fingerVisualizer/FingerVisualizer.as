@@ -92,7 +92,7 @@ package samples.fingerVisualizer
 			}
 			circleGesturesContainer.removeChildren();
 			swipeGesturesContainer.graphics.clear();
-			for each ( var gesture:Gesture in event.frame._gestures )
+			for each ( var gesture:Gesture in event.frame.gestures() )
 			{
 				var gestureVisualization:Shape;
 				var pos2D:Point;
