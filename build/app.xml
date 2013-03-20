@@ -9,9 +9,11 @@
 		<autoOrients>false</autoOrients>
         <fullScreen>false</fullScreen>
         <visible>true</visible>
+        <renderMode>direct</renderMode>
+        <depthAndStencil>true</depthAndStencil>
     </initialWindow>
 	<supportedProfiles>extendedDesktop</supportedProfiles>
 	<extensions>
-        <extensionID>com.leapmotion.leap.air.native.LeapNative</extensionID>
+        APPLICATION_NATIVE_EXTENSION_TAG
     </extensions>
 </application>

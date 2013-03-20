@@ -34,13 +34,6 @@ package com.leapmotion.leap
 	 */
 	public class Screen
 	{
-		public var _screen:Object;
-		
-		/**
-		 * Reference to flash.display.Screen (only available in AIR) 
-		 */
-		public static var ScreenClass:*;
-		
 		/**
 		 * A unique identifier for this screen based on the screen information
 		 * in the configuration.
@@ -48,7 +41,22 @@ package com.leapmotion.leap
 		 * A default screen with ID, 0, always exists and contains default
 		 * characteristics, even if no screens have been located. 
 		 */
-		public var id:int;
+		public var id:int = 0;
+		
+		/**
+		 * Native Extension context. 
+		 */		
+		private var context:Object;
+
+		/**
+		 * Reference to flash.display.Screen (only available on AIR)
+		 */
+		public static var ScreenClass:*;
+
+		/**
+		 * Reference to the AIR builtin Screen instance
+		 */
+		public var _screen:*;
 		
 		/**
 		 * Constructs a Screen object.
@@ -60,12 +68,14 @@ package com.leapmotion.leap
 		 */
 		public function Screen()
 		{
-			throw new Error("Not implemented yet.");
+			if( !Controller.getInstance().context )
+				throw new Error( "Native Context not available. The Screen class is only available in Adobe AIR." );
+			else
+				context = Controller.getInstance().context;
 		}
-		
+
 		/**
-		 * Tries to return a reference to the class object of the class
-		 * specified.
+		 * Tries to return a reference to the Screen class
 		 *
 		 * @return True, if definition could be found; False otherwise.
 		 *
@@ -79,11 +89,10 @@ package com.leapmotion.leap
 			}
 			catch ( error:Error )
 			{
-				trace( "[Screen] tryCreatingScreenClassReference: " + error.message );
 			}
 			return false;
 		}
-
+		
 		/**
 		 * The shortest distance from the specified point to the plane
 		 * in which this Screen lies.
@@ -95,8 +104,7 @@ package com.leapmotion.leap
 		 */
 		public function distanceToPoint( point:Vector3 ):Number
 		{
-			throw new Error("Not implemented yet.");
-			return 0;
+			return context.call( "getScreenDistanceToPoint", id, point.x, point.y, point.z );
 		}
 		
 		/**
@@ -106,7 +114,7 @@ package com.leapmotion.leap
 		 */
 		public function heightPixels():int
 		{
-			return _screen.bounds.height;
+			return context.call( "getScreenHeightPixels", id );
 		}
 
 		/**
@@ -116,7 +124,7 @@ package com.leapmotion.leap
 		 */
 		public function widthPixels():int
 		{
-			return _screen.bounds.width;
+			return context.call( "getScreenWidthPixels", id );
 		}
 
 		/**
@@ -136,8 +144,7 @@ package com.leapmotion.leap
 		 */
 		public function horizontalAxis():Vector3
 		{
-			throw new Error("Not implemented yet.");
-			return Vector3.invalid();
+			return context.call( "getScreenHorizontalAxis", id );
 		}
 		
 		/**
@@ -157,8 +164,7 @@ package com.leapmotion.leap
 		 */
 		public function verticalAxis():Vector3
 		{
-			throw new Error("Not implemented yet.");
-			return Vector3.invalid();
+			return context.call( "getScreenVerticalAxis", id );
 		}
 		
 		/**
@@ -176,8 +182,7 @@ package com.leapmotion.leap
 		 */
 		public function bottomLeftCorner():Vector3
 		{
-			throw new Error("Not implemented yet.");
-			return Vector3.invalid();
+			return context.call( "getScreenBottomLeftCorner", id );
 		}
 		
 		/**
@@ -252,10 +257,9 @@ package com.leapmotion.leap
 		 * between this Screen and a ray projecting from the specified Pointable object.
 		 * 
 		 */
-		public function intersect( pointable:Pointable, normalize:Boolean, clampRatio:Number ):Vector3
+		public function intersect( pointable:Pointable, normalize:Boolean, clampRatio:Number = 1.0 ):Vector3
 		{
-			throw new Error("Not implemented yet.");
-			return Vector3.invalid();
+			return context.call( "getScreenIntersect", id, pointable.id, normalize, clampRatio );
 		}
 		
 		/**
@@ -270,7 +274,6 @@ package com.leapmotion.leap
 		 */
 		static public function invalid():Screen
 		{
-			throw new Error("Not implemented yet.");
 			return new Screen();
 		}
 		
@@ -290,8 +293,7 @@ package com.leapmotion.leap
 		 */
 		public function isValid():Boolean
 		{
-			throw new Error("Not implemented yet.");
-			return false;
+			return context.call( "getScreenIsValid", id );
 		}
 		
 		/**
@@ -306,8 +308,7 @@ package com.leapmotion.leap
 		 */
 		public function normal():Vector3
 		{
-			throw new Error("Not implemented yet.");
-			return Vector3.invalid();
+			return context.call( "getScreenNormal", id );
 		}
 		
 		/**
@@ -322,8 +323,7 @@ package com.leapmotion.leap
 		 */
 		public function isEqualTo( other:Screen ):Boolean
 		{
-			throw new Error("Not implemented yet.");
-			return false;
+			return (( other.id == this.id ) && isValid() && other.isValid());
 		}
 		
 		/**
@@ -334,8 +334,7 @@ package com.leapmotion.leap
 		 */
 		public function toString():String
 		{
-			throw new Error("Not implemented yet.");
-			return "[Screen]";
+			return "[Screen id:" + id + " widthPixels:" + widthPixels() + " heightPixels:" + heightPixels() + "]";
 		}
 	}
 }

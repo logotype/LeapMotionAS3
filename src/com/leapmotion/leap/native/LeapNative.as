@@ -76,6 +76,10 @@ package com.leapmotion.leap.native
 		{
 			controller = Controller.getInstance();
 			context = tryCreatingExtensionContext();
+			
+			if( context )
+				controller.context = context;
+			
 			context.addEventListener( StatusEvent.STATUS, contextStatusModeEventHandler, false, 0, true );
 		}
 

@@ -1,5 +1,5 @@
 <extension xmlns="NATIVE_LIBRARY_XMLNS">
-	<id>com.leapmotion.leap.air.native.LeapNative</id>
+	<id>NATIVE_EXTENSION_ID</id>
 	<versionNumber>0.7.5</versionNumber>
 	<platforms>
 		<platform name="Windows-x86">
