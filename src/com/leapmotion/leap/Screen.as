@@ -323,7 +323,7 @@ package com.leapmotion.leap
 		 */
 		public function isEqualTo( other:Screen ):Boolean
 		{
-			return ( other.id == this.id );
+			return (( other.id == this.id ) && isValid() && other.isValid());
 		}
 		
 		/**
