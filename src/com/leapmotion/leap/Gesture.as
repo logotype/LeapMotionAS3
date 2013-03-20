@@ -151,8 +151,7 @@ package com.leapmotion.leap
 		 */
 		public function isEqualTo( other:Gesture ):Boolean
 		{
-			// TODO: Implement equality/inequality check
-			return false;
+			return (id == other.id) ? true : false;
 		}
 
 		/**

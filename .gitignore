@@ -54,3 +54,4 @@ xcuserdata/
 # Visual Studio
 *.sdf
 *.vcxproj.user
+*-app.xml
