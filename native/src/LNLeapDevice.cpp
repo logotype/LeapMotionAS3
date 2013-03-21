@@ -9,6 +9,13 @@
 #include "LNLeapDevice.h"
 #include <map>
 
+#ifdef WIN32
+    #ifndef NAN
+        static const unsigned long __nan[2] = {0xffffffff, 0x7fffffff};
+        #define NAN (*(const float *) __nan)
+    #endif
+#endif
+
 namespace leapnative {
     LNLeapDevice::LNLeapDevice(FREContext ctx) {
         std::cout << "LNLeapDevice::constructor" << std::endl;
@@ -150,11 +157,11 @@ namespace leapnative {
                 FRESetObjectProperty(frePointable, (const uint8_t*) "id", frePointableId, NULL);
                 
                 FREObject frePointableLength;
-                FRENewObjectFromInt32(pointable.length(), &frePointableLength);
+                FRENewObjectFromDouble(pointable.length(), &frePointableLength);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "length", frePointableLength, NULL);
 
                 FREObject frePointableWidth;
-                FRENewObjectFromInt32(pointable.width(), &frePointableWidth);
+                FRENewObjectFromDouble(pointable.width(), &frePointableWidth);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "width", frePointableWidth, NULL);
 
                 FRESetObjectProperty(frePointable, (const uint8_t*) "direction", createVector3(pointable.direction().x, pointable.direction().y, pointable.direction().z), NULL);
