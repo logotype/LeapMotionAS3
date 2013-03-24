@@ -82,9 +82,40 @@ package com.leapmotion.leap
 		 * history position, an invalid Frame is returned.
 		 *
 		 */
-		public function frame( history:int = 0 ):Frame
+		[Inline]
+		final public function frame( history:int = 0 ):Frame
 		{
 			return controller.frame( history );
+		}
+		
+		/**
+		 * Enables or disables reporting of a specified gesture type.
+		 * By default, all gesture types are disabled. When disabled, gestures of
+		 * the disabled type are never reported and will not appear in the frame
+		 * gesture list.
+		 * 
+		 * As a performance optimization, only enable recognition for the types
+		 * of movements that you use in your application.
+		 *  
+		 * @param type The type of gesture to enable or disable. Must be a member of the Gesture::Type enumeration.
+		 * @param enable True, to enable the specified gesture type; False, to disable.
+		 * 
+		 */
+		public function enableGesture( type:int, enable:Boolean = true ):void
+		{
+			controller.enableGesture( type, enable );
+		}
+		
+		/**
+		 * Reports whether the specified gesture type is enabled.
+		 *  
+		 * @param type The Gesture.TYPE parameter.
+		 * @return True, if the specified type is enabled; false, otherwise.
+		 * 
+		 */
+		public function isGestureEnabled( type:int ):Boolean
+		{
+			return controller.isGestureEnabled( type );
 		}
 	}
 }

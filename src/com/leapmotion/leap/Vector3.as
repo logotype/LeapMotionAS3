@@ -46,7 +46,8 @@ package com.leapmotion.leap
 		 * @return A Vector3 object with all components negated.
 		 *
 		 */
-		public function opposite():Vector3
+		[Inline]
+		final public function opposite():Vector3
 		{
 			return new Vector3( -x, -y, -z );
 		}
@@ -57,7 +58,8 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
-		public function plus( other:Vector3 ):Vector3
+		[Inline]
+		final public function plus( other:Vector3 ):Vector3
 		{
 			return new Vector3( x + other.x, y + other.y, z + other.z );
 		}
@@ -68,7 +70,8 @@ package com.leapmotion.leap
 		 * @return This Vector3.
 		 *
 		 */
-		public function plusAssign( other:Vector3 ):Vector3
+		[Inline]
+		final public function plusAssign( other:Vector3 ):Vector3
 		{
 			x += other.x;
 			y += other.y;
@@ -82,7 +85,8 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
-		public function minus( other:Vector3 ):Vector3
+		[Inline]
+		final public function minus( other:Vector3 ):Vector3
 		{
 			return new Vector3( x - other.x, y - other.y, z - other.z );
 		}
@@ -93,7 +97,8 @@ package com.leapmotion.leap
 		 * @return This Vector3.
 		 *
 		 */
-		public function minusAssign( other:Vector3 ):Vector3
+		[Inline]
+		final public function minusAssign( other:Vector3 ):Vector3
 		{
 			x -= other.x;
 			y -= other.y;
@@ -107,7 +112,8 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
-		public function multiply( scalar:Number ):Vector3
+		[Inline]
+		final public function multiply( scalar:Number ):Vector3
 		{
 			return new Vector3( x * scalar, y * scalar, z * scalar );
 		}
@@ -118,7 +124,8 @@ package com.leapmotion.leap
 		 * @return This Vector3.
 		 *
 		 */
-		public function multiplyAssign( scalar:Number ):Vector3
+		[Inline]
+		final public function multiplyAssign( scalar:Number ):Vector3
 		{
 			x *= scalar;
 			y *= scalar;
@@ -132,7 +139,8 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
-		public function divide( scalar:Number ):Vector3
+		[Inline]
+		final public function divide( scalar:Number ):Vector3
 		{
 			return new Vector3( x / scalar, y / scalar, z / scalar );
 		}
@@ -143,7 +151,8 @@ package com.leapmotion.leap
 		 * @return This Vector3.
 		 *
 		 */
-		public function divideAssign( scalar:Number ):Vector3
+		[Inline]
+		final public function divideAssign( scalar:Number ):Vector3
 		{
 			x /= scalar;
 			y /= scalar;
@@ -157,7 +166,8 @@ package com.leapmotion.leap
 		 * @return True; if equal, False otherwise.
 		 *
 		 */
-		public function isEqualTo( other:Vector3 ):Boolean
+		[Inline]
+		final public function isEqualTo( other:Vector3 ):Boolean
 		{
 			var returnValue:Boolean = true;
 
@@ -173,7 +183,8 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
-		public function angleTo( other:Vector3 ):Number
+		[Inline]
+		final public function angleTo( other:Vector3 ):Number
 		{
 			var denom:Number = magnitudeSquared() * other.magnitudeSquared();
 			if ( denom <= 0.0 )
@@ -188,7 +199,8 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
-		public function cross( other:Vector3 ):Vector3
+		[Inline]
+		final public function cross( other:Vector3 ):Vector3
 		{
 			return new Vector3( ( y * other.z ) - ( z * other.y ), ( z * other.x ) - ( x * other.z ), ( x * other.y ) - ( y * other.x ) );
 		}
@@ -199,7 +211,8 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
-		public function distanceTo( other:Vector3 ):Number
+		[Inline]
+		final public function distanceTo( other:Vector3 ):Number
 		{
 			return Math.sqrt( ( x - other.x ) * ( x - other.x ) + ( y - other.y ) * ( y - other.y ) + ( z - other.z ) * ( z - other.z ) );
 		}
@@ -210,7 +223,8 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
-		public function dot( other:Vector3 ):Number
+		[Inline]
+		final public function dot( other:Vector3 ):Number
 		{
 			return ( x * other.x ) + ( y * other.y ) + ( z * other.z );
 		}
@@ -220,7 +234,8 @@ package com.leapmotion.leap
 		 * @return If any component is NaN or infinite, then this returns false.
 		 *
 		 */
-		public function isValid():Boolean
+		[Inline]
+		final public function isValid():Boolean
 		{
 			return ( x <= Number.MAX_VALUE && x >= -Number.MAX_VALUE ) && ( y <= Number.MAX_VALUE && y >= -Number.MAX_VALUE ) && ( z <= Number.MAX_VALUE && z >= -Number.MAX_VALUE );
 		}
@@ -236,6 +251,7 @@ package com.leapmotion.leap
 		 * @return The invalid Vector3 instance.
 		 *
 		 */
+		[Inline]
 		static public function invalid():Vector3
 		{
 			return new Vector3(NaN, NaN, NaN);
@@ -246,7 +262,8 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
-		public function magnitude():Number
+		[Inline]
+		final public function magnitude():Number
 		{
 			return Math.sqrt( x * x + y * y + z * z );
 		}
@@ -256,7 +273,8 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
-		public function magnitudeSquared():Number
+		[Inline]
+		final public function magnitudeSquared():Number
 		{
 			return x * x + y * y + z * z;
 		}
@@ -266,7 +284,8 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
-		public function normalized():Vector3
+		[Inline]
+		final public function normalized():Vector3
 		{
 			var denom:Number = magnitudeSquared();
 			if ( denom <= 0.0 )
@@ -281,7 +300,8 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
-		public function get pitch():Number
+		[Inline]
+		final public function get pitch():Number
 		{
 			return Math.atan2( y, -z );
 		}
@@ -291,7 +311,8 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
-		public function get yaw():Number
+		[Inline]
+		final public function get yaw():Number
 		{
 			return Math.atan2( x, -z );
 		}
@@ -301,7 +322,8 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
-		public function get roll():Number
+		[Inline]
+		final public function get roll():Number
 		{
 			return Math.atan2( x, -y );
 		}
@@ -311,6 +333,7 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
+		[Inline]
 		static public function zero():Vector3
 		{
 			return new Vector3( 0, 0, 0 );
@@ -321,6 +344,7 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
+		[Inline]
 		static public function xAxis():Vector3
 		{
 			return new Vector3( 1, 0, 0 );
@@ -331,6 +355,7 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
+		[Inline]
 		static public function yAxis():Vector3
 		{
 			return new Vector3( 0, 1, 0 );
@@ -341,6 +366,7 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
+		[Inline]
 		static public function zAxis():Vector3
 		{
 			return new Vector3( 0, 0, 1 );
@@ -351,6 +377,7 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
+		[Inline]
 		static public function left():Vector3
 		{
 			return new Vector3( -1, 0, 0 );
@@ -361,6 +388,7 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
+		[Inline]
 		static public function right():Vector3
 		{
 			return xAxis();
@@ -371,6 +399,7 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
+		[Inline]
 		static public function down():Vector3
 		{
 			return new Vector3( 0, -1, 0 );
@@ -381,6 +410,7 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
+		[Inline]
 		static public function up():Vector3
 		{
 			return yAxis();
@@ -391,6 +421,7 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
+		[Inline]
 		static public function forward():Vector3
 		{
 			return new Vector3( 0, 0, -1 );
@@ -401,6 +432,7 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
+		[Inline]
 		static public function backward():Vector3
 		{
 			return zAxis();
@@ -411,6 +443,7 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
+		[Inline]
 		public function toString():String
 		{
 			return "[Vector3 x:" + x + " y:" + y + " z:" + z + "]";

@@ -19,6 +19,13 @@ package com.leapmotion.leap
 	 */
 	public class Finger extends Pointable
 	{
+		/**
+		 * Constructs a Finger object.
+		 * 
+		 * An uninitialized finger is considered invalid.
+		 * Get valid Finger objects from a Frame or a Hand object. 
+		 * 
+		 */
 		public function Finger()
 		{
 			isFinger = true;

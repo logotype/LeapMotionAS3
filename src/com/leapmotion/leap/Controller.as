@@ -94,7 +94,8 @@ package com.leapmotion.leap
 		 * history position, an invalid Frame is returned.
 		 *
 		 */
-		public function frame( history:int = 0 ):Frame
+		[Inline]
+		final public function frame( history:int = 0 ):Frame
 		{
 			var returnValue:Frame;
 
@@ -154,7 +155,8 @@ package com.leapmotion.leap
 		 * Screen object for this entry only contains default values. 
 		 * 
 		 */
-		public function calibratedScreens():Vector.<Screen>
+		[Inline]
+		final public function calibratedScreens():Vector.<Screen>
 		{
 			if( _screenList.length == 0 )
 			{
@@ -205,7 +207,8 @@ package com.leapmotion.leap
 		 * of any known screen, an invalid Screen object.
 		 * 
 		 */
-		public function closestScreenHit( pointable:Pointable ):Screen
+		[Inline]
+		final public function closestScreenHit( pointable:Pointable ):Screen
 		{
 			var screenId:int = context.call( "getClosestScreenHit", pointable.id );
 			var returnValue:Screen = null;
@@ -253,6 +256,26 @@ package com.leapmotion.leap
 			return connection.isGestureEnabled( type );
 		}
 
+		/**
+		 * Reports whether this Controller is connected to the Leap device.
+		 *
+		 * When you first create a Controller object, isConnected() returns false.
+		 * After the controller finishes initializing and connects to
+		 * the Leap, isConnected() will return true.
+		 *
+		 * You can either handle the onConnect event using a event listener
+		 * or poll the isConnected() function if you need to wait for your
+		 * application to be connected to the Leap before performing
+		 * some other action.
+		 *
+		 * @return True, if connected; false otherwise.
+		 *
+		 */
+		public function isConnected():Boolean
+		{
+			return connection.isConnected;
+		}
+		
 		static public function getInstance():Controller
 		{
 			if ( instance == null )
