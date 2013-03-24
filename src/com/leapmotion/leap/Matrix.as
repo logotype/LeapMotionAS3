@@ -38,6 +38,14 @@ package com.leapmotion.leap
 		 */
 		public var zBasis:Vector3 = new Vector3( 0, 0, 0 );
 
+		/**
+		 * Constructs a transformation matrix from the specified basis vectors. 
+		 * @param x A Vector specifying rotation and scale factors for the x-axis.
+		 * @param y A Vector specifying rotation and scale factors for the y-axis.
+		 * @param z A Vector specifying rotation and scale factors for the z-axis.
+		 * @param _origin A Vector specifying translation factors on all three axes.
+		 * 
+		 */
 		public function Matrix( x:Vector3, y:Vector3, z:Vector3, _origin:Vector3 = null )
 		{
 			xBasis = x;
@@ -50,7 +58,10 @@ package com.leapmotion.leap
 
 		/**
 		 * Sets this transformation matrix to represent a rotation around the specified vector.
-		 * @param _axis A Vector specifying the axis of rotation.
+		 * This function erases any previous rotation and scale transforms applied to this matrix,
+		 * but does not affect translation.
+		 * 
+ 		 * @param _axis A Vector specifying the axis of rotation.
 		 * @param angleRadians The amount of rotation in radians.
 		 *
 		 */
@@ -69,6 +80,8 @@ package com.leapmotion.leap
 
 		/**
 		 * Transforms a vector with this matrix by transforming its rotation, scale, and translation.
+		 * Translation is applied after rotation and scale.
+		 * 
 		 * @param inVector The Vector to transform.
 		 * @return A new Vector representing the transformed original.
 		 *

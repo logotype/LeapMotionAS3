@@ -23,33 +23,54 @@ package com.leapmotion.leap
 	{
 		/**
 		 * The direction in which this finger or tool is pointing.
+		 * The direction is expressed as a unit vector pointing in the
+		 * same direction as the tip.
 		 */
 		public var direction:Vector3;
 
 		/**
 		 * The Frame associated with this Pointable object.
+		 * The associated Frame object, if available; otherwise, an invalid
+		 * Frame object is returned.
 		 * @see Frame
 		 */
 		public var frame:Frame;
 
 		/**
 		 * The Hand associated with this finger or tool.
+		 * The associated Hand object, if available; otherwise, an invalid
+		 * Hand object is returned.
 		 * @see Hand
 		 */
 		public var hand:Hand;
 
 		/**
-		 * A unique ID assigned to this Pointable object, whose value remains the same across consecutive frames while the tracked finger or tool remains visible.
+		 * A unique ID assigned to this Pointable object, whose value remains
+		 * the same across consecutive frames while the tracked finger or
+		 * tool remains visible.
+		 * 
+		 * If tracking is lost (for example, when a finger is occluded by another
+		 * finger or when it is withdrawn from the Leap field of view), the Leap
+		 * may assign a new ID when it detects the entity in a future frame.
+		 * 
+		 * Use the ID value with the Frame.pointable() function to find this
+		 * Pointable object in future frames.
 		 */
 		public var id:int;
 
 		/**
 		 * The estimated length of the finger or tool in millimeters.
+		 * 
+		 * The reported length is the visible length of the finger or tool from
+		 * the hand to tip.
+		 * 
+		 * If the length isn't known, then a value of 0 is returned.
 		 */
-		public var length:Number;
+		public var length:Number = 0;
 
 		/**
 		 * The estimated width of the finger or tool in millimeters.
+		 * 
 		 * The reported width is the average width of the visible portion
 		 * of the finger or tool from the hand to the tip.
 		 *
@@ -113,28 +134,31 @@ package com.leapmotion.leap
 		{
 			var returnValue:Boolean = true;
 
-			if ( frame != other.frame )
+			if ( !isValid() || !other.isValid() )
+				returnValue = false;
+			
+			if ( returnValue && frame != other.frame )
+				returnValue = false;
+			
+			if ( returnValue && hand != other.hand )
 				returnValue = false;
 
-			if ( hand != other.hand )
+			if ( returnValue && !direction.isEqualTo( other.direction ) )
 				returnValue = false;
 
-			if ( !direction.isEqualTo( other.direction ) )
+			if ( returnValue && length != other.length )
 				returnValue = false;
 
-			if ( length != other.length )
+			if ( returnValue && width != other.width )
 				returnValue = false;
 
-			if ( width != other.width )
+			if ( returnValue && id != other.id )
 				returnValue = false;
 
-			if ( id != other.id )
+			if ( returnValue && !tipPosition.isEqualTo( other.tipPosition ) )
 				returnValue = false;
 
-			if ( !tipPosition.isEqualTo( other.tipPosition ) )
-				returnValue = false;
-
-			if ( !tipVelocity.isEqualTo( other.tipVelocity ) )
+			if ( returnValue && !tipVelocity.isEqualTo( other.tipVelocity ) )
 				returnValue = false;
 
 			if ( isFinger != other.isFinger || isTool != other.isTool )

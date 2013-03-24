@@ -53,20 +53,50 @@ package com.leapmotion.leap
 	public class Gesture
 	{
 		/**
-		 * The possible gesture states.
+		 * An invalid state. 
 		 */
 		static public const STATE_INVALID:int = 0;
+		
+		/**
+		 * The gesture is starting.
+		 * Just enough has happened to recognize it. 
+		 */
 		static public const STATE_START:int = 1;
+
+		/**
+		 * The gesture is in progress.
+		 * (Note: not all gestures have updates). 
+		 */
 		static public const STATE_UPDATE:int = 2;
+		
+		/**
+		 * The gesture has completed or stopped. 
+		 */
 		static public const STATE_STOP:int = 3;
 
 		/**
-		 * The supported types of gestures.
+		 * An invalid type. 
 		 */
 		static public const TYPE_INVALID:int = 4;
+		
+		/**
+		 * A straight line movement by the hand with fingers extended. 
+		 */
 		static public const TYPE_SWIPE:int = 5;
+		
+		/**
+		 * A circular movement by a finger. 
+		 */
 		static public const TYPE_CIRCLE:int = 6;
+		
+		/**
+		 * A forward tapping movement by a finger. 
+		 */
 		static public const TYPE_SCREEN_TAP:int = 7;
+		
+		/**
+		 * A downward tapping movement by a finger. 
+		 */
 		static public const TYPE_KEY_TAP:int = 8;
 
 		/**

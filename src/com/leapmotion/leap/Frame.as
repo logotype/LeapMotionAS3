@@ -393,7 +393,16 @@ package com.leapmotion.leap
 			}
 			else
 			{
-				// TODO: Implement rotation angle around axis
+				/*
+				TODO: Implement rotation angle around axis
+				(1) translate space so that the rotation axis passes through the origin
+				(2) rotate space about the z-axis so that the rotation axis lies in the xz-plane
+				(3) rotate space about the y-axis so that the rotation axis lies along the z-axis
+				(4) perform the desired rotation by theta about the z-axis
+				(5) apply the inverse of step (3)
+				(6) apply the inverse of step (2)
+				(7) apply the inverse of step (1) 
+				*/
 			}
 			return returnValue;
 		}
@@ -480,6 +489,27 @@ package com.leapmotion.leap
 			return returnValue;
 		}
 
+		/**
+		 * Compare Frame object equality.
+		 * 
+		 * Two Frame objects are equal if and only if both Frame objects
+		 * represent the exact same frame of tracking data and both
+		 * Frame objects are valid.
+		 *  
+		 * @param other The Frame to compare with.
+		 * @return True; if equal. False otherwise.
+		 * 
+		 */
+		public function isEqualTo( other:Frame ):Boolean
+		{
+			var returnValue:Boolean = true;
+			
+			if( id != other.id || !isValid() || other.isValid() )
+				returnValue = false;
+			
+			return returnValue;
+		}
+		
 		/**
 		 * Reports whether this Frame instance is valid.
 		 *

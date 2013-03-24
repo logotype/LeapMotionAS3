@@ -21,11 +21,15 @@ package com.leapmotion.leap
 	{
 		/**
 		 * The direction from the palm position toward the fingers.
+		 * 
+		 * The direction is expressed as a unit vector pointing in the same
+		 * direction as the directed line from the palm position to the fingers. 
 		 */
 		public var direction:Vector3;
 
 		/**
-		 * The list of Finger objects detected in this frame that are attached to this hand, given in arbitrary order.
+		 * The list of Finger objects detected in this frame that are attached
+		 * to this hand, given in arbitrary order.
 		 * @see Finger
 		 */
 		public var fingers:Vector.<Finger> = new Vector.<Finger>();
@@ -37,7 +41,15 @@ package com.leapmotion.leap
 		public var frame:Frame;
 
 		/**
-		 * A unique ID assigned to this Hand object, whose value remains the same across consecutive frames while the tracked hand remains visible.
+		 * A unique ID assigned to this Hand object, whose value remains
+		 * the same across consecutive frames while the tracked hand remains visible.
+		 * 
+		 * If tracking is lost (for example, when a hand is occluded by another
+		 * hand or when it is withdrawn from or reaches the edge of the Leap field
+		 * of view), the Leap may assign a new ID when it detects the hand in a future frame.
+		 * 
+		 * Use the ID value with the Frame.hand() function to find this Hand object
+		 * in future frames. 
 		 */
 		public var id:int;
 
@@ -101,6 +113,12 @@ package com.leapmotion.leap
 		 */
 		public var translationVector:Vector3;
 
+		/**
+		 * Constructs a Hand object.
+		 * An uninitialized hand is considered invalid.
+		 * Get valid Hand objects from a Frame object. 
+		 * 
+		 */
 		public function Hand()
 		{
 		}
@@ -113,13 +131,34 @@ package com.leapmotion.leap
 		public function isValid():Boolean
 		{
 			var returnValue:Boolean = false;
-
+			
 			if ( ( direction && direction.isValid()) && ( palmNormal && palmNormal.isValid()) && ( palmPosition && palmPosition.isValid()) && ( palmVelocity && palmVelocity.isValid()) && ( sphereCenter && sphereCenter.isValid()) )
 				returnValue = true;
-
+			
 			return returnValue;
 		}
+		
+		/**
+		 * Compare Hand object equality/inequality.
+		 * 
+		 * Two Hand objects are equal if and only if both Hand objects
+		 * represent the exact same physical hand in the same frame
+		 * and both Hand objects are valid.
+		 *  
+		 * @param other The Hand object to compare with.
+		 * @return True; if equal. False otherwise.
+		 * 
+		 */
+		public function isEqualTo( other:Hand ):Boolean
+		{
+			var returnValue:Boolean = false;
 
+			if( id == other.id && frame == other.frame && isValid() && other.isValid() )
+				returnValue = true;
+			
+			return returnValue;
+		}
+		
 		/**
 		 * The Finger object with the specified ID attached to this hand.
 		 *
@@ -285,15 +324,31 @@ package com.leapmotion.leap
 		 */
 		public function rotationAngle( sinceFrame:Frame, axis:Vector3 = null ):Number
 		{
-			// TODO: Implement rotation angle around axis
-			if ( sinceFrame.hand( id ) && sinceFrame.hand( id ).frame )
+			var returnValue:Number = 0;
+			if( !axis )
 			{
-				var rotationSinceFrameMatrix:Matrix = rotationMatrix( sinceFrame.hand( id ).frame );
-				var cs:Number = ( rotationSinceFrameMatrix.xBasis.x + rotationSinceFrameMatrix.yBasis.y + rotationSinceFrameMatrix.zBasis.z ) * 0.5;
-				var angle:Number = Math.acos( cs );
-				return isNaN( angle ) ? 0 : angle;
+				if ( sinceFrame.hand( id ) && sinceFrame.hand( id ).frame )
+				{
+					var rotationSinceFrameMatrix:Matrix = rotationMatrix( sinceFrame.hand( id ).frame );
+					var cs:Number = ( rotationSinceFrameMatrix.xBasis.x + rotationSinceFrameMatrix.yBasis.y + rotationSinceFrameMatrix.zBasis.z ) * 0.5;
+					var angle:Number = Math.acos( cs );
+					returnValue = isNaN( angle ) ? 0 : angle;
+				}
 			}
-			return 0;
+			else
+			{
+				/*
+				TODO: Implement rotation angle around axis
+				(1) translate space so that the rotation axis passes through the origin
+				(2) rotate space about the z-axis so that the rotation axis lies in the xz-plane
+				(3) rotate space about the y-axis so that the rotation axis lies along the z-axis
+				(4) perform the desired rotation by theta about the z-axis
+				(5) apply the inverse of step (3)
+				(6) apply the inverse of step (2)
+				(7) apply the inverse of step (1) 
+				*/
+			}
+			return returnValue;
 		}
 
 		/**
