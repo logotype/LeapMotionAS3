@@ -9,12 +9,12 @@ package com.leapmotion.leap
 	 * The Leap classifies a detected entity as a tool when it is thinner, straighter,
 	 * and longer than a typical finger.
 	 *
-	 * Note that Pointable objects can be invalid, which means that they do not contain valid
+	 * <p>Note that Pointable objects can be invalid, which means that they do not contain valid
 	 * tracking data and do not correspond to a physical entity. Invalid Pointable objects
 	 * can be the result of asking for a Pointable object using an ID from an earlier frame
 	 * when no Pointable objects with that ID exist in the current frame. A Pointable object
 	 * created from the Pointable constructor is also invalid. Test for validity with
-	 * the Pointable.isValid() function.
+	 * the <code>Pointable.isValid()</code> function.</p>
 	 *
 	 * @author logotype
 	 *
@@ -22,14 +22,14 @@ package com.leapmotion.leap
 	public class Pointable
 	{
 		/**
-		 * The direction in which this finger or tool is pointing.
+		 * The direction in which this finger or tool is pointing.<br/>
 		 * The direction is expressed as a unit vector pointing in the
 		 * same direction as the tip.
 		 */
 		public var direction:Vector3;
 
 		/**
-		 * The Frame associated with this Pointable object.
+		 * The Frame associated with this Pointable object.<br/>
 		 * The associated Frame object, if available; otherwise, an invalid
 		 * Frame object is returned.
 		 * @see Frame
@@ -37,7 +37,7 @@ package com.leapmotion.leap
 		public var frame:Frame;
 
 		/**
-		 * The Hand associated with this finger or tool.
+		 * The Hand associated with this finger or tool.<br/>
 		 * The associated Hand object, if available; otherwise, an invalid
 		 * Hand object is returned.
 		 * @see Hand
@@ -49,32 +49,32 @@ package com.leapmotion.leap
 		 * the same across consecutive frames while the tracked finger or
 		 * tool remains visible.
 		 * 
-		 * If tracking is lost (for example, when a finger is occluded by another
+		 * <p>If tracking is lost (for example, when a finger is occluded by another
 		 * finger or when it is withdrawn from the Leap field of view), the Leap
-		 * may assign a new ID when it detects the entity in a future frame.
+		 * may assign a new ID when it detects the entity in a future frame.</p>
 		 * 
-		 * Use the ID value with the Frame.pointable() function to find this
-		 * Pointable object in future frames.
+		 * <p>Use the ID value with the <code>Frame.pointable()</code> function to find this
+		 * Pointable object in future frames.</p>
 		 */
 		public var id:int;
 
 		/**
 		 * The estimated length of the finger or tool in millimeters.
 		 * 
-		 * The reported length is the visible length of the finger or tool from
-		 * the hand to tip.
+		 * <p>The reported length is the visible length of the finger or tool from
+		 * the hand to tip.</p>
 		 * 
-		 * If the length isn't known, then a value of 0 is returned.
+		 * <p>If the length isn't known, then a value of 0 is returned.</p>
 		 */
 		public var length:Number = 0;
 
 		/**
 		 * The estimated width of the finger or tool in millimeters.
 		 * 
-		 * The reported width is the average width of the visible portion
-		 * of the finger or tool from the hand to the tip.
+		 * <p>The reported width is the average width of the visible portion
+		 * of the finger or tool from the hand to the tip.</p>
 		 *
-		 * If the width isn't known, then a value of 0 is returned.
+		 * <p>If the width isn't known, then a value of 0 is returned.</p>
 		 */
 		public var width:Number = 0;
 
@@ -107,7 +107,7 @@ package com.leapmotion.leap
 
 		/**
 		 * Reports whether this is a valid Pointable object.
-		 * @return true if direction, tipPosition and tipVelocity are true
+		 * @return True if <code>direction</code>, <code>tipPosition</code> and <code>tipVelocity</code> are true.
 		 */
 		public function isValid():Boolean
 		{
@@ -122,9 +122,9 @@ package com.leapmotion.leap
 		/**
 		 * Compare Pointable object equality/inequality.
 		 *
-		 * Two Pointable objects are equal if and only if both Pointable
+		 * <p>Two Pointable objects are equal if and only if both Pointable
 		 * objects represent the exact same physical entities in
-		 * the same frame and both Pointable objects are valid.
+		 * the same frame and both Pointable objects are valid.</p>
 		 *
 		 * @param other The Pointable to compare with.
 		 * @return True; if equal, False otherwise.
@@ -170,10 +170,10 @@ package com.leapmotion.leap
 		/**
 		 * Returns an invalid Pointable object.
 		 *
-		 * You can use the instance returned by this function in
+		 * <p>You can use the instance returned by this function in
 		 * comparisons testing whether a given Pointable instance
-		 * is valid or invalid.
-		 * (You can also use the Pointable.isValid property.)
+		 * is valid or invalid.<br/>
+		 * (You can also use the <code>Pointable.isValid()</code> function.)</p>
 		 *
 		 * @return The invalid Pointable instance.
 		 *

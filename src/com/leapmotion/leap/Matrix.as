@@ -4,12 +4,12 @@ package com.leapmotion.leap
 	/**
 	 * The Matrix struct represents a transformation matrix.
 	 *
-	 * To use this struct to transform a Vector, construct a matrix containing the
-	 * desired transformation and then use the Matrix.transformPoint() or
-	 * Matrix.transformDirection() functions to apply the transform.
+	 * <p>To use this struct to transform a Vector, construct a matrix containing the
+	 * desired transformation and then use the <code>Matrix.transformPoint()</code> or
+	 * <code>Matrix.transformDirection()</code> functions to apply the transform.</p>
 	 *
-	 * Transforms can be combined by multiplying two or more transform matrices
-	 * using the multiply() function.
+	 * <p>Transforms can be combined by multiplying two or more transform matrices
+	 * using the <code>multiply()</code> function.</p>
 	 *
 	 *
 	 * @author logotype

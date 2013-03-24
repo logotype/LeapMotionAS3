@@ -5,14 +5,14 @@ package com.leapmotion.leap
 	 * The Vector struct represents a three-component mathematical vector
 	 * or point such as a direction or position in three-dimensional space.
 	 *
-	 * The Leap software employs a right-handed Cartesian coordinate system.
+	 * <p>The Leap software employs a right-handed Cartesian coordinate system.
 	 * Values given are in units of real-world millimeters. The origin is
 	 * centered at the center of the Leap device. The x- and z-axes lie in
 	 * the horizontal plane, with the x-axis running parallel to the long edge
 	 * of the device. The y-axis is vertical, with positive values increasing
 	 * upwards (in contrast to the downward orientation of most computer
 	 * graphics coordinate systems). The z-axis has positive values increasing
-	 * away from the computer screen.
+	 * away from the computer screen.</p>
 	 *
 	 * @author logotype
 	 *
@@ -180,12 +180,12 @@ package com.leapmotion.leap
 		/**
 		 * The angle between this vector and the specified vector in radians.
 		 * 
-		 * The angle is measured in the plane formed by the two vectors.
+		 * <p>The angle is measured in the plane formed by the two vectors.
 		 * The angle returned is always the smaller of the two conjugate angles.
-		 * Thus A.angleTo(B) == B.angleTo(A) and is always a positive value less
-		 * than or equal to pi radians (180 degrees).
+		 * Thus <code>A.angleTo(B) == B.angleTo(A)</code> and is always a positive value less
+		 * than or equal to pi radians (180 degrees).</p>
 		 * 
-		 * If either vector has zero length, then this function returns zero.
+		 * <p>If either vector has zero length, then this function returns zero.</p>
 		 * 
 		 * @param other
 		 * @return
@@ -207,7 +207,7 @@ package com.leapmotion.leap
 		 * The cross product is a vector orthogonal to both original vectors.
 		 * It has a magnitude equal to the area of a parallelogram having the
 		 * two vectors as sides. The direction of the returned vector is
-		 * determined by the right-hand rule. Thus A.cross(B) == -B.cross(A).
+		 * determined by the right-hand rule. Thus <code>A.cross(B) == -B.cross(A)</code>.
 		 * 
 		 * @param other
 		 * @return

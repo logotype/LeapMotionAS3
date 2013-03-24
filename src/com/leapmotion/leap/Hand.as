@@ -3,16 +3,16 @@ package com.leapmotion.leap
 	/**
 	 * The Hand class reports the physical characteristics of a detected hand.
 	 *
-	 * Hand tracking data includes a palm position and velocity; vectors for
+	 * <p>Hand tracking data includes a palm position and velocity; vectors for
 	 * the palm normal and direction to the fingers; properties of a sphere fit
-	 * to the hand; and lists of the attached fingers and tools.
+	 * to the hand; and lists of the attached fingers and tools.</p>
 	 *
-	 * Note that Hand objects can be invalid, which means that they do not
+	 * <p>Note that Hand objects can be invalid, which means that they do not
 	 * contain valid tracking data and do not correspond to a physical entity.
 	 * Invalid Hand objects can be the result of asking for a Hand object using
 	 * an ID from an earlier frame when no Hand objects with that ID exist in
 	 * the current frame. A Hand object created from the Hand constructor is
-	 * also invalid. Test for validity with the Hand.isValid() function.
+	 * also invalid. Test for validity with the <code>Hand.isValid()</code> function.</p>
 	 *
 	 * @author logotype
 	 *
@@ -22,8 +22,8 @@ package com.leapmotion.leap
 		/**
 		 * The direction from the palm position toward the fingers.
 		 * 
-		 * The direction is expressed as a unit vector pointing in the same
-		 * direction as the directed line from the palm position to the fingers. 
+		 * <p>The direction is expressed as a unit vector pointing in the same
+		 * direction as the directed line from the palm position to the fingers.</p> 
 		 */
 		public var direction:Vector3;
 
@@ -44,12 +44,12 @@ package com.leapmotion.leap
 		 * A unique ID assigned to this Hand object, whose value remains
 		 * the same across consecutive frames while the tracked hand remains visible.
 		 * 
-		 * If tracking is lost (for example, when a hand is occluded by another
+		 * <p>If tracking is lost (for example, when a hand is occluded by another
 		 * hand or when it is withdrawn from or reaches the edge of the Leap field
-		 * of view), the Leap may assign a new ID when it detects the hand in a future frame.
+		 * of view), the Leap may assign a new ID when it detects the hand in a future frame.</p>
 		 * 
-		 * Use the ID value with the Frame.hand() function to find this Hand object
-		 * in future frames. 
+		 * <p>Use the ID value with the <code>Frame.hand()</code> function to find this Hand object
+		 * in future frames.</p> 
 		 */
 		public var id:int;
 
@@ -72,12 +72,13 @@ package com.leapmotion.leap
 		 * The list of Pointable objects (fingers and tools) detected in this
 		 * frame that are associated with this hand, given in arbitrary order.
 		 *
-		 * The list can be empty if no fingers or tools associated with this hand are detected.
-		 * Use the Pointable.isFinger() function to determine whether or not an item in the
-		 * list represents a finger. Use the Pointable.isTool() function to determine
+		 * <p>The list can be empty if no fingers or tools associated with this hand are detected.
+		 * Use the <code>Pointable.isFinger()</code> function to determine whether or not an item in the
+		 * list represents a finger. Use the <code>Pointable.isTool()</code> function to determine
 		 * whether or not an item in the list represents a tool. You can also get
-		 * only fingers using the Hand.fingers() function or only tools using
-		 * the Hand.tools() function.
+		 * only fingers using the <code>Hand.fingers()</code> function or only tools using
+		 * the <code>Hand.tools()</code> function.</p>
+		 * 
 		 * @see Pointable
 		 *
 		 */
@@ -115,8 +116,10 @@ package com.leapmotion.leap
 
 		/**
 		 * Constructs a Hand object.
-		 * An uninitialized hand is considered invalid.
-		 * Get valid Hand objects from a Frame object. 
+		 * 
+		 * <p>An uninitialized hand is considered invalid.
+		 * 
+		 * Get valid Hand objects from a Frame object.</p> 
 		 * 
 		 */
 		public function Hand()
@@ -141,9 +144,9 @@ package com.leapmotion.leap
 		/**
 		 * Compare Hand object equality/inequality.
 		 * 
-		 * Two Hand objects are equal if and only if both Hand objects
+		 * <p>Two Hand objects are equal if and only if both Hand objects
 		 * represent the exact same physical hand in the same frame
-		 * and both Hand objects are valid.
+		 * and both Hand objects are valid.</p>
 		 *  
 		 * @param other The Hand object to compare with.
 		 * @return True; if equal. False otherwise.
@@ -162,15 +165,15 @@ package com.leapmotion.leap
 		/**
 		 * The Finger object with the specified ID attached to this hand.
 		 *
-		 * Use the Hand.finger() function to retrieve a Finger object attached
+		 * <p>Use the <code>Hand.finger()</code> function to retrieve a Finger object attached
 		 * to this hand using an ID value obtained from a previous frame.
 		 * This function always returns a Finger object, but if no finger
-		 * with the specified ID is present, an invalid Finger object is returned.
+		 * with the specified ID is present, an invalid Finger object is returned.</p>
 		 *
-		 * Note that ID values persist across frames, but only until tracking of
+		 * <p>Note that ID values persist across frames, but only until tracking of
 		 * a particular object is lost. If tracking of a finger is lost and
 		 * subsequently regained, the new Finger object representing that
-		 * finger may have a different ID than that representing the finger in an earlier frame.
+		 * finger may have a different ID than that representing the finger in an earlier frame.</p>
 		 *
 		 * @param id The ID value of a Finger object from a previous frame.
 		 * @return The Finger object with the matching ID if one exists for
@@ -199,16 +202,16 @@ package com.leapmotion.leap
 		/**
 		 * The Tool object with the specified ID held by this hand.
 		 *
-		 * Use the Hand.tool() function to retrieve a Tool object held
+		 * <p>Use the <code>Hand.tool()</code> function to retrieve a Tool object held
 		 * by this hand using an ID value obtained from a previous frame.
 		 * This function always returns a Tool object, but if no tool
-		 * with the specified ID is present, an invalid Tool object is returned.
+		 * with the specified ID is present, an invalid Tool object is returned.</p>
 		 *
-		 * Note that ID values persist across frames, but only until
+		 * <p>Note that ID values persist across frames, but only until
 		 * tracking of a particular object is lost. If tracking of a tool
 		 * is lost and subsequently regained, the new Tool object
 		 * representing that tool may have a different ID than that
-		 * representing the tool in an earlier frame.
+		 * representing the tool in an earlier frame.</p>
 		 *
 		 * @param id The ID value of a Tool object from a previous frame.
 		 * @return The Tool object with the matching ID if one exists for
@@ -237,16 +240,16 @@ package com.leapmotion.leap
 		/**
 		 * The Pointable object with the specified ID associated with this hand.
 		 *
-		 * Use the Hand.pointable() function to retrieve a Pointable object
+		 * <p>Use the <code>Hand.pointable()</code> function to retrieve a Pointable object
 		 * associated with this hand using an ID value obtained from a previous frame.
 		 * This function always returns a Pointable object, but if no finger or
-		 * tool with the specified ID is present, an invalid Pointable object is returned.
+		 * tool with the specified ID is present, an invalid Pointable object is returned.</p>
 		 *
-		 * Note that ID values persist across frames, but only until tracking
+		 * <p>Note that ID values persist across frames, but only until tracking
 		 * of a particular object is lost. If tracking of a finger or tool is
 		 * lost and subsequently regained, the new Pointable object representing
 		 * that finger or tool may have a different ID than that representing
-		 * the finger or tool in an earlier frame.
+		 * the finger or tool in an earlier frame.</p>
 		 *
 		 * @param id
 		 * @return
@@ -276,11 +279,11 @@ package com.leapmotion.leap
 		 * of this hand, and any associated fingers and tools,
 		 * between the current frame and the specified frame.
 		 *
-		 * The returned direction vector is normalized.
+		 * <p>The returned direction vector is normalized.</p>
 		 *
-		 * If a corresponding Hand object is not found in sinceFrame,
+		 * <p>If a corresponding Hand object is not found in sinceFrame,
 		 * or if either this frame or sinceFrame are invalid Frame objects,
-		 * then this method returns a zero vector.
+		 * then this method returns a zero vector.</p>
 		 *
 		 * @param sinceFrame The starting frame for computing the relative rotation.
 		 * @return A normalized direction Vector representing the heuristically
@@ -306,15 +309,15 @@ package com.leapmotion.leap
 		 * The angle of rotation around the rotation axis derived from the
 		 * overall rotational motion between the current frame and the specified frame.
 		 *
-		 * The returned angle is expressed in radians measured clockwise around
+		 * <p>The returned angle is expressed in radians measured clockwise around
 		 * the rotation axis (using the right-hand rule) between the
-		 * start and end frames. The value is always between 0 and pi radians (0 and 180 degrees).
+		 * start and end frames. The value is always between 0 and pi radians (0 and 180 degrees).</p>
 		 *
-		 * The Leap derives frame rotation from the relative change in position
-		 * and orientation of all objects detected in the field of view.
+		 * <p>The Leap derives frame rotation from the relative change in position
+		 * and orientation of all objects detected in the field of view.</p>
 		 *
-		 * If either this frame or sinceFrame is an invalid Frame object,
-		 * then the angle of rotation is zero.
+		 * <p>If either this frame or sinceFrame is an invalid Frame object,
+		 * then the angle of rotation is zero.</p>
 		 *
 		 * @param sinceFrame The starting frame for computing the relative rotation.
 		 * @param axis Optional. The axis to measure rotation around.
@@ -356,9 +359,9 @@ package com.leapmotion.leap
 		 * the change in orientation of this hand, and any associated
 		 * fingers and tools, between the current frame and the specified frame.
 		 *
-		 * If a corresponding Hand object is not found in sinceFrame,
+		 * <p>If a corresponding Hand object is not found in sinceFrame,
 		 * or if either this frame or sinceFrame are invalid Frame objects,
-		 * then this method returns an identity matrix.
+		 * then this method returns an identity matrix.</p>
 		 *
 		 * @param sinceFrame
 		 * @return A transformation Matrix representing the heuristically
@@ -382,17 +385,17 @@ package com.leapmotion.leap
 		 * The scale factor derived from this hand's motion between
 		 * the current frame and the specified frame.
 		 * 
-		 * The scale factor is always positive. A value of 1.0 indicates no
+		 * <p>The scale factor is always positive. A value of 1.0 indicates no
 		 * scaling took place. Values between 0.0 and 1.0 indicate contraction
-		 * and values greater than 1.0 indicate expansion.
+		 * and values greater than 1.0 indicate expansion.</p>
 		 * 
-		 * The Leap derives scaling from the relative inward or outward motion
+		 * <p>The Leap derives scaling from the relative inward or outward motion
 		 * of a hand and its associated fingers and tools (independent of
-		 * translation and rotation).
+		 * translation and rotation).</p>
 		 * 
-		 * If a corresponding Hand object is not found in sinceFrame,
+		 * <p>If a corresponding Hand object is not found in sinceFrame,
 		 * or if either this frame or sinceFrame are invalid Frame objects,
-		 * then this method returns 1.0.
+		 * then this method returns 1.0.</p>
 		 * 
 		 * @param sinceFrame The starting frame for computing the relative scaling.
 		 * @return A positive value representing the heuristically determined
@@ -432,9 +435,9 @@ package com.leapmotion.leap
 		/**
 		 * Returns an invalid Hand object.
 		 *
-		 * You can use the instance returned by this function in comparisons
+		 * <p>You can use the instance returned by this function in comparisons
 		 * testing whether a given Hand instance is valid or invalid.
-		 * (You can also use the Hand.isValid() function.)
+		 * (You can also use the <code>Hand.isValid()</code> function.)</p>
 		 *
 		 * @return The invalid Hand instance.
 		 *

@@ -10,16 +10,40 @@ package com.leapmotion.leap
 	import flash.events.EventDispatcher;
 
 	/**
+	 * Called once, when the Controller is initialized.  
+	 */
+	[Event( name = "leapmotionInit", type = "com.leapmotion.leap.events.LeapEvent" )]
+	
+	/**
+	 * Called when the Controller object connects to the Leap software. 
+	 */
+	[Event( name = "leapmotionConnected", type = "com.leapmotion.leap.events.LeapEvent" )]
+
+	/**
+	 * Called when the Controller object disconnects from the Leap software.  
+	 */
+	[Event( name = "leapmotionDisconnected", type = "com.leapmotion.leap.events.LeapEvent" )]
+	
+	/**
+	 * Called when a timeout occurs from the socket connection. 
+	 */
+	[Event( name = "leapmotionTimeout", type = "com.leapmotion.leap.events.LeapEvent" )]
+	
+	/**
+	 * Called when this Controller instance is destroyed.  
+	 */	
+	[Event( name = "leapmotionExit", type = "com.leapmotion.leap.events.LeapEvent" )]
+
+	/**
+	 * Called when a new frame of hand and finger tracking data is available.  
+	 */
+	[Event( name = "leapmotionFrame", type = "com.leapmotion.leap.events.LeapEvent" )]
+
+	/**
 	 * The main event dispatcher for Leap events.
 	 * @author logotype
 	 *
 	 */
-	[Event( name = "leapmotionInit", type = "com.leapmotion.leap.events.LeapEvent" )]
-	[Event( name = "leapmotionConnected", type = "com.leapmotion.leap.events.LeapEvent" )]
-	[Event( name = "leapmotionDisconnected", type = "com.leapmotion.leap.events.LeapEvent" )]
-	[Event( name = "leapmotionTimeout", type = "com.leapmotion.leap.events.LeapEvent" )]
-	[Event( name = "leapmotionExit", type = "com.leapmotion.leap.events.LeapEvent" )]
-	[Event( name = "leapmotionFrame", type = "com.leapmotion.leap.events.LeapEvent" )]
 	public class Controller extends EventDispatcher
 	{
 		/**
@@ -49,7 +73,7 @@ package com.leapmotion.leap
 		public var context:Object;
 		
 		/**
-		 * List of Screen objects, created by calibratedScreens(). 
+		 * List of Screen objects, created by <code>calibratedScreens()</code>. 
 		 */
 		private var _screenList:Vector.<Screen> = new Vector.<Screen>();
 
@@ -80,11 +104,11 @@ package com.leapmotion.leap
 		/**
 		 * Returns a frame of tracking data from the Leap.
 		 *
-		 * Use the optional history parameter to specify which frame to retrieve.
-		 * Call frame() or frame(0) to access the most recent frame; call frame(1)
-		 * to access the previous frame, and so on. If you use a history value
+		 * <p>Use the optional history parameter to specify which frame to retrieve.
+		 * Call <code>frame()</code> or <code>frame(0)</code> to access the most recent frame;
+		 * call <code>frame(1)</code> to access the previous frame, and so on. If you use a history value
 		 * greater than the number of stored frames, then the controller returns
-		 * an invalid frame.
+		 * an invalid frame.</p>
 		 *
 		 * @param history The age of the frame to return, counting backwards from
 		 * the most recent frame (0) into the past and up to the maximum age (59).
@@ -111,10 +135,11 @@ package com.leapmotion.leap
 
 		/**
 		 * Update the object that receives direct updates from the Leap device.
-		 * The default callback will make the controller dispatch flash events.
+		 * 
+		 * <p>The default callback will make the controller dispatch flash events.
 		 * You can override this behaviour, by implementing the IListener interface
 		 * in your own classes, and use this method to set the callback to your
-		 * own implementation.
+		 * own implementation.</p>
 		 *
 		 * @param callback
 		 */
@@ -127,25 +152,25 @@ package com.leapmotion.leap
 		 * The list of screens whose positions have been identified by using
 		 * the Leap application Screen Locator.
 		 * 
-		 * The list always contains at least one entry representing the
+		 * <p>The list always contains at least one entry representing the
 		 * default screen. If the user has not registered the location of
 		 * this default screen, then the coordinates, directions, and other
 		 * values reported by the functions in its Screen object will not
 		 * be accurate. Other monitor screens only appear in the list if
-		 * their positions have been registered using the Leap Screen Locator.
+		 * their positions have been registered using the Leap Screen Locator.</p>
 		 * 
-		 * A Screen object represents the position and orientation of a
+		 * <p>A Screen object represents the position and orientation of a
 		 * display monitor screen within the Leap coordinate system.
 		 * For example, if the screen location is known, you can get Leap
 		 * coordinates for the bottom-left corner of the screen.
 		 * Registering the screen location also allows the Leap to calculate
-		 * the point on the screen at which a finger or tool is pointing.
+		 * the point on the screen at which a finger or tool is pointing.</p>
 		 * 
-		 * A user can run the Screen Locator tool from the Leap application
+		 * <p>A user can run the Screen Locator tool from the Leap application
 		 * Settings window. Avoid assuming that a screen location is known
 		 * or that an existing position is still correct. The registered
 		 * position is only valid as long as the relative position of the
-		 * Leap device and the monitor screen remain constant.
+		 * Leap device and the monitor screen remain constant.</p>
 		 *  
 		 * @return ScreenList A list containing the screens whose positions
 		 * have been registered by the user using the Screen Locator tool.
@@ -187,19 +212,19 @@ package com.leapmotion.leap
 		 * Gets the closest Screen intercepting a ray projecting from the
 		 * specified Pointable object.
 		 * 
-		 * The projected ray emanates from the Pointable tipPosition along
+		 * <p>The projected ray emanates from the Pointable tipPosition along
 		 * the Pointable's direction vector. If the projected ray does not
 		 * intersect any screen surface directly, then the Leap checks for
 		 * intersection with the planes extending from the surfaces of the
-		 * known screens and returns the Screen with the closest intersection.
+		 * known screens and returns the Screen with the closest intersection.</p>
 		 * 
-		 * If no intersections are found (i.e. the ray is directed parallel
+		 * <p>If no intersections are found (i.e. the ray is directed parallel
 		 * to or away from all known screens), then an invalid Screen object
-		 * is returned.
+		 * is returned.</p>
 		 * 
-		 * Note: Be sure to test whether the Screen object returned by this
+		 * <p>Note: Be sure to test whether the Screen object returned by this
 		 * method is valid. Attempting to use an invalid Screen object will
-		 * lead to incorrect results.
+		 * lead to incorrect results.</p>
 		 *  
 		 * @param pointable The Pointable object to check for screen intersection.
 		 * @return The closest Screen toward which the specified Pointable object
@@ -228,12 +253,13 @@ package com.leapmotion.leap
 
 		/**
 		 * Enables or disables reporting of a specified gesture type.
-		 * By default, all gesture types are disabled. When disabled, gestures of
-		 * the disabled type are never reported and will not appear in the frame
-		 * gesture list.
 		 * 
-		 * As a performance optimization, only enable recognition for the types
-		 * of movements that you use in your application.
+		 * <p>By default, all gesture types are disabled. When disabled, gestures of
+		 * the disabled type are never reported and will not appear in the frame
+		 * gesture list.</p>
+		 * 
+		 * <p>As a performance optimization, only enable recognition for the types
+		 * of movements that you use in your application.</p>
 		 *  
 		 * @param type The type of gesture to enable or disable. Must be a member of the Gesture::Type enumeration.
 		 * @param enable True, to enable the specified gesture type; False, to disable.
@@ -259,14 +285,14 @@ package com.leapmotion.leap
 		/**
 		 * Reports whether this Controller is connected to the Leap device.
 		 *
-		 * When you first create a Controller object, isConnected() returns false.
+		 * <p>When you first create a Controller object, <code>isConnected()</code> returns false.
 		 * After the controller finishes initializing and connects to
-		 * the Leap, isConnected() will return true.
+		 * the Leap, <code>isConnected()</code> will return true.</p>
 		 *
-		 * You can either handle the onConnect event using a event listener
-		 * or poll the isConnected() function if you need to wait for your
+		 * <p>You can either handle the onConnect event using a event listener
+		 * or poll the <code>isConnected()</code> function if you need to wait for your
 		 * application to be connected to the Leap before performing
-		 * some other action.
+		 * some other action.</p>
 		 *
 		 * @return True, if connected; false otherwise.
 		 *
