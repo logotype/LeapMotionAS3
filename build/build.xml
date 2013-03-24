@@ -43,6 +43,17 @@
     <property name="Examples.MAIN_DEBUG_DESCRIPTOR" value="${Examples.DEBUG_ROOT}/app.xml"/>
     <property name="Examples.MAIN_RELEASE_DESCRIPTOR" value="${Examples.RELEASE_ROOT}/app.xml"/>
 
+	<target name="docs" description="Generate the ASDocs to /docs">
+        <exec executable="${ASC1_AIR_SDK_HOME}/bin/aasdoc" failonerror="true">
+                <arg line="-doc-sources ${Extension.AS3_ROOT}" />
+                <arg value="-window-title" />
+                <arg value="'LeapMotionAS3'" />
+                <arg value="-output" />
+                <arg value="${Extension.BUILD_ROOT}/../docs" />
+        </exec>
+        <echo>Documentation created successfully.</echo>
+	</target>
+	
 	<target name="config-sdk-extension" depends="init-ant-contrib">
         <if>
             <equals arg1="${Extension.ASC_VERSION}" arg2="2"/>

@@ -49,10 +49,6 @@ package com.leapmotion.leap
 		 * toward the pointable. If the angle between the normal and the
 		 * pointable object drawing the circle is less than 90 degrees,
 		 * then the circle is clockwise.
-		 * 
-		 * var clockwiseness:String;
-		 * if (circle.pointable.direction.angleTo(circle.normal) <= Math.PI/4)
-		 * { clockwiseness = "clockwise"; } else { clockwiseness = "counterclockwise"; } 
 		 */
 		public var normal:Vector3;
 		

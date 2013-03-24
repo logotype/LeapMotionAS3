@@ -119,7 +119,7 @@ package com.leapmotion.leap
 		}
 
 		/**
-		 * Multiply vector by a scalar and assign the value.
+		 * Multiply vector by a scalar and assign the quotient.
 		 * @param scalar
 		 * @return This Vector3.
 		 *
@@ -179,6 +179,14 @@ package com.leapmotion.leap
 
 		/**
 		 * The angle between this vector and the specified vector in radians.
+		 * 
+		 * The angle is measured in the plane formed by the two vectors.
+		 * The angle returned is always the smaller of the two conjugate angles.
+		 * Thus A.angleTo(B) == B.angleTo(A) and is always a positive value less
+		 * than or equal to pi radians (180 degrees).
+		 * 
+		 * If either vector has zero length, then this function returns zero.
+		 * 
 		 * @param other
 		 * @return
 		 *
@@ -195,6 +203,12 @@ package com.leapmotion.leap
 
 		/**
 		 * The cross product of this vector and the specified vector.
+		 * 
+		 * The cross product is a vector orthogonal to both original vectors.
+		 * It has a magnitude equal to the area of a parallelogram having the
+		 * two vectors as sides. The direction of the returned vector is
+		 * determined by the right-hand rule. Thus A.cross(B) == -B.cross(A).
+		 * 
 		 * @param other
 		 * @return
 		 *
@@ -206,9 +220,10 @@ package com.leapmotion.leap
 		}
 
 		/**
-		 * The distance between the point represented by this Vector object and a point represented by the specified Vector object.
-		 * @param other
-		 * @return
+		 * The distance between the point represented by this Vector
+		 * object and a point represented by the specified Vector object.
+		 * @param other A Vector object.
+		 * @return The distance from this point to the specified point.
 		 *
 		 */
 		[Inline]
@@ -219,8 +234,11 @@ package com.leapmotion.leap
 
 		/**
 		 * The dot product of this vector with another vector.
-		 * @param other
-		 * @return
+		 * The dot product is the magnitude of the projection of this vector
+		 * onto the specified vector.
+		 * 
+		 * @param other A Vector object.
+		 * @return The dot product of this vector and the specified vector.
 		 *
 		 */
 		[Inline]
@@ -259,7 +277,11 @@ package com.leapmotion.leap
 
 		/**
 		 * The magnitude, or length, of this vector.
-		 * @return
+		 * The magnitude is the L2 norm, or Euclidean distance between the
+		 * origin and the point represented by the (x, y, z) components
+		 * of this Vector object.
+		 * 
+		 * @return The length of this vector.
 		 *
 		 */
 		[Inline]
@@ -270,7 +292,7 @@ package com.leapmotion.leap
 
 		/**
 		 * The square of the magnitude, or length, of this vector.
-		 * @return
+		 * @return The square of the length of this vector.
 		 *
 		 */
 		[Inline]
@@ -281,7 +303,9 @@ package com.leapmotion.leap
 
 		/**
 		 * A normalized copy of this vector.
-		 * @return
+		 * A normalized vector has the same direction as the original
+		 * vector, but with a length of one.
+		 * @return A Vector object with a length of one, pointing in the same direction as this Vector object.
 		 *
 		 */
 		[Inline]
@@ -297,7 +321,13 @@ package com.leapmotion.leap
 
 		/**
 		 * The pitch angle in radians.
-		 * @return
+		 * Pitch is the angle between the negative z-axis and the projection
+		 * of the vector onto the y-z plane. In other words, pitch represents
+		 * rotation around the x-axis. If the vector points upward, the
+		 * returned angle is between 0 and pi radians (180 degrees); if it
+		 * points downward, the angle is between 0 and -pi radians.
+		 * 
+		 * @return The angle of this vector above or below the horizon (x-z plane).
 		 *
 		 */
 		[Inline]
@@ -308,7 +338,14 @@ package com.leapmotion.leap
 
 		/**
 		 * The yaw angle in radians.
-		 * @return
+		 * Yaw is the angle between the negative z-axis and the projection
+		 * of the vector onto the x-z plane. In other words, yaw represents
+		 * rotation around the y-axis. If the vector points to the right of
+		 * the negative z-axis, then the returned angle is between 0 and pi
+		 * radians (180 degrees); if it points to the left, the angle is
+		 * between 0 and -pi radians.
+		 * 
+		 * @return The angle of this vector to the right or left of the negative z-axis.
 		 *
 		 */
 		[Inline]
@@ -319,7 +356,18 @@ package com.leapmotion.leap
 
 		/**
 		 * The roll angle in radians.
-		 * @return
+		 * Roll is the angle between the y-axis and the projection of the vector
+		 * onto the x-y plane. In other words, roll represents rotation around
+		 * the z-axis. If the vector points to the left of the y-axis, then the
+		 * returned angle is between 0 and pi radians (180 degrees); if it
+		 * points to the right, the angle is between 0 and -pi radians.
+		 * 
+		 * Use this function to get roll angle of the plane to which this vector
+		 * is a normal. For example, if this vector represents the normal to
+		 * the palm, then this function returns the tilt or roll of the palm
+		 * plane compared to the horizontal (x-z) plane.
+		 * 
+		 * @return The angle of this vector to the right or left of the y-axis.
 		 *
 		 */
 		[Inline]
