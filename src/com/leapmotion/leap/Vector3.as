@@ -34,6 +34,13 @@ package com.leapmotion.leap
 		 */
 		public var z:Number;
 
+		/**
+		 * Creates a new Vector with the specified component values. 
+		 * @param x The horizontal component.
+		 * @param y The vertical component.
+		 * @param z The depth component.
+		 * 
+		 */
 		public function Vector3( x:Number, y:Number, z:Number )
 		{
 			this.x = x;
@@ -187,8 +194,8 @@ package com.leapmotion.leap
 		 * 
 		 * <p>If either vector has zero length, then this function returns zero.</p>
 		 * 
-		 * @param other
-		 * @return
+		 * @param other A Vector object.
+		 * @return The angle between this vector and the specified vector in radians.
 		 *
 		 */
 		[Inline]
@@ -209,8 +216,8 @@ package com.leapmotion.leap
 		 * two vectors as sides. The direction of the returned vector is
 		 * determined by the right-hand rule. Thus <code>A.cross(B) == -B.cross(A)</code>.
 		 * 
-		 * @param other
-		 * @return
+		 * @param other A Vector object.
+		 * @return The cross product of this vector and the specified vector.
 		 *
 		 */
 		[Inline]
@@ -222,6 +229,7 @@ package com.leapmotion.leap
 		/**
 		 * The distance between the point represented by this Vector
 		 * object and a point represented by the specified Vector object.
+		 * 
 		 * @param other A Vector object.
 		 * @return The distance from this point to the specified point.
 		 *
