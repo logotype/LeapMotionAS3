@@ -3,6 +3,10 @@ package com.leapmotion.leap.util
 	import com.leapmotion.leap.Matrix;
 	import com.leapmotion.leap.Vector3;
 
+	/**
+	 * LeapMath is a collection of static utility functions. 
+	 * 
+	 */
 	public class LeapMath
 	{
 		/** The constant pi as a single precision floating point number. */
@@ -20,14 +24,33 @@ package com.leapmotion.leap.util
 		 */
 		static public const RAD_TO_DEG:Number = 57.295779513;
 
+		/**
+		 * Pi * 2. 
+		 */
 		static public const TWO_PI:Number = Math.PI + Math.PI;
+
+		/**
+		 * Pi * 0.5. 
+		 */
 		static public const HALF_PI:Number = Math.PI * 0.5;
+
+		/**
+		 * Represents the smallest positive single value greater than zero. 
+		 */
 		static public const EPSILON:Number = 0.00001;
 
 		public function LeapMath()
 		{
 		}
 
+		/**
+		 * Convert an angle measure from radians to degrees.
+		 *  
+		 * @param radians
+		 * @return The value, in degrees. 
+		 * 
+		 */
+		[Inline]
 		static public function toDegrees( radians:Number ):Number
 		{
 			return radians * 180 / Math.PI;
@@ -134,6 +157,7 @@ package com.leapmotion.leap.util
 		/**
 		 * Compute the spherical elevation of a vector direction in y above the z/x plane 
 		 */
+		[Inline]
 		static public function elevation( inVector:Vector3 ):Number
 		{
 			return Math.atan2( inVector.y, Math.sqrt( inVector.z * inVector.z + inVector.x * inVector.x ) );
@@ -212,6 +236,7 @@ package com.leapmotion.leap.util
 		 * @return The value clamped between minVal and maxVal.
 		 * 
 		 */
+		[Inline]
 		static public function clamp( inVal:Number, minVal:Number, maxVal:Number ):Number
 		{
 			return ( inVal < minVal ) ? minVal : (( inVal > maxVal ) ? maxVal : inVal );

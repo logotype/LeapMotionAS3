@@ -3,18 +3,18 @@ package com.leapmotion.leap
 	/**
 	 * The ScreenTapGesture class represents a tapping gesture by a finger or tool.
 	 * 
-	 * A screen tap gesture is recognized when the tip of a finger pokes forward
+	 * <p>A screen tap gesture is recognized when the tip of a finger pokes forward
 	 * and then springs back to approximately the original postion, as if tapping
-	 * a vertical screen. The tapping finger must pause briefly before beginning the tap.
+	 * a vertical screen. The tapping finger must pause briefly before beginning the tap.</p>
 	 * 
-	 * Important: To use screen tap gestures in your application, you must enable
-	 * recognition of the screen tap gesture. You can enable recognition with:
+	 * <strong>Important: To use screen tap gestures in your application, you must enable
+	 * recognition of the screen tap gesture.</strong><br/> You can enable recognition with:
 	 * 
-	 * leap.controller.enableGesture(Gesture.TYPE_SCREEN_TAP);
+	 * <code>leap.controller.enableGesture(Gesture.TYPE_SCREEN_TAP);</code>
 	 * 
-	 * ScreenTap gestures are discrete. The ScreenTapGesture object representing a
-	 * tap always has the state, STATE_STOP. Only one ScreenTapGesture object is
-	 * created for each screen tap gesture recognized.
+	 * <p>ScreenTap gestures are discrete. The ScreenTapGesture object representing a
+	 * tap always has the state, <code>STATE_STOP</code>. Only one ScreenTapGesture object is
+	 * created for each screen tap gesture recognized.</p>
 	 *  
 	 * @author logotype
 	 * 
@@ -49,8 +49,8 @@ package com.leapmotion.leap
 		/**
 		 * Constructs a new ScreenTapGesture object.
 		 * 
-		 * An uninitialized ScreenTapGesture object is considered invalid.
-		 * Get valid instances of the ScreenTapGesture class from a Frame object. 
+		 * <p>An uninitialized ScreenTapGesture object is considered invalid.
+		 * Get valid instances of the ScreenTapGesture class from a Frame object.</p> 
 		 * 
 		 */
 		public function ScreenTapGesture()

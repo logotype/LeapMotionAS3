@@ -3,19 +3,19 @@ package com.leapmotion.leap
 	/**
 	 * The KeyTapGesture class represents a tapping gesture by a finger or tool.
 	 * 
-	 * A key tap gesture is recognized when the tip of a finger rotates down
+	 * <p>A key tap gesture is recognized when the tip of a finger rotates down
 	 * toward the palm and then springs back to approximately the original
 	 * postion, as if tapping. The tapping finger must pause briefly before
-	 * beginning the tap.
+	 * beginning the tap.</p>
 	 * 
-	 * Important: To use key tap gestures in your application, you must enable
-	 * recognition of the key tap gesture. You can enable recognition with:
+	 * <p><strong>Important: To use key tap gestures in your application, you must enable
+	 * recognition of the key tap gesture.</strong><br/>You can enable recognition with:</p>
 	 * 
-	 * leap.controller.enableGesture(Gesture.TYPE_KEY_TAP);
+	 * <code>leap.controller.enableGesture(Gesture.TYPE_KEY_TAP);</code>
 	 * 
-	 * Key tap gestures are discrete. The KeyTapGesture object representing a
-	 * tap always has the state, STATE_STOP. Only one KeyTapGesture object
-	 * is created for each key tap gesture recognized.
+	 * <p>Key tap gestures are discrete. The KeyTapGesture object representing a
+	 * tap always has the state, <code>STATE_STOP</code>. Only one KeyTapGesture object
+	 * is created for each key tap gesture recognized.</p>
 	 *  
 	 * @author logotype
 	 * 
@@ -30,11 +30,11 @@ package com.leapmotion.leap
 		/**
 		 * The current direction of finger tip motion.
 		 * 
-		 * At the start of the key tap gesture, the direction points in the
+		 * <p>At the start of the key tap gesture, the direction points in the
 		 * direction of the tap. At the end of the key tap gesture, the direction
 		 * will either point toward the original finger tip position or it will
 		 * be a zero-vector, which indicates that finger movement stopped before
-		 * returning to the starting point. 
+		 * returning to the starting point.</p>
 		 */
 		public var direction:Vector3;
 
@@ -56,8 +56,8 @@ package com.leapmotion.leap
 		/**
 		 * Constructs a new KeyTapGesture object.
 		 * 
-		 * An uninitialized KeyTapGesture object is considered invalid.
-		 * Get valid instances of the KeyTapGesture class from a Frame object. 
+		 * <p>An uninitialized KeyTapGesture object is considered invalid.
+		 * Get valid instances of the KeyTapGesture class from a Frame object.</p> 
 		 * 
 		 */
 		public function KeyTapGesture()
