@@ -5,7 +5,7 @@ package com.leapmotion.leap
 	/**
 	 * The Screen class represents a computer monitor screen.
 	 * 
-	 * The Screen class reports characteristics describing the position and
+	 * <p>The Screen class reports characteristics describing the position and
 	 * orientation of the monitor screen within the Leap coordinate system.
 	 * These characteristics include the bottom-left corner position of the
 	 * screen, direction vectors for the horizontal and vertical axes of the
@@ -13,21 +13,21 @@ package com.leapmotion.leap
 	 * registered with the Screen Locator for the Leap to report these
 	 * characteristics accurately. The Screen class also reports the size
 	 * of the screen in pixels, using information obtained from the operating
-	 * system.
+	 * system.</p>
 	 * 
-	 * (Run the Screen Locator from the Leap Application Settings dialog,
-	 * on the Screen page.)
+	 * <p>(Run the Screen Locator from the Leap Application Settings dialog,
+	 * on the Screen page.)</p>
 	 * 
-	 * You can get the point of intersection between the screen and a ray
-	 * projected from a Pointable object using the Screen.intersect() function.
+	 * <p>You can get the point of intersection between the screen and a ray
+	 * projected from a Pointable object using the <code>Screen.intersect()</code> function.
 	 * Likewise, you can get the closest point on the screen to a point in
-	 * space using the Screen.distanceToPoint() function. Again, the screen
+	 * space using the <code>Screen.distanceToPoint()</code> function. Again, the screen
 	 * location must be registered with the Screen Locator for these
-	 * functions to return accurate values.
+	 * functions to return accurate values.</p>
 	 * 
-	 * Note that Screen objects can be invalid, which means that they do not
+	 * <p>Note that Screen objects can be invalid, which means that they do not
 	 * contain valid screen coordinate data and do not correspond to a
-	 * physical entity. Test for validity with the Screen.isValid() function.
+	 * physical entity. Test for validity with the <code>Screen.isValid()</code> function.</p>
 	 *  
 	 * @author logotype
 	 * 
@@ -38,8 +38,8 @@ package com.leapmotion.leap
 		 * A unique identifier for this screen based on the screen information
 		 * in the configuration.
 		 * 
-		 * A default screen with ID, 0, always exists and contains default
-		 * characteristics, even if no screens have been located. 
+		 * <p>A default screen with ID, 0, always exists and contains default
+		 * characteristics, even if no screens have been located.</p> 
 		 */
 		public var id:int = 0;
 		
@@ -61,9 +61,9 @@ package com.leapmotion.leap
 		/**
 		 * Constructs a Screen object.
 		 * 
-		 * An uninitialized screen is considered invalid. Get valid Screen
+		 * <p>An uninitialized screen is considered invalid. Get valid Screen
 		 * objects from a ScreenList object obtained using the
-		 * Controller.calibratedScreens() method. 
+		 * <code>Controller.calibratedScreens()</code> method.</p> 
 		 * 
 		 */
 		public function Screen()
@@ -131,13 +131,13 @@ package com.leapmotion.leap
 		 * A Vector representing the horizontal axis of this Screen
 		 * within the Leap coordinate system.
 		 * 
-		 * The magnitude of this vector estimates the physical width of
+		 * <p>The magnitude of this vector estimates the physical width of
 		 * this Screen in millimeters. The direction of this vector is
 		 * parallel to the bottom edge of the screen and points toward
-		 * the right edge of the screen.
+		 * the right edge of the screen.</p>
 		 * 
-		 * Together, horizontalAxis(), verticalAxis(), and bottomLeftCorner()
-		 * describe the physical position, size and orientation of this Screen.
+		 * <p>Together, <code>horizontalAxis()</code>, <code>verticalAxis()</code>, and <code>bottomLeftCorner()</code>
+		 * describe the physical position, size and orientation of this Screen.</p>
 		 *  
 		 * @return A Vector representing the bottom, horizontal edge of this Screen.
 		 * 
@@ -151,13 +151,13 @@ package com.leapmotion.leap
 		 * A Vector representing the vertical axis of this Screen
 		 * within the Leap coordinate system.
 		 * 
-		 * The magnitude of this vector estimates the physical height of
+		 * <p>The magnitude of this vector estimates the physical height of
 		 * this Screen in millimeters. The direction of this vector is
 		 * parallel to the left edge of the screen and points toward
-		 * the top edge of the screen.
+		 * the top edge of the screen.</p>
 		 * 
-		 * Together, horizontalAxis(), verticalAxis(), and bottomLeftCorner()
-		 * describe the physical position, size and orientation of this screen.
+		 * <p>Together, <code>horizontalAxis()</code>, <code>verticalAxis()</code>, and <code>bottomLeftCorner()</code>
+		 * describe the physical position, size and orientation of this screen.</p>
 		 *  
 		 * @return A Vector representing the left, vertical edge of this Screen.
 		 * 
@@ -171,11 +171,11 @@ package com.leapmotion.leap
 		 * A Vector representing the bottom left corner of this Screen
 		 * within the Leap coordinate system.
 		 * 
-		 * The point represented by this vector defines the origin of the
-		 * screen in the Leap coordinate system.
+		 * <p>The point represented by this vector defines the origin of the
+		 * screen in the Leap coordinate system.</p>
 		 * 
-		 * Together, horizontalAxis(), verticalAxis(), and bottomLeftCorner()
-		 * describe the physical position, size and orientation of this Screen.
+		 * <p>Together, <code>horizontalAxis()</code>, <code>verticalAxis()</code>, and <code>bottomLeftCorner()</code>
+		 * describe the physical position, size and orientation of this Screen.</p>
 		 *  
 		 * @return A Vector containing the coordinates of the bottom-left corner of this Screen.
 		 * 
@@ -189,30 +189,30 @@ package com.leapmotion.leap
 		 * Returns the intersection between this screen and a ray projecting
 		 * from a Pointable object.
 		 * 
-		 * The projected ray emanates from the Pointable tipPosition along
-		 * the Pointable's direction vector.
+		 * <p>The projected ray emanates from the Pointable tipPosition along
+		 * the Pointable's direction vector.</p>
 		 * 
-		 * Set the normalize parameter to true to request the intersection
+		 * <p>Set the normalize parameter to true to request the intersection
 		 * point in normalized screen coordinates. Normalized screen coordinates
 		 * are usually values between 0 and 1, where 0 represents the screen's
 		 * origin at the bottom-left corner and 1 represents the opposite edge
 		 * (either top or right). When you request normalized coordinates,
 		 * the z-component of the returned vector is zero. Multiply a normalized
-		 * coordinate by the values returned by Screen.widthPixels() or
-		 * Screen.heightPixels() to calculate the screen position in pixels
+		 * coordinate by the values returned by <code>Screen.widthPixels()</code> or
+		 * <code>Screen.heightPixels()</code> to calculate the screen position in pixels
 		 * (remembering that many other computer graphics coordinate systems
-		 * place the origin in the top-left corner).
+		 * place the origin in the top-left corner).</p>
 		 * 
-		 * Set the normalize parameter to false to request the intersection
-		 * point in Leap coordinates (millimeters from the Leap origin).
+		 * <p>Set the normalize parameter to false to request the intersection
+		 * point in Leap coordinates (millimeters from the Leap origin).</p>
 		 * 
-		 * If the Pointable object points outside the screen's border (but
+		 * <p>If the Pointable object points outside the screen's border (but
 		 * still intersects the plane in which the screen lies), the
 		 * returned intersection point is clamped to the nearest point on
-		 * the edge of the screen.
+		 * the edge of the screen.</p>
 		 * 
-		 * You can use the clampRatio parameter to contract or expand the
-		 * area in which you can point. For example, if you set the clampRatio
+		 * <p>You can use the <code>clampRatio</code> parameter to contract or expand the
+		 * area in which you can point. For example, if you set the <code>clampRatio</code>
 		 * parameter to 0.5, then the positions reported for intersection
 		 * points outside the central 50% of the screen are moved to the border
 		 * of this smaller area. If, on the other hand, you expanded the area
@@ -221,13 +221,14 @@ package com.leapmotion.leap
 		 * points would be clamped. The positions for any points clamped
 		 * would also be placed on this larger outer border. The positions
 		 * reported for any intersection points inside the clamping border
-		 * are unaffected by clamping.
+		 * are unaffected by clamping.</p>
 		 * 
-		 * If the Pointable object does not point toward the plane of the
+		 * <p>If the Pointable object does not point toward the plane of the
 		 * screen (i.e. it is pointing parallel to or away from the screen),
 		 * then the components of the returned vector are all set to
-		 * NaN (not-a-number).
-		 *  
+		 * <code>NaN</code> (not-a-number).</p>
+		 * 
+		 *
 		 * @param pointable 	The pointing finger or tool.
 		 * 
 		 * @param normalize	 	If true, return normalized coordinates representing
@@ -235,24 +236,24 @@ package com.leapmotion.leap
 		 * 						width and height. If false, return Leap coordinates
 		 * 						(millimeters from the Leap origin, which is located
 		 * 						at the center of the top surface of the Leap device).
-		 * 						If true and the clampRatio parameter is set to 1.0,
+		 * 						If true and the <code>clampRatio</code> parameter is set to 1.0,
 		 * 						coordinates will be of the form (0..1, 0..1, 0).
-		 * 						Setting the clampRatio to a different value changes
+		 * 						Setting the <code>clampRatio</code> to a different value changes
 		 * 						the range for normalized coordinates.
-		 * 						For example, a clampRatio of 5.0 changes the range
+		 * 						For example, a <code>clampRatio</code> of 5.0 changes the range
 		 * 						of values to be of the form (-2..3, -2..3, 0).
 		 * 
 		 * @param clampRatio	Adjusts the clamping border around this screen. By
 		 * 						default this ratio is 1.0, and the border corresponds
 		 * 						to the actual boundaries of the screen. Setting
-		 * 						clampRatio to 0.5 would reduce the interaction area.
+		 * 						<code>clampRatio</code> to 0.5 would reduce the interaction area.
 		 * 						Likewise, setting the ratio to 2.0 would increase
 		 * 						the interaction area, adding 50% around each edge of
 		 * 						the physical monitor. Intersection points outside
 		 * 						the interaction area are repositioned to the closest
 		 * 						point on the clamping border before the vector
 		 * 						is returned.
-		 * 
+		 *
 		 * @return A Vector containing the coordinates of the intersection
 		 * between this Screen and a ray projecting from the specified Pointable object.
 		 * 
@@ -265,9 +266,9 @@ package com.leapmotion.leap
 		/**
 		 * Returns an invalid Screen object.
 		 * 
-		 * You can use the instance returned by this function in comparisons
+		 * <p>You can use the instance returned by this function in comparisons
 		 * testing whether a given Hand instance is valid or invalid.
-		 * (You can also use the Screen.isValid() function.)
+		 * (You can also use the <code>Screen.isValid()</code> function.)</p>
 		 *  
 		 * @return The invalid Screen instance.
 		 * 
@@ -280,13 +281,13 @@ package com.leapmotion.leap
 		/**
 		 * Reports whether this is a valid Screen object.
 		 * 
-		 * Important: A valid Screen object does not necessarily contain
-		 * up-to-date screen location information. Location information is
+		 * <p><strong>Important: A valid Screen object does not necessarily contain
+		 * up-to-date screen location information.</strong><br/>Location information is
 		 * only accurate until the Leap device or the monitor are moved.
 		 * In addition, the primary screen always contains default location
 		 * information even if the user has never run the screen location
-		 * utility.
-		 * This default location information will not return accurate results.
+		 * utility.<br/>
+		 * This default location information will not return accurate results.</p>
 		 *  
 		 * @return True, if this Screen object contains valid data.
 		 * 
@@ -299,9 +300,9 @@ package com.leapmotion.leap
 		/**
 		 * A Vector normal to the plane in which this Screen lies.
 		 * 
-		 * The normal vector is a unit direction vector orthogonal to the
+		 * <p>The normal vector is a unit direction vector orthogonal to the
 		 * screen's surface plane. It points toward a viewer positioned
-		 * for typical use of the monitor.
+		 * for typical use of the monitor.</p>
 		 *  
 		 * @return A Vector representing this Screen's normal vector.
 		 * 
@@ -314,8 +315,8 @@ package com.leapmotion.leap
 		/**
 		 * Compare Screen object equality/inequality.
 		 * 
-		 * Two Screen objects are equal if and only if both Screen objects
-		 * represent the exact same Screens and both Screens are valid.
+		 * <p>Two Screen objects are equal if and only if both Screen objects
+		 * represent the exact same Screens and both Screens are valid.</p>
 		 *  
 		 * @param other The Screen to compare with.
 		 * @return True, if this Screen object is equal; false otherwise.

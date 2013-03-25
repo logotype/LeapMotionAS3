@@ -4,18 +4,19 @@ package com.leapmotion.leap
 	/**
 	 * The Matrix struct represents a transformation matrix.
 	 *
-	 * To use this struct to transform a Vector, construct a matrix containing the
-	 * desired transformation and then use the Matrix.transformPoint() or
-	 * Matrix.transformDirection() functions to apply the transform.
+	 * <p>To use this struct to transform a Vector, construct a matrix containing the
+	 * desired transformation and then use the <code>Matrix.transformPoint()</code> or
+	 * <code>Matrix.transformDirection()</code> functions to apply the transform.</p>
 	 *
-	 * Transforms can be combined by multiplying two or more transform matrices
-	 * using the multiply() function.
+	 * <p>Transforms can be combined by multiplying two or more transform matrices
+	 * using the <code>multiply()</code> function.</p>
 	 *
 	 *
 	 * @author logotype
 	 *
 	 */
-	public class Matrix
+	[Inline]
+	final public class Matrix
 	{
 		/**
 		 * The translation factors for all three axes.
@@ -37,6 +38,14 @@ package com.leapmotion.leap
 		 */
 		public var zBasis:Vector3 = new Vector3( 0, 0, 0 );
 
+		/**
+		 * Constructs a transformation matrix from the specified basis vectors. 
+		 * @param x A Vector specifying rotation and scale factors for the x-axis.
+		 * @param y A Vector specifying rotation and scale factors for the y-axis.
+		 * @param z A Vector specifying rotation and scale factors for the z-axis.
+		 * @param _origin A Vector specifying translation factors on all three axes.
+		 * 
+		 */
 		public function Matrix( x:Vector3, y:Vector3, z:Vector3, _origin:Vector3 = null )
 		{
 			xBasis = x;
@@ -49,11 +58,15 @@ package com.leapmotion.leap
 
 		/**
 		 * Sets this transformation matrix to represent a rotation around the specified vector.
-		 * @param _axis A Vector specifying the axis of rotation.
+		 * This function erases any previous rotation and scale transforms applied to this matrix,
+		 * but does not affect translation.
+		 * 
+ 		 * @param _axis A Vector specifying the axis of rotation.
 		 * @param angleRadians The amount of rotation in radians.
 		 *
 		 */
-		public function setRotation( _axis:Vector3, angleRadians:Number ):void
+		[Inline]
+		final public function setRotation( _axis:Vector3, angleRadians:Number ):void
 		{
 			var axis:Vector3 = _axis.normalized();
 			var s:Number = Math.sin( angleRadians );
@@ -67,11 +80,14 @@ package com.leapmotion.leap
 
 		/**
 		 * Transforms a vector with this matrix by transforming its rotation, scale, and translation.
+		 * Translation is applied after rotation and scale.
+		 * 
 		 * @param inVector The Vector to transform.
 		 * @return A new Vector representing the transformed original.
 		 *
 		 */
-		public function transformPoint( inVector:Vector3 ):Vector3
+		[Inline]
+		final public function transformPoint( inVector:Vector3 ):Vector3
 		{
 			return new Vector3( xBasis.multiply( inVector.x ).x, yBasis.multiply( inVector.y ).y, zBasis.multiply( inVector.z ).z + origin.z );
 		}
@@ -82,7 +98,8 @@ package com.leapmotion.leap
 		 * @return A new Vector representing the transformed original.
 		 *
 		 */
-		public function transformDirection( inVector:Vector3 ):Vector3
+		[Inline]
+		final public function transformDirection( inVector:Vector3 ):Vector3
 		{
 			return new Vector3( xBasis.multiply( inVector.x ).x, yBasis.multiply( inVector.y ).y, zBasis.multiply( inVector.z ).z );
 		}
@@ -92,7 +109,8 @@ package com.leapmotion.leap
 		 * @return The rigid inverse of the matrix.
 		 *
 		 */
-		public function rigidInverse():Matrix
+		[Inline]
+		final public function rigidInverse():Matrix
 		{
 			var rotInverse:Matrix = new Matrix( new Vector3( xBasis.x, yBasis.x, zBasis.x ), new Vector3( xBasis.y, yBasis.y, zBasis.y ), new Vector3( xBasis.z, yBasis.z, zBasis.z ) );
 			if ( origin )
@@ -106,7 +124,8 @@ package com.leapmotion.leap
 		 * @return A new Matrix representing the transformation equivalent to applying the other transformation followed by this transformation.
 		 *
 		 */
-		public function multiply( other:Matrix ):Matrix
+		[Inline]
+		final public function multiply( other:Matrix ):Matrix
 		{
 			return new Matrix( transformDirection( other.xBasis ), transformDirection( other.yBasis ), transformDirection( other.zBasis ), transformPoint( other.origin ) );
 		}
@@ -117,7 +136,8 @@ package com.leapmotion.leap
 		 * @return This Matrix representing the transformation equivalent to applying the other transformation followed by this transformation.
 		 *
 		 */
-		public function multiplyAssign( other:Matrix ):Matrix
+		[Inline]
+		final public function multiplyAssign( other:Matrix ):Matrix
 		{
 			xBasis = transformDirection( other.xBasis );
 			yBasis = transformDirection( other.yBasis );
@@ -132,7 +152,8 @@ package com.leapmotion.leap
 		 * @return True; if equal, False otherwise.
 		 *
 		 */
-		public function isEqualTo( other:Matrix ):Boolean
+		[Inline]
+		final public function isEqualTo( other:Matrix ):Boolean
 		{
 			var returnValue:Boolean = true;
 
@@ -156,6 +177,7 @@ package com.leapmotion.leap
 		 * @return The identity matrix.
 		 *
 		 */
+		[Inline]
 		static public function identity():Matrix
 		{
 			var xBasis:Vector3 = new Vector3( 1, 0, 0 );
@@ -170,7 +192,8 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
-		public function toString():String
+		[Inline]
+		final public function toString():String
 		{
 			return "[Matrix xBasis:" + xBasis.toString() + " yBasis:" + yBasis.toString() + " zBasis:" + zBasis.toString() + " origin:" + origin.toString() + "]";
 		}

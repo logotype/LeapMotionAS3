@@ -89,7 +89,7 @@ package com.leapmotion.leap.native
 		 *
 		 */
 		[Inline]
-		private function contextStatusModeEventHandler( event:StatusEvent ):void
+		final private function contextStatusModeEventHandler( event:StatusEvent ):void
 		{
 			switch ( event.code )
 			{
@@ -237,7 +237,8 @@ package com.leapmotion.leap.native
 		/**
 		 * Most recent Frame received.
 		 */
-		public function get frame():Frame
+		[Inline]
+		final public function get frame():Frame
 		{
 			return _frame;
 		}

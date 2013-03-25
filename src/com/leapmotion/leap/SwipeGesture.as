@@ -3,12 +3,12 @@ package com.leapmotion.leap
 	/**
 	 * The SwipeGesture class represents a swiping motion of a finger or tool.
 	 * 
-	 * Important: To use swipe gestures in your application, you must enable
-	 * recognition of the swipe gesture. You can enable recognition with:
+	 * <p><strong>Important: To use swipe gestures in your application, you must enable
+	 * recognition of the swipe gesture.</strong><br/>You can enable recognition with:</p>
 	 * 
-	 * leap.controller.enableGesture(Gesture.TYPE_SWIPE);
+	 * <p><code>leap.controller.enableGesture(Gesture.TYPE_SWIPE);</code></p>
 	 * 
-	 * Swipe gestures are continuous.
+	 * <p>Swipe gestures are continuous.</p>
 	 *  
 	 * @author logotype
 	 * 
@@ -23,10 +23,10 @@ package com.leapmotion.leap
 		/**
 		 * The unit direction vector parallel to the swipe motion.
 		 * 
-		 * You can compare the components of the vector to classify the swipe
+		 * <p>You can compare the components of the vector to classify the swipe
 		 * as appropriate for your application. For example, if you are using
 		 * swipes for two dimensional scrolling, you can compare the x and y
-		 * values to determine if the swipe is primarily horizontal or vertical. 
+		 * values to determine if the swipe is primarily horizontal or vertical.</p> 
 		 */
 		public var direction:Vector3;
 		

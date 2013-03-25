@@ -43,6 +43,41 @@
     <property name="Examples.MAIN_DEBUG_DESCRIPTOR" value="${Examples.DEBUG_ROOT}/app.xml"/>
     <property name="Examples.MAIN_RELEASE_DESCRIPTOR" value="${Examples.RELEASE_ROOT}/app.xml"/>
 
+	<target name="docs" description="Generate the ASDocs to /docs">
+        <exec executable="${ASC1_AIR_SDK_HOME}/bin/aasdoc" failonerror="true">
+            <arg line="-doc-sources ${Extension.AS3_ROOT}" />
+            <arg value="-window-title" />
+            <arg value="LeapMotionAS3" />
+
+			<arg value="-exclude-classes" />
+			<arg value="com.leapmotion.leap.callbacks.DefaultCallback" />
+			<arg value="-exclude-classes" />
+			<arg value="com.leapmotion.leap.util.Base64Encoder" />
+			<arg value="-exclude-classes" />
+			<arg value="com.leapmotion.leap.util.IntUtil" />
+			<arg value="-exclude-classes" />
+			<arg value="com.leapmotion.leap.util.Quaternion" />
+			<arg value="-exclude-classes" />
+			<arg value="com.leapmotion.leap.util.SHA1" />
+			<arg value="-exclude-classes" />
+			<arg value="com.leapmotion.leap.interfaces.ILeapCallback" />
+			<arg value="-exclude-classes" />
+			<arg value="com.leapmotion.leap.interfaces.ILeapConnection" />
+			<arg value="-exclude-classes" />
+			<arg value="com.leapmotion.leap.native.LeapNative" />
+			<arg value="-exclude-classes" />
+			<arg value="com.leapmotion.leap.socket.LeapSocket" />
+			<arg value="-exclude-classes" />
+			<arg value="com.leapmotion.leap.socket.LeapSocketFrame" />
+			<arg value="-exclude-classes" />
+			<arg value="com.leapmotion.leap.events.LeapEvent" />
+
+        	<arg value="-output" />
+            <arg value="${Extension.BUILD_ROOT}/../docs" />
+        </exec>
+        <echo>Documentation created successfully.</echo>
+	</target>
+	
 	<target name="config-sdk-extension" depends="init-ant-contrib">
         <if>
             <equals arg1="${Extension.ASC_VERSION}" arg2="2"/>
