@@ -85,7 +85,6 @@ package com.leapmotion.leap
 		 * history position, an invalid Frame is returned.
 		 *
 		 */
-		[Inline]
 		final public function frame( history:int = 0 ):Frame
 		{
 			return controller.frame( history );

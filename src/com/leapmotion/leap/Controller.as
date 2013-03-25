@@ -118,7 +118,6 @@ package com.leapmotion.leap
 		 * history position, an invalid Frame is returned.
 		 *
 		 */
-		[Inline]
 		final public function frame( history:int = 0 ):Frame
 		{
 			var returnValue:Frame;
@@ -180,7 +179,6 @@ package com.leapmotion.leap
 		 * Screen object for this entry only contains default values. 
 		 * 
 		 */
-		[Inline]
 		final public function calibratedScreens():Vector.<Screen>
 		{
 			if( _screenList.length == 0 )
@@ -232,7 +230,6 @@ package com.leapmotion.leap
 		 * of any known screen, an invalid Screen object.
 		 * 
 		 */
-		[Inline]
 		final public function closestScreenHit( pointable:Pointable ):Screen
 		{
 			var screenId:int = context.call( "getClosestScreenHit", pointable.id );

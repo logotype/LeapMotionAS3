@@ -15,7 +15,6 @@ package com.leapmotion.leap
 	 * @author logotype
 	 *
 	 */
-	[Inline]
 	final public class Matrix
 	{
 		/**
@@ -65,7 +64,6 @@ package com.leapmotion.leap
 		 * @param angleRadians The amount of rotation in radians.
 		 *
 		 */
-		[Inline]
 		final public function setRotation( _axis:Vector3, angleRadians:Number ):void
 		{
 			var axis:Vector3 = _axis.normalized();
@@ -86,7 +84,6 @@ package com.leapmotion.leap
 		 * @return A new Vector representing the transformed original.
 		 *
 		 */
-		[Inline]
 		final public function transformPoint( inVector:Vector3 ):Vector3
 		{
 			return new Vector3( xBasis.multiply( inVector.x ).x, yBasis.multiply( inVector.y ).y, zBasis.multiply( inVector.z ).z + origin.z );
@@ -98,7 +95,6 @@ package com.leapmotion.leap
 		 * @return A new Vector representing the transformed original.
 		 *
 		 */
-		[Inline]
 		final public function transformDirection( inVector:Vector3 ):Vector3
 		{
 			return new Vector3( xBasis.multiply( inVector.x ).x, yBasis.multiply( inVector.y ).y, zBasis.multiply( inVector.z ).z );
@@ -109,7 +105,6 @@ package com.leapmotion.leap
 		 * @return The rigid inverse of the matrix.
 		 *
 		 */
-		[Inline]
 		final public function rigidInverse():Matrix
 		{
 			var rotInverse:Matrix = new Matrix( new Vector3( xBasis.x, yBasis.x, zBasis.x ), new Vector3( xBasis.y, yBasis.y, zBasis.y ), new Vector3( xBasis.z, yBasis.z, zBasis.z ) );
@@ -124,7 +119,6 @@ package com.leapmotion.leap
 		 * @return A new Matrix representing the transformation equivalent to applying the other transformation followed by this transformation.
 		 *
 		 */
-		[Inline]
 		final public function multiply( other:Matrix ):Matrix
 		{
 			return new Matrix( transformDirection( other.xBasis ), transformDirection( other.yBasis ), transformDirection( other.zBasis ), transformPoint( other.origin ) );
@@ -136,7 +130,6 @@ package com.leapmotion.leap
 		 * @return This Matrix representing the transformation equivalent to applying the other transformation followed by this transformation.
 		 *
 		 */
-		[Inline]
 		final public function multiplyAssign( other:Matrix ):Matrix
 		{
 			xBasis = transformDirection( other.xBasis );
@@ -152,7 +145,6 @@ package com.leapmotion.leap
 		 * @return True; if equal, False otherwise.
 		 *
 		 */
-		[Inline]
 		final public function isEqualTo( other:Matrix ):Boolean
 		{
 			var returnValue:Boolean = true;
@@ -177,7 +169,6 @@ package com.leapmotion.leap
 		 * @return The identity matrix.
 		 *
 		 */
-		[Inline]
 		static public function identity():Matrix
 		{
 			var xBasis:Vector3 = new Vector3( 1, 0, 0 );
@@ -192,7 +183,6 @@ package com.leapmotion.leap
 		 * @return
 		 *
 		 */
-		[Inline]
 		final public function toString():String
 		{
 			return "[Matrix xBasis:" + xBasis.toString() + " yBasis:" + yBasis.toString() + " zBasis:" + zBasis.toString() + " origin:" + origin.toString() + "]";

@@ -50,7 +50,6 @@ package com.leapmotion.leap.util
 		 * @return The value, in degrees. 
 		 * 
 		 */
-		[Inline]
 		static public function toDegrees( radians:Number ):Number
 		{
 			return radians * 180 / Math.PI;
@@ -61,7 +60,6 @@ package com.leapmotion.leap.util
 		 *
 		 * @return True, if equal to or less than 0.00001; false otherwise.
 		 */
-		[Inline]
 		static public function isNearZero( value:Number ):Boolean 
 		{
 			return Math.abs( value ) <= EPSILON; 
@@ -72,7 +70,6 @@ package com.leapmotion.leap.util
 		 *
 		 * @return True, if equal to or less than 0.00001; false otherwise.
 		 */
-		[Inline]
 		static public function vectorIsNearZero( inVector:Vector3 ):Boolean
 		{
 			return isNearZero( inVector.x ) && isNearZero( inVector.y ) && isNearZero( inVector.z );
@@ -81,7 +78,6 @@ package com.leapmotion.leap.util
 		/**
 		 * Create a new matrix with just the rotation block from the argument matrix 
 		 */
-		[Inline]
 		static public function extractRotation( mtxTransform:Matrix ):Matrix
 		{
 			return new Matrix( mtxTransform.xBasis, mtxTransform.yBasis, mtxTransform.zBasis );
@@ -90,7 +86,6 @@ package com.leapmotion.leap.util
 		/**
 		 * Returns a matrix representing the inverse rotation by simple transposition of the rotation block. 
 		 */
-		[Inline]
 		static public function rotationInverse( mtxRot:Matrix ):Matrix
 		{
 			return new Matrix( new Vector3( mtxRot.xBasis.x, mtxRot.yBasis.x, mtxRot.zBasis.x ), new Vector3( mtxRot.xBasis.y, mtxRot.yBasis.y, mtxRot.zBasis.y ), new Vector3( mtxRot.xBasis.z, mtxRot.yBasis.z, mtxRot.zBasis.z ) );
@@ -101,7 +96,6 @@ package com.leapmotion.leap.util
 		 * This is only valid if the input matrix is orthonormal
 		 * (the basis vectors are mutually perpendicular and of length 1)
 		 */
-		[Inline]
 		static public function rigidInverse( mtxTransform:Matrix ):Matrix 
 		{
 			var rigidInverse:Matrix = rotationInverse( mtxTransform );
@@ -109,37 +103,31 @@ package com.leapmotion.leap.util
 			return rigidInverse;
 		}
 		
-		[Inline]
 		static public function componentWiseMin( vLHS:Vector3, vRHS:Vector3 ):Vector3
 		{
 			return new Vector3( Math.min( vLHS.x, vRHS.x ), Math.min( vLHS.y, vRHS.y ), Math.min( vLHS.z, vRHS.z ) );
 		}
 		
-		[Inline]
 		static public function componentWiseMax( vLHS:Vector3, vRHS:Vector3 ):Vector3
 		{
 			return new Vector3( Math.max( vLHS.x, vRHS.x ), Math.max( vLHS.y, vRHS.y ), Math.max( vLHS.z, vRHS.z ) );
 		}
 		
-		[Inline]
 		static public function componentWiseScale( vLHS:Vector3, vRHS:Vector3 ):Vector3
 		{
 			return new Vector3( vLHS.x * vRHS.x, vLHS.y * vRHS.y, vLHS.z * vRHS.z );
 		}
 		
-		[Inline]
 		static public function componentWiseReciprocal( inVector:Vector3 ):Vector3
 		{
 			return new Vector3( 1.0 / inVector.x, 1.0 / inVector.y, 1.0 / inVector.z );
 		}
 		
-		[Inline]
 		static public function minComponent( inVector:Vector3 ):Number
 		{
 			return Math.min( inVector.x, Math.min( inVector.y, inVector.z ) );
 		}
 		
-		[Inline]
 		static public function maxComponent( inVector:Vector3 ):Number
 		{
 			return Math.max( inVector.x, Math.max( inVector.y, inVector.z ) );
@@ -148,7 +136,6 @@ package com.leapmotion.leap.util
 		/**
 		 * Compute the polar/spherical heading of a vector direction in z/x plane  
 		 */
-		[Inline]
 		static public function heading( inVector:Vector3 ):Number
 		{
 			return Math.atan2( inVector.z, inVector.x );
@@ -157,7 +144,6 @@ package com.leapmotion.leap.util
 		/**
 		 * Compute the spherical elevation of a vector direction in y above the z/x plane 
 		 */
-		[Inline]
 		static public function elevation( inVector:Vector3 ):Number
 		{
 			return Math.atan2( inVector.y, Math.sqrt( inVector.z * inVector.z + inVector.x * inVector.x ) );
@@ -170,7 +156,6 @@ package com.leapmotion.leap.util
 		 * @return The normalized spherical Vector3.
 		 * 
 		 */
-		[Inline]
 		static public function normalizeSpherical( vSpherical:Vector3 ):Vector3
 		{
 			var fHeading:Number  = vSpherical.y;
@@ -199,7 +184,6 @@ package com.leapmotion.leap.util
 		 * @return The cartesian Vector3 converted to spherical.
 		 *
 		 */
-		[Inline]
 		static public function cartesianToSpherical( vCartesian:Vector3 ):Vector3
 		{
 			return new Vector3( vCartesian.magnitude(), heading( vCartesian ), elevation( vCartesian ) );
@@ -213,7 +197,6 @@ package com.leapmotion.leap.util
 		 * @return The spherical Vector3 converted to cartesian.
 		 * 
 		 */
-		[Inline]
 		static public function sphericalToCartesian( vSpherical:Vector3 ):Vector3
 		{
 			var fMagnitude:Number    = vSpherical.x;
@@ -236,7 +219,6 @@ package com.leapmotion.leap.util
 		 * @return The value clamped between minVal and maxVal.
 		 * 
 		 */
-		[Inline]
 		static public function clamp( inVal:Number, minVal:Number, maxVal:Number ):Number
 		{
 			return ( inVal < minVal ) ? minVal : (( inVal > maxVal ) ? maxVal : inVal );
