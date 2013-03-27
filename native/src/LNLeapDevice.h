@@ -40,7 +40,8 @@ namespace leapnative {
         FREObject getScreenHorizontalAxis(int screenId);
         FREObject getScreenVerticalAxis(int screenId);
         FREObject getScreenBottomLeftCorner(int screenId);
-        FREObject getScreenIntersect(int screenId, int pointableId, bool normalize, float clampRatio = 1.0f);
+        FREObject getScreenIntersect(int screenId, Vector position, Vector direction, bool normalize, float clampRatio = 1.0f);
+        FREObject getScreenProject(int screenId, Vector position, bool normalize, float clampRatio = 1.0f);
         FREObject getScreenIsValid(int screenId);
         FREObject getScreenNormal(int screenId);
 
