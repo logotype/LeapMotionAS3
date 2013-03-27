@@ -10,7 +10,7 @@ package samples.fingerVisualizer
 	import com.leapmotion.leap.SwipeGesture;
 	import com.leapmotion.leap.Vector3;
 	import com.leapmotion.leap.events.LeapEvent;
-	import com.leapmotion.leap.util.LeapMath;
+	import com.leapmotion.leap.util.LeapUtil;
 	
 	import flash.display.Shape;
 	import flash.display.Sprite;
@@ -108,9 +108,9 @@ package samples.fingerVisualizer
 					gestureVisualization.x = pos3D.x;
 					gestureVisualization.y = pos3D.y;
 					gestureVisualization.z = pos3D.z;
-					gestureVisualization.rotationX = LeapMath.toDegrees(circleGesture.normal.pitch);
-					gestureVisualization.rotationY = LeapMath.toDegrees(circleGesture.normal.yaw);
-					gestureVisualization.rotationZ = LeapMath.toDegrees(circleGesture.normal.roll);
+					gestureVisualization.rotationX = LeapUtil.toDegrees(circleGesture.normal.pitch);
+					gestureVisualization.rotationY = LeapUtil.toDegrees(circleGesture.normal.yaw);
+					gestureVisualization.rotationZ = LeapUtil.toDegrees(circleGesture.normal.roll);
 					circleGesturesContainer.addChild(gestureVisualization);
 				}
 				else if( gesture is KeyTapGesture )

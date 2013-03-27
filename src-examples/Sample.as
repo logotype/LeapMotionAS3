@@ -77,7 +77,7 @@ package
 				var direction:Vector3 = hand.direction;
 
 				// Calculate the hand's pitch, roll, and yaw angles
-				trace( "Hand pitch: " + LeapMath.toDegrees( direction.pitch ) + " degrees, " + "roll: " + LeapMath.toDegrees( normal.roll ) + " degrees, " + "yaw: " + LeapMath.toDegrees( direction.yaw ) + " degrees\n" );
+				trace( "Hand pitch: " + LeapUtil.toDegrees( direction.pitch ) + " degrees, " + "roll: " + LeapUtil.toDegrees( normal.roll ) + " degrees, " + "yaw: " + LeapUtil.toDegrees( direction.yaw ) + " degrees\n" );
 			}
 
 			var gestures:Vector.<Gesture> = frame.gestures();
@@ -114,7 +114,7 @@ package
 							}
 						}
 
-						trace( "Circle id: " + circle.id + ", " + circle.state + ", progress: " + circle.progress + ", radius: " + circle.radius + ", angle: " + LeapMath.toDegrees( sweptAngle ) + ", " + clockwiseness );
+						trace( "Circle id: " + circle.id + ", " + circle.state + ", progress: " + circle.progress + ", radius: " + circle.radius + ", angle: " + LeapUtil.toDegrees( sweptAngle ) + ", " + clockwiseness );
 						break;
 					case Gesture.TYPE_SWIPE:
 						var swipe:SwipeGesture = SwipeGesture( gesture );
