@@ -233,7 +233,7 @@ package com.leapmotion.leap
 		final public function closestScreenHit( pointable:Pointable ):Screen
 		{
 			var screenId:int = context.call( "getClosestScreenHit", pointable.id );
-			var returnValue:Screen = null;
+			var returnValue:Screen = Screen.invalid();
 			var screenList:Vector.<Screen> = calibratedScreens();
 			
 			for each ( var screen:Screen in screenList )
@@ -247,6 +247,39 @@ package com.leapmotion.leap
 			
 			return returnValue;
 		}
+<<<<<<< HEAD
+=======
+		
+		/**
+		 * Gets the Screen closest to the specified position.
+		 * 
+		 * <p>The specified position is projected along each screen's normal vector
+		 * onto the screen's plane. The screen whose projected point is closest
+		 * to the specified position is returned. Call <code>Screen.intersect(position)</code>
+		 * on the returned Screen object to find the projected point.</p>
+		 *  
+		 * @param position The position from which to check for screen projection.
+		 * @return The closest Screen onto which the specified position is projected.
+		 * 
+		 */
+		public function closestScreen( position:Vector3 ):Screen
+		{
+			var screenId:int = context.call( "getClosestScreen", position.x, position.y, position.z );
+			var returnValue:Screen = Screen.invalid();
+			var screenList:Vector.<Screen> = calibratedScreens();
+			
+			for each ( var screen:Screen in screenList )
+			{
+				if( screen.id == screenId )
+				{
+					returnValue = screen;
+					break;
+				}
+			}
+			
+			return returnValue;
+		}
+>>>>>>> Fixed returnvalue of closestScreen/Screen.invalid()
 
 		/**
 		 * Enables or disables reporting of a specified gesture type.
