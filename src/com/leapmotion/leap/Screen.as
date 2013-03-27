@@ -59,6 +59,11 @@ package com.leapmotion.leap
 		public var _screen:*;
 		
 		/**
+		 * Invalidates screen. 
+		 */
+		public var _invalidate:Boolean = false;
+		
+		/**
 		 * Constructs a Screen object.
 		 * 
 		 * <p>An uninitialized screen is considered invalid. Get valid Screen
@@ -417,6 +422,8 @@ package com.leapmotion.leap
 		 */
 		static public function invalid():Screen
 		{
+			var invalidScreen:Screen = new Screen();
+			invalidScreen._invalidate = true;
 			return new Screen();
 		}
 		
@@ -436,7 +443,10 @@ package com.leapmotion.leap
 		 */
 		public function isValid():Boolean
 		{
-			return context.call( "getScreenIsValid", id );
+			if( _invalidate )
+				return false;
+			else
+				return context.call( "getScreenIsValid", id );
 		}
 		
 		/**
