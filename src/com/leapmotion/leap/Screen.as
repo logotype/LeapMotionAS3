@@ -424,7 +424,7 @@ package com.leapmotion.leap
 		{
 			var invalidScreen:Screen = new Screen();
 			invalidScreen._invalidate = true;
-			return new Screen();
+			return invalidScreen;
 		}
 		
 		/**
