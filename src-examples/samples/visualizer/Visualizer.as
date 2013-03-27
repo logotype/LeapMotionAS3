@@ -1,10 +1,3 @@
-/**
- * Created with IntelliJ IDEA.
- * User: wouter
- * Date: 12/03/13
- * Time: 12:27
- * To change this template use File | Settings | File Templates.
- */
 package samples.visualizer
 {
 	import away3d.cameras.lenses.PerspectiveLens;
@@ -22,7 +15,7 @@ package samples.visualizer
 	import com.leapmotion.leap.Pointable;
 	import com.leapmotion.leap.Vector3;
 	import com.leapmotion.leap.events.LeapEvent;
-	import com.leapmotion.leap.util.LeapMath;
+	import com.leapmotion.leap.util.LeapUtil;
 
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
@@ -134,8 +127,8 @@ package samples.visualizer
 					pointable3D.y = pointable.tipPosition.y;
 					pointable3D.z = -pointable.tipPosition.z;
 
-					pointable3D.rotationX = -LeapMath.RAD_TO_DEG * dir.pitch;
-					pointable3D.rotationY = LeapMath.RAD_TO_DEG * dir.yaw;
+					pointable3D.rotationX = -LeapUtil.RAD_TO_DEG * dir.pitch;
+					pointable3D.rotationY = LeapUtil.RAD_TO_DEG * dir.yaw;
 					//rotationZ is not usable
 
 					pointable3D.visible = true;
@@ -173,9 +166,9 @@ package samples.visualizer
 					palm3D.y = hand.palmPosition.y;
 					palm3D.z = -hand.palmPosition.z;
 
-					palm3D.rotationX = -LeapMath.RAD_TO_DEG * hand.palmNormal.pitch - 90;
-					palm3D.rotationY = LeapMath.RAD_TO_DEG * hand.direction.yaw;
-					palm3D.rotationZ = LeapMath.RAD_TO_DEG * hand.palmNormal.roll;
+					palm3D.rotationX = -LeapUtil.RAD_TO_DEG * hand.palmNormal.pitch - 90;
+					palm3D.rotationY = LeapUtil.RAD_TO_DEG * hand.direction.yaw;
+					palm3D.rotationZ = LeapUtil.RAD_TO_DEG * hand.palmNormal.roll;
 
 					//palm3D.visible = true;
 				}

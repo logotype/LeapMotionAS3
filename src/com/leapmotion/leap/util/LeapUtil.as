@@ -4,10 +4,10 @@ package com.leapmotion.leap.util
 	import com.leapmotion.leap.Vector3;
 
 	/**
-	 * LeapMath is a collection of static utility functions. 
+	 * LeapUtil is a collection of static utility functions. 
 	 * 
 	 */
-	public class LeapMath
+	public class LeapUtil
 	{
 		/** The constant pi as a single precision floating point number. */
 		static public const PI:Number = 3.1415926536;
@@ -39,7 +39,7 @@ package com.leapmotion.leap.util
 		 */
 		static public const EPSILON:Number = 0.00001;
 
-		public function LeapMath()
+		public function LeapUtil()
 		{
 		}
 
@@ -222,6 +222,34 @@ package com.leapmotion.leap.util
 		static public function clamp( inVal:Number, minVal:Number, maxVal:Number ):Number
 		{
 			return ( inVal < minVal ) ? minVal : (( inVal > maxVal ) ? maxVal : inVal );
+		}
+		
+		/**
+		 * Linearly interpolates between two Numbers.
+		 * 
+		 * @param a A number.
+		 * @param b A number.
+		 * @param t The interpolation coefficient [0-1].
+		 * @return The interpolated number.
+		 * 
+		 */
+		static public function lerp( a:Number, b:Number, coefficient:Number ):Number
+		{
+			return a + ( ( b - a ) * coefficient );
+		}
+		
+		/**
+		 * Linearly interpolates between two Vector3 objects.
+		 * 
+		 * @param a A Vector3 object.
+		 * @param b A Vector3 object.
+		 * @param t The interpolation coefficient [0-1].
+		 * @return A new interpolated Vector3 object.
+		 * 
+		 */
+		static public function lerpVector( vec1:Vector3, vec2:Vector3, coefficient:Number ):Vector3
+		{
+			return vec1.plus( vec2.minus( vec1 ).multiply( coefficient ) );
 		}
 	}
 }
