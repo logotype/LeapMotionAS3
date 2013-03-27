@@ -170,16 +170,60 @@ extern "C" {
         
         int screenId;
         FREGetObjectAsInt32(argv[0], &screenId);
-
-        int pointableId;
-        FREGetObjectAsInt32(argv[1], &pointableId);
         
-        bool normalize = createBoolFromFREObject(argv[2]);
-
+        double pX;
+        FREGetObjectAsDouble(argv[1], &pX);
+        
+        double pY;
+        FREGetObjectAsDouble(argv[2], &pY);
+        
+        double pZ;
+        FREGetObjectAsDouble(argv[3], &pZ);
+        
+        double dX;
+        FREGetObjectAsDouble(argv[4], &dX);
+        
+        double dY;
+        FREGetObjectAsDouble(argv[5], &dY);
+        
+        double dZ;
+        FREGetObjectAsDouble(argv[6], &dZ);
+        
+        bool normalize = createBoolFromFREObject(argv[7]);
+        
         double clampRatio;
-        FREGetObjectAsDouble(argv[3], &clampRatio);
+        FREGetObjectAsDouble(argv[8], &clampRatio);
         
-        return device->getScreenIntersect(screenId, pointableId, normalize, (float) clampRatio);
+        Vector position = Vector((float) pX, (float) pY, (float) pZ);
+        Vector direction = Vector((float) dX, (float) dY, (float) dZ);
+        
+        return device->getScreenIntersect(screenId, position, direction, normalize, (float) clampRatio);
+    }
+    
+    FREObject LeapNative_getScreenProject(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        int screenId;
+        FREGetObjectAsInt32(argv[0], &screenId);
+        
+        double pX;
+        FREGetObjectAsDouble(argv[1], &pX);
+        
+        double pY;
+        FREGetObjectAsDouble(argv[2], &pY);
+        
+        double pZ;
+        FREGetObjectAsDouble(argv[3], &pZ);
+        
+        bool normalize = createBoolFromFREObject(argv[4]);
+        
+        double clampRatio;
+        FREGetObjectAsDouble(argv[5], &clampRatio);
+        
+        Vector position = Vector((float) pX, (float) pY, (float) pZ);
+        
+        return device->getScreenProject(screenId, position, normalize, (float) clampRatio);
     }
     
     FREObject LeapNative_getScreenIsValid(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
@@ -219,6 +263,7 @@ extern "C" {
   		{ (const uint8_t*) "getScreenVerticalAxis", false, LeapNative_getScreenVerticalAxis },
   		{ (const uint8_t*) "getScreenBottomLeftCorner", false, LeapNative_getScreenBottomLeftCorner },
   		{ (const uint8_t*) "getScreenIntersect", false, LeapNative_getScreenIntersect },
+  		{ (const uint8_t*) "getScreenProject", false, LeapNative_getScreenProject },
   		{ (const uint8_t*) "getScreenIsValid", false, LeapNative_getScreenIsValid },
   		{ (const uint8_t*) "getScreenNormal", false, LeapNative_getScreenNormal }
 	};

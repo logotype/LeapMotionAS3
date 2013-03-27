@@ -289,7 +289,7 @@ package com.leapmotion.leap
 		 * <p>You can either handle the onConnect event using a event listener
 		 * or poll the <code>isConnected()</code> function if you need to wait for your
 		 * application to be connected to the Leap before performing
-		 * some other action.</p>
+		 * some other operation.</p>
 		 *
 		 * @return True, if connected; false otherwise.
 		 *

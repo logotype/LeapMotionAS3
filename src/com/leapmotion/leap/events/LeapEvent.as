@@ -17,6 +17,7 @@ package com.leapmotion.leap.events
 		static public const LEAPMOTION_CONNECTED:String = "leapmotionConnected";
 		/**
 		 * The controller can disconnect when the Leap device is unplugged, the user shuts the Leap software down, or the Leap software encounters an unrecoverable error.
+		 * Note: When you launch a Leap-enabled application in a debugger, the Leap library does not disconnect from the application. This is to allow you to step through code without losing the connection because of time outs.
 		 */
 		static public const LEAPMOTION_DISCONNECTED:String = "leapmotionDisconnected";
 

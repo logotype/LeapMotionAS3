@@ -51,7 +51,11 @@ package
 		{
 			if ( event.frame.pointables.length > 0 )
 			{
-				currentVector = screen.intersect( event.frame.pointables[ 0 ], true );
+				/*
+				Optionally, you can call screen.intersect() with a position and direction Vector3:
+				screen.intersect( event.frame.pointables[ 0 ].tipPosition, event.frame.pointables[ 0 ].direction, true );
+				*/
+				currentVector = currentVector = screen.intersectPointable( event.frame.pointables[ 0 ], true );
 				cursor.x = screenWidth * currentVector.x - stage.nativeWindow.x;
 				cursor.y = screenHeight * ( 1 - currentVector.y ) - stage.nativeWindow.y;
 			}
