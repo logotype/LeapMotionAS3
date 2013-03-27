@@ -211,8 +211,8 @@ package com.leapmotion.leap
 		 * returned intersection point is clamped to the nearest point on
 		 * the edge of the screen.</p>
 		 * 
-		 * <p>You can use the <code>clampRatio</code> parameter to contract or expand the
-		 * area in which you can point. For example, if you set the <code>clampRatio</code>
+		 * <p>You can use the clampRatio parameter to contract or expand the
+		 * area in which you can point. For example, if you set the clampRatio
 		 * parameter to 0.5, then the positions reported for intersection
 		 * points outside the central 50% of the screen are moved to the border
 		 * of this smaller area. If, on the other hand, you expanded the area
@@ -236,17 +236,17 @@ package com.leapmotion.leap
 		 * 						width and height. If false, return Leap coordinates
 		 * 						(millimeters from the Leap origin, which is located
 		 * 						at the center of the top surface of the Leap device).
-		 * 						If true and the <code>clampRatio</code> parameter is set to 1.0,
+		 * 						If true and the clampRatio parameter is set to 1.0,
 		 * 						coordinates will be of the form (0..1, 0..1, 0).
-		 * 						Setting the <code>clampRatio</code> to a different value changes
+		 * 						Setting the clampRatio to a different value changes
 		 * 						the range for normalized coordinates.
-		 * 						For example, a <code>clampRatio</code> of 5.0 changes the range
+		 * 						For example, a clampRatio of 5.0 changes the range
 		 * 						of values to be of the form (-2..3, -2..3, 0).
 		 * 
 		 * @param clampRatio	Adjusts the clamping border around this screen. By
 		 * 						default this ratio is 1.0, and the border corresponds
 		 * 						to the actual boundaries of the screen. Setting
-		 * 						<code>clampRatio</code> to 0.5 would reduce the interaction area.
+		 * 						clampRatio to 0.5 would reduce the interaction area.
 		 * 						Likewise, setting the ratio to 2.0 would increase
 		 * 						the interaction area, adding 50% around each edge of
 		 * 						the physical monitor. Intersection points outside
@@ -258,9 +258,151 @@ package com.leapmotion.leap
 		 * between this Screen and a ray projecting from the specified Pointable object.
 		 * 
 		 */
-		public function intersect( pointable:Pointable, normalize:Boolean, clampRatio:Number = 1.0 ):Vector3
+		public function intersectPointable( pointable:Pointable, normalize:Boolean, clampRatio:Number = 1.0 ):Vector3
 		{
-			return context.call( "getScreenIntersect", id, pointable.id, normalize, clampRatio );
+			return context.call( "getScreenIntersect", id, pointable.tipPosition.x, pointable.tipPosition.y, pointable.tipPosition.z, pointable.direction.x, pointable.direction.y, pointable.direction.z, normalize, clampRatio );
+		}
+		
+		/**
+		 * Returns the intersection between this screen and a ray projecting
+		 * from the specified position along the specified direction.
+		 * 
+		 * <p>Set the normalize parameter to true to request the intersection
+		 * point in normalized screen coordinates. Normalized screen coordinates
+		 * are usually values between 0 and 1, where 0 represents the screen's
+		 * origin at the bottom-left corner and 1 represents the opposite edge
+		 * (either top or right). When you request normalized coordinates,
+		 * the z-component of the returned vector is zero. Multiply a normalized
+		 * coordinate by the values returned by <code>Screen.widthPixels()</code> or
+		 * <code>Screen.heightPixels()</code> to calculate the screen position in pixels
+		 * (remembering that many other computer graphics coordinate systems
+		 * place the origin in the top-left corner).</p>
+		 * 
+		 * <p>Set the normalize parameter to false to request the intersection
+		 * point in Leap coordinates (millimeters from the Leap origin).</p>
+		 * 
+		 * <p>If the Pointable object points outside the screen's border (but
+		 * still intersects the plane in which the screen lies), the
+		 * returned intersection point is clamped to the nearest point on
+		 * the edge of the screen.</p>
+		 * 
+		 * <p>You can use the clampRatio parameter to contract or expand the
+		 * area in which you can point. For example, if you set the clampRatio
+		 * parameter to 0.5, then the positions reported for intersection
+		 * points outside the central 50% of the screen are moved to the border
+		 * of this smaller area. If, on the other hand, you expanded the area
+		 * by setting clampRatio to a value such as 3.0, then you could point
+		 * well outside screen's physical boundary before the intersection
+		 * points would be clamped. The positions for any points clamped
+		 * would also be placed on this larger outer border. The positions
+		 * reported for any intersection points inside the clamping border
+		 * are unaffected by clamping.</p>
+		 * 
+		 * <p>If the Pointable object does not point toward the plane of the
+		 * screen (i.e. it is pointing parallel to or away from the screen),
+		 * then the components of the returned vector are all set to
+		 * <code>NaN</code> (not-a-number).</p>
+		 * 
+		 *
+		 * @param position		The position from which to check for screen intersection.
+		 * 
+		 * @param direction		The direction in which to check for screen intersection.
+		 * 
+		 * @param normalize		If true, return normalized coordinates representing
+		 * 						the intersection point as a percentage of the screen's
+		 * 						width and height. If false, return Leap coordinates
+		 * 						(millimeters from the Leap origin, which is located
+		 * 						at the center of the top surface of the Leap device).
+		 * 						If true and the clampRatio parameter is set to 1.0,
+		 * 						coordinates will be of the form (0..1, 0..1, 0).
+		 * 						Setting the clampRatio to a different value changes
+		 * 						the range for normalized coordinates.
+		 * 						For example, a clampRatio of 5.0 changes the range
+		 * 						of values to be of the form (-2..3, -2..3, 0).
+		 * 
+		 * @param clampRatio	Adjusts the clamping border around this screen. By
+		 * 						default this ratio is 1.0, and the border corresponds
+		 * 						to the actual boundaries of the screen. Setting
+		 * 						clampRatio to 0.5 would reduce the interaction area.
+		 * 						Likewise, setting the ratio to 2.0 would increase
+		 * 						the interaction area, adding 50% around each edge of
+		 * 						the physical monitor. Intersection points outside
+		 * 						the interaction area are repositioned to the closest
+		 * 						point on the clamping border before the vector
+		 * 						is returned.
+		 *
+		 * @return				A Vector containing the coordinates of the intersection
+		 *						between this Screen and a ray projecting from the
+		 * 						specified Pointable object.
+		 * 
+		 */
+		public function intersect( position:Vector3, direction:Vector3, normalize:Boolean, clampRatio:Number = 1.0 ):Vector3
+		{
+			return context.call( "getScreenIntersect", id, position.x, position.y, position.z, direction.x, direction.y, direction.z, normalize, clampRatio );
+		}
+		
+		/**
+		 * Returns the projection from the specified position onto this screen.
+		 * 
+		 * <p>Set the normalize parameter to true to request the projection point in
+		 * normalized screen coordinates. Normalized screen coordinates are usually
+		 * values between 0 and 1, where 0 represents the screen's origin at the
+		 * bottom-left corner and 1 represents the opposite edge (either top or right).
+		 * When you request normalized coordinates, the z-component of the returned
+		 * vector is zero. Multiply a normalized coordinate by the values returned by
+		 * <code>Screen.widthPixels()</code> or <code>Screen.heightPixels()</code> to calculate the screen position
+		 * in pixels (remembering that many other computer graphics coordinate systems
+		 * place the origin in the top-left corner).</p>
+		 * 
+		 * <p>Set the normalize parameter to false to request the projection point in Leap
+		 * coordinates (millimeters from the Leap origin).</p>
+		 * 
+		 * <p>If the specified point projects outside the screen's border, the returned
+		 * projection point is clamped to the nearest point on the edge of the screen.</p>
+		 * 
+		 * <p>You can use the clampRatio parameter to contract or expand the area in which
+		 * you can point. For example, if you set the clampRatio parameter to 0.5, then
+		 * the positions reported for projection points outside the central 50% of the
+		 * screen are moved to the border of this smaller area. If, on the other hand,
+		 * you expanded the area by setting clampRatio to a value such as 3.0, then you
+		 * could point well outside screen's physical boundary before the projection
+		 * points would be clamped. The positions for any points clamped would also be
+		 * placed on this larger outer border. The positions reported for any projection
+		 * points inside the clamping border are unaffected by clamping.</p> 
+		 * 
+		 * @param position		The position from which to project onto this screen.
+		 * 
+		 * @param normalize		If true, return normalized coordinates representing
+		 * 						the projection point as a percentage of the screen's
+		 * 						width and height. If false, return Leap coordinates
+		 * 						(millimeters from the Leap origin, which is located
+		 * 						at the center of the top surface of the Leap device).
+		 * 						If true and the clampRatio parameter is set to 1.0,
+		 * 						coordinates will be of the form (0..1, 0..1, 0).
+		 * 						Setting the clampRatio to a different value changes
+		 * 						the range for normalized coordinates. For example,
+		 * 						a clampRatio of 5.0 changes the range of values to
+		 * 						be of the form (-2..3, -2..3, 0).
+		 * 
+		 * @param clampRatio	Adjusts the clamping border around this screen. By
+		 * 						default this ratio is 1.0, and the border corresponds
+		 * 						to the actual boundaries of the screen. Setting
+		 * 						clampRatio to 0.5 would reduce the interaction area.
+		 * 						Likewise, setting the ratio to 2.0 would increase the
+		 * 						interaction area, adding 50% around each edge of the
+		 * 						physical monitor. Projection points outside the
+		 * 						interaction area are repositioned to the closest
+		 * 						point on the clamping border before the vector
+		 * 						is returned.
+		 * 
+		 * @return				A Vector containing the coordinates of the projection
+		 * 						between this screen and a ray projecting from the
+		 * 						specified position onto the screen along its normal vector.
+		 * 
+		 */
+		public function project( position:Vector3, normalize:Boolean, clampRatio:Number = 1.0 ):Vector3
+		{
+			return context.call( "getScreenProject", id, position.x, position.y, position.z, normalize, clampRatio );
 		}
 		
 		/**

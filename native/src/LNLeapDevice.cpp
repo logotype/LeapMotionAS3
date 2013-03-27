@@ -455,29 +455,20 @@ namespace leapnative {
         return createVector3(vector.x, vector.y, vector.z);
     }
     
-    FREObject LNLeapDevice::getScreenIntersect(int screenId, int pointableId, bool normalize, float clampRatio) {
+    FREObject LNLeapDevice::getScreenIntersect(int screenId, Vector position, Vector direction, bool normalize, float clampRatio) {
         ScreenList screenList = controller->calibratedScreens();
         Screen screen = screenList[screenId];
-        Frame frame = controller->frame();
-        PointableList pointables = frame.pointables();
-        Pointable pointable;
         
-        // TODO: Create a fake pointable width tipPosition and direction instead of looping
-        bool didFind = false;
-        for (int i = 0; i < pointables.count(); i++) {
-            if (pointables[i].id() == pointableId) {
-                pointable = pointables[i];
-                didFind = true;
-                break;
-            }
-        }
-
-        if(didFind) {
-            const Vector vector = screen.intersect(pointable, normalize, clampRatio);
-            return createVector3(vector.x, vector.y, vector.z);
-        } else {
-            return createVector3(NAN, NAN, NAN);
-        }
+        const Vector vector = screen.intersect(position, direction, normalize, clampRatio);
+        return createVector3(vector.x, vector.y, vector.z);
+    }
+    
+    FREObject LNLeapDevice::getScreenProject(int screenId, Vector position, bool normalize, float clampRatio) {
+        ScreenList screenList = controller->calibratedScreens();
+        Screen screen = screenList[screenId];
+        
+        const Vector vector = screen.project(position, normalize, clampRatio);
+        return createVector3(vector.x, vector.y, vector.z);
     }
     
     FREObject LNLeapDevice::getScreenIsValid(int screenId) {
