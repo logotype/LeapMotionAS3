@@ -34,7 +34,7 @@ package com.leapmotion.leap.socket
 	 * @author logotype
 	 *
 	 */
-	public class LeapSocket extends EventDispatcher implements ILeapConnection
+	final public class LeapSocket extends EventDispatcher implements ILeapConnection
 	{
 		/**
 		 * The initial state before handshake.

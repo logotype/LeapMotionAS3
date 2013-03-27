@@ -7,14 +7,15 @@ package com.leapmotion.leap.events
 	public class LeapEvent extends Event
 	{
 		/**
-		 * Called once, when this Listener object is newly added to a Controller.
+		 * Called once, when the Controller is initialized.  
 		 */
 		static public const LEAPMOTION_INIT:String = "leapmotionInit";
 
 		/**
-		 * Called when the Controller object connects to the Leap software, or when this Listener object is added to a Controller that is alrady connected.
+		 * Called when the Controller object connects to the Leap software. 
 		 */
 		static public const LEAPMOTION_CONNECTED:String = "leapmotionConnected";
+
 		/**
 		 * The controller can disconnect when the Leap device is unplugged, the user shuts the Leap software down, or the Leap software encounters an unrecoverable error.
 		 * Note: When you launch a Leap-enabled application in a debugger, the Leap library does not disconnect from the application. This is to allow you to step through code without losing the connection because of time outs.
@@ -22,12 +23,12 @@ package com.leapmotion.leap.events
 		static public const LEAPMOTION_DISCONNECTED:String = "leapmotionDisconnected";
 
 		/**
-		 * Called when the Leap handshake procedure exceeds a specified timeout.
-		 */
+		 * Called when this Controller instance is destroyed.  
+		 */	
 		static public const LEAPMOTION_TIMEOUT:String = "leapmotionTimeout";
 
 		/**
-		 * Called when this Listener object is removed from the Controller or the Controller instance is destroyed.
+		 * Called when a new frame of hand and finger tracking data is available.  
 		 */
 		static public const LEAPMOTION_EXIT:String = "leapmotionExit";
 
