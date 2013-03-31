@@ -247,9 +247,7 @@ package com.leapmotion.leap
 			
 			return returnValue;
 		}
-<<<<<<< HEAD
-=======
-		
+
 		/**
 		 * Gets the Screen closest to the specified position.
 		 * 
@@ -279,7 +277,6 @@ package com.leapmotion.leap
 			
 			return returnValue;
 		}
->>>>>>> Fixed returnvalue of closestScreen/Screen.invalid()
 
 		/**
 		 * Enables or disables reporting of a specified gesture type.

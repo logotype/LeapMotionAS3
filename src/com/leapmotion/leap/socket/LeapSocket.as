@@ -32,11 +32,7 @@ package com.leapmotion.leap.socket
 	 * @author logotype
 	 *
 	 */
-<<<<<<< HEAD
-	public class LeapSocket extends EventDispatcher implements ILeapConnection
-=======
 	final public class LeapSocket implements ILeapConnection
->>>>>>> Performance improvements/fixes
 	{
 		/**
 		 * The initial state before handshake.
