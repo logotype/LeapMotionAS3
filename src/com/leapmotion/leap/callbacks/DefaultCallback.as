@@ -1,10 +1,3 @@
-/**
- * Created with IntelliJ IDEA.
- * User: wouter
- * Date: 05/02/13
- * Time: 19:01
- * To change this template use File | Settings | File Templates.
- */
 package com.leapmotion.leap.callbacks
 {
 	import com.leapmotion.leap.Controller;

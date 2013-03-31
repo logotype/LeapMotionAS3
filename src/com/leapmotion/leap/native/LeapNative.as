@@ -5,21 +5,20 @@ package com.leapmotion.leap.native
 	import com.leapmotion.leap.interfaces.ILeapConnection;
 	import com.leapmotion.leap.namespaces.leapmotion;
 	
-	import flash.events.EventDispatcher;
 	import flash.events.StatusEvent;
 	import flash.utils.getDefinitionByName;
 
-	public class LeapNative extends EventDispatcher implements ILeapConnection
+	public class LeapNative implements ILeapConnection
 	{
 		/**
 		 * Called when the Controller object connects to the Leap software, or when this Listener object is added to a Controller that is alrady connected.
 		 */
-		static public const LEAPNATIVE_CONNECTED:String = "onConnect";
+		static private const LEAPNATIVE_CONNECTED:String = "onConnect";
 
 		/**
 		 * Called when the Controller object disconnects from the Leap software
 		 */
-		static public const LEAPNATIVE_DISCONNECTED:String = "onDisconnect";
+		static private const LEAPNATIVE_DISCONNECTED:String = "onDisconnect";
 
 		/**
 		 * Called when a new frame of hand and finger tracking data is available.
@@ -35,7 +34,7 @@ package com.leapmotion.leap.native
 		 * comparing the ID of the most recent frame with the ID of the last
 		 * received frame.
 		 */
-		static public const LEAPNATIVE_FRAME:String = "onFrame";
+		static private const LEAPNATIVE_FRAME:String = "onFrame";
 
 		/**
 		 * Boolean toggle to check if the class has been initialized
@@ -91,20 +90,21 @@ package com.leapmotion.leap.native
 		[Inline]
 		final private function contextStatusModeEventHandler( event:StatusEvent ):void
 		{
-			switch ( event.code )
+			if( event.code == LEAPNATIVE_FRAME )
 			{
-				case LeapNative.LEAPNATIVE_CONNECTED:
-					handleOnConnect();
-					break;
-				case LeapNative.LEAPNATIVE_DISCONNECTED:
-					handleOnDisconnect();
-					break;
-				case LeapNative.LEAPNATIVE_FRAME:
-					handleOnFrame();
-					break;
-				default:
-					trace( "[LeapNative] contextStatusModeEventHandler: ", event.code, event.level );
-					break;
+				handleOnFrame();
+			}
+			else if( event.code == LEAPNATIVE_CONNECTED )
+			{
+				handleOnConnect();
+			}
+			else if( event.code == LEAPNATIVE_DISCONNECTED )
+			{
+				handleOnDisconnect();
+			}
+			else
+			{
+				trace( "[LeapNative] contextStatusModeEventHandler: ", event.code, event.level );
 			}
 		}
 
@@ -138,15 +138,15 @@ package com.leapmotion.leap.native
 		[Inline]
 		final private function handleOnFrame():void
 		{
-			var currentFrame:Frame = context.call( "getFrame" );
-
 			// Add frame to history
 			if ( controller.frameHistory.length > 59 )
+			{
 				controller.frameHistory.splice( 59, 1 );
+			}
 
 			controller.frameHistory.unshift( _frame );
 
-			_frame = currentFrame;
+			_frame = context.call( "getFrame" );
 
 			controller.leapmotion::callback.onFrame( controller, _frame );
 		}

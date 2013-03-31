@@ -1,6 +1,5 @@
 package com.leapmotion.leap
 {
-
 	/**
 	 * The Vector struct represents a three-component mathematical vector
 	 * or point such as a direction or position in three-dimensional space.
