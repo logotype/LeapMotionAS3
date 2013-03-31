@@ -13,14 +13,12 @@ package com.leapmotion.leap.socket
 	import com.leapmotion.leap.SwipeGesture;
 	import com.leapmotion.leap.Tool;
 	import com.leapmotion.leap.Vector3;
-	import com.leapmotion.leap.events.LeapEvent;
 	import com.leapmotion.leap.interfaces.ILeapConnection;
 	import com.leapmotion.leap.namespaces.leapmotion;
 	import com.leapmotion.leap.util.Base64Encoder;
 	import com.leapmotion.leap.util.SHA1;
 	
 	import flash.events.Event;
-	import flash.events.EventDispatcher;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
 	import flash.events.SecurityErrorEvent;
@@ -34,17 +32,17 @@ package com.leapmotion.leap.socket
 	 * @author logotype
 	 *
 	 */
-	final public class LeapSocket extends EventDispatcher implements ILeapConnection
+	final public class LeapSocket implements ILeapConnection
 	{
 		/**
 		 * The initial state before handshake.
 		 */
-		static public const STATE_CONNECTING:int = 0;
+		static private const STATE_CONNECTING:int = 0;
 
 		/**
 		 * The established connection state, after handshake process is complete.
 		 */
-		static public const STATE_OPEN:int = 1;
+		static private const STATE_OPEN:int = 1;
 
 		/**
 		 * The raw socket connection to Leap.
@@ -102,16 +100,22 @@ package com.leapmotion.leap.socket
 		private var _isGesturesEnabled:Boolean = false;
 
 		/**
-		 * Bytearray which is used for sending data over the websocket
+		 * Bytearray which is used for sending data over the websocket.
 		 */
 		private var output:ByteArray;
 
 		/**
-		 * Bytearray which is used to encode data as binary data for sending it over the websocket
+		 * Bytearray which is used to encode data as binary data for sending it over the websocket.
 		 */
 		private var binaryPayload:ByteArray;
 
-		public function LeapSocket( host:String = null )
+		/**
+		 * Constructs a LeapSocket object.
+		 *  
+		 * @param host IP or hostname of the computer running the Leap software.
+		 * 
+		 */
+		final public function LeapSocket( host:String = null )
 		{
 			if ( host )
 				this.host = host;
@@ -141,47 +145,48 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Triggered once the Socket-connection is established, send handshake
+		 * Triggered once the Socket-connection is established, send handshake.
 		 * @param event
 		 *
 		 */
-		private function onSocketConnectHandler( event:Event ):void
+		final private function onSocketConnectHandler( event:Event ):void
 		{
 			_isConnected = false;
 			controller.leapmotion::callback.onInit( controller );
-			currentState = LeapSocket.STATE_CONNECTING;
+			currentState = STATE_CONNECTING;
 			socket.endian = Endian.BIG_ENDIAN;
 			sendHandshake();
 		}
 
 		/**
-		 * Triggered when network-error occurs
+		 * Triggered when network-error occurs.
 		 * @param event
 		 *
 		 */
-		private function onIOErrorHandler( event:IOErrorEvent ):void
+		final private function onIOErrorHandler( event:IOErrorEvent ):void
 		{
 			_isConnected = false;
 			controller.leapmotion::callback.onDisconnect( controller );
 		}
 
 		/**
-		 * Triggered if socket policy-file is missing, or other security related error occurs
+		 * Triggered if socket policy-file is missing, or other security related error occurs.
 		 * @param event
 		 *
 		 */
-		private function onSecurityErrorHandler( event:SecurityErrorEvent ):void
+		final private function onSecurityErrorHandler( event:SecurityErrorEvent ):void
 		{
 			_isConnected = false;
 			controller.leapmotion::callback.onDisconnect( controller );
 		}
 
 		/**
-		 * Triggered when the socket-connection is closed
+		 * Triggered when the socket-connection is closed.
+		 * 
 		 * @param event
 		 *
 		 */
-		private function onSocketCloseHandler( event:Event ):void
+		final private function onSocketCloseHandler( event:Event ):void
 		{
 			_isConnected = false;
 			controller.leapmotion::callback.onDisconnect( controller );
@@ -189,7 +194,8 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Inline method where data is read until a complete LeapSocketFrame is parsed
+		 * Inline method where data is read until a complete LeapSocketFrame is parsed.
+		 * 
 		 * @param event
 		 * @see LeapSocketFrame
 		 *
@@ -197,7 +203,7 @@ package com.leapmotion.leap.socket
 		[Inline]
 		final private function onSocketDataHandler( event:ProgressEvent = null ):void
 		{
-			if ( currentState == LeapSocket.STATE_CONNECTING )
+			if ( currentState == STATE_CONNECTING )
 			{
 				readLeapMotionHandshake();
 				return;
@@ -439,7 +445,8 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Inline method. Finds a Hand object by ID
+		 * Inline method. Finds a Hand object by ID.
+		 * 
 		 * @param frame The Frame object in which the Hand contains
 		 * @param id The ID of the Hand object
 		 * @return The Hand object if found, otherwise null
@@ -461,7 +468,8 @@ package com.leapmotion.leap.socket
 		}
 		
 		/**
-		 * Inline method. Finds a Pointable object by ID
+		 * Inline method. Finds a Pointable object by ID.
+		 * 
 		 * @param frame The Frame object in which the Pointable contains
 		 * @param id The ID of the Pointable object
 		 * @return The Pointable object if found, otherwise null
@@ -483,23 +491,25 @@ package com.leapmotion.leap.socket
 		}
 		
 		/**
-		 * Parses the HTTP header received from the Leap
+		 * Parses the HTTP header received from the Leap.
+		 * 
 		 * @param line
 		 * @return
 		 *
 		 */
-		private function parseHTTPHeader( line:String ):Object
+		final private function parseHTTPHeader( line:String ):Object
 		{
 			var header:Array = line.split( /\: +/ );
 			return header.length === 2 ? { name: header[ 0 ], value: header[ 1 ]} : null;
 		}
 
 		/**
-		 * Reads the handshake received from the Leap
+		 * Reads the handshake received from the Leap.
+		 * 
 		 * @return
 		 *
 		 */
-		private function readHandshakeLine():Boolean
+		final private function readHandshakeLine():Boolean
 		{
 			var char:String;
 			while ( socket.bytesAvailable )
@@ -514,10 +524,10 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Sends the HTTP handshake to the Leap
+		 * Sends the HTTP handshake to the Leap.
 		 *
 		 */
-		private function sendHandshake():void
+		final private function sendHandshake():void
 		{
 			var text:String = "";
 			text += "GET / HTTP/1.1\r\n";
@@ -533,10 +543,10 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Reads the handshake response from the Leap
+		 * Reads the handshake response from the Leap.
 		 *
 		 */
-		private function readLeapMotionHandshake():void
+		final private function readLeapMotionHandshake():void
 		{
 			var upgradeHeader:Boolean = false;
 			var connectionHeader:Boolean = false;
@@ -606,14 +616,14 @@ package com.leapmotion.leap.socket
 			}
 
 			leapMotionDeviceHandshakeResponse = null;
-			currentState = LeapSocket.STATE_OPEN;
-			controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_CONNECTED ) );
+			currentState = STATE_OPEN;
+			controller.leapmotion::callback.onConnect( controller );
 		}
 
 		/**
 		 * Whether the Leap is currently connected.
 		 */
-		public function get isConnected():Boolean
+		final public function get isConnected():Boolean
 		{
 			return _isConnected;
 		}
@@ -621,7 +631,7 @@ package com.leapmotion.leap.socket
 		/**
 		 * Most recent parsed Frame received from Socket.
 		 */
-		public function get frame():Frame
+		final public function get frame():Frame
 		{
 			return _frame;
 		}
@@ -639,7 +649,7 @@ package com.leapmotion.leap.socket
 		 * @param enable True, to enable gestures; False, to disable.
 		 * 
 		 */
-		public function enableGesture( gesture:int, enable:Boolean = true):void
+		final public function enableGesture( gesture:int, enable:Boolean = true):void
 		{
 			if( socket.connected )
 			{
@@ -658,7 +668,7 @@ package com.leapmotion.leap.socket
 		 *
 		 * @param str the string to send
 		 */
-		private function sendUTF(str:String):void
+		final private function sendUTF(str:String):void
 		{
 			binaryPayload.writeMultiByte(str, 'utf-8');
 			binaryPayload.endian = Endian.BIG_ENDIAN;
@@ -701,7 +711,7 @@ package com.leapmotion.leap.socket
 		 * @return True, if gestures is enabled; false, otherwise.
 		 * 
 		 */
-		public function isGestureEnabled( type:int ):Boolean
+		final public function isGestureEnabled( type:int ):Boolean
 		{
 			return _isGesturesEnabled;
 		}

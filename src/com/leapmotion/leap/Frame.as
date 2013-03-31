@@ -456,7 +456,7 @@ package com.leapmotion.leap
 		{
 			var returnValue:Number = 1;
 			if ( sinceFrame && sinceFrame.scaleFactorNumber )
-				returnValue = Math.exp( this.scaleFactorNumber - sinceFrame.scaleFactorNumber );
+				returnValue = Math.exp( scaleFactorNumber - sinceFrame.scaleFactorNumber );
 
 			return returnValue;
 		}
