@@ -1,6 +1,6 @@
 <extension xmlns="NATIVE_LIBRARY_XMLNS">
 	<id>NATIVE_EXTENSION_ID</id>
-	<versionNumber>0.7.6</versionNumber>
+	<versionNumber>0.7.7</versionNumber>
 	<platforms>
 		<platform name="Windows-x86">
 			<applicationDeployment>
