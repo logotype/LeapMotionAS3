@@ -54,4 +54,9 @@ xcuserdata
 # Visual Studio
 *.sdf
 *.vcxproj.user
+*.pdb
+*.lib
+*.exp
+native/win-visualstudio/LeapNative/Release
+
 *-app.xml
