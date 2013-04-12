@@ -97,23 +97,7 @@ extern "C" {
         
         return device->getClosestScreenHit(pointableId);
     }
-    
-    FREObject LeapNative_getClosestScreen(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
-        leapnative::LNLeapDevice* device;
-        FREGetContextNativeData(ctx, (void **) &device);
-        
-        double pX;
-        double pY;
-        double pZ;
-        FREGetObjectAsDouble(argv[0], &pX);
-        FREGetObjectAsDouble(argv[1], &pY);
-        FREGetObjectAsDouble(argv[2], &pZ);
-        
-        Vector position = Vector((float) pX, (float) pY, (float) pZ);
-        
-        return device->getClosestScreen(position);
-    }
-    
+
     //start screen class
     FREObject LeapNative_getScreenDistanceToPoint(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
         leapnative::LNLeapDevice* device;
@@ -272,7 +256,6 @@ extern "C" {
   		{ (const uint8_t*) "enableGesture", false, LeapNative_enableGesture },
   		{ (const uint8_t*) "isGestureEnabled", false, LeapNative_isGestureEnabled },
   		{ (const uint8_t*) "getClosestScreenHit", false, LeapNative_getClosestScreenHit },
-  		{ (const uint8_t*) "getClosestScreen", false, LeapNative_getClosestScreen },
   		{ (const uint8_t*) "getScreenDistanceToPoint", false, LeapNative_getScreenDistanceToPoint },
   		{ (const uint8_t*) "getScreenHeightPixels", false, LeapNative_getScreenHeightPixels },
   		{ (const uint8_t*) "getScreenWidthPixels", false, LeapNative_getScreenWidthPixels },
