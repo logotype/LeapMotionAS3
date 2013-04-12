@@ -49,8 +49,7 @@ docs
 
 # Special case for XCode projects
 *.pbxproj -crlf -diff -merge
-*.xcuserstate
-xcuserdata/
+xcuserdata
 
 # Visual Studio
 *.sdf
