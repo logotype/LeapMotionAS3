@@ -248,7 +248,7 @@ package com.leapmotion.leap
 			
 			return returnValue;
 		}
-		
+
 		/**
 		 * Gets the Screen closest to the specified position.
 		 * 
