@@ -370,7 +370,7 @@ namespace leapnative {
         
         return freCurrentFrame;
     }
-    
+
     FREObject LNLeapDevice::getClosestScreenHit(int pointableId) {
         ScreenList screenList = controller->calibratedScreens();
         Frame frame = controller->frame();
@@ -386,24 +386,15 @@ namespace leapnative {
                 break;
             }
         }
-        
+
         FREObject freScreenId;
-        
+
         if(didFind) {
             Screen screen = screenList.closestScreenHit(pointable);
             FRENewObjectFromInt32(screen.id(), &freScreenId);
         } else {
             FRENewObjectFromInt32(0, &freScreenId);
         }
-        return freScreenId;
-    }
-    
-    FREObject LNLeapDevice::getClosestScreen(Vector position) {
-        ScreenList screenList = controller->calibratedScreens();
-        Screen screen = screenList.closestScreen(position);
-
-        FREObject freScreenId;
-        FRENewObjectFromInt32(screen.id(), &freScreenId);
         return freScreenId;
     }
 

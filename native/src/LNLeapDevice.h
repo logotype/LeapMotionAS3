@@ -32,7 +32,6 @@ namespace leapnative {
 
         FREObject getFrame();
         FREObject getClosestScreenHit(int pointableId);
-        FREObject getClosestScreen(Vector position);
 
         //screen class
         FREObject getScreenDistanceToPoint(int screenId, float pX, float pY, float pZ);

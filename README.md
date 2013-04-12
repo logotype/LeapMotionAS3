@@ -10,7 +10,7 @@ Leap Motion is a motion-control software and hardware company developing the wor
 Demos
 -----------
 
-[<img src="http://logotype.se/leapmotion/victor1.png">](http://www.youtube.com/watch?v=y9SDf5GSDF8) [<img src="http://logotype.se/leapmotion/victor2.png">](http://www.youtube.com/watch?v=Hduiif_GfsU) [<img src="http://logotype.se/leapmotion/wouter1.png">](https://vimeo.com/60170459) [<img src="http://logotype.se/leapmotion/wouter2.png">](https://vimeo.com/61708308) [<img src="http://logotype.se/leapmotion/victor3.png">](http://www.youtube.com/watch?v=qd7DD8kKd-E) [<img src="http://logotype.se/leapmotion/ben1.png">](http://vimeo.com/62464243) [<img src="http://logotype.se/leapmotion/niko1.png">](http://www.youtube.com/watch?v=rQa2b_sFFi8) [<img src="http://logotype.se/leapmotion/raw1.png">](http://vimeo.com/62725367) [<img src="http://logotype.se/leapmotion/ben2.png">](https://vimeo.com/62758339)
+[<img src="http://logotype.se/leapmotion/victor1.png">](http://www.youtube.com/watch?v=y9SDf5GSDF8) [<img src="http://logotype.se/leapmotion/victor2.png">](http://www.youtube.com/watch?v=Hduiif_GfsU) [<img src="http://logotype.se/leapmotion/wouter1.png">](https://vimeo.com/60170459) [<img src="http://logotype.se/leapmotion/wouter2.png">](https://vimeo.com/61708308) [<img src="http://logotype.se/leapmotion/victor3.png">](http://www.youtube.com/watch?v=qd7DD8kKd-E) [<img src="http://logotype.se/leapmotion/ben1.png">](http://vimeo.com/62464243) [<img src="http://logotype.se/leapmotion/niko1.png">](http://www.youtube.com/watch?v=rQa2b_sFFi8) [<img src="http://logotype.se/leapmotion/raw1.png">](http://vimeo.com/62725367) [<img src="http://logotype.se/leapmotion/ben2.png">](https://vimeo.com/62758339) [<img src="http://logotype.se/leapmotion/specialmoves1.png">](http://vimeo.com/63334185)
 
 
 Quick start
@@ -66,31 +66,31 @@ typed properties such as `Hands`, `Pointables`, `Direction`, `Gestures` and more
     	}
     }
 
-Optionally, you can simply call `leap.frame()` at any time, e.g. in your main loop.
+Optionally, you can simply call `leap.frame()` e.g. in your main loop, or implement the `ILeapCallback` interface for callbacks.
 
 Features
 --------
 
 <img src="http://logotype.se/leapImageTelemetry.png">
-+ High performance, less than 1ms processing per frame (typically 2% CPU usage on a recent MacBook Pro)
++ High performance, 110 FPS for data (typically 2% CPU usage on a recent MacBook Pro)
 + Clean, lightweight and documented code
 + Same structure as official API
 + Gestures (Circle, Key Tap, Screen Tap, Swipe)
 + Works great with [Away3D](https://github.com/away3d/away3d-core-fp11) and [Starling](https://github.com/PrimaryFeather/Starling-Framework)
-+ Connect multiple computers to the same Leap device (via an optional "host" argument)
++ Connect multiple devices to the same Leap (via an optional "host" argument)
 + Uses AIR 3.7/ASC 2.0 compiler features (be sure to add the `-inline` and `-swf-version=20` compiler arguments)
 + No external dependencies, creates a optimized socket directly to the Leap
-+ AIR Native Extension (ANE) which directly interfaces with the C++ library (Mac, PC)
-+ Compatible with Mac OSX, Windows, iOS (iPad/iPhone/etc), Android
++ AIR Native Extension (ANE) which directly interfaces with the C++ library (Mac OSX and Windows)
++ Compatible with Mac OSX, Windows, iOS (iPad/iPhone/etc) and Android
 
 AIR Native Extension
 --------------------
 
 You can use this library on both web and AIR projects. If you are using it on an AIR for Desktop project, you can take advantage of the AIR Native Extension.
 
-[Download the ane-file](https://github.com/logotype/LeapMotionAS3/blob/master/bin/LeapMotionAS3.ane?raw=true) and place it somewhere in your project (preferably in the directory where you would put your swc files). Link the ane file to your project:
+[Download the ane-file](https://github.com/logotype/LeapMotionAS3/blob/master/bin/LeapMotionAS3-asc2.ane?raw=true) and place it somewhere in your project (preferably in the directory where you would put your swc files). Link the ane file to your project:
 
-####Flash Builder 4.6/4.7
+####Flash Builder 4.7
 
 
 1. Right click on your AIR for desktop project and choose properties.

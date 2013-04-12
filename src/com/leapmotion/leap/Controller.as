@@ -20,13 +20,12 @@ package com.leapmotion.leap
 	[Event( name = "leapmotionConnected", type = "com.leapmotion.leap.events.LeapEvent" )]
 
 	/**
-	 * The controller can disconnect when the Leap device is unplugged, the user shuts the Leap software down, or the Leap software encounters an unrecoverable error.
-	 * Note: When you launch a Leap-enabled application in a debugger, the Leap library does not disconnect from the application. This is to allow you to step through code without losing the connection because of time outs.
+	 * Called when the Controller object disconnects from the Leap software.  
 	 */
 	[Event( name = "leapmotionDisconnected", type = "com.leapmotion.leap.events.LeapEvent" )]
 	
 	/**
-	 * Called when the Leap handshake procedure exceeds a specified timeout.
+	 * Called when a timeout occurs from the socket connection. 
 	 */
 	[Event( name = "leapmotionTimeout", type = "com.leapmotion.leap.events.LeapEvent" )]
 	
@@ -248,7 +247,7 @@ package com.leapmotion.leap
 			
 			return returnValue;
 		}
-		
+
 		/**
 		 * Gets the Screen closest to the specified position.
 		 * 
