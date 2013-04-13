@@ -380,6 +380,26 @@ package com.leapmotion.leap
 
 			return returnValue;
 		}
+		
+		/**
+		 * The estimated probability that the hand motion between the current
+		 * frame and the specified frame is intended to be a rotating motion.
+		 * 
+		 * <p>If a corresponding Hand object is not found in sinceFrame,
+		 * or if either this frame or sinceFrame are invalid Frame objects,
+		 * then this method returns zero.</p>
+		 *  
+		 * @param sinceFrame The starting frame for computing the relative rotation.
+		 * @return A value between 0 and 1 representing the estimated probability
+		 * that the hand motion between the current frame and the specified frame
+		 * is intended to be a rotating motion.
+		 * 
+		 */
+		public function rotationProbability( sinceFrame:Frame ):Number
+		{
+			// TODO: Implement
+			return 0.0;
+		}
 
 		/**
 		 * The scale factor derived from this hand's motion between
@@ -411,6 +431,26 @@ package com.leapmotion.leap
 			
 			return returnValue;
 		}
+		
+		/**
+		 * The estimated probability that the hand motion between the current
+		 * frame and the specified frame is intended to be a scaling motion.
+		 * 
+		 * <p>If a corresponding Hand object is not found in sinceFrame,
+		 * or if either this frame or sinceFrame are invalid Frame objects,
+		 * then this method returns zero.</p>
+		 *  
+		 * @param sinceFrame The starting frame for computing the relative scaling.
+		 * @return A value between 0 and 1 representing the estimated probability
+		 * that the hand motion between the current frame and the specified frame
+		 * is intended to be a scaling motion.
+		 * 
+		 */
+		public function scaleProbability( sinceFrame:Frame ):Number
+		{
+			// TODO: Implement
+			return 0.0;
+		}
 
 		/**
 		 * The change of position of this hand between the current frame and the specified frame.
@@ -430,6 +470,26 @@ package com.leapmotion.leap
 				returnValue = new Vector3( translationVector.x - sinceFrame.hand( id ).translationVector.x, translationVector.y - sinceFrame.hand( id ).translationVector.y, translationVector.z - sinceFrame.hand( id ).translationVector.z );
 
 			return returnValue;
+		}
+		
+		/**
+		 * The estimated probability that the hand motion between the current
+		 * frame and the specified frame is intended to be a translating motion.
+		 * 
+		 * <p>If a corresponding Hand object is not found in sinceFrame,
+		 * or if either this frame or sinceFrame are invalid Frame objects,
+		 * then this method returns zero.</p>
+		 *  
+		 * @param sinceFrame The starting frame for computing the translation.
+		 * @return A value between 0 and 1 representing the estimated probability
+		 * that the hand motion between the current frame and the specified
+		 * frame is intended to be a translating motion.
+		 * 
+		 */
+		public function translationProbability( sinceFrame:Frame ):Number
+		{
+			// TODO: Implement
+			return 0.0;
 		}
 
 		/**

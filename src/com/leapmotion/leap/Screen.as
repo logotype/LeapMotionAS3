@@ -68,7 +68,7 @@ package com.leapmotion.leap
 		 * 
 		 * <p>An uninitialized screen is considered invalid. Get valid Screen
 		 * objects from a ScreenList object obtained using the
-		 * <code>Controller.calibratedScreens()</code> method.</p> 
+		 * <code>Controller.locatedScreens()</code> method.</p> 
 		 * 
 		 */
 		public function Screen()
@@ -240,7 +240,7 @@ package com.leapmotion.leap
 		 * 						the intersection point as a percentage of the screen's
 		 * 						width and height. If false, return Leap coordinates
 		 * 						(millimeters from the Leap origin, which is located
-		 * 						at the center of the top surface of the Leap device).
+		 * 						at the center of the top surface of the Leap Motion Controller).
 		 * 						If true and the clampRatio parameter is set to 1.0,
 		 * 						coordinates will be of the form (0..1, 0..1, 0).
 		 * 						Setting the clampRatio to a different value changes
@@ -317,7 +317,7 @@ package com.leapmotion.leap
 		 * 						the intersection point as a percentage of the screen's
 		 * 						width and height. If false, return Leap coordinates
 		 * 						(millimeters from the Leap origin, which is located
-		 * 						at the center of the top surface of the Leap device).
+		 * 						at the center of the top surface of the Leap Motion Controller).
 		 * 						If true and the clampRatio parameter is set to 1.0,
 		 * 						coordinates will be of the form (0..1, 0..1, 0).
 		 * 						Setting the clampRatio to a different value changes
@@ -381,7 +381,7 @@ package com.leapmotion.leap
 		 * 						the projection point as a percentage of the screen's
 		 * 						width and height. If false, return Leap coordinates
 		 * 						(millimeters from the Leap origin, which is located
-		 * 						at the center of the top surface of the Leap device).
+		 * 						at the center of the top surface of the Leap Motion Controller).
 		 * 						If true and the clampRatio parameter is set to 1.0,
 		 * 						coordinates will be of the form (0..1, 0..1, 0).
 		 * 						Setting the clampRatio to a different value changes
@@ -432,7 +432,7 @@ package com.leapmotion.leap
 		 * 
 		 * <p><strong>Important: A valid Screen object does not necessarily contain
 		 * up-to-date screen location information.</strong><br/>Location information is
-		 * only accurate until the Leap device or the monitor are moved.
+		 * only accurate until the Leap Motion Controller or the monitor are moved.
 		 * In addition, the primary screen always contains default location
 		 * information even if the user has never run the screen location
 		 * utility.<br/>

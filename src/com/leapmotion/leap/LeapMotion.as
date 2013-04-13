@@ -1,7 +1,7 @@
 package com.leapmotion.leap
 {
 	/**
-	 * The LeapMotion class is your main interface to the Leap device.
+	 * The LeapMotion class is your main interface to the Leap Motion Controller.
 	 *
 	 * <p>Create an instance of this LeapMotion class to access frames of tracking
 	 * data and configuration information. Frame data can be polled at any time
@@ -49,7 +49,7 @@ package com.leapmotion.leap
 		}
 
 		/**
-		 * Reports whether this Controller is connected to the Leap device.
+		 * Reports whether this Controller is connected to the Leap Motion Controller.
 		 *
 		 * <p>When you first create a Controller object, <code>isConnected()</code> returns false.
 		 * After the controller finishes initializing and connects to

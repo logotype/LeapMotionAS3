@@ -430,6 +430,26 @@ package com.leapmotion.leap
 
 			return returnValue;
 		}
+		
+		/**
+		 * The estimated probability that the overall motion between
+		 * the current frame and the specified frame is intended to
+		 * be a rotating motion.
+		 * 
+		 * <p>If either this frame or sinceFrame is an invalid Frame
+		 * object, then this method returns zero.</p>
+		 *  
+		 * @param sinceFrame The starting frame for computing the relative rotation.
+		 * @return A value between 0 and 1 representing the estimated
+		 * probability that the overall motion between the current frame
+		 * and the specified frame is intended to be a rotating motion.
+		 * 
+		 */
+		public function rotationProbability( sinceFrame:Frame ):Number
+		{
+			// TODO: Implement
+			return 0.0;
+		}
 
 		/**
 		 * The scale factor derived from the overall motion between the
@@ -460,6 +480,25 @@ package com.leapmotion.leap
 
 			return returnValue;
 		}
+		
+		/**
+		 * The estimated probability that the overall motion between the current
+		 * frame and the specified frame is intended to be a scaling motion.
+		 * 
+		 * <p>If either this frame or sinceFrame is an invalid Frame object,
+		 * then this method returns zero.</p>
+		 *  
+		 * @param sinceFrame The starting frame for computing the relative scaling.
+		 * @return A value between 0 and 1 representing the estimated probability
+		 * that the overall motion between the current frame and the specified
+		 * frame is intended to be a scaling motion.
+		 * 
+		 */
+		public function scaleProbability( sinceFrame:Frame ):Number
+		{
+			// TODO: Implement
+			return 0.0;
+		}
 
 		/**
 		 * The change of position derived from the overall linear motion
@@ -488,6 +527,25 @@ package com.leapmotion.leap
 				returnValue = new Vector3( translationVector.x - sinceFrame.translationVector.x, translationVector.y - sinceFrame.translationVector.y, translationVector.z - sinceFrame.translationVector.z );
 
 			return returnValue;
+		}
+		
+		/**
+		 * The estimated probability that the overall motion between the current
+		 * frame and the specified frame is intended to be a translating motion.
+		 * 
+		 * <p>If either this frame or sinceFrame is an invalid Frame object,
+		 * then this method returns zero.</p>
+		 *  
+		 * @param sinceFrame The starting frame for computing the translation.
+		 * @return A value between 0 and 1 representing the estimated probability
+		 * that the overall motion between the current frame and the specified
+		 * frame is intended to be a translating motion.
+		 * 
+		 */
+		public function translationProbability( sinceFrame:Frame ):Number
+		{
+			// TODO: Implement
+			return 0.0;
 		}
 
 		/**

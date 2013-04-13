@@ -6,7 +6,7 @@ package com.leapmotion.leap
 	 *
 	 * <p>The Leap software employs a right-handed Cartesian coordinate system.
 	 * Values given are in units of real-world millimeters. The origin is
-	 * centered at the center of the Leap device. The x- and z-axes lie in
+	 * centered at the center of the Leap Motion Controller. The x- and z-axes lie in
 	 * the horizontal plane, with the x-axis running parallel to the long edge
 	 * of the device. The y-axis is vertical, with positive values increasing
 	 * upwards (in contrast to the downward orientation of most computer

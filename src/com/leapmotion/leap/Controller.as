@@ -73,7 +73,7 @@ package com.leapmotion.leap
 		public var context:Object;
 		
 		/**
-		 * List of Screen objects, created by <code>calibratedScreens()</code>. 
+		 * List of Screen objects, created by <code>locatedScreens()</code>. 
 		 */
 		private var _screenList:Vector.<Screen> = new Vector.<Screen>();
 
@@ -85,7 +85,7 @@ package com.leapmotion.leap
 		/**
 		 * Initializes connection to the Leap.
 		 *
-		 * @param host Optional. The host computer with the Leap device
+		 * @param host Optional. The host computer with the Leap Motion Controller
 		 * (currently only supported for socket connections).
 		 *
 		 */
@@ -133,7 +133,7 @@ package com.leapmotion.leap
 		}
 
 		/**
-		 * Update the object that receives direct updates from the Leap device.
+		 * Update the object that receives direct updates from the Leap Motion Controller.
 		 * 
 		 * <p>The default callback will make the controller dispatch flash events.
 		 * You can override this behaviour, by implementing the IListener interface
@@ -169,17 +169,17 @@ package com.leapmotion.leap
 		 * Settings window. Avoid assuming that a screen location is known
 		 * or that an existing position is still correct. The registered
 		 * position is only valid as long as the relative position of the
-		 * Leap device and the monitor screen remain constant.</p>
+		 * Leap Motion Controller and the monitor screen remain constant.</p>
 		 *  
 		 * @return ScreenList A list containing the screens whose positions
 		 * have been registered by the user using the Screen Locator tool.
 		 * The list always contains at least one entry representing the
 		 * default monitor. If the user has not run the Screen Locator or
-		 * has moved the Leap device or screen since running it, the
+		 * has moved the Leap Motion Controller or screen since running it, the
 		 * Screen object for this entry only contains default values. 
 		 * 
 		 */
-		final public function calibratedScreens():Vector.<Screen>
+		final public function locatedScreens():Vector.<Screen>
 		{
 			if( _screenList.length == 0 )
 			{
@@ -234,7 +234,7 @@ package com.leapmotion.leap
 		{
 			var screenId:int = context.call( "getClosestScreenHit", pointable.id );
 			var returnValue:Screen = Screen.invalid();
-			var screenList:Vector.<Screen> = calibratedScreens();
+			var screenList:Vector.<Screen> = locatedScreens();
 			
 			for each ( var screen:Screen in screenList )
 			{
@@ -264,7 +264,7 @@ package com.leapmotion.leap
 		{
 			var screenId:int = context.call( "getClosestScreen", position.x, position.y, position.z );
 			var returnValue:Screen = Screen.invalid();
-			var screenList:Vector.<Screen> = calibratedScreens();
+			var screenList:Vector.<Screen> = locatedScreens();
 			
 			for each ( var screen:Screen in screenList )
 			{
@@ -310,7 +310,7 @@ package com.leapmotion.leap
 		}
 
 		/**
-		 * Reports whether this Controller is connected to the Leap device.
+		 * Reports whether this Controller is connected to the Leap Motion Controller.
 		 *
 		 * <p>When you first create a Controller object, <code>isConnected()</code> returns false.
 		 * After the controller finishes initializing and connects to
@@ -327,6 +327,31 @@ package com.leapmotion.leap
 		public function isConnected():Boolean
 		{
 			return connection.isConnected;
+		}
+		
+		/**
+		 * Returns a Config object, which you can use to query the
+		 * Leap system for configuration information.
+		 *  
+		 * @return 
+		 * 
+		 */
+		public function config():Config
+		{
+			return new Config();
+		}
+		
+		/**
+		 * Reports whether this application is the focused, foreground application.
+		 * 
+		 * <p>Only the foreground application receives tracking information from
+		 * the Leap Motion Controller.</p> 
+		 * @return 
+		 * 
+		 */
+		public function hasFocus():Boolean
+		{
+			return context.call( "hasFocus" );
 		}
 		
 		static public function getInstance():Controller
