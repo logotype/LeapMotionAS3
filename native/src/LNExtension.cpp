@@ -88,6 +88,13 @@ extern "C" {
         return createFREObjectForBool(gestureEnabled);
     }
     
+    FREObject LeapNative_hasFocus(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        return device->hasFocus();
+    }
+    
     FREObject LeapNative_getClosestScreenHit(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
         leapnative::LNLeapDevice* device;
         FREGetContextNativeData(ctx, (void **) &device);
@@ -247,6 +254,19 @@ extern "C" {
     }
     //end screen class
     
+    //start config class
+    FREObject LeapNative_getConfigBool(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        uint32_t len;
+        const uint8_t* key = 0;
+        FREGetObjectAsUTF8(argv[0], &len, &key);
+        
+        return device->getConfigBool(len, key);
+    }
+    //end config class
+    
     FRENamedFunction _Shared_methods[] = {
         { (const uint8_t*) "isSupported", false, LeapNative_isSupported }
 	};
@@ -255,6 +275,7 @@ extern "C" {
   		{ (const uint8_t*) "getFrame", false, LeapNative_getFrame },
   		{ (const uint8_t*) "enableGesture", false, LeapNative_enableGesture },
   		{ (const uint8_t*) "isGestureEnabled", false, LeapNative_isGestureEnabled },
+  		{ (const uint8_t*) "hasFocus", false, LeapNative_hasFocus },
   		{ (const uint8_t*) "getClosestScreenHit", false, LeapNative_getClosestScreenHit },
   		{ (const uint8_t*) "getScreenDistanceToPoint", false, LeapNative_getScreenDistanceToPoint },
   		{ (const uint8_t*) "getScreenHeightPixels", false, LeapNative_getScreenHeightPixels },

@@ -371,6 +371,12 @@ namespace leapnative {
         return freCurrentFrame;
     }
 
+    FREObject LNLeapDevice::hasFocus() {
+        FREObject freReturnValue;
+        FRENewObjectFromBool(controller->hasFocus(), &freReturnValue);
+        return freReturnValue;
+    }
+    
     FREObject LNLeapDevice::getClosestScreenHit(int pointableId) {
         ScreenList screenList = controller->calibratedScreens();
         Frame frame = controller->frame();
@@ -386,9 +392,9 @@ namespace leapnative {
                 break;
             }
         }
-
+        
         FREObject freScreenId;
-
+        
         if(didFind) {
             Screen screen = screenList.closestScreenHit(pointable);
             FRENewObjectFromInt32(screen.id(), &freScreenId);
@@ -397,7 +403,7 @@ namespace leapnative {
         }
         return freScreenId;
     }
-
+    
     //screen class
     FREObject LNLeapDevice::getScreenDistanceToPoint(int screenId, float pX, float pY, float pZ) {
         ScreenList screenList = controller->calibratedScreens();
@@ -489,4 +495,16 @@ namespace leapnative {
         return createVector3(vector.x, vector.y, vector.z);
     }
     //screen class
+    
+    //config class
+    FREObject LNLeapDevice::getConfigBool(uint32_t len, const uint8_t* key) {
+
+        std::string keyString( key, key+len );
+        
+        FREObject freReturnValue;
+        FRENewObjectFromBool(controller->config().getBool(keyString), &freReturnValue);
+        
+        return freReturnValue;
+    }
+    //config class
 }

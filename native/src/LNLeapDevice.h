@@ -32,6 +32,7 @@ namespace leapnative {
 
         FREObject getFrame();
         FREObject getClosestScreenHit(int pointableId);
+        FREObject hasFocus();
 
         //screen class
         FREObject getScreenDistanceToPoint(int screenId, float pX, float pY, float pZ);
@@ -44,6 +45,9 @@ namespace leapnative {
         FREObject getScreenProject(int screenId, Vector position, bool normalize, float clampRatio = 1.0f);
         FREObject getScreenIsValid(int screenId);
         FREObject getScreenNormal(int screenId);
+
+        //config class
+        FREObject getConfigBool(uint32_t len, const uint8_t* key);
 
     private:
         FREContext m_ctx;
