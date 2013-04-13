@@ -41,7 +41,7 @@ package
 		private function onConnect( event:LeapEvent ):void
 		{
 			trace( "Connected" );
-			screenList = leap.controller.calibratedScreens();
+			screenList = leap.controller.locatedScreens();
 			screen = screenList[ 0 ];
 			screenWidth = screen.widthPixels();
 			screenHeight = screen.heightPixels();

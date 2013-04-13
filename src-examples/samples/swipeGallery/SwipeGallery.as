@@ -80,10 +80,10 @@ package samples.swipeGallery
 				var gestures:Vector.<Gesture> = event.frame.gestures();
 				for each( var gesture:Gesture in gestures )
 				{
-					if ( gesture is SwipeGesture )
+					if ( gesture is SwipeGesture && gesture.state == Gesture.STATE_STOP )
 					{
 						var swipe:SwipeGesture = gesture as SwipeGesture;
-						if ( swipe.speed > 1000 && Math.abs( swipe.direction.x ) > Math.abs( swipe.direction.y ) )
+						if ( Math.abs( swipe.direction.x ) > Math.abs( swipe.direction.y ) )
 						{
 							if ( swipe.direction.x > 0 )
 							{
