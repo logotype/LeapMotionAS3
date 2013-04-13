@@ -9,6 +9,37 @@ package com.leapmotion.leap
 	 * <p><code>leap.controller.enableGesture(Gesture.TYPE_SWIPE);</code></p>
 	 * 
 	 * <p>Swipe gestures are continuous.</p>
+	 * 
+	 * <p>You can set the minimum length and velocity required for a movement to be
+	 * recognized as a swipe using the config attribute of a connected Controller object.
+	 * Use the following keys to configure swipe recognition:</p>
+	 * 
+	 * <table>
+	 *   <tr>
+	 *    <th>Key string</th>
+	 *    <th>Value type</th>
+	 *    <th>Default value</th>
+	 *    <th>Units</th>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.Swipe.MinLength</td>
+	 *    <td>float</td>
+	 *    <td>150</td>
+	 *    <td>mm</td>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.Swipe.MinVelocity</td>
+	 *    <td>float</td>
+	 *    <td>1000</td>
+	 *    <td>mm/s</td>
+	 *  </tr>
+	 * </table>
+	 *
+	 * <p>The following example demonstrates how to set the swipe configuration parameters:</p>
+	 * 
+	 * <code>if(controller.config().setFloat(&quot;Gesture.Swipe.MinLength&quot;, 200.0) &amp;&amp;
+	 *       controller.config().setFloat(&quot;Gesture.Swipe.MinVelocity&quot;, 750))
+	 *        controller.config().save();</code> 
 	 *  
 	 * @author logotype
 	 * 

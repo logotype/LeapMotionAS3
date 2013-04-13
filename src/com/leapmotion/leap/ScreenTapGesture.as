@@ -15,6 +15,45 @@ package com.leapmotion.leap
 	 * <p>ScreenTap gestures are discrete. The ScreenTapGesture object representing a
 	 * tap always has the state, <code>STATE_STOP</code>. Only one ScreenTapGesture object is
 	 * created for each screen tap gesture recognized.</p>
+	 * 
+	 * <p>You can set the minimum finger movement and velocity required for a movement
+	 * to be recognized as a screen tap as well as adjust the detection window for
+	 * evaluating the movement using the config attribute of a connected Controller object.
+	 * Use the following keys to configure screen tap recognition:</p>
+	 * 
+	 * <table>
+	 *   <tr>
+	 *    <th>Key string</th>
+	 *    <th>Value type</th>
+	 *    <th>Default value</th>
+	 *    <th>Units</th>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.ScreenTap.MinForwardVelocity</td>
+	 *    <td>float</td>
+	 *    <td>50</td>
+	 *    <td>mm/s</td>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.ScreenTap.HistorySeconds</td>
+	 *    <td>float</td>
+	 *    <td>0.1</td>
+	 *    <td>s</td>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.ScreenTap.MinDistance</td>
+	 *    <td>float</td>
+	 *    <td>5.0</td>
+	 *    <td>mm</td>
+	 *  </tr>
+	 * </table>
+	 * 
+	 * <p>The following example demonstrates how to set the screen tap configuration parameters:</p>
+	 * 
+	 * <code> if(controller.config().setFloat(&quot;Gesture.ScreenTap.MinForwardVelocity&quot;, 30.0) &amp;&amp;
+	 *       controller.config().setFloat(&quot;Gesture.ScreenTap.HistorySeconds&quot;, .5) &amp;&amp;
+	 *       controller.config().setFloat(&quot;Gesture.ScreenTap.MinDistance&quot;, 1.0))
+	 *        controller.config().save();</code>
 	 *  
 	 * @author logotype
 	 * 

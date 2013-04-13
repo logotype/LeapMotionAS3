@@ -16,7 +16,46 @@ package com.leapmotion.leap
 	 * <p>Key tap gestures are discrete. The KeyTapGesture object representing a
 	 * tap always has the state, <code>STATE_STOP</code>. Only one KeyTapGesture object
 	 * is created for each key tap gesture recognized.</p>
-	 *  
+	 * 
+	 * <p>You can set the minimum finger movement and velocity required for a movement
+	 * to be recognized as a key tap as well as adjust the detection window for evaluating
+	 * the movement using the config attribute of a connected Controller object.
+	 * Use the following configuration keys to configure key tap recognition:</p>
+	 * 
+	 * <table>
+	 *   <tr>
+	 *    <th>Key string</th>
+	 *    <th>Value type</th>
+	 *    <th>Default value</th>
+	 *    <th>Units</th>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.KeyTap.MinDownVelocity</td>
+	 *    <td>float</td>
+	 *    <td>50</td>
+	 *    <td>mm/s</td>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.KeyTap.HistorySeconds</td>
+	 *    <td>float</td>
+	 *    <td>0.1</td>
+	 *    <td>s</td>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.KeyTap.MinDistance</td>
+	 *    <td>float</td>
+	 *    <td>3.0</td>
+	 *    <td>mm</td>
+	 *  </tr>
+	 * </table>
+	 * 
+	 * <p>The following example demonstrates how to set the screen tap configuration parameters:</p>
+	 * 
+	 * <code>if(controller.config().setFloat(&quot;Gesture.KeyTap.MinDownVelocity&quot;, 40.0) &amp;&amp;
+	 *       controller.config().setFloat(&quot;Gesture.KeyTap.HistorySeconds&quot;, .2) &amp;&amp;
+	 *       controller.config().setFloat(&quot;Gesture.KeyTap.MinDistance&quot;, 8.0))
+	 *        controller.config().save();</code>
+	 *   
 	 * @author logotype
 	 * 
 	 */

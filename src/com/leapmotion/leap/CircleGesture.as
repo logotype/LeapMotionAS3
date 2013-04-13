@@ -21,6 +21,37 @@ package com.leapmotion.leap
 	 * <p><code>Gesture.STATE_UPDATE</code> – The circle gesture is continuing.</p>
 	 * 
 	 * <p><code>Gesture.STATE_STOP</code> – The circle gesture is finished.</p>
+	 * 
+	 * <p>You can set the minimum radius and minimum arc length required for a
+	 * movement to be recognized as a circle using the config attribute of a
+	 * connected Controller object. Use the following keys to configure circle recognition:</p>
+	 * 
+	 * <table>
+	 *   <tr>
+	 *    <th>Key string</th>
+	 *    <th>Value type</th>
+	 *    <th>Default value</th>
+	 *    <th>Units</th>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.Circle.MinRadius</td>
+	 *    <td>float</td>
+	 *    <td>5.0</td>
+	 *    <td>mm</td>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.Circle.MinArc</td>
+	 *    <td>float</td>
+	 *    <td>1.5</td>
+	 *    <td>radians</td>
+	 *  </tr>
+	 * </table>
+	 * 
+	 * <p>The following example demonstrates how to set the circle configuration parameters:</p>
+	 * 
+	 * <code>if(controller.config().setFloat(&quot;Gesture.Circle.MinRadius&quot;, 10.0) &amp;&amp;
+	 *       controller.config().setFloat(&quot;Gesture.Circle.MinArc&quot;, .5))
+	 *        controller.config().save();</code>
 	 *  
 	 * @author logotype
 	 * @see Gesture
