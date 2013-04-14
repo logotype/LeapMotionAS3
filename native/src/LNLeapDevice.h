@@ -48,6 +48,13 @@ namespace leapnative {
 
         //config class
         FREObject getConfigBool(uint32_t len, const uint8_t* key);
+        FREObject getConfigFloat(uint32_t len, const uint8_t* key);
+        FREObject getConfigInt32(uint32_t len, const uint8_t* key);
+        FREObject getConfigString(uint32_t len, const uint8_t* key);
+        FREObject setConfigBool(uint32_t len, const uint8_t* key, bool value);
+        FREObject setConfigFloat(uint32_t len, const uint8_t* key, float value);
+        FREObject setConfigString(uint32_t len, const uint8_t* key, uint32_t valueLen, const uint8_t* valueArray);
+        FREObject setConfigSave();
 
     private:
         FREContext m_ctx;

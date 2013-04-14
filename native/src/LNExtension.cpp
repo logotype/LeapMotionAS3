@@ -265,6 +265,89 @@ extern "C" {
         
         return device->getConfigBool(len, key);
     }
+
+    FREObject LeapNative_getConfigFloat(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        uint32_t len;
+        const uint8_t* key = 0;
+        FREGetObjectAsUTF8(argv[0], &len, &key);
+        
+        return device->getConfigFloat(len, key);
+    }
+    
+    FREObject LeapNative_getConfigInt32(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        uint32_t len;
+        const uint8_t* key = 0;
+        FREGetObjectAsUTF8(argv[0], &len, &key);
+        
+        return device->getConfigInt32(len, key);
+    }
+    
+    FREObject LeapNative_getConfigString(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        uint32_t len;
+        const uint8_t* key = 0;
+        FREGetObjectAsUTF8(argv[0], &len, &key);
+        
+        return device->getConfigString(len, key);
+    }
+
+    FREObject LeapNative_setConfigBool(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        uint32_t len;
+        const uint8_t* key = 0;
+        FREGetObjectAsUTF8(argv[0], &len, &key);
+        
+        uint32_t value;
+        FREGetObjectAsBool(argv[1], &value);
+        
+        return device->setConfigBool(len, key, (value != 0));
+    }
+    
+    FREObject LeapNative_setConfigFloat(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        uint32_t len;
+        const uint8_t* key = 0;
+        FREGetObjectAsUTF8(argv[0], &len, &key);
+        
+        double value;
+        FREGetObjectAsDouble(argv[1], &value);
+        
+        return device->setConfigFloat(len, key, (float)value);
+    }
+    
+    FREObject LeapNative_setConfigString(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        uint32_t len;
+        const uint8_t* key = 0;
+        FREGetObjectAsUTF8(argv[0], &len, &key);
+        
+        uint32_t valueLen;
+        const uint8_t* valueArray = 0;
+        FREGetObjectAsUTF8(argv[1], &valueLen, &valueArray);
+        
+        
+        return device->setConfigString(len, key, valueLen, valueArray);
+    }
+    
+    FREObject LeapNative_setConfigSave(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        return device->setConfigSave();
+    }
     //end config class
     
     FRENamedFunction _Shared_methods[] = {
@@ -286,7 +369,15 @@ extern "C" {
   		{ (const uint8_t*) "getScreenIntersect", false, LeapNative_getScreenIntersect },
   		{ (const uint8_t*) "getScreenProject", false, LeapNative_getScreenProject },
   		{ (const uint8_t*) "getScreenIsValid", false, LeapNative_getScreenIsValid },
-  		{ (const uint8_t*) "getScreenNormal", false, LeapNative_getScreenNormal }
+  		{ (const uint8_t*) "getScreenNormal", false, LeapNative_getScreenNormal },
+  		{ (const uint8_t*) "getConfigBool", false, LeapNative_getConfigBool },
+  		{ (const uint8_t*) "getConfigFloat", false, LeapNative_getConfigFloat },
+  		{ (const uint8_t*) "getConfigInt32", false, LeapNative_getConfigInt32 },
+  		{ (const uint8_t*) "getConfigString", false, LeapNative_getConfigString },
+  		{ (const uint8_t*) "setConfigBool", false, LeapNative_setConfigBool },
+  		{ (const uint8_t*) "setConfigFloat", false, LeapNative_setConfigFloat },
+  		{ (const uint8_t*) "setConfigString", false, LeapNative_setConfigString },
+  		{ (const uint8_t*) "setConfigSave", false, LeapNative_setConfigSave }
 	};
     
     void contextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctions, const FRENamedFunction** functions) {

@@ -498,11 +498,76 @@ namespace leapnative {
     
     //config class
     FREObject LNLeapDevice::getConfigBool(uint32_t len, const uint8_t* key) {
+        std::string keyString( key, key+len );
 
+        FREObject freReturnValue;
+        FRENewObjectFromBool(controller->config().getBool(keyString) ? 1 : 0, &freReturnValue);
+        
+        return freReturnValue;
+    }
+
+    FREObject LNLeapDevice::getConfigFloat(uint32_t len, const uint8_t* key) {
         std::string keyString( key, key+len );
         
         FREObject freReturnValue;
-        FRENewObjectFromBool(controller->config().getBool(keyString), &freReturnValue);
+        FRENewObjectFromDouble(controller->config().getFloat(keyString), &freReturnValue);
+                
+        return freReturnValue;
+    }
+    
+    FREObject LNLeapDevice::getConfigInt32(uint32_t len, const uint8_t* key) {
+        std::string keyString( key, key+len );
+        
+        FREObject freReturnValue;
+        FRENewObjectFromInt32(controller->config().getInt32(keyString), &freReturnValue);
+
+        return freReturnValue;
+    }
+    
+    FREObject LNLeapDevice::getConfigString(uint32_t len, const uint8_t* key) {
+        std::string keyString( key, key+len );
+        std::string valueString(controller->config().getString(keyString));
+        
+        std::vector<uint8_t> valueVector(valueString.begin(), valueString.end());
+        uint8_t *valueArray = &valueVector[0];
+        
+        FREObject freReturnValue;
+        FRENewObjectFromUTF8(valueString.length(), valueArray, &freReturnValue);
+        
+        return freReturnValue;
+    }
+    
+    FREObject LNLeapDevice::setConfigBool(uint32_t len, const uint8_t* key, bool value) {
+        std::string keyString( key, key+len );
+        
+        FREObject freReturnValue;
+        FRENewObjectFromBool(controller->config().setBool(keyString, value) ? 1 : 0, &freReturnValue);
+        
+        return freReturnValue;
+    }
+    
+    FREObject LNLeapDevice::setConfigFloat(uint32_t len, const uint8_t* key, float value) {
+        std::string keyString( key, key+len );
+        
+        FREObject freReturnValue;
+        FRENewObjectFromBool(controller->config().setFloat(keyString, value) ? 1 : 0, &freReturnValue);
+        
+        return freReturnValue;
+    }
+    
+    FREObject LNLeapDevice::setConfigString(uint32_t len, const uint8_t* key, uint32_t valueLen, const uint8_t* valueArray) {
+        std::string keyString( key, key+len );
+        std::string valueString( valueArray, valueArray+valueLen );
+        
+        FREObject freReturnValue;
+        FRENewObjectFromBool(controller->config().setString(keyString, valueString) ? 1 : 0, &freReturnValue);
+        
+        return freReturnValue;
+    }
+    
+    FREObject LNLeapDevice::setConfigSave() {
+        FREObject freReturnValue;
+        FRENewObjectFromBool(controller->config().save() ? 1 : 0, &freReturnValue);
         
         return freReturnValue;
     }
