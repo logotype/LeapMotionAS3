@@ -3,7 +3,9 @@ package com.leapmotion.leap
 	/**
 	 * The Config class provides access to Leap system configuration information.
 	 * 
-	 * <p>You can get and set gesture configuration parameters using the Config object obtained from a connected Controller object. The key strings required to identify a configuration parameter include:</p>
+	 * <p>You can get and set gesture configuration parameters using the Config
+	 * object obtained from a connected Controller object. The key strings
+	 * required to identify a configuration parameter include:</p>
 	 * 
 	 * <table>
 	 *   <tr>
@@ -248,20 +250,20 @@ package com.leapmotion.leap
 			switch( returnType )
 			{
 				case TYPE_BOOLEAN:
-					returnValue = "[Boolean]";
+					returnValue = "[TYPE_BOOLEAN]";
 					break;
 				case TYPE_INT32:
-					returnValue = "[Integer]";
+					returnValue = "[TYPE_INT32]";
 					break;
 				case TYPE_FLOAT:
-					returnValue = "[Number]";
+					returnValue = "[TYPE_FLOAT]";
 					break;
 				case TYPE_STRING:
-					returnValue = "[String]";
+					returnValue = "[TYPE_STRING]";
 					break;
 				case TYPE_UNKNOWN:
 				default:
-					returnValue = "[Unknown]";
+					returnValue = "[TYPE_UNKNOWN]";
 					break;
 			}
 			return returnValue;

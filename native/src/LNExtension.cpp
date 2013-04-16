@@ -299,6 +299,17 @@ extern "C" {
         return device->getConfigString(len, key);
     }
 
+    FREObject LeapNative_getConfigType(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        uint32_t len;
+        const uint8_t* key = 0;
+        FREGetObjectAsUTF8(argv[0], &len, &key);
+        
+        return device->getConfigType(len, key);
+    }
+    
     FREObject LeapNative_setConfigBool(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
         leapnative::LNLeapDevice* device;
         FREGetContextNativeData(ctx, (void **) &device);
@@ -374,6 +385,7 @@ extern "C" {
   		{ (const uint8_t*) "getConfigFloat", false, LeapNative_getConfigFloat },
   		{ (const uint8_t*) "getConfigInt32", false, LeapNative_getConfigInt32 },
   		{ (const uint8_t*) "getConfigString", false, LeapNative_getConfigString },
+  		{ (const uint8_t*) "getConfigType", false, LeapNative_getConfigType },
   		{ (const uint8_t*) "setConfigBool", false, LeapNative_setConfigBool },
   		{ (const uint8_t*) "setConfigFloat", false, LeapNative_setConfigFloat },
   		{ (const uint8_t*) "setConfigString", false, LeapNative_setConfigString },

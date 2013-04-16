@@ -535,6 +535,50 @@ namespace leapnative {
         return freReturnValue;
     }
     
+    FREObject LNLeapDevice::getConfigType(uint32_t len, const uint8_t* key) {
+        std::string keyString( key, key+len );
+        
+        int type;
+        
+        switch (controller->config().type(keyString)) {
+            case Config::TYPE_UNKNOWN:
+            {
+                type = 0;
+                break;
+            }
+            case Config::TYPE_BOOLEAN:
+            {
+                type = 1;
+                break;
+            }
+            case Config::TYPE_INT32:
+            {
+                type = 2;
+                break;
+            }
+            case Config::TYPE_FLOAT:
+            {
+                type = 6;
+                break;
+            }
+            case Config::TYPE_STRING:
+            {
+                type = 8;
+                break;
+            }
+            default:
+            {
+                type = 0;
+                break;
+            }
+        }
+        
+        FREObject freReturnValue;
+        FRENewObjectFromInt32(type, &freReturnValue);
+        
+        return freReturnValue;
+    }
+    
     FREObject LNLeapDevice::setConfigBool(uint32_t len, const uint8_t* key, bool value) {
         std::string keyString( key, key+len );
         
