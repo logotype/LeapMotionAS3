@@ -61,8 +61,6 @@ namespace leapnative {
         FREObject freCurrentFrame;
         FRENewObject( (const uint8_t*) "com.leapmotion.leap.Frame", 0, NULL, &freCurrentFrame, NULL);
         
-        //AS SOON AS I TRY TO GET / SET A PROPERTY ON A CLASS OF MY OWN, IT CRASHES WHEN USING THE ASC 2.0 COMPILER
-        //THIS CODE RUNS FINE IN THE CLASSIC COMPILER
         FREObject freFrameId;
         FRENewObjectFromInt32((int32_t) frame.id(), &freFrameId);
         FRESetObjectProperty(freCurrentFrame, (const uint8_t*) "id", freFrameId, NULL);
