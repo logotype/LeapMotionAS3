@@ -23,7 +23,7 @@ package com.leapmotion.leap
 	 *   <tr>
 	 *    <td>Gesture.Circle.MinArc</td>
 	 *    <td>float</td>
-	 *    <td>1.5</td>
+	 *    <td>4.71</td>
 	 *    <td>radians</td>
 	 *  </tr>
 	 *   <tr>
@@ -53,7 +53,7 @@ package com.leapmotion.leap
 	 *   <tr>
 	 *    <td>Gesture.KeyTap.MinDistance</td>
 	 *    <td>float</td>
-	 *    <td>3.0</td>
+	 *    <td>5.0</td>
 	 *    <td>mm</td>
 	 *  </tr>
 	 *   <tr>
@@ -71,10 +71,14 @@ package com.leapmotion.leap
 	 *   <tr>
 	 *    <td>Gesture.ScreenTap.MinDistance</td>
 	 *    <td>float</td>
-	 *    <td>5.0</td>
+	 *    <td>3.0</td>
 	 *    <td>mm</td>
 	 *  </tr>
 	 * </table>
+	 * 
+	 * <p>After setting a configuration value, you must call the <code>Config.save()</code> method to commit the changes.
+	 * The new configuration value is stored permanently; you do not need to set the value everytime your
+	 * application runs (although there is no harm in doing so).</p>
 	 *  
 	 * @author logotype
 	 * 

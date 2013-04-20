@@ -44,7 +44,7 @@ package com.leapmotion.leap
 	 *   <tr>
 	 *    <td>Gesture.KeyTap.MinDistance</td>
 	 *    <td>float</td>
-	 *    <td>3.0</td>
+	 *    <td>5.0</td>
 	 *    <td>mm</td>
 	 *  </tr>
 	 * </table>

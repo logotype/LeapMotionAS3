@@ -43,7 +43,7 @@ package com.leapmotion.leap
 	 *   <tr>
 	 *    <td>Gesture.ScreenTap.MinDistance</td>
 	 *    <td>float</td>
-	 *    <td>5.0</td>
+	 *    <td>3.0</td>
 	 *    <td>mm</td>
 	 *  </tr>
 	 * </table>
