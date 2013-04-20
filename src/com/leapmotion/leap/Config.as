@@ -177,7 +177,7 @@ package com.leapmotion.leap
 		}
 		
 		/**
-		 * Gets the boolean representation for the specified key.
+		 * Sets the boolean representation for the specified key.
 		 *  
 		 * @param key
 		 * @param value
@@ -190,7 +190,7 @@ package com.leapmotion.leap
 		}
 		
 		/**
-		 * Gets the floating point representation for the specified key. 
+		 * Sets the floating point representation for the specified key. 
 		 * @param key
 		 * @param value
 		 * @return true on success, false on failure.
@@ -202,7 +202,7 @@ package com.leapmotion.leap
 		}
 		
 		/**
-		 * Gets the 32-bit integer representation for the specified key. 
+		 * Sets the 32-bit integer representation for the specified key. 
 		 * @param key
 		 * @param value
 		 * @return true on success, false on failure.
@@ -214,7 +214,7 @@ package com.leapmotion.leap
 		}
 		
 		/**
-		 * Gets the string representation for the specified key. 
+		 * Sets the string representation for the specified key. 
 		 * @param key
 		 * @param value
 		 * @return true on success, false on failure.
@@ -230,7 +230,9 @@ package com.leapmotion.leap
 		 * 
 		 * Call <code>save()</code> after making a set of configurtation changes.
 		 * The <code>save()</code> function transfers the configuration changes
-		 * to the Leap application.
+		 * to the Leap application. The changes are stored permanetly; you do not
+		 * need to set the configuration every time your application runs
+		 * (although there is no harm in doing so).
 		 *  
 		 * @return 
 		 * 
