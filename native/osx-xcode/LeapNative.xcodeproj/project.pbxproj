@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		371805AB16BEBA5A00C88F3E /* Adobe AIR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 371805AA16BEBA5A00C88F3E /* Adobe AIR.framework */; };
+		376DE08C172301BB00CB3CBA /* Adobe AIR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 376DE08B172301BB00CB3CBA /* Adobe AIR.framework */; };
 		3782F5EF16D3C7220089BD7A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3782F5EE16D3C7220089BD7A /* Cocoa.framework */; };
 		3782F5F116D3C7270089BD7A /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3782F5F016D3C7270089BD7A /* AppKit.framework */; };
 		3782F5F316D3C72E0089BD7A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3782F5F216D3C72E0089BD7A /* CoreData.framework */; };
@@ -37,7 +37,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		371805AA16BEBA5A00C88F3E /* Adobe AIR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Adobe AIR.framework"; path = "/Applications/Adobe Flash Builder 4.7/eclipse/plugins/com.adobe.flash.compiler_4.7.0.349722/AIRSDK/runtimes/air/mac/Adobe AIR.framework"; sourceTree = "<absolute>"; };
+		376DE08B172301BB00CB3CBA /* Adobe AIR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Adobe AIR.framework"; path = "/Applications/Adobe Flash Builder 4.7/eclipse/plugins/com.adobe.flash.compiler_4.7.0.349722/AIRSDK/runtimes/air/mac/Adobe AIR.framework"; sourceTree = "<absolute>"; };
 		3782F5EE16D3C7220089BD7A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		3782F5F016D3C7270089BD7A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
 		3782F5F216D3C72E0089BD7A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
@@ -61,11 +61,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				376DE08C172301BB00CB3CBA /* Adobe AIR.framework in Frameworks */,
 				3782F5F516D3C7350089BD7A /* Foundation.framework in Frameworks */,
 				3782F5F316D3C72E0089BD7A /* CoreData.framework in Frameworks */,
 				3782F5F116D3C7270089BD7A /* AppKit.framework in Frameworks */,
 				3782F5EF16D3C7220089BD7A /* Cocoa.framework in Frameworks */,
-				371805AB16BEBA5A00C88F3E /* Adobe AIR.framework in Frameworks */,
 				6C2DA08816BBF67D00FC1899 /* libLeap.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -95,7 +95,7 @@
 		6C2DA04A16BBD08B00FC1899 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				371805AA16BEBA5A00C88F3E /* Adobe AIR.framework */,
+				376DE08B172301BB00CB3CBA /* Adobe AIR.framework */,
 				6C2DA04D16BBD08B00FC1899 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -353,6 +353,9 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SYSTEM_APPS_DIR)/Adobe Flash Builder 4.7/eclipse/plugins/com.adobe.flash.compiler_4.7.0.349722/AIRSDK/runtimes/air/mac\"",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LeapNative/LeapNative-Prefix.pch";
@@ -370,6 +373,9 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SYSTEM_APPS_DIR)/Adobe Flash Builder 4.7/eclipse/plugins/com.adobe.flash.compiler_4.7.0.349722/AIRSDK/runtimes/air/mac\"",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LeapNative/LeapNative-Prefix.pch";

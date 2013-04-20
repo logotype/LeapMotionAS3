@@ -361,12 +361,109 @@ extern "C" {
     }
     //end config class
     
+    //start frame class
+    FREObject LeapNative_frameRotationProbability(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        int frameId;
+        FREGetObjectAsInt32(argv[0], &frameId);
+        
+        int sinceFrameId;
+        FREGetObjectAsInt32(argv[1], &sinceFrameId);
+        
+        return device->frameProbability(frameId, sinceFrameId, 0);
+    }
+    
+    FREObject LeapNative_frameScaleProbability(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        int frameId;
+        FREGetObjectAsInt32(argv[0], &frameId);
+        
+        int sinceFrameId;
+        FREGetObjectAsInt32(argv[1], &sinceFrameId);
+        
+        return device->frameProbability(frameId, sinceFrameId, 1);
+    }
+    
+    FREObject LeapNative_frameTranslationProbability(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        int frameId;
+        FREGetObjectAsInt32(argv[0], &frameId);
+        
+        int sinceFrameId;
+        FREGetObjectAsInt32(argv[1], &sinceFrameId);
+        
+        return device->frameProbability(frameId, sinceFrameId, 2);
+    }
+    //end frame class
+    
+    //start hand class
+    FREObject LeapNative_handRotationProbability(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        int handId;
+        FREGetObjectAsInt32(argv[0], &handId);
+        
+        int frameId;
+        FREGetObjectAsInt32(argv[1], &frameId);
+        
+        int sinceFrameId;
+        FREGetObjectAsInt32(argv[2], &sinceFrameId);
+        
+        return device->handProbability(handId, frameId, sinceFrameId, 0);
+    }
+    
+    FREObject LeapNative_handScaleProbability(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        int handId;
+        FREGetObjectAsInt32(argv[0], &handId);
+        
+        int frameId;
+        FREGetObjectAsInt32(argv[1], &frameId);
+        
+        int sinceFrameId;
+        FREGetObjectAsInt32(argv[2], &sinceFrameId);
+        
+        return device->handProbability(handId, frameId, sinceFrameId, 1);
+    }
+    
+    FREObject LeapNative_handTranslationProbability(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        int handId;
+        FREGetObjectAsInt32(argv[0], &handId);
+        
+        int frameId;
+        FREGetObjectAsInt32(argv[1], &frameId);
+        
+        int sinceFrameId;
+        FREGetObjectAsInt32(argv[2], &sinceFrameId);
+        
+        return device->handProbability(handId, frameId, sinceFrameId, 2);
+    }
+    //end hand class
+    
     FRENamedFunction _Shared_methods[] = {
         { (const uint8_t*) "isSupported", false, LeapNative_isSupported }
 	};
     
 	FRENamedFunction _Instance_methods[] = {
   		{ (const uint8_t*) "getFrame", false, LeapNative_getFrame },
+  		{ (const uint8_t*) "frameRotationProbability", false, LeapNative_frameRotationProbability },
+  		{ (const uint8_t*) "frameScaleProbability", false, LeapNative_frameScaleProbability },
+  		{ (const uint8_t*) "frameTranslationProbability", false, LeapNative_frameTranslationProbability },
+  		{ (const uint8_t*) "handRotationProbability", false, LeapNative_handRotationProbability },
+  		{ (const uint8_t*) "handScaleProbability", false, LeapNative_handScaleProbability },
+  		{ (const uint8_t*) "handTranslationProbability", false, LeapNative_handTranslationProbability },
   		{ (const uint8_t*) "enableGesture", false, LeapNative_enableGesture },
   		{ (const uint8_t*) "isGestureEnabled", false, LeapNative_isGestureEnabled },
   		{ (const uint8_t*) "hasFocus", false, LeapNative_hasFocus },

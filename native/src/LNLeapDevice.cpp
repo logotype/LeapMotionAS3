@@ -402,7 +402,7 @@ namespace leapnative {
         return freScreenId;
     }
     
-    //screen class
+    //start screen class
     FREObject LNLeapDevice::getScreenDistanceToPoint(int screenId, float pX, float pY, float pZ) {
         ScreenList screenList = controller->calibratedScreens();
         Screen screen = screenList[screenId];
@@ -492,9 +492,9 @@ namespace leapnative {
         const Vector vector = screen.normal();
         return createVector3(vector.x, vector.y, vector.z);
     }
-    //screen class
+    //end screen class
     
-    //config class
+    //start config class
     FREObject LNLeapDevice::getConfigBool(uint32_t len, const uint8_t* key) {
         std::string keyString( key, key+len );
 
@@ -613,5 +613,117 @@ namespace leapnative {
         
         return freReturnValue;
     }
-    //config class
+    //end config class
+    
+    //start frame class
+    FREObject LNLeapDevice::frameProbability(int frameId, int sinceFrameId, int type) {
+        
+        Frame frameIdObj;
+        Frame sinceFrameIdObj;
+        
+        //find frame by id
+        bool didFind = false;
+        int i = 0;
+        for (i = 0; i < 59; i++) {
+            if (frameId == controller->frame(i).id()) {
+                frameIdObj = controller->frame(i);
+                didFind = true;
+                break;
+            }
+        }
+        
+        if(!didFind) {
+            FREObject freReturnValue;
+            FRENewObjectFromInt32(0, &freReturnValue);
+            return freReturnValue;
+        }
+        
+        //find sinceFrame by id
+        didFind = false;
+        for (i = 0; i < 59; i++) {
+            if (sinceFrameId == controller->frame(i).id()) {
+                sinceFrameIdObj = controller->frame(i);
+                didFind = true;
+                break;
+            }
+        }
+        
+        if(!didFind) {
+            FREObject freReturnValue;
+            FRENewObjectFromInt32(0, &freReturnValue);
+            return freReturnValue;
+        }
+        
+        //call probability between frames and return value
+        FREObject freReturnValue;
+        
+        if (type == 0) {
+            FRENewObjectFromDouble(frameIdObj.rotationProbability(sinceFrameIdObj), &freReturnValue);
+        } else if (type == 1) {
+            FRENewObjectFromDouble(frameIdObj.scaleProbability(sinceFrameIdObj), &freReturnValue);
+        } else if (type == 2) {
+            FRENewObjectFromDouble(frameIdObj.translationProbability(sinceFrameIdObj), &freReturnValue);
+        } else {
+            FRENewObjectFromInt32(0, &freReturnValue);
+        }
+        
+        return freReturnValue;
+    }
+    //end frame class
+    
+    //start hand class
+    FREObject LNLeapDevice::handProbability(int handId, int frameId, int sinceFrameId, int type) {
+        
+        Hand handIdObj;
+        Frame sinceFrameIdObj;
+        
+        //find frame by id
+        bool didFind = false;
+        int i = 0;
+        for (i = 0; i < 59; i++) {
+            if (frameId == controller->frame(i).id()) {
+                handIdObj = controller->frame(i).hand(handId);
+                didFind = true;
+                break;
+            }
+        }
+        
+        if(!didFind || handIdObj.isValid()) {
+            FREObject freReturnValue;
+            FRENewObjectFromInt32(0, &freReturnValue);
+            return freReturnValue;
+        }
+        
+        //find sinceFrame by id
+        didFind = false;
+        for (i = 0; i < 59; i++) {
+            if (sinceFrameId == controller->frame(i).id()) {
+                sinceFrameIdObj = controller->frame(i);
+                didFind = true;
+                break;
+            }
+        }
+        
+        if(!didFind) {
+            FREObject freReturnValue;
+            FRENewObjectFromInt32(0, &freReturnValue);
+            return freReturnValue;
+        }
+        
+        //call probability between hands and return value
+        FREObject freReturnValue;
+        
+        if (type == 0) {
+            FRENewObjectFromDouble(handIdObj.rotationProbability(sinceFrameIdObj), &freReturnValue);
+        } else if (type == 1) {
+            FRENewObjectFromDouble(handIdObj.scaleProbability(sinceFrameIdObj), &freReturnValue);
+        } else if (type == 2) {
+            FRENewObjectFromDouble(handIdObj.translationProbability(sinceFrameIdObj), &freReturnValue);
+        } else {
+            FRENewObjectFromInt32(0, &freReturnValue);
+        }
+        
+        return freReturnValue;
+    }
+    //end hand class
 }

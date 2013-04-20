@@ -397,8 +397,10 @@ package com.leapmotion.leap
 		 */
 		public function rotationProbability( sinceFrame:Frame ):Number
 		{
-			// TODO: Implement
-			return 0.0;
+			if( !Controller.getInstance().context )
+				throw new Error( "Method only supported for Native connections." );
+			else
+				return Controller.getInstance().context.call( "handRotationProbability", id, frame.id, sinceFrame.id );
 		}
 
 		/**
@@ -448,8 +450,10 @@ package com.leapmotion.leap
 		 */
 		public function scaleProbability( sinceFrame:Frame ):Number
 		{
-			// TODO: Implement
-			return 0.0;
+			if( !Controller.getInstance().context )
+				throw new Error( "Method only supported for Native connections." );
+			else
+				return Controller.getInstance().context.call( "handScaleProbability", id, frame.id, sinceFrame.id );
 		}
 
 		/**
@@ -488,8 +492,10 @@ package com.leapmotion.leap
 		 */
 		public function translationProbability( sinceFrame:Frame ):Number
 		{
-			// TODO: Implement
-			return 0.0;
+			if( !Controller.getInstance().context )
+				throw new Error( "Method only supported for Native connections." );
+			else
+				return Controller.getInstance().context.call( "handTranslationProbability", id, frame.id, sinceFrame.id );
 		}
 
 		/**

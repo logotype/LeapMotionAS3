@@ -33,7 +33,13 @@ namespace leapnative {
         FREObject getFrame();
         FREObject getClosestScreenHit(int pointableId);
         FREObject hasFocus();
-
+        
+        //frame class
+        FREObject frameProbability(int frameId, int sinceFrameId, int type);
+        
+        //hand class
+        FREObject handProbability(int handId, int frameId, int sinceFrameId, int type);
+        
         //screen class
         FREObject getScreenDistanceToPoint(int screenId, float pX, float pY, float pZ);
         FREObject getScreenHeightPixels(int screenId);
