@@ -230,7 +230,7 @@ package com.leapmotion.leap
 		 * 
 		 * Call <code>save()</code> after making a set of configurtation changes.
 		 * The <code>save()</code> function transfers the configuration changes
-		 * to the Leap application. The changes are stored permanetly; you do not
+		 * to the Leap application. The changes are stored permanently; you do not
 		 * need to set the configuration every time your application runs
 		 * (although there is no harm in doing so).
 		 *  

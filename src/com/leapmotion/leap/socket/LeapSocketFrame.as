@@ -49,6 +49,15 @@ package com.leapmotion.leap.socket
 		private var parseState:int = NEW_FRAME;
 
 		/**
+		 * Constructs a LeapSocketFrame object.
+		 *  
+		 */
+		[Inline]
+		final public function LeapSocketFrame()
+		{
+		}
+
+		/**
 		 * Adds data to a buffer until a full Frame is assembled.
 		 * @param input Socket data
 		 * @return Returns true once the Frame is complete
