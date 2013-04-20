@@ -57,6 +57,8 @@ xcuserdata
 *.pdb
 *.lib
 *.exp
+*.opensdf
 native/win-visualstudio/LeapNative/Release
+native/win-visualstudio/ipch
 
 *-app.xml
