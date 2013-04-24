@@ -634,7 +634,7 @@ namespace leapnative {
         
         if(!didFind) {
             FREObject freReturnValue;
-            FRENewObjectFromInt32(0, &freReturnValue);
+            FRENewObjectFromDouble(0.0f, &freReturnValue);
             return freReturnValue;
         }
         
@@ -650,7 +650,7 @@ namespace leapnative {
         
         if(!didFind) {
             FREObject freReturnValue;
-            FRENewObjectFromInt32(0, &freReturnValue);
+            FRENewObjectFromDouble(0.0f, &freReturnValue);
             return freReturnValue;
         }
         
@@ -664,7 +664,7 @@ namespace leapnative {
         } else if (type == 2) {
             FRENewObjectFromDouble(frameIdObj.translationProbability(sinceFrameIdObj), &freReturnValue);
         } else {
-            FRENewObjectFromInt32(0, &freReturnValue);
+            FRENewObjectFromDouble(0.0f, &freReturnValue);
         }
         
         return freReturnValue;
@@ -688,9 +688,9 @@ namespace leapnative {
             }
         }
         
-        if(!didFind || handIdObj.isValid()) {
+        if(!didFind || !handIdObj.isValid()) {
             FREObject freReturnValue;
-            FRENewObjectFromInt32(0, &freReturnValue);
+            FRENewObjectFromDouble(0.0f, &freReturnValue);
             return freReturnValue;
         }
         
@@ -706,7 +706,7 @@ namespace leapnative {
         
         if(!didFind) {
             FREObject freReturnValue;
-            FRENewObjectFromInt32(0, &freReturnValue);
+            FRENewObjectFromDouble(0.0f, &freReturnValue);
             return freReturnValue;
         }
         
@@ -720,7 +720,7 @@ namespace leapnative {
         } else if (type == 2) {
             FRENewObjectFromDouble(handIdObj.translationProbability(sinceFrameIdObj), &freReturnValue);
         } else {
-            FRENewObjectFromInt32(0, &freReturnValue);
+            FRENewObjectFromDouble(0.0f, &freReturnValue);
         }
         
         return freReturnValue;
