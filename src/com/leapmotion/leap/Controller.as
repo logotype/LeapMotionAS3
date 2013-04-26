@@ -6,38 +6,38 @@ package com.leapmotion.leap
 	import com.leapmotion.leap.namespaces.leapmotion;
 	import com.leapmotion.leap.native.LeapNative;
 	import com.leapmotion.leap.socket.LeapSocket;
-	
+
 	import flash.events.EventDispatcher;
 
 	/**
-	 * Called once, when the Controller is initialized.  
+	 * Called once, when the Controller is initialized.
 	 */
-	[Event( name = "leapmotionInit", type = "com.leapmotion.leap.events.LeapEvent" )]
-	
-	/**
-	 * Called when the Controller object connects to the Leap software. 
-	 */
-	[Event( name = "leapmotionConnected", type = "com.leapmotion.leap.events.LeapEvent" )]
+	[Event(name="leapmotionInit", type="com.leapmotion.leap.events.LeapEvent")]
 
 	/**
-	 * Called when the Controller object disconnects from the Leap software.  
+	 * Called when the Controller object connects to the Leap software.
 	 */
-	[Event( name = "leapmotionDisconnected", type = "com.leapmotion.leap.events.LeapEvent" )]
-	
-	/**
-	 * Called when a timeout occurs from the socket connection. 
-	 */
-	[Event( name = "leapmotionTimeout", type = "com.leapmotion.leap.events.LeapEvent" )]
-	
-	/**
-	 * Called when this Controller instance is destroyed.  
-	 */	
-	[Event( name = "leapmotionExit", type = "com.leapmotion.leap.events.LeapEvent" )]
+	[Event(name="leapmotionConnected", type="com.leapmotion.leap.events.LeapEvent")]
 
 	/**
-	 * Called when a new frame of hand and finger tracking data is available.  
+	 * Called when the Controller object disconnects from the Leap software.
 	 */
-	[Event( name = "leapmotionFrame", type = "com.leapmotion.leap.events.LeapEvent" )]
+	[Event(name="leapmotionDisconnected", type="com.leapmotion.leap.events.LeapEvent")]
+
+	/**
+	 * Called when a timeout occurs from the socket connection.
+	 */
+	[Event(name="leapmotionTimeout", type="com.leapmotion.leap.events.LeapEvent")]
+
+	/**
+	 * Called when this Controller instance is destroyed.
+	 */
+	[Event(name="leapmotionExit", type="com.leapmotion.leap.events.LeapEvent")]
+
+	/**
+	 * Called when a new frame of hand and finger tracking data is available.
+	 */
+	[Event(name="leapmotionFrame", type="com.leapmotion.leap.events.LeapEvent")]
 
 	/**
 	 * The main event dispatcher for Leap events.
@@ -65,15 +65,15 @@ package com.leapmotion.leap
 		 * History of frame of tracking data from the Leap.
 		 */
 		public var frameHistory:Vector.<Frame> = new Vector.<Frame>();
-		
+
 		/**
-		 * Native Extension context object. 
-		 * 
+		 * Native Extension context object.
+		 *
 		 */
 		public var context:Object;
-		
+
 		/**
-		 * List of Screen objects, created by <code>locatedScreens()</code>. 
+		 * List of Screen objects, created by <code>locatedScreens()</code>.
 		 */
 		private var _screenList:Vector.<Screen> = new Vector.<Screen>();
 
@@ -134,7 +134,7 @@ package com.leapmotion.leap
 
 		/**
 		 * Update the object that receives direct updates from the Leap Motion Controller.
-		 * 
+		 *
 		 * <p>The default callback will make the controller dispatch flash events.
 		 * You can override this behaviour, by implementing the IListener interface
 		 * in your own classes, and use this method to set the callback to your
@@ -146,51 +146,51 @@ package com.leapmotion.leap
 		{
 			this.leapmotion::callback = callback;
 		}
-		
+
 		/**
 		 * The list of screens whose positions have been identified by using
 		 * the Leap application Screen Locator.
-		 * 
+		 *
 		 * <p>The list always contains at least one entry representing the
 		 * default screen. If the user has not registered the location of
 		 * this default screen, then the coordinates, directions, and other
 		 * values reported by the functions in its Screen object will not
 		 * be accurate. Other monitor screens only appear in the list if
 		 * their positions have been registered using the Leap Screen Locator.</p>
-		 * 
+		 *
 		 * <p>A Screen object represents the position and orientation of a
 		 * display monitor screen within the Leap coordinate system.
 		 * For example, if the screen location is known, you can get Leap
 		 * coordinates for the bottom-left corner of the screen.
 		 * Registering the screen location also allows the Leap to calculate
 		 * the point on the screen at which a finger or tool is pointing.</p>
-		 * 
+		 *
 		 * <p>A user can run the Screen Locator tool from the Leap application
 		 * Settings window. Avoid assuming that a screen location is known
 		 * or that an existing position is still correct. The registered
 		 * position is only valid as long as the relative position of the
 		 * Leap Motion Controller and the monitor screen remain constant.</p>
-		 *  
+		 *
 		 * @return ScreenList A list containing the screens whose positions
 		 * have been registered by the user using the Screen Locator tool.
 		 * The list always contains at least one entry representing the
 		 * default monitor. If the user has not run the Screen Locator or
 		 * has moved the Leap Motion Controller or screen since running it, the
-		 * Screen object for this entry only contains default values. 
-		 * 
+		 * Screen object for this entry only contains default values.
+		 *
 		 */
 		final public function locatedScreens():Vector.<Screen>
 		{
-			if( _screenList.length == 0 )
+			if ( _screenList.length == 0 )
 			{
-				if( Screen.tryCreatingScreenClassReference() )
+				if ( Screen.tryCreatingScreenClassReference() )
 				{
 					var screen:Screen;
 					var screenArray:Array = Screen.ScreenClass.screens;
 					var i:int = 0;
 					var length:int = screenArray.length;
-					
-					for( i; i < length; ++i )
+
+					for ( i; i < length; ++i )
 					{
 						screen = new Screen();
 						screen._screen = screenArray[ i ];
@@ -205,108 +205,162 @@ package com.leapmotion.leap
 				return _screenList;
 			}
 		}
-		
+
 		/**
 		 * Gets the closest Screen intercepting a ray projecting from the
 		 * specified Pointable object.
-		 * 
+		 *
 		 * <p>The projected ray emanates from the Pointable tipPosition along
 		 * the Pointable's direction vector. If the projected ray does not
 		 * intersect any screen surface directly, then the Leap checks for
 		 * intersection with the planes extending from the surfaces of the
 		 * known screens and returns the Screen with the closest intersection.</p>
-		 * 
+		 *
 		 * <p>If no intersections are found (i.e. the ray is directed parallel
 		 * to or away from all known screens), then an invalid Screen object
 		 * is returned.</p>
-		 * 
+		 *
 		 * <p>Note: Be sure to test whether the Screen object returned by this
 		 * method is valid. Attempting to use an invalid Screen object will
 		 * lead to incorrect results.</p>
-		 *  
+		 *
 		 * @param pointable The Pointable object to check for screen intersection.
 		 * @return The closest Screen toward which the specified Pointable object
 		 * is pointing, or, if the pointable is not pointing in the direction
 		 * of any known screen, an invalid Screen object.
-		 * 
+		 *
 		 */
 		final public function closestScreenHit( pointable:Pointable ):Screen
 		{
 			var screenId:int = context.call( "getClosestScreenHit", pointable.id );
 			var returnValue:Screen = Screen.invalid();
 			var screenList:Vector.<Screen> = locatedScreens();
-			
+
 			for each ( var screen:Screen in screenList )
 			{
-				if( screen.id == screenId )
+				if ( screen.id == screenId )
 				{
 					returnValue = screen;
 					break;
 				}
 			}
-			
+
 			return returnValue;
 		}
 
 		/**
 		 * Gets the Screen closest to the specified position.
-		 * 
+		 *
 		 * <p>The specified position is projected along each screen's normal vector
 		 * onto the screen's plane. The screen whose projected point is closest
 		 * to the specified position is returned. Call <code>Screen.intersect(position)</code>
 		 * on the returned Screen object to find the projected point.</p>
-		 *  
+		 *
 		 * @param position The position from which to check for screen projection.
 		 * @return The closest Screen onto which the specified position is projected.
-		 * 
+		 *
 		 */
 		public function closestScreen( position:Vector3 ):Screen
 		{
 			var screenId:int = context.call( "getClosestScreen", position.x, position.y, position.z );
 			var returnValue:Screen = Screen.invalid();
 			var screenList:Vector.<Screen> = locatedScreens();
-			
+
 			for each ( var screen:Screen in screenList )
 			{
-				if( screen.id == screenId )
+				if ( screen.id == screenId )
 				{
 					returnValue = screen;
 					break;
 				}
 			}
-			
+
 			return returnValue;
 		}
 
 		/**
 		 * Enables or disables reporting of a specified gesture type.
-		 * 
+		 *
 		 * <p>By default, all gesture types are disabled. When disabled, gestures of
 		 * the disabled type are never reported and will not appear in the frame
 		 * gesture list.</p>
-		 * 
+		 *
 		 * <p>As a performance optimization, only enable recognition for the types
 		 * of movements that you use in your application.</p>
-		 *  
+		 *
 		 * @param type The type of gesture to enable or disable. Must be a member of the Gesture::Type enumeration.
 		 * @param enable True, to enable the specified gesture type; False, to disable.
-		 * 
+		 *
 		 */
 		public function enableGesture( type:int, enable:Boolean = true ):void
 		{
 			connection.enableGesture( type, enable );
 		}
-		
+
 		/**
 		 * Reports whether the specified gesture type is enabled.
-		 *  
+		 *
 		 * @param type The Gesture.TYPE parameter.
 		 * @return True, if the specified type is enabled; false, otherwise.
-		 * 
+		 *
 		 */
 		public function isGestureEnabled( type:int ):Boolean
 		{
 			return connection.isGestureEnabled( type );
+		}
+
+		/**
+		 * Gets the active policy settings.
+		 *
+		 * Use this function to determine the current policy state.
+		 * Keep in mind that setting a policy flag is asynchronous, so changes are
+		 * not effective immediately after calling setPolicyFlag(). In addition, a
+		 * policy request can be declined by the user. You should always set the
+		 * policy flags required by your application at startup and check that the
+		 * policy change request was successful after an appropriate interval.
+		 *
+		 * If the controller object is not connected to the Leap, then the default
+		 * policy state is returned.
+		 *
+		 * @returns The current policy flags.
+		 */
+		public function policyFlags():uint
+		{
+			return connection.policyFlags();
+		}
+
+		/**
+		 * Requests a change in policy.
+		 *
+		 * A request to change a policy is subject to user approval and a policy
+		 * can be changed by the user at any time (using the Leap settings window).
+		 * The desired policy flags must be set every time an application runs.
+		 *
+		 * Policy changes are completed asynchronously and, because they are subject
+		 * to user approval, may not complete successfully. Call
+		 * Controller::policyFlags() after a suitable interval to test whether
+		 * the change was accepted.
+		 *
+		 * Currently, the background frames policy is the only policy supported.
+		 * The background frames policy determines whether an application
+		 * receives frames of tracking data while in the background. By
+		 * default, the Leap only sends tracking data to the foreground application.
+		 * Only applications that need this ability should request the background
+		 * frames policy.
+		 *
+		 * At this time, you can use the Leap applications Settings window to
+		 * globally enable or disable the background frames policy. However,
+		 * each application that needs tracking data while in the background
+		 * must also set the policy flag using this function.
+		 *
+		 * This function can be called before the Controller object is connected,
+		 * but the request will be sent to the Leap after the Controller connects.
+		 *
+		 * @param flags A PolicyFlag value indicating the policies to request.
+		 */
+		public function setPolicyFlags( flags:uint ):void
+		{
+			connection.setPolicyFlags( flags );
 		}
 
 		/**
@@ -328,32 +382,32 @@ package com.leapmotion.leap
 		{
 			return connection.isConnected;
 		}
-		
+
 		/**
 		 * Returns a Config object, which you can use to query the
 		 * Leap system for configuration information.
-		 *  
-		 * @return 
-		 * 
+		 *
+		 * @return
+		 *
 		 */
 		public function config():Config
 		{
 			return new Config();
 		}
-		
+
 		/**
 		 * Reports whether this application is the focused, foreground application.
-		 * 
+		 *
 		 * <p>Only the foreground application receives tracking information from
-		 * the Leap Motion Controller.</p> 
-		 * @return 
-		 * 
+		 * the Leap Motion Controller.</p>
+		 * @return
+		 *
 		 */
 		public function hasFocus():Boolean
 		{
 			return context.call( "hasFocus" );
 		}
-		
+
 		static public function getInstance():Controller
 		{
 			if ( instance == null )

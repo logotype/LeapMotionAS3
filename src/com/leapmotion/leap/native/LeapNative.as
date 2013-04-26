@@ -4,7 +4,7 @@ package com.leapmotion.leap.native
 	import com.leapmotion.leap.Frame;
 	import com.leapmotion.leap.interfaces.ILeapConnection;
 	import com.leapmotion.leap.namespaces.leapmotion;
-	
+
 	import flash.events.StatusEvent;
 	import flash.utils.getDefinitionByName;
 
@@ -75,10 +75,10 @@ package com.leapmotion.leap.native
 		{
 			controller = Controller.getInstance();
 			context = tryCreatingExtensionContext();
-			
-			if( context )
+
+			if ( context )
 				controller.context = context;
-			
+
 			context.addEventListener( StatusEvent.STATUS, contextStatusModeEventHandler, false, 0, true );
 		}
 
@@ -90,15 +90,15 @@ package com.leapmotion.leap.native
 		[Inline]
 		final private function contextStatusModeEventHandler( event:StatusEvent ):void
 		{
-			if( event.code == LEAPNATIVE_FRAME )
+			if ( event.code == LEAPNATIVE_FRAME )
 			{
 				handleOnFrame();
 			}
-			else if( event.code == LEAPNATIVE_CONNECTED )
+			else if ( event.code == LEAPNATIVE_CONNECTED )
 			{
 				handleOnConnect();
 			}
-			else if( event.code == LEAPNATIVE_DISCONNECTED )
+			else if ( event.code == LEAPNATIVE_DISCONNECTED )
 			{
 				handleOnDisconnect();
 			}
@@ -248,30 +248,85 @@ package com.leapmotion.leap.native
 		 * By default, all gesture types are disabled. When disabled, gestures of
 		 * the disabled type are never reported and will not appear in the frame
 		 * gesture list.
-		 * 
+		 *
 		 * As a performance optimization, only enable recognition for the types
 		 * of movements that you use in your application.
-		 *  
+		 *
 		 * @param type The type of gesture to enable or disable. Must be a member of the Gesture::Type enumeration.
 		 * @param enable True, to enable the specified gesture type; False, to disable.
-		 * 
+		 *
 		 */
-		public function enableGesture( gesture:int, enable:Boolean = true):void
+		public function enableGesture( gesture:int, enable:Boolean = true ):void
 		{
 			context.call( "enableGesture", gesture, enable );
 		}
-		
+
 		/**
 		 * Reports whether the specified gesture type is enabled.
-		 *  
+		 *
 		 * @param type The Gesture.TYPE parameter.
 		 * @return True, if the specified type is enabled; false, otherwise.
-		 * 
+		 *
 		 */
 		public function isGestureEnabled( type:int ):Boolean
 		{
 			var isEnabled:Boolean = context.call( "isGestureEnabled", type );
 			return isEnabled;
+		}
+
+		/**
+		 * Gets the active policy settings.
+		 *
+		 * Use this function to determine the current policy state.
+		 * Keep in mind that setting a policy flag is asynchronous, so changes are
+		 * not effective immediately after calling setPolicyFlag(). In addition, a
+		 * policy request can be declined by the user. You should always set the
+		 * policy flags required by your application at startup and check that the
+		 * policy change request was successful after an appropriate interval.
+		 *
+		 * If the controller object is not connected to the Leap, then the default
+		 * policy state is returned.
+		 *
+		 * @returns The current policy flags.
+		 */
+		public function policyFlags():uint
+		{
+			return context.call( "getPolicyFlags" );
+		}
+
+		/**
+		 * Requests a change in policy.
+		 *
+		 * A request to change a policy is subject to user approval and a policy
+		 * can be changed by the user at any time (using the Leap settings window).
+		 * The desired policy flags must be set every time an application runs.
+		 *
+		 * Policy changes are completed asynchronously and, because they are subject
+		 * to user approval, may not complete successfully. Call
+		 * Controller::policyFlags() after a suitable interval to test whether
+		 * the change was accepted.
+		 *
+		 * Currently, the background frames policy is the only policy supported.
+		 * The background frames policy determines whether an application
+		 * receives frames of tracking data while in the background. By
+		 * default, the Leap only sends tracking data to the foreground application.
+		 * Only applications that need this ability should request the background
+		 * frames policy.
+		 *
+		 * At this time, you can use the Leap applications Settings window to
+		 * globally enable or disable the background frames policy. However,
+		 * each application that needs tracking data while in the background
+		 * must also set the policy flag using this function.
+		 *
+		 * This function can be called before the Controller object is connected,
+		 * but the request will be sent to the Leap after the Controller connects.
+		 *
+		 * @param flags A PolicyFlag value indicating the policies to request.
+		 */
+		public function setPolicyFlags( flags:uint ):void
+		{
+			trace("call set policy flags");
+			context.call( "setPolicyFlags", flags );
 		}
 	}
 }

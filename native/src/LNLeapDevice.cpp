@@ -617,11 +617,7 @@ namespace leapnative {
     
     //policy
     FREObject LNLeapDevice::setPolicyFlags(uint32_t flags) {
-        
-        //POLICY_DEFAULT = 0,                 /**< The default policy. */
-        //POLICY_BACKGROUND_FRAMES = (1 << 0) /**< Receive background frames. */
-        controller->setPolicyFlags(Controller::POLICY_BACKGROUND_FRAMES);
-        
+        controller->setPolicyFlags(Controller::PolicyFlag(flags));
         return NULL;
     }
     FREObject LNLeapDevice::getPolicyFlags() {

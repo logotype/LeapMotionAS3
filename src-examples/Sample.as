@@ -33,6 +33,7 @@ package
 			leap.controller.enableGesture( Gesture.TYPE_CIRCLE );
 			leap.controller.enableGesture( Gesture.TYPE_SCREEN_TAP );
 			leap.controller.enableGesture( Gesture.TYPE_KEY_TAP );
+			leap.controller.setPolicyFlags(PolicyFlag.POLICY_BACKGROUND_FRAMES);
 		}
 
 		private function onDisconnect( event:LeapEvent ):void
