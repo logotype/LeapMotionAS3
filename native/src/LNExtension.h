@@ -64,6 +64,11 @@ extern "C" {
     FREObject LeapNative_setConfigString(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
     FREObject LeapNative_setConfigSave(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
     
+    //policy
+    FREObject LeapNative_setPolicyFlags(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
+    FREObject LeapNative_getPolicyFlags(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
+    
+    
     //initializer / finalizer
     void contextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctions, const FRENamedFunction** functions);
     void contextFinalizer(FREContext ctx);

@@ -615,6 +615,25 @@ namespace leapnative {
     }
     //end config class
     
+    //policy
+    FREObject LNLeapDevice::setPolicyFlags(uint32_t flags) {
+        
+        //POLICY_DEFAULT = 0,                 /**< The default policy. */
+        //POLICY_BACKGROUND_FRAMES = (1 << 0) /**< Receive background frames. */
+        controller->setPolicyFlags(Controller::POLICY_BACKGROUND_FRAMES);
+        
+        return NULL;
+    }
+    FREObject LNLeapDevice::getPolicyFlags() {
+        FREObject freFlags;
+        
+        uint32_t flags = controller->policyFlags();
+        FRENewObjectFromUint32(flags, &freFlags);
+        
+        return freFlags;
+    }
+    //end policy
+    
     //start frame class
     FREObject LNLeapDevice::frameProbability(int frameId, int sinceFrameId, int type) {
         

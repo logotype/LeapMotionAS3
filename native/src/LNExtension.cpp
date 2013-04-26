@@ -361,6 +361,23 @@ extern "C" {
     }
     //end config class
     
+    //start policy
+    FREObject LeapNative_setPolicyFlags(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        uint32_t flags;
+        FREGetObjectAsUint32(argv[0], &flags);
+        
+        return device->setPolicyFlags(flags);
+    }
+    FREObject LeapNative_getPolicyFlags(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        return device->getPolicyFlags();
+    }
+    //end policty
+    
     //start frame class
     FREObject LeapNative_frameRotationProbability(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
         leapnative::LNLeapDevice* device;
@@ -486,7 +503,9 @@ extern "C" {
   		{ (const uint8_t*) "setConfigBool", false, LeapNative_setConfigBool },
   		{ (const uint8_t*) "setConfigFloat", false, LeapNative_setConfigFloat },
   		{ (const uint8_t*) "setConfigString", false, LeapNative_setConfigString },
-  		{ (const uint8_t*) "setConfigSave", false, LeapNative_setConfigSave }
+  		{ (const uint8_t*) "setConfigSave", false, LeapNative_setConfigSave },
+   		{ (const uint8_t*) "setPolicyFlags", false, LeapNative_setPolicyFlags },
+   		{ (const uint8_t*) "getPolicyFlags", false, LeapNative_getPolicyFlags }
 	};
     
     void contextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctions, const FRENamedFunction** functions) {

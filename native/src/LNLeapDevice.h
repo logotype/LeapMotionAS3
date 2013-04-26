@@ -62,6 +62,10 @@ namespace leapnative {
         FREObject setConfigFloat(uint32_t len, const uint8_t* key, float value);
         FREObject setConfigString(uint32_t len, const uint8_t* key, uint32_t valueLen, const uint8_t* valueArray);
         FREObject setConfigSave();
+        
+        //policy flags
+        FREObject setPolicyFlags(uint32_t flags);
+        FREObject getPolicyFlags();
 
     private:
         FREContext m_ctx;
