@@ -23,7 +23,7 @@ package com.leapmotion.leap
 	 *   <tr>
 	 *    <td>Gesture.Circle.MinArc</td>
 	 *    <td>float</td>
-	 *    <td>4.71</td>
+	 *    <td>1.5&#42;pi</td>
 	 *    <td>radians</td>
 	 *  </tr>
 	 *   <tr>
@@ -76,15 +76,33 @@ package com.leapmotion.leap
 	 *  </tr>
 	 * </table>
 	 * 
-	 * <p>After setting a configuration value, you must call the <code>Config.save()</code> method to commit the changes.
-	 * The new configuration value is stored permanently; you do not need to set the value everytime your
-	 * application runs (although there is no harm in doing so).</p>
+	 * <p>After setting a configuration value, you must call the <code>Config.save()</code> method
+	 * to commit the changes. The configuration value changes are not persistent;
+	 * your application needs to set the values everytime it runs.</p>
 	 *  
 	 * @author logotype
 	 * 
 	 */
 	public class Config
 	{
+		/**
+		 * The default policy.
+		 * 
+		 * <p>Currently, the only supported policy is the background frames policy,
+		 * which determines whether your application receives frames of tracking
+		 * data when it is not the focused, foreground application.</p> 
+		 */
+		static public const POLICY_DEFAULT:uint = (0);
+
+		/**
+		 * Receive background frames.
+		 * 
+		 * <p>Currently, the only supported policy is the background frames policy,
+		 * which determines whether your application receives frames of tracking
+		 * data when it is not the focused, foreground application.</p> 
+		 */
+		static public const POLICY_BACKGROUND_FRAMES:uint = ((1 << 0));
+		
 		/**
 		 * The data type is unknown.
 		 */
@@ -228,11 +246,10 @@ package com.leapmotion.leap
 		/**
 		 * Saves the current state of the config.
 		 * 
-		 * Call <code>save()</code> after making a set of configurtation changes.
+		 * Call <code>save()</code> after making a set of configuration changes.
 		 * The <code>save()</code> function transfers the configuration changes
-		 * to the Leap application. The changes are stored permanently; you do not
-		 * need to set the configuration every time your application runs
-		 * (although there is no harm in doing so).
+		 * to the Leap application. The configuration value changes are not
+		 * persistent; your application needs to set the values everytime it runs.
 		 *  
 		 * @return 
 		 * 

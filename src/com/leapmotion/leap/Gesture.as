@@ -46,11 +46,83 @@ package com.leapmotion.leap
 	 * <code>gesture()</code> returns an Invalid Gesture object (rather than a null value).
 	 * Always check object validity in situations where a gesture might be invalid.</p>
 	 *
+	 * <p>The following keys can be used with the Config class to configure the gesture recognizer:</p>
+	 * 
+	 * <table>
+	 *   <tr>
+	 *    <th>Key string</th>
+	 *    <th>Value type</th>
+	 *    <th>Default value</th>
+	 *    <th>Units</th>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.Circle.MinRadius</td>
+	 *    <td>float</td>
+	 *    <td>5.0</td>
+	 *    <td>mm</td>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.Circle.MinArc</td>
+	 *    <td>float</td>
+	 *    <td>1.5&#42;pi</td>
+	 *    <td>radians</td>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.Swipe.MinLength</td>
+	 *    <td>float</td>
+	 *    <td>150</td>
+	 *    <td>mm</td>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.Swipe.MinVelocity</td>
+	 *    <td>float</td>
+	 *    <td>1000</td>
+	 *    <td>mm/s</td>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.KeyTap.MinDownVelocity</td>
+	 *    <td>float</td>
+	 *    <td>50</td>
+	 *    <td>mm/s</td>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.KeyTap.HistorySeconds</td>
+	 *    <td>float</td>
+	 *    <td>0.1</td>
+	 *    <td>s</td>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.KeyTap.MinDistance</td>
+	 *    <td>float</td>
+	 *    <td>5.0</td>
+	 *    <td>mm</td>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.ScreenTap.MinForwardVelocity</td>
+	 *    <td>float</td>
+	 *    <td>50</td>
+	 *    <td>mm/s</td>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.ScreenTap.HistorySeconds</td>
+	 *    <td>float</td>
+	 *    <td>0.1</td>
+	 *    <td>s</td>
+	 *  </tr>
+	 *   <tr>
+	 *    <td>Gesture.ScreenTap.MinDistance</td>
+	 *    <td>float</td>
+	 *    <td>3.0</td>
+	 *    <td>mm</td>
+	 *  </tr>
+	 * </table>
+	 * 
 	 * @author logotype
 	 * @see CircleGesture
 	 * @see SwipeGesture
 	 * @see ScreenTapGesture
 	 * @see KeyTapGesture
+	 * @see Config
 	 *
 	 */
 	public class Gesture

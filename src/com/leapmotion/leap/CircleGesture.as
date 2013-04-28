@@ -42,7 +42,7 @@ package com.leapmotion.leap
 	 *   <tr>
 	 *    <td>Gesture.Circle.MinArc</td>
 	 *    <td>float</td>
-	 *    <td>1.5</td>
+	 *    <td>1.5&#42;pi</td>
 	 *    <td>radians</td>
 	 *  </tr>
 	 * </table>

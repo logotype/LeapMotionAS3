@@ -277,15 +277,15 @@ package com.leapmotion.leap.native
 		/**
 		 * Gets the active policy settings.
 		 *
-		 * Use this function to determine the current policy state.
+		 * <p>Use this function to determine the current policy state.
 		 * Keep in mind that setting a policy flag is asynchronous, so changes are
-		 * not effective immediately after calling setPolicyFlag(). In addition, a
+		 * not effective immediately after calling <code>setPolicyFlag()</code>. In addition, a
 		 * policy request can be declined by the user. You should always set the
 		 * policy flags required by your application at startup and check that the
-		 * policy change request was successful after an appropriate interval.
+		 * policy change request was successful after an appropriate interval.</p>
 		 *
-		 * If the controller object is not connected to the Leap, then the default
-		 * policy state is returned.
+		 * <p>If the controller object is not connected to the Leap, then the default
+		 * policy state is returned.</p>
 		 *
 		 * @returns The current policy flags.
 		 */
@@ -297,29 +297,29 @@ package com.leapmotion.leap.native
 		/**
 		 * Requests a change in policy.
 		 *
-		 * A request to change a policy is subject to user approval and a policy
+		 * <p>A request to change a policy is subject to user approval and a policy
 		 * can be changed by the user at any time (using the Leap settings window).
-		 * The desired policy flags must be set every time an application runs.
+		 * The desired policy flags must be set every time an application runs.</p>
 		 *
-		 * Policy changes are completed asynchronously and, because they are subject
+		 * <p>Policy changes are completed asynchronously and, because they are subject
 		 * to user approval, may not complete successfully. Call
-		 * Controller::policyFlags() after a suitable interval to test whether
-		 * the change was accepted.
+		 * <code>Controller.policyFlags()</code> after a suitable interval to test whether
+		 * the change was accepted.</p>
 		 *
-		 * Currently, the background frames policy is the only policy supported.
+		 * <p>Currently, the background frames policy is the only policy supported.
 		 * The background frames policy determines whether an application
 		 * receives frames of tracking data while in the background. By
 		 * default, the Leap only sends tracking data to the foreground application.
 		 * Only applications that need this ability should request the background
-		 * frames policy.
+		 * frames policy.</p>
 		 *
-		 * At this time, you can use the Leap applications Settings window to
+		 * <p>At this time, you can use the Leap applications Settings window to
 		 * globally enable or disable the background frames policy. However,
 		 * each application that needs tracking data while in the background
-		 * must also set the policy flag using this function.
+		 * must also set the policy flag using this function.</p>
 		 *
-		 * This function can be called before the Controller object is connected,
-		 * but the request will be sent to the Leap after the Controller connects.
+		 * <p>This function can be called before the Controller object is connected,
+		 * but the request will be sent to the Leap after the Controller connects.</p>
 		 *
 		 * @param flags A PolicyFlag value indicating the policies to request.
 		 */
