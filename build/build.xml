@@ -50,8 +50,6 @@
             <arg value="LeapMotionAS3" />
 
 			<arg value="-exclude-classes" />
-			<arg value="com.leapmotion.leap.callbacks.DefaultCallback" />
-			<arg value="-exclude-classes" />
 			<arg value="com.leapmotion.leap.util.Base64Encoder" />
 			<arg value="-exclude-classes" />
 			<arg value="com.leapmotion.leap.util.IntUtil" />
@@ -60,7 +58,9 @@
 			<arg value="-exclude-classes" />
 			<arg value="com.leapmotion.leap.util.SHA1" />
 			<arg value="-exclude-classes" />
-			<arg value="com.leapmotion.leap.interfaces.ILeapCallback" />
+			<arg value="com.leapmotion.leap.interfaces.IListener" />
+            <arg value="-exclude-classes" />
+            <arg value="com.leapmotion.leap.interfaces.DefaultListener" />
 			<arg value="-exclude-classes" />
 			<arg value="com.leapmotion.leap.interfaces.ILeapConnection" />
 			<arg value="-exclude-classes" />
