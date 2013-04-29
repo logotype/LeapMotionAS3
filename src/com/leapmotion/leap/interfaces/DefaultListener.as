@@ -1,14 +1,13 @@
-package com.leapmotion.leap.callbacks
+package com.leapmotion.leap.interfaces
 {
 	import com.leapmotion.leap.Controller;
 	import com.leapmotion.leap.Frame;
 	import com.leapmotion.leap.events.LeapEvent;
-	import com.leapmotion.leap.interfaces.ILeapCallback;
 
-	public class DefaultCallback implements ILeapCallback
+	public class DefaultListener implements IListener
 	{
 
-		public function DefaultCallback()
+		public function DefaultListener()
 		{
 		}
 

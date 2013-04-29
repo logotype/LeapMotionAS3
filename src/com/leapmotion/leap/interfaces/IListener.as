@@ -3,7 +3,7 @@ package com.leapmotion.leap.interfaces
 	import com.leapmotion.leap.Controller;
 	import com.leapmotion.leap.Frame;
 
-	public interface ILeapCallback
+	public interface IListener
 	{
 		function onConnect( controller:Controller ):void;
 		function onDisconnect( controller:Controller ):void;

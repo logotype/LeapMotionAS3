@@ -1,7 +1,7 @@
 package com.leapmotion.leap
 {
-	import com.leapmotion.leap.callbacks.DefaultCallback;
-	import com.leapmotion.leap.interfaces.ILeapCallback;
+	import com.leapmotion.leap.interfaces.DefaultListener;
+	import com.leapmotion.leap.interfaces.IListener;
 	import com.leapmotion.leap.interfaces.ILeapConnection;
 	import com.leapmotion.leap.namespaces.leapmotion;
 	import com.leapmotion.leap.native.LeapNative;
@@ -47,9 +47,27 @@ package com.leapmotion.leap
 	public class Controller extends EventDispatcher
 	{
 		/**
+		 * The default policy.
+		 * 
+		 * <p>Currently, the only supported policy is the background frames policy,
+		 * which determines whether your application receives frames of tracking
+		 * data when it is not the focused, foreground application.</p> 
+		 */
+		static public const POLICY_DEFAULT:uint = 0;
+		
+		/**
+		 * Receive background frames.
+		 * 
+		 * <p>Currently, the only supported policy is the background frames policy,
+		 * which determines whether your application receives frames of tracking
+		 * data when it is not the focused, foreground application.</p> 
+		 */
+		static public const POLICY_BACKGROUND_FRAMES:uint = (1 << 0);
+		
+		/**
 		 * The Listener subclass instance.
 		 */
-		leapmotion var callback:ILeapCallback;
+		leapmotion var callback:IListener;
 
 		/**
 		 * Current connection, either native or socket.
@@ -79,7 +97,7 @@ package com.leapmotion.leap
 
 		public function Controller()
 		{
-			leapmotion::callback = new DefaultCallback();
+			leapmotion::callback = new DefaultListener();
 		}
 
 		/**
@@ -142,7 +160,7 @@ package com.leapmotion.leap
 		 *
 		 * @param callback
 		 */
-		public function setCallback( callback:ILeapCallback ):void
+		public function setCallback( callback:IListener ):void
 		{
 			this.leapmotion::callback = callback;
 		}

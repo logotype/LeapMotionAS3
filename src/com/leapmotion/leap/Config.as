@@ -86,24 +86,6 @@ package com.leapmotion.leap
 	public class Config
 	{
 		/**
-		 * The default policy.
-		 * 
-		 * <p>Currently, the only supported policy is the background frames policy,
-		 * which determines whether your application receives frames of tracking
-		 * data when it is not the focused, foreground application.</p> 
-		 */
-		static public const POLICY_DEFAULT:uint = (0);
-
-		/**
-		 * Receive background frames.
-		 * 
-		 * <p>Currently, the only supported policy is the background frames policy,
-		 * which determines whether your application receives frames of tracking
-		 * data when it is not the focused, foreground application.</p> 
-		 */
-		static public const POLICY_BACKGROUND_FRAMES:uint = ((1 << 0));
-		
-		/**
 		 * The data type is unknown.
 		 */
 		static public const TYPE_UNKNOWN:int = 0;
