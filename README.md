@@ -66,7 +66,7 @@ typed properties such as `Hands`, `Pointables`, `Direction`, `Gestures` and more
     	}
     }
 
-Optionally, you can simply call `leap.frame()` e.g. in your main loop, or implement the `ILeapCallback` interface for callbacks.
+Optionally, you can simply call `leap.frame()` e.g. in your main loop, or implement the `Listener` interface for callbacks.
 
 Features
 --------
