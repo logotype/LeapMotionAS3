@@ -57,8 +57,6 @@
 			<arg value="com.leapmotion.leap.util.Quaternion" />
 			<arg value="-exclude-classes" />
 			<arg value="com.leapmotion.leap.util.SHA1" />
-			<arg value="-exclude-classes" />
-			<arg value="com.leapmotion.leap.interfaces.IListener" />
             <arg value="-exclude-classes" />
             <arg value="com.leapmotion.leap.interfaces.DefaultListener" />
 			<arg value="-exclude-classes" />

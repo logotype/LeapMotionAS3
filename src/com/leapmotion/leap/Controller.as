@@ -1,7 +1,6 @@
 package com.leapmotion.leap
 {
 	import com.leapmotion.leap.interfaces.DefaultListener;
-	import com.leapmotion.leap.interfaces.IListener;
 	import com.leapmotion.leap.interfaces.ILeapConnection;
 	import com.leapmotion.leap.namespaces.leapmotion;
 	import com.leapmotion.leap.native.LeapNative;
@@ -67,7 +66,7 @@ package com.leapmotion.leap
 		/**
 		 * The Listener subclass instance.
 		 */
-		leapmotion var callback:IListener;
+		leapmotion var listener:Listener;
 
 		/**
 		 * Current connection, either native or socket.
@@ -97,7 +96,7 @@ package com.leapmotion.leap
 
 		public function Controller()
 		{
-			leapmotion::callback = new DefaultListener();
+			leapmotion::listener = new DefaultListener();
 		}
 
 		/**
@@ -153,16 +152,16 @@ package com.leapmotion.leap
 		/**
 		 * Update the object that receives direct updates from the Leap Motion Controller.
 		 *
-		 * <p>The default callback will make the controller dispatch flash events.
+		 * <p>The default listener will make the controller dispatch flash events.
 		 * You can override this behaviour, by implementing the IListener interface
-		 * in your own classes, and use this method to set the callback to your
+		 * in your own classes, and use this method to set the listener to your
 		 * own implementation.</p>
 		 *
-		 * @param callback
+		 * @param listener
 		 */
-		public function setCallback( callback:IListener ):void
+		public function setListener( listener:Listener ):void
 		{
-			this.leapmotion::callback = callback;
+			this.leapmotion::listener = listener;
 		}
 
 		/**

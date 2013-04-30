@@ -11,10 +11,16 @@ package com.leapmotion.leap.native
 	public class LeapNative implements ILeapConnection
 	{
 		/**
-		 * Called when the Controller object connects to the Leap software, or when this Listener object is added to a Controller that is alrady connected.
+		 * Called once, when this Listener object is newly added to a Controller.
+		 */
+		static private const LEAPNATIVE_INIT:String = "onInit";
+		
+		/**
+		 * Called when the Controller object connects to the Leap software,
+		 * or when this Listener object is added to a Controller that is alrady connected.
 		 */
 		static private const LEAPNATIVE_CONNECTED:String = "onConnect";
-
+		
 		/**
 		 * Called when the Controller object disconnects from the Leap software
 		 */
@@ -35,6 +41,26 @@ package com.leapmotion.leap.native
 		 * received frame.
 		 */
 		static private const LEAPNATIVE_FRAME:String = "onFrame";
+		
+		/**
+		 * Called when this application becomes the foreground application.
+		 * 
+		 * <p>Only the foreground application receives tracking data from the
+		 * Leap Motion Controller. This function is only called when the
+		 * controller object is in a connected state.</p>
+		 * 
+		 */
+		static private const LEAPNATIVE_FOCUSGAINED:String = "onFocusGained";
+		
+		/**
+		 * Called when this application loses the foreground focus.
+		 * 
+		 * <p>Only the foreground application receives tracking data from the
+		 * Leap Motion Controller. This function is only called when the
+		 * controller object is in a connected state.</p>
+		 * 
+		 */
+		static private const LEAPNATIVE_FOCUSLOST:String = "onFocusLost";
 
 		/**
 		 * Boolean toggle to check if the class has been initialized
@@ -94,6 +120,14 @@ package com.leapmotion.leap.native
 			{
 				handleOnFrame();
 			}
+			else if ( event.code == LEAPNATIVE_FOCUSGAINED )
+			{
+				handleOnFocusGained();
+			}
+			else if ( event.code == LEAPNATIVE_FOCUSLOST )
+			{
+				handleOnFocusLost();
+			}
 			else if ( event.code == LEAPNATIVE_CONNECTED )
 			{
 				handleOnConnect();
@@ -102,6 +136,10 @@ package com.leapmotion.leap.native
 			{
 				handleOnDisconnect();
 			}
+			else if ( event.code == LEAPNATIVE_INIT )
+			{
+				handleOnInit();
+			}
 			else
 			{
 				trace( "[LeapNative] contextStatusModeEventHandler: ", event.code, event.level );
@@ -109,28 +147,58 @@ package com.leapmotion.leap.native
 		}
 
 		/**
-		 * Inline method. Triggered when native extension context connects to the Leap
+		 * Inline method. Called once, when a Listener object is newly added to a Controller.
+		 *
+		 */
+		[Inline]
+		final private function handleOnInit():void
+		{
+			controller.leapmotion::listener.onInit( controller );
+		}
+		
+		/**
+		 * Inline method. Triggered when native extension context connects to the Leap.
 		 *
 		 */
 		[Inline]
 		final private function handleOnConnect():void
 		{
 			_isConnected = true;
-			controller.leapmotion::callback.onConnect( controller );
+			controller.leapmotion::listener.onConnect( controller );
 		}
-
+		
 		/**
-		 * Inline method. Triggered when native extension context disconnects from the Leap
+		 * Inline method. Triggered when native extension context disconnects from the Leap.
 		 *
 		 */
 		[Inline]
 		final private function handleOnDisconnect():void
 		{
 			_isConnected = false;
-			controller.leapmotion::callback.onDisconnect( controller );
-			controller.leapmotion::callback.onExit( controller );
+			controller.leapmotion::listener.onDisconnect( controller );
+			controller.leapmotion::listener.onExit( controller );
 		}
 
+		/**
+		 * Inline method. Triggered when native extension context switches to foreground.
+		 *
+		 */
+		[Inline]
+		final private function handleOnFocusGained():void
+		{
+			controller.leapmotion::listener.onFocusGained( controller );
+		}
+		
+		/**
+		 * Inline method. Triggered when native extension context switches to background.
+		 *
+		 */
+		[Inline]
+		final private function handleOnFocusLost():void
+		{
+			controller.leapmotion::listener.onFocusLost( controller );
+		}
+		
 		/**
 		 * Inline method. Triggered when native extension context dispatches a Frame.
 		 *
@@ -148,7 +216,7 @@ package com.leapmotion.leap.native
 
 			_frame = context.call( "getFrame" );
 
-			controller.leapmotion::callback.onFrame( controller, _frame );
+			controller.leapmotion::listener.onFrame( controller, _frame );
 		}
 
 		/**

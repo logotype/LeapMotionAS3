@@ -152,7 +152,7 @@ package com.leapmotion.leap.socket
 		final private function onSocketConnectHandler( event:Event ):void
 		{
 			_isConnected = false;
-			controller.leapmotion::callback.onInit( controller );
+			controller.leapmotion::listener.onInit( controller );
 			currentState = STATE_CONNECTING;
 			socket.endian = Endian.BIG_ENDIAN;
 			sendHandshake();
@@ -166,7 +166,7 @@ package com.leapmotion.leap.socket
 		final private function onIOErrorHandler( event:IOErrorEvent ):void
 		{
 			_isConnected = false;
-			controller.leapmotion::callback.onDisconnect( controller );
+			controller.leapmotion::listener.onDisconnect( controller );
 		}
 
 		/**
@@ -177,7 +177,7 @@ package com.leapmotion.leap.socket
 		final private function onSecurityErrorHandler( event:SecurityErrorEvent ):void
 		{
 			_isConnected = false;
-			controller.leapmotion::callback.onDisconnect( controller );
+			controller.leapmotion::listener.onDisconnect( controller );
 		}
 
 		/**
@@ -189,8 +189,8 @@ package com.leapmotion.leap.socket
 		final private function onSocketCloseHandler( event:Event ):void
 		{
 			_isConnected = false;
-			controller.leapmotion::callback.onDisconnect( controller );
-			controller.leapmotion::callback.onExit( controller );
+			controller.leapmotion::listener.onDisconnect( controller );
+			controller.leapmotion::listener.onExit( controller );
 		}
 
 		/**
@@ -437,7 +437,7 @@ package com.leapmotion.leap.socket
 
 				_frame = currentFrame;
 
-				controller.leapmotion::callback.onFrame( controller, _frame );
+				controller.leapmotion::listener.onFrame( controller, _frame );
 
 				// Release current frame and create a new one
 				leapSocketFrame = new LeapSocketFrame();
@@ -617,7 +617,7 @@ package com.leapmotion.leap.socket
 
 			leapMotionDeviceHandshakeResponse = null;
 			currentState = STATE_OPEN;
-			controller.leapmotion::callback.onConnect( controller );
+			controller.leapmotion::listener.onConnect( controller );
 		}
 
 		/**
