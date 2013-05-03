@@ -340,16 +340,12 @@ package com.leapmotion.leap
 			}
 			else
 			{
-				/*
-				TODO: Implement rotation angle around axis
-				(1) translate space so that the rotation axis passes through the origin
-				(2) rotate space about the z-axis so that the rotation axis lies in the xz-plane
-				(3) rotate space about the y-axis so that the rotation axis lies along the z-axis
-				(4) perform the desired rotation by theta about the z-axis
-				(5) apply the inverse of step (3)
-				(6) apply the inverse of step (2)
-				(7) apply the inverse of step (1) 
-				*/
+				if ( sinceFrame.hand( id ) && sinceFrame.hand( id ).frame )
+				{
+					var rotAxis:Vector3 = this.rotationAxis( sinceFrame.hand( id ).frame );
+					var rotAngle:Number = this.rotationAngle( sinceFrame.hand( id ).frame );
+					returnValue = rotAngle * rotAxis.dot( axis.normalized() );
+				}
 			}
 			return returnValue;
 		}
