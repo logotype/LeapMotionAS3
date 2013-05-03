@@ -44,21 +44,25 @@ package com.leapmotion.leap
 		public var id:int = 0;
 		
 		/**
-		 * Native Extension context. 
+		 * @private
+		 * Native Extension context.
 		 */		
 		private var context:Object;
 
 		/**
+		 * @private
 		 * Reference to flash.display.Screen (only available on AIR)
 		 */
 		public static var ScreenClass:*;
 
 		/**
+		 * @private
 		 * Reference to the AIR builtin Screen instance
 		 */
 		public var _screen:*;
 		
 		/**
+		 * @private
 		 * Invalidates screen. 
 		 */
 		public var _invalidate:Boolean = false;
@@ -80,6 +84,7 @@ package com.leapmotion.leap
 		}
 
 		/**
+		 * @private
 		 * Tries to return a reference to the Screen class
 		 *
 		 * @return True, if definition could be found; False otherwise.

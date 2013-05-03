@@ -351,12 +351,16 @@ package com.leapmotion.leap
 		 */
 		public function rotationAxis( sinceFrame:Frame ):Vector3
 		{
-			var returnValue:Vector3 = new Vector3( 0, 0, 0 );
+			var returnValue:Vector3;
 
 			if ( sinceFrame && sinceFrame.rotation )
 			{
 				var vector:Vector3 = new Vector3( rotation.zBasis.y - sinceFrame.rotation.yBasis.z, rotation.xBasis.z - sinceFrame.rotation.zBasis.x, rotation.yBasis.x - sinceFrame.rotation.xBasis.y );
 				returnValue = vector.normalized();
+			}
+			else
+			{
+				returnValue = new Vector3( 0, 0, 0 );
 			}
 
 			return returnValue;
@@ -416,10 +420,12 @@ package com.leapmotion.leap
 		 */
 		public function rotationMatrix( sinceFrame:Frame ):Matrix
 		{
-			var returnValue:Matrix = Matrix.identity();
+			var returnValue:Matrix;
 
 			if ( sinceFrame && sinceFrame.rotation )
 				returnValue = rotation.multiply( sinceFrame.rotation );
+			else
+				returnValue = Matrix.identity();
 
 			return returnValue;
 		}
@@ -469,9 +475,11 @@ package com.leapmotion.leap
 		 */
 		public function scaleFactor( sinceFrame:Frame ):Number
 		{
-			var returnValue:Number = 1;
+			var returnValue:Number;
 			if ( sinceFrame && sinceFrame.scaleFactorNumber )
 				returnValue = Math.exp( scaleFactorNumber - sinceFrame.scaleFactorNumber );
+			else
+				returnValue = 1;
 
 			return returnValue;
 		}
@@ -518,10 +526,12 @@ package com.leapmotion.leap
 		 */
 		public function translation( sinceFrame:Frame ):Vector3
 		{
-			var returnValue:Vector3 = new Vector3( 0, 0, 0 );
+			var returnValue:Vector3;
 
 			if ( sinceFrame.translationVector )
 				returnValue = new Vector3( translationVector.x - sinceFrame.translationVector.x, translationVector.y - sinceFrame.translationVector.y, translationVector.z - sinceFrame.translationVector.z );
+			else
+				returnValue = new Vector3( 0, 0, 0 );
 
 			return returnValue;
 		}

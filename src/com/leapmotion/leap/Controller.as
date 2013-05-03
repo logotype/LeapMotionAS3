@@ -39,7 +39,10 @@ package com.leapmotion.leap
 	[Event(name="leapmotionFrame", type="com.leapmotion.leap.events.LeapEvent")]
 
 	/**
-	 * The main event dispatcher for Leap events.
+	 * The main event dispatcher for Leap events. This singleton is automatically created when
+	 * you initialize the LeapMotion class, you can access the Controller via <code>leap.controller</code>.
+	 * 
+	 * @see LeapMotion
 	 * @author logotype
 	 *
 	 */
@@ -75,6 +78,7 @@ package com.leapmotion.leap
 
 		/**
 		 * The singleton instance.
+		 * @private
 		 */
 		static private var instance:Controller;
 
@@ -84,16 +88,22 @@ package com.leapmotion.leap
 		public var frameHistory:Vector.<Frame> = new Vector.<Frame>();
 
 		/**
+		 * @private
 		 * Native Extension context object.
 		 *
 		 */
 		public var context:Object;
 
 		/**
+		 * @private
 		 * List of Screen objects, created by <code>locatedScreens()</code>.
 		 */
 		private var _screenList:Vector.<Screen> = new Vector.<Screen>();
 
+		/**
+		 * Constructs a Controller object. 
+		 * 
+		 */
 		public function Controller()
 		{
 			leapmotion::listener = new DefaultListener();
@@ -425,6 +435,11 @@ package com.leapmotion.leap
 			return context.call( "hasFocus" );
 		}
 
+		/**
+		 * @private
+		 * @return The Controller singleton instance. 
+		 * 
+		 */
 		static public function getInstance():Controller
 		{
 			if ( instance == null )

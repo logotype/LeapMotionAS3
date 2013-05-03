@@ -165,10 +165,12 @@ package com.leapmotion.leap
 		 */
 		final public function isEqualTo( other:Vector3 ):Boolean
 		{
-			var returnValue:Boolean = true;
+			var returnValue:Boolean;
 
 			if ( x != other.x || y != other.y || z != other.z )
 				returnValue = false;
+			else
+				returnValue = true;
 
 			return returnValue;
 		}
