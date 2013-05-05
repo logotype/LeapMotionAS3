@@ -3,7 +3,6 @@ package
 	import com.leapmotion.leap.Controller;
 	import com.leapmotion.leap.Frame;
 	import com.leapmotion.leap.Gesture;
-	import com.leapmotion.leap.LeapMotion;
 	import com.leapmotion.leap.Listener;
 	
 	import flash.display.Sprite;
@@ -11,15 +10,15 @@ package
 	
 	public class InterfaceSample extends Sprite implements Listener
 	{
-		private var leap:LeapMotion;
+		private var controller:Controller;
 		private var startTime:Number;
 		private var currentTime:Number;
 		private var framesNumber:int = 0;
 		
 		public function InterfaceSample()
 		{
-			leap = new LeapMotion();
-			leap.controller.setListener( this );
+			controller = new Controller();
+			controller.setListener( this );
 		}
 		
 		public function onInit( controller:Controller ):void

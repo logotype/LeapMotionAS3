@@ -11,7 +11,7 @@ package samples.visualizer
 
 	import com.leapmotion.leap.Frame;
 	import com.leapmotion.leap.Hand;
-	import com.leapmotion.leap.LeapMotion;
+	import com.leapmotion.leap.Controller;
 	import com.leapmotion.leap.Pointable;
 	import com.leapmotion.leap.Vector3;
 	import com.leapmotion.leap.events.LeapEvent;
@@ -30,7 +30,7 @@ package samples.visualizer
 		private var _view:View3D;
 		private var lightPicker:StaticLightPicker;
 
-		private var leap:LeapMotion;
+		private var controller:Controller;
 
 		private var trails:Vector.<Trail>;
 		private var pointable3Ds:Vector.<Pointable3D>;
@@ -93,9 +93,9 @@ package samples.visualizer
 				_view.scene.addChild( palm3D );
 			}
 
-			leap = new LeapMotion();
-			leap.controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, leapmotionFrameHandler );
-			leap.controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, leapmotionConnectedHandler );
+			controller = new Controller();
+			controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, leapmotionFrameHandler );
+			controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, leapmotionConnectedHandler );
 
 			addEventListener( Event.ENTER_FRAME, _onEnterFrame );
 			stage.addEventListener( Event.RESIZE, onResize );
@@ -110,7 +110,7 @@ package samples.visualizer
 		private function leapmotionFrameHandler( event:LeapEvent ):void
 		{
 			var numPointables:int = event.frame.pointables.length;
-			var previousFrame:Frame = leap.frame( 1 );
+			var previousFrame:Frame = controller.frame( 1 );
 			var hasPreviousFrame:Boolean = (previousFrame != null && previousFrame.isValid());
 			var i:int;
 			for ( i = 0; i < numPointable3Ds; i++ )

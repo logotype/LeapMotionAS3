@@ -115,12 +115,12 @@ package com.leapmotion.leap.socket
 		 * @param host IP or hostname of the computer running the Leap software.
 		 * 
 		 */
-		final public function LeapSocket( host:String = null )
+		final public function LeapSocket( _controller:Controller, host:String = null )
 		{
 			if ( host )
 				this.host = host;
 
-			controller = Controller.getInstance();
+			controller = _controller;
 
 			// Generate nonce
 			var nonce:ByteArray = new ByteArray();
@@ -229,6 +229,7 @@ package com.leapmotion.leap.socket
 				utf8data = leapSocketFrame.binaryPayload.readUTFBytes( leapSocketFrame.length );
 				json = JSON.parse( utf8data );
 				currentFrame = new Frame();
+				currentFrame.controller = controller;
 
 				// Hands
 				if ( json.hands )

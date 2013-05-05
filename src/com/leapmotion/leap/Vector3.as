@@ -192,8 +192,8 @@ package com.leapmotion.leap
 		final public function angleTo( other:Vector3 ):Number
 		{
 			var denom:Number = magnitudeSquared() * other.magnitudeSquared();
-			if ( denom <= 0.0 )
-				return 0.0;
+			if ( denom <= 0 )
+				return 0;
 
 			return Math.acos( dot( other ) / Math.sqrt( denom ) );
 		}
@@ -302,10 +302,10 @@ package com.leapmotion.leap
 		final public function normalized():Vector3
 		{
 			var denom:Number = magnitudeSquared();
-			if ( denom <= 0.0 )
+			if ( denom <= 0 )
 				return new Vector3( 0, 0, 0 );
 
-			denom = 1.0 / Math.sqrt( denom );
+			denom = 1 / Math.sqrt( denom );
 			return new Vector3( x * denom, y * denom, z * denom );
 		}
 

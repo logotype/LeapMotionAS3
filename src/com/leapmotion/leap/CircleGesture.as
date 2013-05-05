@@ -26,7 +26,7 @@ package com.leapmotion.leap
 	 * movement to be recognized as a circle using the config attribute of a
 	 * connected Controller object. Use the following keys to configure circle recognition:</p>
 	 * 
-	 * <table>
+	 * <table class="innertable">
 	 *   <tr>
 	 *    <th>Key string</th>
 	 *    <th>Value type</th>
@@ -49,9 +49,9 @@ package com.leapmotion.leap
 	 * 
 	 * <p>The following example demonstrates how to set the circle configuration parameters:</p>
 	 * 
-	 * <code>if(controller.config().setFloat(&quot;Gesture.Circle.MinRadius&quot;, 10.0) &amp;&amp;
+	 * <listing>if(controller.config().setFloat(&quot;Gesture.Circle.MinRadius&quot;, 10.0) &amp;&amp;
 	 *       controller.config().setFloat(&quot;Gesture.Circle.MinArc&quot;, .5))
-	 *        controller.config().save();</code>
+	 *        controller.config().save();</listing>
 	 *  
 	 * @author logotype
 	 * @see Gesture
@@ -60,17 +60,17 @@ package com.leapmotion.leap
 	public class CircleGesture extends Gesture
 	{
 		/**
+		 * The circle gesture type.<br/>
+		 * The type value designating a circle gesture. 
+		 */
+		static public var classType:int = Gesture.TYPE_CIRCLE;
+		
+		/**
 		 * The center point of the circle within the Leap frame of reference.<br/>
 		 * The center of the circle in mm from the Leap origin. 
 		 */
 		public var center:Vector3;
 		
-		/**
-		 * The circle gesture type.<br/>
-		 * The type value designating a circle gesture. 
-		 */
-		public var classType:int = Gesture.TYPE_CIRCLE;
-
 		/**
 		 * Returns the normal vector for the circle being traced.
 		 * 
