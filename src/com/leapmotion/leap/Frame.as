@@ -50,6 +50,7 @@ package com.leapmotion.leap
 		public var pointables:Vector.<Pointable> = new Vector.<Pointable>();
 
 		/**
+		 * @private
 		 * The gestures recognized or continuing in this frame.
 		 *
 		 * <p>Circle and swipe gestures are updated every frame.
@@ -81,14 +82,22 @@ package com.leapmotion.leap
 		public var rotation:Matrix;
 
 		/**
+		 * @private
 		 * Scale factor since last Frame.
 		 */
 		public var scaleFactorNumber:Number;
 
 		/**
+		 * @private
 		 * Translation since last Frame.
 		 */
 		public var translationVector:Vector3;
+		
+		/**
+		 * @private
+		 * Reference to the Controller which created this object. 
+		 */
+		public var controller:Controller;
 
 		/**
 		 * Constructs a Frame object.
@@ -303,6 +312,9 @@ package com.leapmotion.leap
 		 */
 		public function gestures( sinceFrame:Frame = null ):Vector.<Gesture>
 		{
+			if( !isValid() )
+				return new Vector.<Gesture>();
+			
 			if( !sinceFrame )
 			{
 				// The gestures recognized or continuing in this frame.
@@ -310,11 +322,13 @@ package com.leapmotion.leap
 			}
 			else
 			{
+				if( !sinceFrame.isValid() )
+					return new Vector.<Gesture>();
+
 				// Returns a Gesture vector containing all gestures that have occured since the specified frame.
 				var gesturesSinceFrame:Vector.<Gesture> = new Vector.<Gesture>();
 				var i:int = 0;
 				var j:int = 0;
-				var controller:Controller = Controller.getInstance();
 				
 				for( i; i < controller.frameHistory.length; ++i )
 				{
@@ -351,12 +365,16 @@ package com.leapmotion.leap
 		 */
 		public function rotationAxis( sinceFrame:Frame ):Vector3
 		{
-			var returnValue:Vector3 = new Vector3( 0, 0, 0 );
+			var returnValue:Vector3;
 
 			if ( sinceFrame && sinceFrame.rotation )
 			{
 				var vector:Vector3 = new Vector3( rotation.zBasis.y - sinceFrame.rotation.yBasis.z, rotation.xBasis.z - sinceFrame.rotation.zBasis.x, rotation.yBasis.x - sinceFrame.rotation.xBasis.y );
 				returnValue = vector.normalized();
+			}
+			else
+			{
+				returnValue = new Vector3( 0, 0, 0 );
 			}
 
 			return returnValue;
@@ -384,27 +402,21 @@ package com.leapmotion.leap
 		 */
 		public function rotationAngle( sinceFrame:Frame, axis:Vector3 = null ):Number
 		{
+			if ( !isValid() || !sinceFrame.isValid() )
+				return 0;
+			
 			var returnValue:Number = 0;
-			if ( !axis )
+			var rotationSinceFrameMatrix:Matrix = rotationMatrix( sinceFrame );
+			var cs:Number = ( rotationSinceFrameMatrix.xBasis.x + rotationSinceFrameMatrix.yBasis.y + rotationSinceFrameMatrix.zBasis.z - 1 ) * 0.5;
+			var angle:Number = Math.acos( cs );
+			returnValue = isNaN( angle ) ? 0 : angle;
+
+			if ( axis )
 			{
-				var rotationSinceFrameMatrix:Matrix = rotationMatrix( sinceFrame );
-				var cs:Number = ( rotationSinceFrameMatrix.xBasis.x + rotationSinceFrameMatrix.yBasis.y + rotationSinceFrameMatrix.zBasis.z - 1.0 ) * 0.5;
-				var angle:Number = Math.acos( cs );
-				returnValue = isNaN( angle ) ? 0 : angle;
+				var rotAxis:Vector3 = rotationAxis( sinceFrame );
+				returnValue *= rotAxis.dot( axis.normalized() );
 			}
-			else
-			{
-				/*
-				TODO: Implement rotation angle around axis
-				(1) translate space so that the rotation axis passes through the origin
-				(2) rotate space about the z-axis so that the rotation axis lies in the xz-plane
-				(3) rotate space about the y-axis so that the rotation axis lies along the z-axis
-				(4) perform the desired rotation by theta about the z-axis
-				(5) apply the inverse of step (3)
-				(6) apply the inverse of step (2)
-				(7) apply the inverse of step (1) 
-				*/
-			}
+
 			return returnValue;
 		}
 
@@ -423,10 +435,12 @@ package com.leapmotion.leap
 		 */
 		public function rotationMatrix( sinceFrame:Frame ):Matrix
 		{
-			var returnValue:Matrix = Matrix.identity();
+			var returnValue:Matrix;
 
 			if ( sinceFrame && sinceFrame.rotation )
 				returnValue = rotation.multiply( sinceFrame.rotation );
+			else
+				returnValue = Matrix.identity();
 
 			return returnValue;
 		}
@@ -447,10 +461,10 @@ package com.leapmotion.leap
 		 */
 		public function rotationProbability( sinceFrame:Frame ):Number
 		{
-			if( !Controller.getInstance().context )
+			if( !controller.context )
 				throw new Error( "Method only supported for Native connections." );
 			else
-				return Controller.getInstance().context.call( "frameRotationProbability", id, sinceFrame.id );
+				return controller.context.call( "frameRotationProbability", id, sinceFrame.id );
 		}
 
 		/**
@@ -476,9 +490,11 @@ package com.leapmotion.leap
 		 */
 		public function scaleFactor( sinceFrame:Frame ):Number
 		{
-			var returnValue:Number = 1;
+			var returnValue:Number;
 			if ( sinceFrame && sinceFrame.scaleFactorNumber )
 				returnValue = Math.exp( scaleFactorNumber - sinceFrame.scaleFactorNumber );
+			else
+				returnValue = 1;
 
 			return returnValue;
 		}
@@ -498,10 +514,10 @@ package com.leapmotion.leap
 		 */
 		public function scaleProbability( sinceFrame:Frame ):Number
 		{
-			if( !Controller.getInstance().context )
+			if( !controller.context )
 				throw new Error( "Method only supported for Native connections." );
 			else
-				return Controller.getInstance().context.call( "frameScaleProbability", id, sinceFrame.id );
+				return controller.context.call( "frameScaleProbability", id, sinceFrame.id );
 		}
 
 		/**
@@ -525,10 +541,12 @@ package com.leapmotion.leap
 		 */
 		public function translation( sinceFrame:Frame ):Vector3
 		{
-			var returnValue:Vector3 = new Vector3( 0, 0, 0 );
+			var returnValue:Vector3;
 
 			if ( sinceFrame.translationVector )
 				returnValue = new Vector3( translationVector.x - sinceFrame.translationVector.x, translationVector.y - sinceFrame.translationVector.y, translationVector.z - sinceFrame.translationVector.z );
+			else
+				returnValue = new Vector3( 0, 0, 0 );
 
 			return returnValue;
 		}
@@ -548,10 +566,10 @@ package com.leapmotion.leap
 		 */
 		public function translationProbability( sinceFrame:Frame ):Number
 		{
-			if( !Controller.getInstance().context )
+			if( !controller.context )
 				throw new Error( "Method only supported for Native connections." );
 			else
-				return Controller.getInstance().context.call( "frameTranslationProbability", id, sinceFrame.id );
+				return controller.context.call( "frameTranslationProbability", id, sinceFrame.id );
 		}
 
 		/**

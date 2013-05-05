@@ -1,10 +1,10 @@
 package
 {
-	import com.leapmotion.leap.LeapMotion;
+	import com.leapmotion.leap.Controller;
 	import com.leapmotion.leap.Screen;
 	import com.leapmotion.leap.Vector3;
 	import com.leapmotion.leap.events.LeapEvent;
-
+	
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageDisplayState;
@@ -13,7 +13,7 @@ package
 	[SWF(backgroundColor='#ffffff', frameRate='60')]
 	public class ScreenSample extends Sprite
 	{
-		private var leap:LeapMotion;
+		private var controller:Controller;
 		private var screenList:Vector.<Screen>;
 		private var screen:Screen;
 		private var screenWidth:uint;
@@ -33,15 +33,15 @@ package
 			cursor.graphics.endFill();
 			this.addChild( cursor );
 
-			leap = new LeapMotion();
-			leap.controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, onConnect );
-			leap.controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, onFrame );
+			controller = new Controller();
+			controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, onConnect );
+			controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, onFrame );
 		}
 
 		private function onConnect( event:LeapEvent ):void
 		{
 			trace( "Connected" );
-			screenList = leap.controller.locatedScreens();
+			screenList = controller.locatedScreens();
 			screen = screenList[ 0 ];
 			screenWidth = screen.widthPixels();
 			screenHeight = screen.heightPixels();

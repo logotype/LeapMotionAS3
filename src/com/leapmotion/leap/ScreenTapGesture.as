@@ -21,7 +21,7 @@ package com.leapmotion.leap
 	 * evaluating the movement using the config attribute of a connected Controller object.
 	 * Use the following keys to configure screen tap recognition:</p>
 	 * 
-	 * <table>
+	 * <table class="innertable">
 	 *   <tr>
 	 *    <th>Key string</th>
 	 *    <th>Value type</th>
@@ -63,7 +63,7 @@ package com.leapmotion.leap
 		/**
 		 * The type value designating a screen tap gesture. 
 		 */
-		public var classType:int = Gesture.TYPE_SCREEN_TAP;
+		static public var classType:int = Gesture.TYPE_SCREEN_TAP;
 		
 		/**
 		 * The direction of finger tip motion. 

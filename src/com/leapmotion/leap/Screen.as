@@ -44,21 +44,25 @@ package com.leapmotion.leap
 		public var id:int = 0;
 		
 		/**
-		 * Native Extension context. 
+		 * @private
+		 * Native Extension context.
 		 */		
 		private var context:Object;
 
 		/**
+		 * @private
 		 * Reference to flash.display.Screen (only available on AIR)
 		 */
 		public static var ScreenClass:*;
 
 		/**
+		 * @private
 		 * Reference to the AIR builtin Screen instance
 		 */
 		public var _screen:*;
 		
 		/**
+		 * @private
 		 * Invalidates screen. 
 		 */
 		public var _invalidate:Boolean = false;
@@ -71,15 +75,16 @@ package com.leapmotion.leap
 		 * <code>Controller.locatedScreens()</code> method.</p> 
 		 * 
 		 */
-		public function Screen()
+		public function Screen( _controller:Controller )
 		{
-			if( !Controller.getInstance().context )
+			if( !_controller || !_controller.context )
 				throw new Error( "Native Context not available. The Screen class is only available in Adobe AIR." );
 			else
-				context = Controller.getInstance().context;
+				context = _controller.context;
 		}
 
 		/**
+		 * @private
 		 * Tries to return a reference to the Screen class
 		 *
 		 * @return True, if definition could be found; False otherwise.
@@ -405,7 +410,7 @@ package com.leapmotion.leap
 		 * 						specified position onto the screen along its normal vector.
 		 * 
 		 */
-		public function project( position:Vector3, normalize:Boolean, clampRatio:Number = 1.0 ):Vector3
+		public function project( position:Vector3, normalize:Boolean, clampRatio:Number = 1 ):Vector3
 		{
 			return context.call( "getScreenProject", id, position.x, position.y, position.z, normalize, clampRatio );
 		}
@@ -422,7 +427,7 @@ package com.leapmotion.leap
 		 */
 		static public function invalid():Screen
 		{
-			var invalidScreen:Screen = new Screen();
+			var invalidScreen:Screen = new Screen( null );
 			invalidScreen._invalidate = true;
 			return invalidScreen;
 		}

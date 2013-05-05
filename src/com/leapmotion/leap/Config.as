@@ -7,7 +7,7 @@ package com.leapmotion.leap
 	 * object obtained from a connected Controller object. The key strings
 	 * required to identify a configuration parameter include:</p>
 	 * 
-	 * <table>
+	 * <table class="innertable">
 	 *   <tr>
 	 *    <th>Key string</th>
 	 *    <th>Value type</th>
@@ -116,15 +116,18 @@ package com.leapmotion.leap
 		private var context:Object;
 
 		/**
-		 * Constructs a Config object. 
+		 * @private
+		 * Constructs a Config object.
+		 * 
+		 * @param controller The Controller object reference.
 		 * 
 		 */
-		public function Config()
+		public function Config( controller:Controller )
 		{
-			if( !Controller.getInstance().context )
+			if( !controller.context )
 				throw new Error( "Native Context not available. The Config class is only available in Adobe AIR." );
 			else
-				context = Controller.getInstance().context;
+				context = controller.context;
 		}
 		
 		/**

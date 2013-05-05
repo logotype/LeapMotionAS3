@@ -8,16 +8,16 @@ package
 	[SWF(frameRate=60)]
 	public class ConfigSample extends Sprite
 	{
-		private var leap:LeapMotion;
+		private var controller:Controller;
 
 		public function ConfigSample()
 		{
-			leap = new LeapMotion();
-			leap.controller.addEventListener( LeapEvent.LEAPMOTION_INIT, onInit );
-			leap.controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, onConnect );
-			leap.controller.addEventListener( LeapEvent.LEAPMOTION_DISCONNECTED, onDisconnect );
-			leap.controller.addEventListener( LeapEvent.LEAPMOTION_EXIT, onExit );
-			leap.controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, onFrame );
+			controller = new Controller();
+			controller.addEventListener( LeapEvent.LEAPMOTION_INIT, onInit );
+			controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, onConnect );
+			controller.addEventListener( LeapEvent.LEAPMOTION_DISCONNECTED, onDisconnect );
+			controller.addEventListener( LeapEvent.LEAPMOTION_EXIT, onExit );
+			controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, onFrame );
 		}
 
 		private function onInit( event:LeapEvent ):void
@@ -41,7 +41,7 @@ package
 				"Gesture.ScreenTap.MinDistance"
 			]);
 			for each(var configKey:String in configKeys) {
-				trace(configKey, leap.controller.config().getFloat(configKey));
+				trace(configKey, controller.config().getFloat(configKey));
 			}
 		}
 

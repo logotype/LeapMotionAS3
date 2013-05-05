@@ -18,14 +18,14 @@ Quick start
 
 Clone the repo, `git clone git://github.com/logotype/LeapMotionAS3.git`.
 
-Create an instance of the LeapMotion class:
+Create an instance of the Controller class:
 
-    leap = new LeapMotion();
-    leap.controller.addEventListener( LeapEvent.LEAPMOTION_INIT, onInit );
-    leap.controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, onConnect );
-    leap.controller.addEventListener( LeapEvent.LEAPMOTION_DISCONNECTED, onDisconnect );
-    leap.controller.addEventListener( LeapEvent.LEAPMOTION_EXIT, onExit );
-    leap.controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, onFrame );
+    controller = new Controller();
+    controller.addEventListener( LeapEvent.LEAPMOTION_INIT, onInit );
+    controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, onConnect );
+    controller.addEventListener( LeapEvent.LEAPMOTION_DISCONNECTED, onDisconnect );
+    controller.addEventListener( LeapEvent.LEAPMOTION_EXIT, onExit );
+    controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, onFrame );
 
 What you'll get from the `LEAPMOTION_FRAME` handler is a `Frame` instance, with strongly
 typed properties such as `Hands`, `Pointables`, `Direction`, `Gestures` and more:
@@ -66,7 +66,7 @@ typed properties such as `Hands`, `Pointables`, `Direction`, `Gestures` and more
     	}
     }
 
-Optionally, you can simply call `leap.frame()` e.g. in your main loop, or implement the `ILeapCallback` interface for callbacks.
+Optionally, you can simply call `controller.frame()` e.g. in your main loop, or implement the `Listener` interface for callbacks.
 
 Features
 --------
