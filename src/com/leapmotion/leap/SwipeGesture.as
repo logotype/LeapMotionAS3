@@ -14,7 +14,7 @@ package com.leapmotion.leap
 	 * recognized as a swipe using the config attribute of a connected Controller object.
 	 * Use the following keys to configure swipe recognition:</p>
 	 * 
-	 * <table>
+	 * <table class="innertable">
 	 *   <tr>
 	 *    <th>Key string</th>
 	 *    <th>Value type</th>
@@ -49,7 +49,7 @@ package com.leapmotion.leap
 		/**
 		 * The type value designating a swipe gesture. 
 		 */
-		public var classType:int = Gesture.TYPE_SWIPE;
+		static public var classType:int = Gesture.TYPE_SWIPE;
 		
 		/**
 		 * The unit direction vector parallel to the swipe motion.

@@ -9,16 +9,16 @@ package
 	[SWF(frameRate=60)]
 	public class Sample extends Sprite
 	{
-		private var leap:LeapMotion;
+		private var controller:Controller;
 
 		public function Sample()
 		{
-			leap = new LeapMotion();
-			leap.controller.addEventListener( LeapEvent.LEAPMOTION_INIT, onInit );
-			leap.controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, onConnect );
-			leap.controller.addEventListener( LeapEvent.LEAPMOTION_DISCONNECTED, onDisconnect );
-			leap.controller.addEventListener( LeapEvent.LEAPMOTION_EXIT, onExit );
-			leap.controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, onFrame );
+			controller = new Controller();
+			controller.addEventListener( LeapEvent.LEAPMOTION_INIT, onInit );
+			controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, onConnect );
+			controller.addEventListener( LeapEvent.LEAPMOTION_DISCONNECTED, onDisconnect );
+			controller.addEventListener( LeapEvent.LEAPMOTION_EXIT, onExit );
+			controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, onFrame );
 		}
 
 		private function onInit( event:LeapEvent ):void
@@ -29,11 +29,11 @@ package
 		private function onConnect( event:LeapEvent ):void
 		{
 			trace( "Connected" );
-			leap.controller.enableGesture( Gesture.TYPE_SWIPE );
-			leap.controller.enableGesture( Gesture.TYPE_CIRCLE );
-			leap.controller.enableGesture( Gesture.TYPE_SCREEN_TAP );
-			leap.controller.enableGesture( Gesture.TYPE_KEY_TAP );
-			leap.controller.setPolicyFlags( Controller.POLICY_BACKGROUND_FRAMES );
+			controller.enableGesture( Gesture.TYPE_SWIPE );
+			controller.enableGesture( Gesture.TYPE_CIRCLE );
+			controller.enableGesture( Gesture.TYPE_SCREEN_TAP );
+			controller.enableGesture( Gesture.TYPE_KEY_TAP );
+			controller.setPolicyFlags( Controller.POLICY_BACKGROUND_FRAMES );
 		}
 
 		private function onDisconnect( event:LeapEvent ):void
@@ -107,10 +107,10 @@ package
 						var sweptAngle:Number = 0;
 						if ( circle.state != Gesture.STATE_START )
 						{
-							var previousGesture:Gesture = leap.frame( 1 ).gesture( circle.id );
+							var previousGesture:Gesture = controller.frame( 1 ).gesture( circle.id );
 							if( previousGesture.isValid() )
 							{
-								var previousUpdate:CircleGesture = CircleGesture( leap.frame( 1 ).gesture( circle.id ) );
+								var previousUpdate:CircleGesture = CircleGesture( controller.frame( 1 ).gesture( circle.id ) );
 								sweptAngle = ( circle.progress - previousUpdate.progress ) * 2 * Math.PI;
 							}
 						}

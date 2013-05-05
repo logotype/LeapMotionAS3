@@ -1,7 +1,7 @@
 package samples.swipeGallery
 {
 	import com.leapmotion.leap.Gesture;
-	import com.leapmotion.leap.LeapMotion;
+	import com.leapmotion.leap.Controller;
 	import com.leapmotion.leap.SwipeGesture;
 	import com.leapmotion.leap.events.LeapEvent;
 
@@ -16,7 +16,7 @@ package samples.swipeGallery
 	public class SwipeGallery extends Sprite
 	{
 
-		private var leap:LeapMotion;
+		private var controller:Controller;
 		private var container:Sprite;
 		private var imagesHolder:Sprite;
 
@@ -42,9 +42,9 @@ package samples.swipeGallery
 			}
 			addChild( container );
 
-			leap = new LeapMotion();
-			leap.controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, leapmotionFrameHandler );
-			leap.controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, leapmotionConnectedHandler );
+			controller = new Controller();
+			controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, leapmotionFrameHandler );
+			controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, leapmotionConnectedHandler );
 
 			addEventListener( Event.ENTER_FRAME, enterFrameHandler );
 
@@ -53,7 +53,7 @@ package samples.swipeGallery
 
 		private function leapmotionConnectedHandler( event:LeapEvent ):void
 		{
-			leap.controller.enableGesture( Gesture.TYPE_SWIPE );
+			controller.enableGesture( Gesture.TYPE_SWIPE );
 		}
 
 		public function get currentImageIndex():int

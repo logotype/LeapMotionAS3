@@ -48,7 +48,7 @@ package com.leapmotion.leap
 	 *
 	 * <p>The following keys can be used with the Config class to configure the gesture recognizer:</p>
 	 * 
-	 * <table>
+	 * <table class="innertable">
 	 *   <tr>
 	 *    <th>Key string</th>
 	 *    <th>Value type</th>

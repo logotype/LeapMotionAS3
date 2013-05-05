@@ -25,12 +25,12 @@ package com.leapmotion.leap.util
 		static public const RAD_TO_DEG:Number = 57.295779513;
 
 		/**
-		 * Pi * 2. 
+		 * Pi &#42; 2. 
 		 */
 		static public const TWO_PI:Number = Math.PI + Math.PI;
 
 		/**
-		 * Pi * 0.5. 
+		 * Pi &#42; 0.5. 
 		 */
 		static public const HALF_PI:Number = Math.PI * 0.5;
 

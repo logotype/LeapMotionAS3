@@ -97,9 +97,9 @@ package com.leapmotion.leap.native
 		 */
 		private var controller:Controller;
 
-		public function LeapNative()
+		public function LeapNative( _controller:Controller )
 		{
-			controller = Controller.getInstance();
+			controller = _controller;
 			context = tryCreatingExtensionContext();
 
 			if ( context )
@@ -215,6 +215,9 @@ package com.leapmotion.leap.native
 			controller.frameHistory.unshift( _frame );
 
 			_frame = context.call( "getFrame" );
+			
+			// Add Controller to frame
+			_frame.controller = controller;
 
 			controller.leapmotion::listener.onFrame( controller, _frame );
 		}

@@ -22,7 +22,7 @@ package com.leapmotion.leap
 	 * the movement using the config attribute of a connected Controller object.
 	 * Use the following configuration keys to configure key tap recognition:</p>
 	 * 
-	 * <table>
+	 * <table class="innertable">
 	 *   <tr>
 	 *    <th>Key string</th>
 	 *    <th>Value type</th>
@@ -64,7 +64,7 @@ package com.leapmotion.leap
 		/**
 		 * The type value designating a key tap gesture. 
 		 */
-		public var classType:int = Gesture.TYPE_KEY_TAP;
+		static public var classType:int = Gesture.TYPE_KEY_TAP;
 
 		/**
 		 * The current direction of finger tip motion.

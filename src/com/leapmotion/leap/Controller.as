@@ -39,12 +39,43 @@ package com.leapmotion.leap
 	[Event(name="leapmotionFrame", type="com.leapmotion.leap.events.LeapEvent")]
 
 	/**
-	 * The main event dispatcher for Leap events. This singleton is automatically created when
-	 * you initialize the LeapMotion class, you can access the Controller via <code>leap.controller</code>.
+	 * The Controller class is your main interface to the Leap Motion Controller.
 	 * 
-	 * @see LeapMotion
+	 * <p>Create an instance of this Controller class to access frames of tracking
+	 * data and configuration information. Frame data can be polled at any time using
+	 * the <code>Controller::frame()</code> function. Call <code>frame()</code> or <code>frame(0)</code>
+	 * to get the most recent frame. Set the history parameter to a positive integer
+	 * to access previous frames. A controller stores up to 60 frames in its frame history.</p>
+	 * 
+	 * <p>Polling is an appropriate strategy for applications which already have an
+	 * intrinsic update loop, such as a game. You can also implement the Leap::Listener
+	 * interface to handle events as they occur. The Leap dispatches events to the listener
+	 * upon initialization and exiting, on connection changes, and when a new frame
+	 * of tracking data is available. When these events occur, the controller object
+	 * invokes the appropriate callback function defined in the Listener interface.</p>
+	 * 
+	 * <p>To access frames of tracking data as they become available:</p>
+	 * 
+	 * <ul>
+	 * <li>Implement the Listener interface and override the <code>Listener::onFrame()</code> function.</li>
+	 * <li>In your <code>Listener::onFrame()</code> function, call the <code>Controller::frame()</code> function to access the newest frame of tracking data.</li>
+	 * <li>To start receiving frames, create a Controller object and add event listeners to the <code>Controller::addEventListener()</code> function.</li>
+	 * </ul>
+	 * 
+	 * <p>When an instance of a Controller object has been initialized,
+	 * it calls the <code>Listener::onInit()</code> function when the listener is ready for use.
+	 * When a connection is established between the controller and the Leap,
+	 * the controller calls the <code>Listener::onConnect()</code> function. At this point,
+	 * your application will start receiving frames of data. The controller calls
+	 * the <code>Listener::onFrame()</code> function each time a new frame is available.
+	 * If the controller loses its connection with the Leap software or
+	 * device for any reason, it calls the <code>Listener::onDisconnect()</code> function.
+	 * If the listener is removed from the controller or the controller is destroyed,
+	 * it calls the <code>Listener::onExit()</code> function. At that point, unless the listener
+	 * is added to another controller again, it will no longer receive frames of tracking data.</p>
+	 * 
 	 * @author logotype
-	 *
+	 *  
 	 */
 	public class Controller extends EventDispatcher
 	{
@@ -67,22 +98,19 @@ package com.leapmotion.leap
 		static public const POLICY_BACKGROUND_FRAMES:uint = (1 << 0);
 		
 		/**
+		 * @private
 		 * The Listener subclass instance.
 		 */
 		leapmotion var listener:Listener;
 
 		/**
+		 * @private
 		 * Current connection, either native or socket.
 		 */
 		public var connection:ILeapConnection;
 
 		/**
-		 * The singleton instance.
 		 * @private
-		 */
-		static private var instance:Controller;
-
-		/**
 		 * History of frame of tracking data from the Leap.
 		 */
 		public var frameHistory:Vector.<Frame> = new Vector.<Frame>();
@@ -102,29 +130,21 @@ package com.leapmotion.leap
 
 		/**
 		 * Constructs a Controller object. 
+		 * @param host IP or hostname of the computer running the Leap software.
+		 * (currently only supported for socket connections).
 		 * 
 		 */
-		public function Controller()
+		public function Controller( host:String = null )
 		{
 			leapmotion::listener = new DefaultListener();
-		}
 
-		/**
-		 * Initializes connection to the Leap.
-		 *
-		 * @param host Optional. The host computer with the Leap Motion Controller
-		 * (currently only supported for socket connections).
-		 *
-		 */
-		public function init( host:String = null ):void
-		{
 			if ( !host && LeapNative.isSupported() )
 			{
-				connection = new LeapNative();
+				connection = new LeapNative( this );
 			}
 			else
 			{
-				connection = new LeapSocket( host );
+				connection = new LeapSocket( this, host );
 			}
 		}
 
@@ -219,7 +239,7 @@ package com.leapmotion.leap
 
 					for ( i; i < length; ++i )
 					{
-						screen = new Screen();
+						screen = new Screen( this );
 						screen._screen = screenArray[ i ];
 						screen.id = i;
 						_screenList.push( screen );
@@ -419,7 +439,7 @@ package com.leapmotion.leap
 		 */
 		public function config():Config
 		{
-			return new Config();
+			return new Config( this );
 		}
 
 		/**
@@ -433,19 +453,6 @@ package com.leapmotion.leap
 		public function hasFocus():Boolean
 		{
 			return context.call( "hasFocus" );
-		}
-
-		/**
-		 * @private
-		 * @return The Controller singleton instance. 
-		 * 
-		 */
-		static public function getInstance():Controller
-		{
-			if ( instance == null )
-				instance = new Controller();
-
-			return instance;
 		}
 	}
 }

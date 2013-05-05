@@ -105,14 +105,22 @@ package com.leapmotion.leap
 		public var rotation:Matrix;
 
 		/**
+		 * @private
 		 * Scale factor since last Frame.
 		 */
 		public var scaleFactorNumber:Number;
 
 		/**
+		 * @private
 		 * Translation since last Frame.
 		 */
 		public var translationVector:Vector3;
+
+		/**
+		 * @private
+		 * Reference to the Controller which created this object. 
+		 */
+		public var controller:Controller;
 
 		/**
 		 * Constructs a Hand object.
@@ -331,26 +339,25 @@ package com.leapmotion.leap
 		 */
 		public function rotationAngle( sinceFrame:Frame, axis:Vector3 = null ):Number
 		{
+			if ( !isValid() || !sinceFrame.isValid() )
+				return 0;
+			
 			var returnValue:Number = 0;
-			if( !axis )
+
+			if ( sinceFrame.hand( id ).isValid() && sinceFrame.hand( id ).frame )
 			{
-				if ( sinceFrame.hand( id ) && sinceFrame.hand( id ).frame )
+				var rotationSinceFrameMatrix:Matrix = rotationMatrix( sinceFrame.hand( id ).frame );
+				var cs:Number = ( rotationSinceFrameMatrix.xBasis.x + rotationSinceFrameMatrix.yBasis.y + rotationSinceFrameMatrix.zBasis.z ) * 0.5;
+				var angle:Number = Math.acos( cs );
+				returnValue = isNaN( angle ) ? 0 : angle;
+
+				if( axis )
 				{
-					var rotationSinceFrameMatrix:Matrix = rotationMatrix( sinceFrame.hand( id ).frame );
-					var cs:Number = ( rotationSinceFrameMatrix.xBasis.x + rotationSinceFrameMatrix.yBasis.y + rotationSinceFrameMatrix.zBasis.z ) * 0.5;
-					var angle:Number = Math.acos( cs );
-					returnValue = isNaN( angle ) ? 0 : angle;
+					var rotAxis:Vector3 = rotationAxis( sinceFrame.hand( id ).frame );
+					returnValue *= rotAxis.dot( axis.normalized() );
 				}
 			}
-			else
-			{
-				if ( sinceFrame.hand( id ) && sinceFrame.hand( id ).frame )
-				{
-					var rotAxis:Vector3 = this.rotationAxis( sinceFrame.hand( id ).frame );
-					var rotAngle:Number = this.rotationAngle( sinceFrame.hand( id ).frame );
-					returnValue = rotAngle * rotAxis.dot( axis.normalized() );
-				}
-			}
+
 			return returnValue;
 		}
 
@@ -399,10 +406,10 @@ package com.leapmotion.leap
 		 */
 		public function rotationProbability( sinceFrame:Frame ):Number
 		{
-			if( !Controller.getInstance().context )
+			if( !controller.context )
 				throw new Error( "Method only supported for Native connections." );
 			else
-				return Controller.getInstance().context.call( "handRotationProbability", id, frame.id, sinceFrame.id );
+				return controller.context.call( "handRotationProbability", id, frame.id, sinceFrame.id );
 		}
 
 		/**
@@ -454,10 +461,10 @@ package com.leapmotion.leap
 		 */
 		public function scaleProbability( sinceFrame:Frame ):Number
 		{
-			if( !Controller.getInstance().context )
+			if( !controller.context )
 				throw new Error( "Method only supported for Native connections." );
 			else
-				return Controller.getInstance().context.call( "handScaleProbability", id, frame.id, sinceFrame.id );
+				return controller.context.call( "handScaleProbability", id, frame.id, sinceFrame.id );
 		}
 
 		/**
@@ -498,10 +505,10 @@ package com.leapmotion.leap
 		 */
 		public function translationProbability( sinceFrame:Frame ):Number
 		{
-			if( !Controller.getInstance().context )
+			if( !controller.context )
 				throw new Error( "Method only supported for Native connections." );
 			else
-				return Controller.getInstance().context.call( "handTranslationProbability", id, frame.id, sinceFrame.id );
+				return controller.context.call( "handTranslationProbability", id, frame.id, sinceFrame.id );
 		}
 
 		/**
