@@ -456,16 +456,15 @@ package com.leapmotion.leap.socket
 		[Inline]
 		final private function getHandByID( frame:Frame, id:int ):Hand
 		{
-			var returnValue:Hand = null;
 			for each ( var hand:Hand in frame.hands )
 			{
 				if ( hand.id == id )
 				{
-					returnValue = hand;
+					return hand;
 					break;
 				}
 			}
-			return returnValue;
+			return Hand.invalid();
 		}
 		
 		/**
@@ -479,16 +478,15 @@ package com.leapmotion.leap.socket
 		[Inline]
 		final private function getPointableByID( frame:Frame, id:int ):Pointable
 		{
-			var returnValue:Pointable = null;
 			for each ( var pointable:Pointable in frame.pointables )
 			{
 				if ( pointable.id == id )
 				{
-					returnValue = pointable;
+					return pointable;
 					break;
 				}
 			}
-			return returnValue;
+			return Pointable.invalid();
 		}
 		
 		/**

@@ -111,12 +111,10 @@ package com.leapmotion.leap
 		 */
 		public function isValid():Boolean
 		{
-			var returnValue:Boolean = false;
-
 			if ( ( direction && direction.isValid()) && ( tipPosition && tipPosition.isValid()) && ( tipVelocity && tipVelocity.isValid()) )
-				returnValue = true;
+				return true;
 
-			return returnValue;
+			return false;
 		}
 
 		/**
@@ -132,39 +130,37 @@ package com.leapmotion.leap
 		 */
 		public function isEqualTo( other:Pointable ):Boolean
 		{
-			var returnValue:Boolean = true;
-
 			if ( !isValid() || !other.isValid() )
-				returnValue = false;
+				return false;
 			
-			if ( returnValue && frame != other.frame )
-				returnValue = false;
+			if ( frame != other.frame )
+				return false;
 			
-			if ( returnValue && hand != other.hand )
-				returnValue = false;
+			if ( hand != other.hand )
+				return false;
 
-			if ( returnValue && !direction.isEqualTo( other.direction ) )
-				returnValue = false;
+			if ( !direction.isEqualTo( other.direction ) )
+				return false;
 
-			if ( returnValue && length != other.length )
-				returnValue = false;
+			if ( length != other.length )
+				return false;
 
-			if ( returnValue && width != other.width )
-				returnValue = false;
+			if ( width != other.width )
+				return false;
 
-			if ( returnValue && id != other.id )
-				returnValue = false;
+			if ( id != other.id )
+				return false;
 
-			if ( returnValue && !tipPosition.isEqualTo( other.tipPosition ) )
-				returnValue = false;
+			if ( !tipPosition.isEqualTo( other.tipPosition ) )
+				return false;
 
-			if ( returnValue && !tipVelocity.isEqualTo( other.tipVelocity ) )
-				returnValue = false;
+			if ( !tipVelocity.isEqualTo( other.tipVelocity ) )
+				return false;
 
 			if ( isFinger != other.isFinger || isTool != other.isTool )
-				returnValue = false;
+				return false;
 
-			return returnValue;
+			return true;
 		}
 
 		/**

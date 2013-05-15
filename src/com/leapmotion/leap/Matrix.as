@@ -97,7 +97,10 @@ package com.leapmotion.leap
 		 */
 		final public function transformDirection( inVector:Vector3 ):Vector3
 		{
-			return new Vector3( xBasis.multiply( inVector.x ).x, yBasis.multiply( inVector.y ).y, zBasis.multiply( inVector.z ).z );
+			var x:Vector3 = xBasis.multiply( inVector.x );
+			var y:Vector3 = yBasis.multiply( inVector.y );
+			var z:Vector3 = zBasis.multiply( inVector.z );
+			return x.plus( y ).plus( z );
 		}
 
 		/**
@@ -121,7 +124,15 @@ package com.leapmotion.leap
 		 */
 		final public function multiply( other:Matrix ):Matrix
 		{
-			return new Matrix( transformDirection( other.xBasis ), transformDirection( other.yBasis ), transformDirection( other.zBasis ), transformPoint( other.origin ) );
+			var x:Vector3 = transformDirection( other.xBasis );
+			var y:Vector3 = transformDirection( other.yBasis );
+			var z:Vector3 = transformDirection( other.zBasis );
+			var o:Vector3 = origin;
+			
+			if( origin && other.origin )
+				o = transformPoint( other.origin );
+
+			return new Matrix( x, y, z, o );
 		}
 
 		/**
@@ -147,21 +158,19 @@ package com.leapmotion.leap
 		 */
 		final public function isEqualTo( other:Matrix ):Boolean
 		{
-			var returnValue:Boolean = true;
-
 			if ( !xBasis.isEqualTo( other.xBasis ) )
-				returnValue = false;
+				return false;
 
 			if ( !yBasis.isEqualTo( other.yBasis ) )
-				returnValue = false;
+				return false;
 
 			if ( !zBasis.isEqualTo( other.zBasis ) )
-				returnValue = false;
+				return false;
 
 			if ( !origin.isEqualTo( other.origin ) )
-				returnValue = false;
+				return false;
 
-			return returnValue;
+			return true;
 		}
 
 		/**

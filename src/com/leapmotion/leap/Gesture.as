@@ -275,12 +275,10 @@ package com.leapmotion.leap
 		 */
 		public function isValid():Boolean
 		{
-			var returnValue:Boolean = true;
-
 			if( isNaN( durationSeconds ) )
-				returnValue = false;
+				return false;
 
-			return returnValue;
+			return true;
 		}
 
 		/**

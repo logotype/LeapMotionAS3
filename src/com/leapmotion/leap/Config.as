@@ -254,27 +254,25 @@ package com.leapmotion.leap
 		public function type( key:String ) :String
 		{
 			var returnType:int = context.call( "getConfigType", key );
-			var returnValue:String;
 			switch( returnType )
 			{
 				case TYPE_BOOLEAN:
-					returnValue = "[TYPE_BOOLEAN]";
+					return "[TYPE_BOOLEAN]";
 					break;
 				case TYPE_INT32:
-					returnValue = "[TYPE_INT32]";
+					return "[TYPE_INT32]";
 					break;
 				case TYPE_FLOAT:
-					returnValue = "[TYPE_FLOAT]";
+					return "[TYPE_FLOAT]";
 					break;
 				case TYPE_STRING:
-					returnValue = "[TYPE_STRING]";
+					return "[TYPE_STRING]";
 					break;
 				case TYPE_UNKNOWN:
 				default:
-					returnValue = "[TYPE_UNKNOWN]";
+					return "[TYPE_UNKNOWN]";
 					break;
 			}
-			return returnValue;
 		}
 	}
 }

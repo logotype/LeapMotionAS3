@@ -32,13 +32,13 @@ package com.leapmotion.leap
 		 * to this hand, given in arbitrary order.
 		 * @see Finger
 		 */
-		public var fingers:Vector.<Finger> = new Vector.<Finger>();
+		public var _fingers:Vector.<Finger> = new Vector.<Finger>();
 
 		/**
 		 * The Frame associated with this Hand.
 		 * @see Frame
 		 */
-		public var frame:Frame;
+		public var frame:Frame = Frame.invalid();
 
 		/**
 		 * A unique ID assigned to this Hand object, whose value remains
@@ -82,7 +82,7 @@ package com.leapmotion.leap
 		 * @see Pointable
 		 *
 		 */
-		public var pointables:Vector.<Pointable> = new Vector.<Pointable>();
+		public var _pointables:Vector.<Pointable> = new Vector.<Pointable>();
 
 		/**
 		 * The center of a sphere fit to the curvature of this hand.
@@ -97,7 +97,7 @@ package com.leapmotion.leap
 		 * The list of Tool objects detected in this frame that are held by this hand, given in arbitrary order.
 		 * @see Tool
 		 */
-		public var tools:Vector.<Tool> = new Vector.<Tool>();
+		public var _tools:Vector.<Tool> = new Vector.<Tool>();
 
 		/**
 		 * Rotation matrix.
@@ -141,12 +141,10 @@ package com.leapmotion.leap
 		 */
 		public function isValid():Boolean
 		{
-			var returnValue:Boolean = false;
-			
 			if ( ( direction && direction.isValid()) && ( palmNormal && palmNormal.isValid()) && ( palmPosition && palmPosition.isValid()) && ( palmVelocity && palmVelocity.isValid()) && ( sphereCenter && sphereCenter.isValid()) )
-				returnValue = true;
+				return true;
 			
-			return returnValue;
+			return false;
 		}
 		
 		/**
@@ -162,12 +160,10 @@ package com.leapmotion.leap
 		 */
 		public function isEqualTo( other:Hand ):Boolean
 		{
-			var returnValue:Boolean = false;
-
 			if( id == other.id && frame == other.frame && isValid() && other.isValid() )
-				returnValue = true;
+				return true;
 			
-			return returnValue;
+			return false;
 		}
 		
 		/**
@@ -191,20 +187,32 @@ package com.leapmotion.leap
 		 */
 		public function finger( id:int ):Finger
 		{
-			var returnValue:Finger = Finger.invalid();
 			var i:int = 0;
-			var length:int = fingers.length;
+			var length:int = _fingers.length;
 
 			for ( i; i < length; ++i )
 			{
-				if ( fingers[ i ].id == id )
+				if ( _fingers[ i ].id == id )
 				{
-					returnValue = fingers[ i ];
+					return _fingers[ i ];
 					break;
 				}
 			}
 
-			return returnValue;
+			return Finger.invalid();
+		}
+		
+		/**
+		 * The list of Finger objects detected in this hand,
+		 * given in arbitrary order.
+		 *
+		 * <p>The list can be empty if no fingers are detected.</p>
+		 * @return The Finger vector containing all Finger objects detected in this hand.
+		 *
+		 */
+		public function get fingers():Vector.<Finger>
+		{
+			return _fingers;
 		}
 
 		/**
@@ -229,20 +237,32 @@ package com.leapmotion.leap
 		 */
 		public function tool( id:int ):Tool
 		{
-			var returnValue:Tool = Tool.invalid();
 			var i:int = 0;
-			var length:int = fingers.length;
+			var length:int = _tools.length;
 
 			for ( i; i < length; ++i )
 			{
-				if ( tools[ i ].id == id )
+				if ( _tools[ i ].id == id )
 				{
-					returnValue = tools[ i ];
+					return _tools[ i ];
 					break;
 				}
 			}
 
-			return returnValue;
+			return Tool.invalid();
+		}
+		
+		/**
+		 * The list of Tool objects detected in this hand,
+		 * given in arbitrary order.
+		 *
+		 * <p>The list can be empty if no tools are detected.</p>
+		 * @return The ToolList containing all Tool objects detected in this hand.
+		 *
+		 */
+		public function get tools():Vector.<Tool>
+		{
+			return _tools;
 		}
 
 		/**
@@ -266,22 +286,35 @@ package com.leapmotion.leap
 		 */
 		public function pointable( id:int ):Pointable
 		{
-			var returnValue:Pointable = Pointable.invalid();
 			var i:int = 0;
-			var length:int = pointables.length;
+			var length:int = _pointables.length;
 
 			for ( i; i < length; ++i )
 			{
-				if ( pointables[ i ].id == id )
+				if ( _pointables[ i ].id == id )
 				{
-					returnValue = pointables[ i ];
+					return _pointables[ i ];
 					break;
 				}
 			}
 
-			return returnValue;
+			return Pointable.invalid();
 		}
 
+		/**
+		 * The list of Pointable objects (fingers and tools) detected in this
+		 * hand, given in arbitrary order.
+		 *
+		 * <p>The list can be empty if no fingers or tools are detected.</p>
+		 * 
+		 * @return The Pointable vector containing all Pointable objects
+		 * detected in this hand.
+		 */
+		public function get pointables():Vector.<Pointable>
+		{
+			return _pointables;
+		}
+		
 		/**
 		 * The axis of rotation derived from the change in orientation
 		 * of this hand, and any associated fingers and tools,
@@ -302,33 +335,31 @@ package com.leapmotion.leap
 		 */
 		public function rotationAxis( sinceFrame:Frame ):Vector3
 		{
-			var returnValue:Vector3;
-
 			if ( sinceFrame.hand( id ) )
 			{
-				var vector:Vector3 = new Vector3( rotation.zBasis.y - sinceFrame.hand( id ).rotation.yBasis.z, rotation.xBasis.z - sinceFrame.hand( id ).rotation.zBasis.x, rotation.yBasis.x - sinceFrame.hand( id ).rotation.xBasis.y );
-				returnValue = vector.normalized();
+				return new Vector3(
+					rotation.zBasis.y - sinceFrame.hand( id ).rotation.yBasis.z,
+					rotation.xBasis.z - sinceFrame.hand( id ).rotation.zBasis.x,
+					rotation.yBasis.x - sinceFrame.hand( id ).rotation.xBasis.y ).normalized();
 			}
 			else
 			{
-				returnValue = new Vector3( 0, 0, 0 );
+				return new Vector3( 0, 0, 0 );
 			}
-
-			return returnValue;
 		}
 
 		/**
 		 * The angle of rotation around the rotation axis derived from the
-		 * overall rotational motion between the current frame and the specified frame.
-		 *
-		 * <p>The returned angle is expressed in radians measured clockwise around
-		 * the rotation axis (using the right-hand rule) between the
-		 * start and end frames. The value is always between 0 and pi radians (0 and 180 degrees).</p>
-		 *
-		 * <p>The Leap derives frame rotation from the relative change in position
-		 * and orientation of all objects detected in the field of view.</p>
-		 *
-		 * <p>If either this frame or sinceFrame is an invalid Frame object,
+		 * change in orientation of this hand, and any associated fingers
+		 * and tools, between the current frame and the specified frame.
+		 * 
+		 * <p>The returned angle is expressed in radians measured clockwise
+		 * around the rotation axis (using the right-hand rule) between the
+		 * start and end frames. The value is always between 0 and pi radians
+		 * (0 and 180 degrees).</p>
+		 * 
+		 * <p>If a corresponding Hand object is not found in sinceFrame,
+		 * or if either this frame or sinceFrame are invalid Frame objects,
 		 * then the angle of rotation is zero.</p>
 		 *
 		 * @param sinceFrame The starting frame for computing the relative rotation.
@@ -339,23 +370,19 @@ package com.leapmotion.leap
 		 */
 		public function rotationAngle( sinceFrame:Frame, axis:Vector3 = null ):Number
 		{
-			if ( !isValid() || !sinceFrame.isValid() )
-				return 0;
+			if ( !isValid() || !sinceFrame.hand( id ).isValid() )
+				return 0.0;
 			
-			var returnValue:Number = 0;
+			var returnValue:Number = 0.0;
+			var rotationSinceFrameMatrix:Matrix = rotationMatrix( sinceFrame );
+			var cs:Number = ( rotationSinceFrameMatrix.xBasis.x + rotationSinceFrameMatrix.yBasis.y + rotationSinceFrameMatrix.zBasis.z - 1 ) * 0.5;
+			var angle:Number = Math.acos( cs );
+			returnValue = isNaN( angle ) ? 0.0 : angle;
 
-			if ( sinceFrame.hand( id ).isValid() && sinceFrame.hand( id ).frame )
+			if ( axis )
 			{
-				var rotationSinceFrameMatrix:Matrix = rotationMatrix( sinceFrame.hand( id ).frame );
-				var cs:Number = ( rotationSinceFrameMatrix.xBasis.x + rotationSinceFrameMatrix.yBasis.y + rotationSinceFrameMatrix.zBasis.z ) * 0.5;
-				var angle:Number = Math.acos( cs );
-				returnValue = isNaN( angle ) ? 0 : angle;
-
-				if( axis )
-				{
-					var rotAxis:Vector3 = rotationAxis( sinceFrame.hand( id ).frame );
-					returnValue *= rotAxis.dot( axis.normalized() );
-				}
+				var rotAxis:Vector3 = rotationAxis( sinceFrame.hand( id ).frame );
+				returnValue *= rotAxis.dot( axis.normalized() );
 			}
 
 			return returnValue;
@@ -380,14 +407,17 @@ package com.leapmotion.leap
 		 */
 		public function rotationMatrix( sinceFrame:Frame ):Matrix
 		{
-			var returnValue:Matrix;
-
-			if ( sinceFrame.hand( id ) && sinceFrame.hand( id ).rotation )
-				returnValue = rotation.multiply( sinceFrame.hand( id ).rotation );
+			if ( sinceFrame.hand( id ).isValid() )
+			{
+				return sinceFrame.hand( id ).rotation.multiply(
+					new Matrix( new Vector3( this.rotation.xBasis.x, this.rotation.yBasis.x, this.rotation.zBasis.x ),
+						new Vector3( this.rotation.xBasis.y, this.rotation.yBasis.y, this.rotation.zBasis.y ),
+						new Vector3( this.rotation.xBasis.z, this.rotation.yBasis.z, this.rotation.zBasis.z ) ) );
+			}	
 			else
-				returnValue = Matrix.identity();
-
-			return returnValue;
+			{
+				return Matrix.identity();
+			}
 		}
 		
 		/**
@@ -436,13 +466,10 @@ package com.leapmotion.leap
 		 */
 		public function scaleFactor( sinceFrame:Frame ):Number
 		{
-			var returnValue:Number;
 			if ( sinceFrame && sinceFrame.hand( id ) && sinceFrame.hand( id ).scaleFactorNumber )
-				returnValue = Math.exp( scaleFactorNumber - sinceFrame.hand( id ).scaleFactorNumber );
+				return Math.exp( scaleFactorNumber - sinceFrame.hand( id ).scaleFactorNumber );
 			else
-				returnValue = 1;
-			
-			return returnValue;
+				return 1;
 		}
 		
 		/**
@@ -479,14 +506,10 @@ package com.leapmotion.leap
 		 */
 		public function translation( sinceFrame:Frame ):Vector3
 		{
-			var returnValue:Vector3;
-
 			if ( sinceFrame.hand( id ) && sinceFrame.hand( id ).translationVector )
-				returnValue = new Vector3( translationVector.x - sinceFrame.hand( id ).translationVector.x, translationVector.y - sinceFrame.hand( id ).translationVector.y, translationVector.z - sinceFrame.hand( id ).translationVector.z );
+				return new Vector3( translationVector.x - sinceFrame.hand( id ).translationVector.x, translationVector.y - sinceFrame.hand( id ).translationVector.y, translationVector.z - sinceFrame.hand( id ).translationVector.z );
 			else
-				returnValue = new Vector3( 0, 0, 0 );
-
-			return returnValue;
+				return new Vector3( 0, 0, 0 );
 		}
 		
 		/**

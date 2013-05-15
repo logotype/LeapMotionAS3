@@ -167,16 +167,12 @@ package com.leapmotion.leap
 		 */
 		final public function frame( history:int = 0 ):Frame
 		{
-			var returnValue:Frame;
-
 			if ( history >= frameHistory.length )
-				returnValue = Frame.invalid();
+				return  Frame.invalid();
 			else if ( history == 0 )
-				returnValue = connection.frame;
+				return  connection.frame;
 			else
-				returnValue = frameHistory[ history ];
-
-			return returnValue;
+				return  frameHistory[ history ];
 		}
 
 		/**
@@ -280,19 +276,18 @@ package com.leapmotion.leap
 		final public function closestScreenHit( pointable:Pointable ):Screen
 		{
 			var screenId:int = context.call( "getClosestScreenHit", pointable.id );
-			var returnValue:Screen = Screen.invalid();
 			var screenList:Vector.<Screen> = locatedScreens();
 
 			for each ( var screen:Screen in screenList )
 			{
 				if ( screen.id == screenId )
 				{
-					returnValue = screen;
+					return screen;
 					break;
 				}
 			}
 
-			return returnValue;
+			return Screen.invalid();
 		}
 
 		/**
@@ -310,19 +305,18 @@ package com.leapmotion.leap
 		public function closestScreen( position:Vector3 ):Screen
 		{
 			var screenId:int = context.call( "getClosestScreen", position.x, position.y, position.z );
-			var returnValue:Screen = Screen.invalid();
 			var screenList:Vector.<Screen> = locatedScreens();
 
 			for each ( var screen:Screen in screenList )
 			{
 				if ( screen.id == screenId )
 				{
-					returnValue = screen;
+					return screen;
 					break;
 				}
 			}
 
-			return returnValue;
+			return Screen.invalid();
 		}
 
 		/**
