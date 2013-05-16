@@ -412,7 +412,7 @@ package com.leapmotion.leap.socket
 						
 						gesture.type = type;
 						
-						currentFrame._gestures.push( gesture );
+						currentFrame.gesturesVector.push( gesture );
 					}
 				}
 				

@@ -209,7 +209,7 @@ namespace leapnative {
         if(!frame.gestures().empty()) {
             
             FREObject freGestures;
-            FREGetObjectProperty(freCurrentFrame, (const uint8_t*) "_gestures", &freGestures, NULL);
+            FREGetObjectProperty(freCurrentFrame, (const uint8_t*) "gesturesVector", &freGestures, NULL);
             
             for(int i = 0; i < frame.gestures().count(); i++) {
                 const Gesture gesture = frame.gestures()[i];

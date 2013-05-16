@@ -28,11 +28,12 @@ package com.leapmotion.leap
 		public var direction:Vector3;
 
 		/**
+		 * @private
 		 * The list of Finger objects detected in this frame that are attached
 		 * to this hand, given in arbitrary order.
 		 * @see Finger
 		 */
-		public var _fingers:Vector.<Finger> = new Vector.<Finger>();
+		public var fingersVector:Vector.<Finger> = new Vector.<Finger>();
 
 		/**
 		 * The Frame associated with this Hand.
@@ -69,6 +70,7 @@ package com.leapmotion.leap
 		public var palmVelocity:Vector3;
 
 		/**
+		 * @private
 		 * The list of Pointable objects (fingers and tools) detected in this
 		 * frame that are associated with this hand, given in arbitrary order.
 		 *
@@ -82,7 +84,7 @@ package com.leapmotion.leap
 		 * @see Pointable
 		 *
 		 */
-		public var _pointables:Vector.<Pointable> = new Vector.<Pointable>();
+		public var pointablesVector:Vector.<Pointable> = new Vector.<Pointable>();
 
 		/**
 		 * The center of a sphere fit to the curvature of this hand.
@@ -94,10 +96,11 @@ package com.leapmotion.leap
 		public var sphereRadius:Number;
 
 		/**
+		 * @private
 		 * The list of Tool objects detected in this frame that are held by this hand, given in arbitrary order.
 		 * @see Tool
 		 */
-		public var _tools:Vector.<Tool> = new Vector.<Tool>();
+		public var toolsVector:Vector.<Tool> = new Vector.<Tool>();
 
 		/**
 		 * Rotation matrix.
@@ -188,13 +191,13 @@ package com.leapmotion.leap
 		public function finger( id:int ):Finger
 		{
 			var i:int = 0;
-			var length:int = _fingers.length;
+			var length:int = fingersVector.length;
 
 			for ( i; i < length; ++i )
 			{
-				if ( _fingers[ i ].id == id )
+				if ( fingersVector[ i ].id == id )
 				{
-					return _fingers[ i ];
+					return fingersVector[ i ];
 					break;
 				}
 			}
@@ -212,7 +215,7 @@ package com.leapmotion.leap
 		 */
 		public function get fingers():Vector.<Finger>
 		{
-			return _fingers;
+			return fingersVector;
 		}
 
 		/**
@@ -238,13 +241,13 @@ package com.leapmotion.leap
 		public function tool( id:int ):Tool
 		{
 			var i:int = 0;
-			var length:int = _tools.length;
+			var length:int = toolsVector.length;
 
 			for ( i; i < length; ++i )
 			{
-				if ( _tools[ i ].id == id )
+				if ( toolsVector[ i ].id == id )
 				{
-					return _tools[ i ];
+					return toolsVector[ i ];
 					break;
 				}
 			}
@@ -262,7 +265,7 @@ package com.leapmotion.leap
 		 */
 		public function get tools():Vector.<Tool>
 		{
-			return _tools;
+			return toolsVector;
 		}
 
 		/**
@@ -287,13 +290,13 @@ package com.leapmotion.leap
 		public function pointable( id:int ):Pointable
 		{
 			var i:int = 0;
-			var length:int = _pointables.length;
+			var length:int = pointablesVector.length;
 
 			for ( i; i < length; ++i )
 			{
-				if ( _pointables[ i ].id == id )
+				if ( pointablesVector[ i ].id == id )
 				{
-					return _pointables[ i ];
+					return pointablesVector[ i ];
 					break;
 				}
 			}
@@ -312,7 +315,7 @@ package com.leapmotion.leap
 		 */
 		public function get pointables():Vector.<Pointable>
 		{
-			return _pointables;
+			return pointablesVector;
 		}
 		
 		/**

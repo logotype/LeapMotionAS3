@@ -18,18 +18,21 @@ package com.leapmotion.leap
 	public class Frame
 	{
 		/**
+		 * @private
 		 * The list of Finger objects detected in this frame, given in arbitrary order.<br/>
 		 * The list can be empty if no fingers are detected.
 		 */
-		public var _fingers:Vector.<Finger> = new Vector.<Finger>();
+		public var fingersVector:Vector.<Finger> = new Vector.<Finger>();
 
 		/**
+		 * @private
 		 * The list of Hand objects detected in this frame, given in arbitrary order.<br/>
 		 * The list can be empty if no hands are detected.
 		 */
-		public var _hands:Vector.<Hand> = new Vector.<Hand>();
+		public var handsVector:Vector.<Hand> = new Vector.<Hand>();
 
 		/**
+		 * @private
 		 * The Pointable object with the specified ID in this frame.
 		 *
 		 * <p>Use the <code>Frame.pointable()</code> function to retrieve the Pointable
@@ -47,7 +50,7 @@ package com.leapmotion.leap
 		 * @see Pointable
 		 *
 		 */
-		public var _pointables:Vector.<Pointable> = new Vector.<Pointable>();
+		public var pointablesVector:Vector.<Pointable> = new Vector.<Pointable>();
 
 		/**
 		 * @private
@@ -56,7 +59,7 @@ package com.leapmotion.leap
 		 * <p>Circle and swipe gestures are updated every frame.
 		 * Tap gestures only appear in the list when they start.</p>
 		 */
-		public var _gestures:Vector.<Gesture> = new Vector.<Gesture>();
+		public var gesturesVector:Vector.<Gesture> = new Vector.<Gesture>();
 
 		/**
 		 * A unique ID for this Frame.
@@ -70,11 +73,12 @@ package com.leapmotion.leap
 		public var timestamp:Number;
 
 		/**
+		 * @private
 		 * The list of Tool objects detected in this frame, given in arbitrary order.
 		 *
 		 * @see Tool
 		 */
-		public var _tools:Vector.<Tool> = new Vector.<Tool>();
+		public var toolsVector:Vector.<Tool> = new Vector.<Tool>();
 
 		/**
 		 * Rotation matrix.
@@ -133,13 +137,13 @@ package com.leapmotion.leap
 		public function hand( id:int ):Hand
 		{
 			var i:int = 0;
-			var length:int = _hands.length;
+			var length:int = handsVector.length;
 
 			for ( i; i < length; ++i )
 			{
-				if ( _hands[ i ].id == id )
+				if ( handsVector[ i ].id == id )
 				{
-					return _hands[ i ];
+					return handsVector[ i ];
 					break;
 				}
 			}
@@ -157,7 +161,7 @@ package com.leapmotion.leap
 		 */
 		public function get hands():Vector.<Hand>
 		{
-			return _hands;
+			return handsVector;
 		}
 
 		/**
@@ -184,13 +188,13 @@ package com.leapmotion.leap
 		public function finger( id:int ):Finger
 		{
 			var i:int = 0;
-			var length:int = _fingers.length;
+			var length:int = fingersVector.length;
 
 			for ( i; i < length; ++i )
 			{
-				if ( _fingers[ i ].id == id )
+				if ( fingersVector[ i ].id == id )
 				{
-					return _fingers[ i ];
+					return fingersVector[ i ];
 					break;
 				}
 			}
@@ -208,7 +212,7 @@ package com.leapmotion.leap
 		 */
 		public function get fingers():Vector.<Finger>
 		{
-			return _fingers;
+			return fingersVector;
 		}
 
 		/**
@@ -235,13 +239,13 @@ package com.leapmotion.leap
 		public function tool( id:int ):Tool
 		{
 			var i:int = 0;
-			var length:int = _tools.length;
+			var length:int = toolsVector.length;
 
 			for ( i; i < length; ++i )
 			{
-				if ( _tools[ i ].id == id )
+				if ( toolsVector[ i ].id == id )
 				{
-					return _tools[ i ];
+					return toolsVector[ i ];
 					break;
 				}
 			}
@@ -259,7 +263,7 @@ package com.leapmotion.leap
 		 */
 		public function get tools():Vector.<Tool>
 		{
-			return _tools;
+			return toolsVector;
 		}
 		
 		/**
@@ -285,13 +289,13 @@ package com.leapmotion.leap
 		public function pointable( id:int ):Pointable
 		{
 			var i:int = 0;
-			var length:int = _pointables.length;
+			var length:int = pointablesVector.length;
 
 			for ( i; i < length; ++i )
 			{
-				if ( _pointables[ i ].id == id )
+				if ( pointablesVector[ i ].id == id )
 				{
-					return _pointables[ i ];
+					return pointablesVector[ i ];
 					break;
 				}
 			}
@@ -310,7 +314,7 @@ package com.leapmotion.leap
 		 */
 		public function get pointables():Vector.<Pointable>
 		{
-			return _pointables;
+			return pointablesVector;
 		}
 
 		/**
@@ -331,13 +335,13 @@ package com.leapmotion.leap
 		public function gesture( id:int ):Gesture
 		{
 			var i:int = 0;
-			var length:int = _gestures.length;
+			var length:int = gesturesVector.length;
 
 			for ( i; i < length; ++i )
 			{
-				if ( _gestures[ i ].id == id )
+				if ( gesturesVector[ i ].id == id )
 				{
-					return _gestures[ i ];
+					return gesturesVector[ i ];
 					break;
 				}
 			}
@@ -365,7 +369,7 @@ package com.leapmotion.leap
 			if( !sinceFrame )
 			{
 				// The gestures recognized or continuing in this frame.
-				return _gestures;
+				return gesturesVector;
 			}
 			else
 			{
@@ -379,8 +383,8 @@ package com.leapmotion.leap
 				
 				for( i; i < controller.frameHistory.length; ++i )
 				{
-					for( j; j < controller.frameHistory[ i ]._gestures.length; ++j )
-						gesturesSinceFrame.push( controller.frameHistory[ i ]._gestures[ j ] );
+					for( j; j < controller.frameHistory[ i ].gesturesVector.length; ++j )
+						gesturesSinceFrame.push( controller.frameHistory[ i ].gesturesVector[ j ] );
 
 					if( sinceFrame == controller.frameHistory[ i ] )
 						break;

@@ -1,7 +1,7 @@
 package com.leapmotion.leap
 {
 	/**
-	 * The Vector struct represents a three-component mathematical vector
+	 * The Vector class represents a three-component mathematical vector
 	 * or point such as a direction or position in three-dimensional space.
 	 *
 	 * <p>The Leap software employs a right-handed Cartesian coordinate system.

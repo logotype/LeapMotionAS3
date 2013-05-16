@@ -396,7 +396,6 @@ package com.leapmotion.leap.native
 		 */
 		public function setPolicyFlags( flags:uint ):void
 		{
-			trace("call set policy flags");
 			context.call( "setPolicyFlags", flags );
 		}
 	}

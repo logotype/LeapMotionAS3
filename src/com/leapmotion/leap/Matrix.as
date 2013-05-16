@@ -2,9 +2,9 @@ package com.leapmotion.leap
 {
 
 	/**
-	 * The Matrix struct represents a transformation matrix.
+	 * The Matrix class represents a transformation matrix.
 	 *
-	 * <p>To use this struct to transform a Vector, construct a matrix containing the
+	 * <p>To use this class to transform a Vector, construct a matrix containing the
 	 * desired transformation and then use the <code>Matrix.transformPoint()</code> or
 	 * <code>Matrix.transformDirection()</code> functions to apply the transform.</p>
 	 *
