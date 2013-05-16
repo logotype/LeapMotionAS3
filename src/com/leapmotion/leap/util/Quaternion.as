@@ -3,39 +3,39 @@ package com.leapmotion.leap.util
 	import com.leapmotion.leap.Vector3;
 
 	/**
-	 * Quaternions are used to represent rotations. 
+	 * Quaternions are used to represent rotations.
 	 * @author logotype
-	 * 
+	 *
 	 */
 	public class Quaternion
 	{
 		/**
-		 * X component of the Quaternion. 
+		 * X component of the Quaternion.
 		 */
 		public var x:Number;
 
 		/**
-		 * Y component of the Quaternion. 
+		 * Y component of the Quaternion.
 		 */
 		public var y:Number;
 
 		/**
-		 * Z component of the Quaternion. 
+		 * Z component of the Quaternion.
 		 */
 		public var z:Number;
 
 		/**
-		 * W component of the Quaternion. 
+		 * W component of the Quaternion.
 		 */
 		public var w:Number;
 
 		/**
-		 * Constructs a new Quaternion with given components. 
+		 * Constructs a new Quaternion with given components.
 		 * @param a
 		 * @param b
 		 * @param c
 		 * @param d
-		 * 
+		 *
 		 */
 		public function Quaternion( a:Number = 0, b:Number = 0, c:Number = 0, d:Number = 1 )
 		{
@@ -48,7 +48,7 @@ package com.leapmotion.leap.util
 		/**
 		 * Converts Vector3 representing a point to Quaternion.
 		 * @param vec
-		 * 
+		 *
 		 */
 		public function fromVector3Point( vec:Vector3 ):void
 		{
@@ -59,9 +59,9 @@ package com.leapmotion.leap.util
 		}
 
 		/**
-		 * Converts Vector3 representing angles to Quaternion. 
+		 * Converts Vector3 representing angles to Quaternion.
 		 * @param vec
-		 * 
+		 *
 		 */
 		public function fromVector3Angle( vec:Vector3 ):void
 		{
@@ -73,20 +73,20 @@ package com.leapmotion.leap.util
 			var cosX:Number = Math.cos( vec.x * 0.5 );
 			var cosYcosZ:Number = cosY * cosZ;
 			var sinYsinZ:Number = sinY * sinZ;
-			
+
 			x = sinX * cosYcosZ - cosX * sinYsinZ;
 			y = cosX * sinY * cosZ + sinX * cosY * sinZ;
 			z = cosX * cosY * sinZ - sinX * sinY * cosZ;
 			w = cosX * cosYcosZ + sinX * sinYsinZ;
 		}
-		
+
 		/**
-		 * Converts an axis-angle to Quaternion. 
+		 * Converts an axis-angle to Quaternion.
 		 * @param a
 		 * @param b
 		 * @param c
 		 * @param d
-		 * 
+		 *
 		 */
 		public function fromAxisAngle( x:Number, y:Number, z:Number, angle:Number ):void
 		{
@@ -100,11 +100,11 @@ package com.leapmotion.leap.util
 		}
 
 		/**
-		 * Converts Euler angles to Quaternion. 
+		 * Converts Euler angles to Quaternion.
 		 * @param ax
 		 * @param ay
 		 * @param az
-		 * 
+		 *
 		 */
 		public function fromEuler( ax:Number, ay:Number, az:Number ):void
 		{
@@ -124,8 +124,8 @@ package com.leapmotion.leap.util
 		}
 
 		/**
-		 * Normalize Quaternion. 
-		 * 
+		 * Normalize Quaternion.
+		 *
 		 */
 		public function normalize():void
 		{
@@ -138,8 +138,8 @@ package com.leapmotion.leap.util
 
 		/**
 		 * The pitch angle in radians.
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		public function pitch():Number
 		{
@@ -148,18 +148,18 @@ package com.leapmotion.leap.util
 
 		/**
 		 * The yaw angle in radians.
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		public function yaw():Number
 		{
-			return Math.asin( -2 * ( x * z - w * y ));
+			return Math.asin( -2 * ( x * z - w * y ) );
 		}
 
 		/**
 		 * The roll angle in radians.
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		public function roll():Number
 		{
@@ -168,9 +168,9 @@ package com.leapmotion.leap.util
 
 		/**
 		 * Concatenates two Quaternions; the result represents the
-		 * first rotation followed by the second rotation. 
+		 * first rotation followed by the second rotation.
 		 * @param other
-		 * 
+		 *
 		 */
 		public function concatenate( other:Quaternion ):void
 		{
@@ -189,8 +189,8 @@ package com.leapmotion.leap.util
 		}
 
 		/**
-		 * Calculate inverse of Quaternion. 
-		 * 
+		 * Calculate inverse of Quaternion.
+		 *
 		 */
 		public function inverse():void
 		{
@@ -200,9 +200,9 @@ package com.leapmotion.leap.util
 		}
 
 		/**
-		 * Copy a Quaternion. 
+		 * Copy a Quaternion.
 		 * @return A Quaternion representing the same values.
-		 * 
+		 *
 		 */
 		public function copy():Quaternion
 		{

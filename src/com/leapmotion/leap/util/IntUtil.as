@@ -1,5 +1,6 @@
 package com.leapmotion.leap.util
 {
+
 	/**
 	 * Contains reusable methods for operations pertaining
 	 * to int values.
@@ -15,7 +16,7 @@ package com.leapmotion.leap.util
 		 */
 		public static function rol( x:int, n:int ):int
 		{
-			return ( x << n ) | ( x >>> ( 32 - n ));
+			return ( x << n ) | ( x >>> ( 32 - n ) );
 		}
 
 		/**
@@ -24,7 +25,7 @@ package com.leapmotion.leap.util
 		public static function ror( x:int, n:int ):uint
 		{
 			var nn:int = 32 - n;
-			return ( x << nn ) | ( x >>> ( 32 - nn ));
+			return ( x << nn ) | ( x >>> ( 32 - nn ) );
 		}
 
 		/**
@@ -40,18 +41,18 @@ package com.leapmotion.leap.util
 		{
 			var s:String = "";
 
-			if ( bigEndian )
+			if( bigEndian )
 			{
-				for ( var i:int = 0; i < 4; i++ )
+				for( var i:int = 0; i < 4; i++ )
 				{
-					s += hexChars.charAt( ( n >> (( 3 - i ) * 8 + 4 )) & 0xF ) + hexChars.charAt( ( n >> (( 3 - i ) * 8 )) & 0xF );
+					s += hexChars.charAt( ( n >> ( ( 3 - i ) * 8 + 4 ) ) & 0xF ) + hexChars.charAt( ( n >> ( ( 3 - i ) * 8 ) ) & 0xF );
 				}
 			}
 			else
 			{
-				for ( var x:int = 0; x < 4; x++ )
+				for( var x:int = 0; x < 4; x++ )
 				{
-					s += hexChars.charAt( ( n >> ( x * 8 + 4 )) & 0xF ) + hexChars.charAt( ( n >> ( x * 8 )) & 0xF );
+					s += hexChars.charAt( ( n >> ( x * 8 + 4 ) ) & 0xF ) + hexChars.charAt( ( n >> ( x * 8 ) ) & 0xF );
 				}
 			}
 

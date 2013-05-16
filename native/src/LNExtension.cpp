@@ -95,14 +95,42 @@ extern "C" {
         return device->hasFocus();
     }
     
-    FREObject LeapNative_getClosestScreenHit(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+    FREObject LeapNative_getClosestScreenHitPointable(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
         leapnative::LNLeapDevice* device;
         FREGetContextNativeData(ctx, (void **) &device);
         
         int pointableId;
         FREGetObjectAsInt32(argv[0], &pointableId);
         
-        return device->getClosestScreenHit(pointableId);
+        return device->getClosestScreenHitPointable(pointableId);
+    }
+    
+    FREObject LeapNative_getClosestScreenHit(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        double pX;
+        FREGetObjectAsDouble(argv[0], &pX);
+        
+        double pY;
+        FREGetObjectAsDouble(argv[1], &pY);
+        
+        double pZ;
+        FREGetObjectAsDouble(argv[2], &pZ);
+        
+        double dX;
+        FREGetObjectAsDouble(argv[3], &dX);
+        
+        double dY;
+        FREGetObjectAsDouble(argv[4], &dY);
+        
+        double dZ;
+        FREGetObjectAsDouble(argv[5], &dZ);
+        
+        Vector position = Vector((float) pX, (float) pY, (float) pZ);
+        Vector direction = Vector((float) dX, (float) dY, (float) dZ);
+        
+        return device->getClosestScreenHit(position, direction);
     }
 
     //start screen class
@@ -484,6 +512,7 @@ extern "C" {
   		{ (const uint8_t*) "enableGesture", false, LeapNative_enableGesture },
   		{ (const uint8_t*) "isGestureEnabled", false, LeapNative_isGestureEnabled },
   		{ (const uint8_t*) "hasFocus", false, LeapNative_hasFocus },
+  		{ (const uint8_t*) "getClosestScreenHitPointable", false, LeapNative_getClosestScreenHitPointable },
   		{ (const uint8_t*) "getClosestScreenHit", false, LeapNative_getClosestScreenHit },
   		{ (const uint8_t*) "getScreenDistanceToPoint", false, LeapNative_getScreenDistanceToPoint },
   		{ (const uint8_t*) "getScreenHeightPixels", false, LeapNative_getScreenHeightPixels },

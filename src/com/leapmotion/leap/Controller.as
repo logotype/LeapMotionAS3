@@ -5,63 +5,63 @@ package com.leapmotion.leap
 	import com.leapmotion.leap.namespaces.leapmotion;
 	import com.leapmotion.leap.native.LeapNative;
 	import com.leapmotion.leap.socket.LeapSocket;
-
+	
 	import flash.events.EventDispatcher;
 
 	/**
 	 * Called once, when the Controller is initialized.
 	 */
-	[Event(name="leapmotionInit", type="com.leapmotion.leap.events.LeapEvent")]
+	[Event( name = "leapmotionInit", type = "com.leapmotion.leap.events.LeapEvent" )]
 
 	/**
 	 * Called when the Controller object connects to the Leap software.
 	 */
-	[Event(name="leapmotionConnected", type="com.leapmotion.leap.events.LeapEvent")]
+	[Event( name = "leapmotionConnected", type = "com.leapmotion.leap.events.LeapEvent" )]
 
 	/**
 	 * Called when the Controller object disconnects from the Leap software.
 	 */
-	[Event(name="leapmotionDisconnected", type="com.leapmotion.leap.events.LeapEvent")]
+	[Event( name = "leapmotionDisconnected", type = "com.leapmotion.leap.events.LeapEvent" )]
 
 	/**
 	 * Called when a timeout occurs from the socket connection.
 	 */
-	[Event(name="leapmotionTimeout", type="com.leapmotion.leap.events.LeapEvent")]
+	[Event( name = "leapmotionTimeout", type = "com.leapmotion.leap.events.LeapEvent" )]
 
 	/**
 	 * Called when this Controller instance is destroyed.
 	 */
-	[Event(name="leapmotionExit", type="com.leapmotion.leap.events.LeapEvent")]
+	[Event( name = "leapmotionExit", type = "com.leapmotion.leap.events.LeapEvent" )]
 
 	/**
 	 * Called when a new frame of hand and finger tracking data is available.
 	 */
-	[Event(name="leapmotionFrame", type="com.leapmotion.leap.events.LeapEvent")]
+	[Event( name = "leapmotionFrame", type = "com.leapmotion.leap.events.LeapEvent" )]
 
 	/**
 	 * The Controller class is your main interface to the Leap Motion Controller.
-	 * 
+	 *
 	 * <p>Create an instance of this Controller class to access frames of tracking
 	 * data and configuration information. Frame data can be polled at any time using
 	 * the <code>Controller::frame()</code> function. Call <code>frame()</code> or <code>frame(0)</code>
 	 * to get the most recent frame. Set the history parameter to a positive integer
 	 * to access previous frames. A controller stores up to 60 frames in its frame history.</p>
-	 * 
+	 *
 	 * <p>Polling is an appropriate strategy for applications which already have an
 	 * intrinsic update loop, such as a game. You can also implement the Leap::Listener
 	 * interface to handle events as they occur. The Leap dispatches events to the listener
 	 * upon initialization and exiting, on connection changes, and when a new frame
 	 * of tracking data is available. When these events occur, the controller object
 	 * invokes the appropriate callback function defined in the Listener interface.</p>
-	 * 
+	 *
 	 * <p>To access frames of tracking data as they become available:</p>
-	 * 
+	 *
 	 * <ul>
 	 * <li>Implement the Listener interface and override the <code>Listener::onFrame()</code> function.</li>
 	 * <li>In your <code>Listener::onFrame()</code> function, call the <code>Controller::frame()</code> function to access the newest frame of tracking data.</li>
 	 * <li>To start receiving frames, create a Controller object and add event listeners to the <code>Controller::addEventListener()</code> function.</li>
 	 * </ul>
-	 * 
+	 *
 	 * <p>When an instance of a Controller object has been initialized,
 	 * it calls the <code>Listener::onInit()</code> function when the listener is ready for use.
 	 * When a connection is established between the controller and the Leap,
@@ -73,30 +73,30 @@ package com.leapmotion.leap
 	 * If the listener is removed from the controller or the controller is destroyed,
 	 * it calls the <code>Listener::onExit()</code> function. At that point, unless the listener
 	 * is added to another controller again, it will no longer receive frames of tracking data.</p>
-	 * 
+	 *
 	 * @author logotype
-	 *  
+	 *
 	 */
 	public class Controller extends EventDispatcher
 	{
 		/**
 		 * The default policy.
-		 * 
+		 *
 		 * <p>Currently, the only supported policy is the background frames policy,
 		 * which determines whether your application receives frames of tracking
-		 * data when it is not the focused, foreground application.</p> 
+		 * data when it is not the focused, foreground application.</p>
 		 */
 		static public const POLICY_DEFAULT:uint = 0;
-		
+
 		/**
 		 * Receive background frames.
-		 * 
+		 *
 		 * <p>Currently, the only supported policy is the background frames policy,
 		 * which determines whether your application receives frames of tracking
-		 * data when it is not the focused, foreground application.</p> 
+		 * data when it is not the focused, foreground application.</p>
 		 */
-		static public const POLICY_BACKGROUND_FRAMES:uint = (1 << 0);
-		
+		static public const POLICY_BACKGROUND_FRAMES:uint = ( 1 << 0 );
+
 		/**
 		 * @private
 		 * The Listener subclass instance.
@@ -129,16 +129,16 @@ package com.leapmotion.leap
 		private var _screenList:Vector.<Screen> = new Vector.<Screen>();
 
 		/**
-		 * Constructs a Controller object. 
+		 * Constructs a Controller object.
 		 * @param host IP or hostname of the computer running the Leap software.
 		 * (currently only supported for socket connections).
-		 * 
+		 *
 		 */
 		public function Controller( host:String = null )
 		{
 			leapmotion::listener = new DefaultListener();
 
-			if ( !host && LeapNative.isSupported() )
+			if( !host && LeapNative.isSupported() )
 			{
 				connection = new LeapNative( this );
 			}
@@ -167,12 +167,12 @@ package com.leapmotion.leap
 		 */
 		final public function frame( history:int = 0 ):Frame
 		{
-			if ( history >= frameHistory.length )
-				return  Frame.invalid();
-			else if ( history == 0 )
-				return  connection.frame;
+			if( history >= frameHistory.length )
+				return Frame.invalid();
+			else if( history == 0 )
+				return connection.frame;
 			else
-				return  frameHistory[ history ];
+				return frameHistory[ history ];
 		}
 
 		/**
@@ -224,16 +224,16 @@ package com.leapmotion.leap
 		 */
 		final public function locatedScreens():Vector.<Screen>
 		{
-			if ( _screenList.length == 0 )
+			if( _screenList.length == 0 )
 			{
-				if ( Screen.tryCreatingScreenClassReference() )
+				if( Screen.tryCreatingScreenClassReference() )
 				{
 					var screen:Screen;
 					var screenArray:Array = Screen.ScreenClass.screens;
 					var i:int = 0;
 					var length:int = screenArray.length;
 
-					for ( i; i < length; ++i )
+					for( i; i < length; ++i )
 					{
 						screen = new Screen( this );
 						screen._screen = screenArray[ i ];
@@ -273,23 +273,65 @@ package com.leapmotion.leap
 		 * of any known screen, an invalid Screen object.
 		 *
 		 */
-		final public function closestScreenHit( pointable:Pointable ):Screen
+		final public function closestScreenHitPointable( pointable:Pointable ):Screen
 		{
-			var screenId:int = context.call( "getClosestScreenHit", pointable.id );
+			var screenId:int = context.call( "getClosestScreenHitPointable", pointable.id );
 			var screenList:Vector.<Screen> = locatedScreens();
-
-			for each ( var screen:Screen in screenList )
+			
+			for each( var screen:Screen in screenList )
 			{
-				if ( screen.id == screenId )
+				if( screen.id == screenId )
 				{
 					return screen;
 					break;
 				}
 			}
-
+			
 			return Screen.invalid();
 		}
-
+		
+		/**
+		 * Gets the closest Screen intercepting a ray projecting from the
+		 * specified position in the specified direction.
+		 * 
+		 * <p>The projected ray emanates from the position along the direction
+		 * vector. If the projected ray does not intersect any screen surface
+		 * directly, then the Leap checks for intersection with the planes
+		 * extending from the surfaces of the known screens and returns the
+		 * Screen with the closest intersection.</p>
+		 *
+		 * <p>If no intersections are found (i.e. the ray is directed parallel
+		 * to or away from all known screens), then an invalid Screen object
+		 * is returned.</p>
+		 *
+		 * <p>Note: Be sure to test whether the Screen object returned by this
+		 * method is valid. Attempting to use an invalid Screen object will
+		 * lead to incorrect results.</p>
+		 *
+		 * @param position The position from which to check for screen intersection.
+		 * @param direction The direction in which to check for screen intersection.
+		 * @return The closest Screen toward which the specified ray is pointing,
+		 * or, if the ray is not pointing in the direction of any known screen,
+		 * an invalid Screen object.
+		 *
+		 */
+		final public function closestScreenHit( position:Vector3, direction:Vector3 ):Screen
+		{
+			var screenId:int = context.call( "getClosestScreenHit", position.x, position.y, position.z, direction.x, direction.y, direction.z );
+			var screenList:Vector.<Screen> = locatedScreens();
+			
+			for each( var screen:Screen in screenList )
+			{
+				if( screen.id == screenId )
+				{
+					return screen;
+					break;
+				}
+			}
+			
+			return Screen.invalid();
+		}
+		
 		/**
 		 * Gets the Screen closest to the specified position.
 		 *
@@ -307,9 +349,9 @@ package com.leapmotion.leap
 			var screenId:int = context.call( "getClosestScreen", position.x, position.y, position.z );
 			var screenList:Vector.<Screen> = locatedScreens();
 
-			for each ( var screen:Screen in screenList )
+			for each( var screen:Screen in screenList )
 			{
-				if ( screen.id == screenId )
+				if( screen.id == screenId )
 				{
 					return screen;
 					break;

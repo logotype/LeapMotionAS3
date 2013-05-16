@@ -17,7 +17,7 @@ package com.leapmotion.leap.socket
 	import com.leapmotion.leap.namespaces.leapmotion;
 	import com.leapmotion.leap.util.Base64Encoder;
 	import com.leapmotion.leap.util.SHA1;
-	
+
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
@@ -93,7 +93,7 @@ package com.leapmotion.leap.socket
 		 * Whether the Leap is currently connected.
 		 */
 		private var _isConnected:Boolean = false;
-		
+
 		/**
 		 * Whether the Leap is reporting gestures.
 		 */
@@ -111,20 +111,20 @@ package com.leapmotion.leap.socket
 
 		/**
 		 * Constructs a LeapSocket object.
-		 *  
+		 *
 		 * @param host IP or hostname of the computer running the Leap software.
-		 * 
+		 *
 		 */
 		final public function LeapSocket( _controller:Controller, host:String = null )
 		{
-			if ( host )
+			if( host )
 				this.host = host;
 
 			controller = _controller;
 
 			// Generate nonce
 			var nonce:ByteArray = new ByteArray();
-			for ( var i:int = 0; i < 16; i++ )
+			for( var i:int = 0; i < 16; i++ )
 				nonce.writeByte( Math.round( Math.random() * 0xFF ) );
 
 			nonce.position = 0;
@@ -182,7 +182,7 @@ package com.leapmotion.leap.socket
 
 		/**
 		 * Triggered when the socket-connection is closed.
-		 * 
+		 *
 		 * @param event
 		 *
 		 */
@@ -195,7 +195,7 @@ package com.leapmotion.leap.socket
 
 		/**
 		 * Inline method where data is read until a complete LeapSocketFrame is parsed.
-		 * 
+		 *
 		 * @param event
 		 * @see LeapSocketFrame
 		 *
@@ -203,7 +203,7 @@ package com.leapmotion.leap.socket
 		[Inline]
 		final private function onSocketDataHandler( event:ProgressEvent = null ):void
 		{
-			if ( currentState == STATE_CONNECTING )
+			if( currentState == STATE_CONNECTING )
 			{
 				readLeapMotionHandshake();
 				return;
@@ -223,7 +223,7 @@ package com.leapmotion.leap.socket
 			var type:int;
 
 			// Loop until data has been completely added to the frame
-			while ( socket.connected && leapSocketFrame.addData( socket ) )
+			while( socket.connected && leapSocketFrame.addData( socket ) )
 			{
 				leapSocketFrame.binaryPayload.position = 0;
 				utf8data = leapSocketFrame.binaryPayload.readUTFBytes( leapSocketFrame.length );
@@ -232,11 +232,11 @@ package com.leapmotion.leap.socket
 				currentFrame.controller = controller;
 
 				// Hands
-				if ( json.hands )
+				if( json.hands )
 				{
 					i = 0;
 					length = json.hands.length;
-					for ( i; i < length; ++i )
+					for( i; i < length; ++i )
 					{
 						hand = new Hand();
 						hand.frame = currentFrame;
@@ -256,20 +256,20 @@ package com.leapmotion.leap.socket
 
 				// ID
 				currentFrame.id = json.id;
-				
+
 				// Pointables
-				if ( json.pointables )
+				if( json.pointables )
 				{
 					i = 0;
 					length = json.pointables.length;
-					for ( i; i < length; ++i )
+					for( i; i < length; ++i )
 					{
 						isTool = json.pointables[ i ].tool;
-						if ( isTool )
+						if( isTool )
 							pointable = new Tool();
 						else
 							pointable = new Finger();
-						
+
 						pointable.frame = currentFrame;
 						pointable.id = json.pointables[ i ].id;
 						pointable.hand = getHandByID( currentFrame, json.pointables[ i ].handId );
@@ -278,17 +278,17 @@ package com.leapmotion.leap.socket
 						pointable.tipPosition = new Vector3( json.pointables[ i ].tipPosition[ 0 ], json.pointables[ i ].tipPosition[ 1 ], json.pointables[ i ].tipPosition[ 2 ] );
 						pointable.tipVelocity = new Vector3( json.pointables[ i ].tipVelocity[ 0 ], json.pointables[ i ].tipVelocity[ 1 ], json.pointables[ i ].tipVelocity[ 2 ] );
 						currentFrame.pointables.push( pointable );
-						
-						if ( pointable.hand )
+
+						if( pointable.hand )
 							pointable.hand.pointables.push( pointable );
-						
-						if ( isTool )
+
+						if( isTool )
 						{
 							pointable.isTool = true;
 							pointable.isFinger = false;
 							pointable.width = json.pointables[ i ].width;
 							currentFrame.tools.push( pointable );
-							if ( pointable.hand )
+							if( pointable.hand )
 								pointable.hand.tools.push( pointable );
 						}
 						else
@@ -296,18 +296,18 @@ package com.leapmotion.leap.socket
 							pointable.isTool = false;
 							pointable.isFinger = true;
 							currentFrame.fingers.push( pointable );
-							if ( pointable.hand )
+							if( pointable.hand )
 								pointable.hand.fingers.push( pointable );
 						}
 					}
 				}
 
 				// Gestures
-				if ( json.gestures )
+				if( json.gestures )
 				{
 					i = 0;
 					length = json.gestures.length;
-					for ( i; i < length; ++i )
+					for( i; i < length; ++i )
 					{
 						switch( json.gestures[ i ].type )
 						{
@@ -325,9 +325,9 @@ package com.leapmotion.leap.socket
 							case "swipe":
 								gesture = new SwipeGesture();
 								type = Gesture.TYPE_SWIPE;
-								
+
 								var swipe:SwipeGesture = SwipeGesture( gesture );
-								
+
 								swipe.startPosition = new Vector3( json.gestures[ i ].startPosition[ 0 ], json.gestures[ i ].startPosition[ 1 ], json.gestures[ i ].startPosition[ 2 ] );
 								swipe.position = new Vector3( json.gestures[ i ].position[ 0 ], json.gestures[ i ].position[ 1 ], json.gestures[ i ].position[ 2 ] );
 								swipe.direction = new Vector3( json.gestures[ i ].direction[ 0 ], json.gestures[ i ].direction[ 1 ], json.gestures[ i ].direction[ 2 ] );
@@ -337,7 +337,7 @@ package com.leapmotion.leap.socket
 							case "screenTap":
 								gesture = new ScreenTapGesture();
 								type = Gesture.TYPE_SCREEN_TAP;
-								
+
 								var screenTap:ScreenTapGesture = ScreenTapGesture( gesture );
 								screenTap.position = new Vector3( json.gestures[ i ].position[ 0 ], json.gestures[ i ].position[ 1 ], json.gestures[ i ].position[ 2 ] );
 								screenTap.direction = new Vector3( json.gestures[ i ].direction[ 0 ], json.gestures[ i ].direction[ 1 ], json.gestures[ i ].direction[ 2 ] );
@@ -357,10 +357,10 @@ package com.leapmotion.leap.socket
 							default:
 								throw new Error( "unkown gesture type" );
 						}
-						
+
 						var j:int = 0;
 						var lengthInner:int = 0;
-						
+
 						if( json.gestures[ i ].handIds )
 						{
 							j = 0;
@@ -371,7 +371,7 @@ package com.leapmotion.leap.socket
 								gesture.hands.push( gestureHand );
 							}
 						}
-						
+
 						if( json.gestures[ i ].pointableIds )
 						{
 							j = 0;
@@ -389,12 +389,12 @@ package com.leapmotion.leap.socket
 								( gesture as CircleGesture ).pointable = gesture.pointables[ 0 ];
 							}
 						}
-						
+
 						gesture.frame = currentFrame;
 						gesture.id = json.gestures[ i ].id;
 						gesture.duration = json.gestures[ i ].duration;
 						gesture.durationSeconds = gesture.duration / 1000000;
-						
+
 						switch( json.gestures[ i ].state )
 						{
 							case "start":
@@ -409,29 +409,29 @@ package com.leapmotion.leap.socket
 							default:
 								gesture.state = Gesture.STATE_INVALID;
 						}
-						
+
 						gesture.type = type;
-						
+
 						currentFrame.gesturesVector.push( gesture );
 					}
 				}
-				
+
 				// Rotation (since last frame), interpolate for smoother motion
-				if ( json.r )
+				if( json.r )
 					currentFrame.rotation = new Matrix( new Vector3( json.r[ 0 ][ 0 ], json.r[ 0 ][ 1 ], json.r[ 0 ][ 2 ] ), new Vector3( json.r[ 1 ][ 0 ], json.r[ 1 ][ 1 ], json.r[ 1 ][ 2 ] ), new Vector3( json.r[ 2 ][ 0 ], json.r[ 2 ][ 1 ], json.r[ 2 ][ 2 ] ) );
 
 				// Scale factor (since last frame), interpolate for smoother motion
 				currentFrame.scaleFactorNumber = json.s;
 
 				// Translation (since last frame), interpolate for smoother motion
-				if ( json.t )
+				if( json.t )
 					currentFrame.translationVector = new Vector3( json.t[ 0 ], json.t[ 1 ], json.t[ 2 ] );
 
 				// Timestamp
 				currentFrame.timestamp = json.timestamp;
 
 				// Add frame to history
-				if ( controller.frameHistory.length > 59 )
+				if( controller.frameHistory.length > 59 )
 					controller.frameHistory.splice( 59, 1 );
 
 				controller.frameHistory.unshift( _frame );
@@ -447,7 +447,7 @@ package com.leapmotion.leap.socket
 
 		/**
 		 * Inline method. Finds a Hand object by ID.
-		 * 
+		 *
 		 * @param frame The Frame object in which the Hand contains
 		 * @param id The ID of the Hand object
 		 * @return The Hand object if found, otherwise null
@@ -456,9 +456,9 @@ package com.leapmotion.leap.socket
 		[Inline]
 		final private function getHandByID( frame:Frame, id:int ):Hand
 		{
-			for each ( var hand:Hand in frame.hands )
+			for each( var hand:Hand in frame.hands )
 			{
-				if ( hand.id == id )
+				if( hand.id == id )
 				{
 					return hand;
 					break;
@@ -466,10 +466,10 @@ package com.leapmotion.leap.socket
 			}
 			return Hand.invalid();
 		}
-		
+
 		/**
 		 * Inline method. Finds a Pointable object by ID.
-		 * 
+		 *
 		 * @param frame The Frame object in which the Pointable contains
 		 * @param id The ID of the Pointable object
 		 * @return The Pointable object if found, otherwise null
@@ -478,9 +478,9 @@ package com.leapmotion.leap.socket
 		[Inline]
 		final private function getPointableByID( frame:Frame, id:int ):Pointable
 		{
-			for each ( var pointable:Pointable in frame.pointables )
+			for each( var pointable:Pointable in frame.pointables )
 			{
-				if ( pointable.id == id )
+				if( pointable.id == id )
 				{
 					return pointable;
 					break;
@@ -488,10 +488,10 @@ package com.leapmotion.leap.socket
 			}
 			return Pointable.invalid();
 		}
-		
+
 		/**
 		 * Parses the HTTP header received from the Leap.
-		 * 
+		 *
 		 * @param line
 		 * @return
 		 *
@@ -499,24 +499,24 @@ package com.leapmotion.leap.socket
 		final private function parseHTTPHeader( line:String ):Object
 		{
 			var header:Array = line.split( /\: +/ );
-			return header.length === 2 ? { name: header[ 0 ], value: header[ 1 ]} : null;
+			return header.length === 2 ? { name:header[ 0 ], value:header[ 1 ] } : null;
 		}
 
 		/**
 		 * Reads the handshake received from the Leap.
-		 * 
+		 *
 		 * @return
 		 *
 		 */
 		final private function readHandshakeLine():Boolean
 		{
 			var char:String;
-			while ( socket.bytesAvailable )
+			while( socket.bytesAvailable )
 			{
 				char = socket.readMultiByte( 1, "us-ascii" );
 				handshakeBytesReceived++;
 				leapMotionDeviceHandshakeResponse += char;
-				if ( char == "\n" )
+				if( char == "\n" )
 					return true;
 			}
 			return false;
@@ -553,7 +553,7 @@ package com.leapmotion.leap.socket
 			var headersTerminatorIndex:int = -1;
 
 			// Load in HTTP Header lines until we encounter a double-newline.
-			while ( headersTerminatorIndex === -1 && readHandshakeLine() )
+			while( headersTerminatorIndex === -1 && readHandshakeLine() )
 				headersTerminatorIndex = leapMotionDeviceHandshakeResponse.search( /\r?\n\r?\n/ );
 
 			// Slice off the trailing \r\n\r\n from the handshake data
@@ -570,45 +570,45 @@ package com.leapmotion.leap.socket
 
 			try
 			{
-				while ( lines.length > 0 )
+				while( lines.length > 0 )
 				{
 					responseLine = lines.shift();
 					var header:Object = parseHTTPHeader( responseLine );
 					var headerName:String = header.name.toLocaleLowerCase();
 					var headerValue:String = header.value.toLocaleLowerCase();
-					if ( headerName === "upgrade" && headerValue === "websocket" )
+					if( headerName === "upgrade" && headerValue === "websocket" )
 					{
 						upgradeHeader = true;
 					}
-					else if ( headerName === "connection" && headerValue === "upgrade" )
+					else if( headerName === "connection" && headerValue === "upgrade" )
 					{
 						connectionHeader = true;
 					}
-					else if ( headerName === "sec-websocket-accept" )
+					else if( headerName === "sec-websocket-accept" )
 					{
 						var expectedKey:String = SHA1.hashToBase64( base64nonce + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11" );
-						if ( header.value === expectedKey )
+						if( header.value === expectedKey )
 							keyValidated = true;
 					}
 				}
 			}
-			catch ( error:Error )
+			catch( error:Error )
 			{
 				trace( "There was an error while parsing the following HTTP Header line:\n" + responseLine );
 				return;
 			}
 
-			if ( !upgradeHeader )
+			if( !upgradeHeader )
 			{
 				trace( "The Leap Motion response did not include a valid Upgrade: websocket header." );
 				return;
 			}
-			if ( !connectionHeader )
+			if( !connectionHeader )
 			{
 				trace( "The Leap Motion response did not include a valid Connection: upgrade header." );
 				return;
 			}
-			if ( !keyValidated )
+			if( !keyValidated )
 			{
 				trace( "Unable to validate Leap Motion response for Sec-Websocket-Accept header." );
 				return;
@@ -634,27 +634,27 @@ package com.leapmotion.leap.socket
 		{
 			return _frame;
 		}
-		
+
 		/**
 		 * Enables or disables reporting of gestures.
 		 * By default, all gesture types are disabled. When disabled, gestures of
 		 * the disabled type are never reported and will not appear in the frame
 		 * gesture list.
-		 * 
+		 *
 		 * As a performance optimization, only enable recognition for the types
 		 * of movements that you use in your application.
-		 *  
+		 *
 		 * @param type The type of gesture to enable or disable. Not available for Socket connections.
 		 * @param enable True, to enable gestures; False, to disable.
-		 * 
+		 *
 		 */
-		final public function enableGesture( gesture:int, enable:Boolean = true):void
+		final public function enableGesture( gesture:int, enable:Boolean = true ):void
 		{
 			if( socket.connected )
 			{
 				_isGesturesEnabled = enable;
 				var enableString:String = "{\"enableGestures\": " + enable + "}";
-				sendUTF(enableString);
+				sendUTF( enableString );
 			}
 			else
 			{
@@ -667,48 +667,49 @@ package com.leapmotion.leap.socket
 		 *
 		 * @param str the string to send
 		 */
-		final private function sendUTF(str:String):void
+		final private function sendUTF( str:String ):void
 		{
-			binaryPayload.writeMultiByte(str, 'utf-8');
+			binaryPayload.writeMultiByte( str, 'utf-8' );
 			binaryPayload.endian = Endian.BIG_ENDIAN;
 			binaryPayload.position = 0;
 
 			var length:uint = binaryPayload.length;
 
 			var lengthByte:int = 0x80;
-			if (length <= 125)
-				lengthByte |= (length & 0x7F);
-			else if (length > 125 && length <= 0xFFFF)
+			if( length <= 125 )
+				lengthByte |= ( length & 0x7F );
+			else if( length > 125 && length <= 0xFFFF )
 				lengthByte |= 126;
-			else if (length > 0xFFFF)
+			else if( length > 0xFFFF )
 				lengthByte |= 127;
 
-			output.writeByte(0x81);
-			output.writeByte(lengthByte);
+			output.writeByte( 0x81 );
+			output.writeByte( lengthByte );
 
-			if (length > 125 && length <= 0xFFFF)
-				output.writeShort(length);
-			else if (length > 0xFFFF) {
-				output.writeUnsignedInt(0x00000000);
-				output.writeUnsignedInt(length);
+			if( length > 125 && length <= 0xFFFF )
+				output.writeShort( length );
+			else if( length > 0xFFFF )
+			{
+				output.writeUnsignedInt( 0x00000000 );
+				output.writeUnsignedInt( length );
 			}
 
-			output.writeUnsignedInt(0);
-			output.writeBytes(binaryPayload, 0, binaryPayload.length);
+			output.writeUnsignedInt( 0 );
+			output.writeBytes( binaryPayload, 0, binaryPayload.length );
 
 			output.position = 0;
-			socket.writeBytes(output, 0, output.bytesAvailable);
+			socket.writeBytes( output, 0, output.bytesAvailable );
 			socket.flush();
 			output.clear();
 			binaryPayload.clear();
 		}
-		
+
 		/**
 		 * Reports whether the specified gesture type is enabled.
-		 *  
+		 *
 		 * @param type The Gesture.TYPE parameter. Not available for Socket connections.
 		 * @return True, if gestures is enabled; false, otherwise.
-		 * 
+		 *
 		 */
 		final public function isGestureEnabled( type:int ):Boolean
 		{

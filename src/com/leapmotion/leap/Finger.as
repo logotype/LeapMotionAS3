@@ -1,5 +1,6 @@
 package com.leapmotion.leap
 {
+
 	/**
 	 * The Finger class represents a tracked finger.
 	 *
@@ -21,10 +22,10 @@ package com.leapmotion.leap
 	{
 		/**
 		 * Constructs a Finger object.
-		 * 
+		 *
 		 * <p>An uninitialized finger is considered invalid.
-		 * Get valid Finger objects from a Frame or a Hand object.</p> 
-		 * 
+		 * Get valid Finger objects from a Frame or a Hand object.</p>
+		 *
 		 */
 		public function Finger()
 		{

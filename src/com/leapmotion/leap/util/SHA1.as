@@ -58,7 +58,7 @@ package com.leapmotion.leap.util
 			// one by one.
 			var charsInByteArray:String = "";
 			byteArray.position = 0;
-			for ( var j:int = 0; j < byteArray.length; j++ )
+			for( var j:int = 0; j < byteArray.length; j++ )
 			{
 				var byte:uint = byteArray.readUnsignedByte();
 				charsInByteArray += String.fromCharCode( byte );
@@ -83,7 +83,7 @@ package com.leapmotion.leap.util
 			var temp:int;
 
 			// loop over all of the blocks
-			for ( var i:int = 0; i < len; i += 16 )
+			for( var i:int = 0; i < len; i += 16 )
 			{
 
 				// 6.1.c
@@ -95,10 +95,10 @@ package com.leapmotion.leap.util
 
 				// 80 steps to process each block
 				var t:int;
-				for ( t = 0; t < 20; t++ )
+				for( t = 0; t < 20; t++ )
 				{
 
-					if ( t < 16 )
+					if( t < 16 )
 					{
 						// 6.1.a
 						w[ t ] = blocks[ i + t ];
@@ -111,7 +111,7 @@ package com.leapmotion.leap.util
 					}
 
 					// 6.1.d
-					temp = (( a << 5 ) | ( a >>> 27 )) + (( b & c ) | ( ~b & d )) + e + int( w[ t ] ) + 0x5a827999;
+					temp = ( ( a << 5 ) | ( a >>> 27 ) ) + ( ( b & c ) | ( ~b & d ) ) + e + int( w[ t ] ) + 0x5a827999;
 
 					e = d;
 					d = c;
@@ -119,14 +119,14 @@ package com.leapmotion.leap.util
 					b = a;
 					a = temp;
 				}
-				for ( ; t < 40; t++ )
+				for( ; t < 40; t++ )
 				{
 					// 6.1.b
 					temp = w[ t - 3 ] ^ w[ t - 8 ] ^ w[ t - 14 ] ^ w[ t - 16 ];
 					w[ t ] = ( temp << 1 ) | ( temp >>> 31 )
 
 					// 6.1.d
-					temp = (( a << 5 ) | ( a >>> 27 )) + ( b ^ c ^ d ) + e + int( w[ t ] ) + 0x6ed9eba1;
+					temp = ( ( a << 5 ) | ( a >>> 27 ) ) + ( b ^ c ^ d ) + e + int( w[ t ] ) + 0x6ed9eba1;
 
 					e = d;
 					d = c;
@@ -134,14 +134,14 @@ package com.leapmotion.leap.util
 					b = a;
 					a = temp;
 				}
-				for ( ; t < 60; t++ )
+				for( ; t < 60; t++ )
 				{
 					// 6.1.b
 					temp = w[ t - 3 ] ^ w[ t - 8 ] ^ w[ t - 14 ] ^ w[ t - 16 ];
 					w[ t ] = ( temp << 1 ) | ( temp >>> 31 )
 
 					// 6.1.d
-					temp = (( a << 5 ) | ( a >>> 27 )) + (( b & c ) | ( b & d ) | ( c & d )) + e + int( w[ t ] ) + 0x8f1bbcdc;
+					temp = ( ( a << 5 ) | ( a >>> 27 ) ) + ( ( b & c ) | ( b & d ) | ( c & d ) ) + e + int( w[ t ] ) + 0x8f1bbcdc;
 
 					e = d;
 					d = c;
@@ -149,14 +149,14 @@ package com.leapmotion.leap.util
 					b = a;
 					a = temp;
 				}
-				for ( ; t < 80; t++ )
+				for( ; t < 80; t++ )
 				{
 					// 6.1.b
 					temp = w[ t - 3 ] ^ w[ t - 8 ] ^ w[ t - 14 ] ^ w[ t - 16 ];
 					w[ t ] = ( temp << 1 ) | ( temp >>> 31 )
 
 					// 6.1.d
-					temp = (( a << 5 ) | ( a >>> 27 )) + ( b ^ c ^ d ) + e + int( w[ t ] ) + 0xca62c1d6;
+					temp = ( ( a << 5 ) | ( a >>> 27 ) ) + ( b ^ c ^ d ) + e + int( w[ t ] ) + 0xca62c1d6;
 
 					e = d;
 					d = c;
@@ -203,14 +203,14 @@ package com.leapmotion.leap.util
 			var blocks:Array = new Array();
 			var len:int = data.length * 8;
 			var mask:int = 0xFF; // ignore hi byte of characters > 0xFF
-			for ( var i:int = 0; i < len; i += 8 )
+			for( var i:int = 0; i < len; i += 8 )
 			{
 				blocks[ i >> 5 ] |= ( data.readByte() & mask ) << ( 24 - i % 32 );
 			}
 
 			// append padding and length
 			blocks[ len >> 5 ] |= 0x80 << ( 24 - len % 32 );
-			blocks[((( len + 64 ) >> 9 ) << 4 ) + 15 ] = len;
+			blocks[ ( ( ( len + 64 ) >> 9 ) << 4 ) + 15 ] = len;
 
 			data.position = oldPosition;
 
@@ -230,14 +230,14 @@ package com.leapmotion.leap.util
 			var blocks:Array = new Array();
 			var len:int = s.length * 8;
 			var mask:int = 0xFF; // ignore hi byte of characters > 0xFF
-			for ( var i:int = 0; i < len; i += 8 )
+			for( var i:int = 0; i < len; i += 8 )
 			{
 				blocks[ i >> 5 ] |= ( s.charCodeAt( i / 8 ) & mask ) << ( 24 - i % 32 );
 			}
 
 			// append padding and length
 			blocks[ len >> 5 ] |= 0x80 << ( 24 - len % 32 );
-			blocks[((( len + 64 ) >> 9 ) << 4 ) + 15 ] = len;
+			blocks[ ( ( ( len + 64 ) >> 9 ) << 4 ) + 15 ] = len;
 			return blocks;
 		}
 

@@ -1,5 +1,6 @@
 package com.leapmotion.leap
 {
+
 	/**
 	 * The Vector class represents a three-component mathematical vector
 	 * or point such as a direction or position in three-dimensional space.
@@ -34,11 +35,11 @@ package com.leapmotion.leap
 		public var z:Number;
 
 		/**
-		 * Creates a new Vector with the specified component values. 
+		 * Creates a new Vector with the specified component values.
 		 * @param x The horizontal component.
 		 * @param y The vertical component.
 		 * @param z The depth component.
-		 * 
+		 *
 		 */
 		public function Vector3( x:Number, y:Number, z:Number )
 		{
@@ -165,7 +166,7 @@ package com.leapmotion.leap
 		 */
 		final public function isEqualTo( other:Vector3 ):Boolean
 		{
-			if ( x != other.x || y != other.y || z != other.z )
+			if( x != other.x || y != other.y || z != other.z )
 				return false;
 			else
 				return true;
@@ -173,14 +174,14 @@ package com.leapmotion.leap
 
 		/**
 		 * The angle between this vector and the specified vector in radians.
-		 * 
+		 *
 		 * <p>The angle is measured in the plane formed by the two vectors.
 		 * The angle returned is always the smaller of the two conjugate angles.
 		 * Thus <code>A.angleTo(B) == B.angleTo(A)</code> and is always a positive value less
 		 * than or equal to pi radians (180 degrees).</p>
-		 * 
+		 *
 		 * <p>If either vector has zero length, then this function returns zero.</p>
-		 * 
+		 *
 		 * @param other A Vector object.
 		 * @return The angle between this vector and the specified vector in radians.
 		 *
@@ -188,7 +189,7 @@ package com.leapmotion.leap
 		final public function angleTo( other:Vector3 ):Number
 		{
 			var denom:Number = magnitudeSquared() * other.magnitudeSquared();
-			if ( denom <= 0 )
+			if( denom <= 0 )
 				return 0;
 
 			return Math.acos( dot( other ) / Math.sqrt( denom ) );
@@ -196,12 +197,12 @@ package com.leapmotion.leap
 
 		/**
 		 * The cross product of this vector and the specified vector.
-		 * 
+		 *
 		 * The cross product is a vector orthogonal to both original vectors.
 		 * It has a magnitude equal to the area of a parallelogram having the
 		 * two vectors as sides. The direction of the returned vector is
 		 * determined by the right-hand rule. Thus <code>A.cross(B) == -B.cross(A)</code>.
-		 * 
+		 *
 		 * @param other A Vector object.
 		 * @return The cross product of this vector and the specified vector.
 		 *
@@ -214,7 +215,7 @@ package com.leapmotion.leap
 		/**
 		 * The distance between the point represented by this Vector
 		 * object and a point represented by the specified Vector object.
-		 * 
+		 *
 		 * @param other A Vector object.
 		 * @return The distance from this point to the specified point.
 		 *
@@ -228,7 +229,7 @@ package com.leapmotion.leap
 		 * The dot product of this vector with another vector.
 		 * The dot product is the magnitude of the projection of this vector
 		 * onto the specified vector.
-		 * 
+		 *
 		 * @param other A Vector object.
 		 * @return The dot product of this vector and the specified vector.
 		 *
@@ -247,7 +248,7 @@ package com.leapmotion.leap
 		{
 			return ( x <= Number.MAX_VALUE && x >= -Number.MAX_VALUE ) && ( y <= Number.MAX_VALUE && y >= -Number.MAX_VALUE ) && ( z <= Number.MAX_VALUE && z >= -Number.MAX_VALUE );
 		}
-		
+
 		/**
 		 * Returns an invalid Vector3 object.
 		 *
@@ -261,7 +262,7 @@ package com.leapmotion.leap
 		 */
 		static public function invalid():Vector3
 		{
-			return new Vector3(NaN, NaN, NaN);
+			return new Vector3( NaN, NaN, NaN );
 		}
 
 		/**
@@ -269,7 +270,7 @@ package com.leapmotion.leap
 		 * The magnitude is the L2 norm, or Euclidean distance between the
 		 * origin and the point represented by the (x, y, z) components
 		 * of this Vector object.
-		 * 
+		 *
 		 * @return The length of this vector.
 		 *
 		 */
@@ -298,7 +299,7 @@ package com.leapmotion.leap
 		final public function normalized():Vector3
 		{
 			var denom:Number = magnitudeSquared();
-			if ( denom <= 0 )
+			if( denom <= 0 )
 				return new Vector3( 0, 0, 0 );
 
 			denom = 1 / Math.sqrt( denom );
@@ -312,7 +313,7 @@ package com.leapmotion.leap
 		 * rotation around the x-axis. If the vector points upward, the
 		 * returned angle is between 0 and pi radians (180 degrees); if it
 		 * points downward, the angle is between 0 and -pi radians.
-		 * 
+		 *
 		 * @return The angle of this vector above or below the horizon (x-z plane).
 		 *
 		 */
@@ -329,7 +330,7 @@ package com.leapmotion.leap
 		 * the negative z-axis, then the returned angle is between 0 and pi
 		 * radians (180 degrees); if it points to the left, the angle is
 		 * between 0 and -pi radians.
-		 * 
+		 *
 		 * @return The angle of this vector to the right or left of the negative z-axis.
 		 *
 		 */
@@ -345,12 +346,12 @@ package com.leapmotion.leap
 		 * the z-axis. If the vector points to the left of the y-axis, then the
 		 * returned angle is between 0 and pi radians (180 degrees); if it
 		 * points to the right, the angle is between 0 and -pi radians.
-		 * 
+		 *
 		 * Use this function to get roll angle of the plane to which this vector
 		 * is a normal. For example, if this vector represents the normal to
 		 * the palm, then this function returns the tilt or roll of the palm
 		 * plane compared to the horizontal (x-z) plane.
-		 * 
+		 *
 		 * @return The angle of this vector to the right or left of the y-axis.
 		 *
 		 */

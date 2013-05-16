@@ -34,22 +34,22 @@ package com.leapmotion.leap.events
 
 		/**
 		 * Called when this application becomes the foreground application.
-		 * 
+		 *
 		 * <p>Only the foreground application receives tracking data from the
 		 * Leap Motion Controller. This function is only called when the
 		 * controller object is in a connected state.</p>
 		 */
 		static public const LEAPMOTION_FOCUSGAINED:String = "leapmotionFocusGained";
-		
+
 		/**
 		 * Called when this application loses the foreground focus.
-		 * 
+		 *
 		 * <p>Only the foreground application receives tracking data from the
 		 * Leap Motion Controller. This function is only called when the
 		 * controller object is in a connected state.</p>
 		 */
 		static public const LEAPMOTION_FOCUSLOST:String = "leapmotionFocusLost";
-		
+
 		/**
 		 * Called when a new frame of hand and finger tracking data is available.
 		 *

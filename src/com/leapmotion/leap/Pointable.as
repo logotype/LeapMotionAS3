@@ -48,11 +48,11 @@ package com.leapmotion.leap
 		 * A unique ID assigned to this Pointable object, whose value remains
 		 * the same across consecutive frames while the tracked finger or
 		 * tool remains visible.
-		 * 
+		 *
 		 * <p>If tracking is lost (for example, when a finger is occluded by another
 		 * finger or when it is withdrawn from the Leap field of view), the Leap
 		 * may assign a new ID when it detects the entity in a future frame.</p>
-		 * 
+		 *
 		 * <p>Use the ID value with the <code>Frame.pointable()</code> function to find this
 		 * Pointable object in future frames.</p>
 		 */
@@ -60,17 +60,17 @@ package com.leapmotion.leap
 
 		/**
 		 * The estimated length of the finger or tool in millimeters.
-		 * 
+		 *
 		 * <p>The reported length is the visible length of the finger or tool from
 		 * the hand to tip.</p>
-		 * 
+		 *
 		 * <p>If the length isn't known, then a value of 0 is returned.</p>
 		 */
 		public var length:Number = 0;
 
 		/**
 		 * The estimated width of the finger or tool in millimeters.
-		 * 
+		 *
 		 * <p>The reported width is the average width of the visible portion
 		 * of the finger or tool from the hand to the tip.</p>
 		 *
@@ -111,7 +111,7 @@ package com.leapmotion.leap
 		 */
 		public function isValid():Boolean
 		{
-			if ( ( direction && direction.isValid()) && ( tipPosition && tipPosition.isValid()) && ( tipVelocity && tipVelocity.isValid()) )
+			if( ( direction && direction.isValid() ) && ( tipPosition && tipPosition.isValid() ) && ( tipVelocity && tipVelocity.isValid() ) )
 				return true;
 
 			return false;
@@ -130,34 +130,34 @@ package com.leapmotion.leap
 		 */
 		public function isEqualTo( other:Pointable ):Boolean
 		{
-			if ( !isValid() || !other.isValid() )
-				return false;
-			
-			if ( frame != other.frame )
-				return false;
-			
-			if ( hand != other.hand )
+			if( !isValid() || !other.isValid() )
 				return false;
 
-			if ( !direction.isEqualTo( other.direction ) )
+			if( frame != other.frame )
 				return false;
 
-			if ( length != other.length )
+			if( hand != other.hand )
 				return false;
 
-			if ( width != other.width )
+			if( !direction.isEqualTo( other.direction ) )
 				return false;
 
-			if ( id != other.id )
+			if( length != other.length )
 				return false;
 
-			if ( !tipPosition.isEqualTo( other.tipPosition ) )
+			if( width != other.width )
 				return false;
 
-			if ( !tipVelocity.isEqualTo( other.tipVelocity ) )
+			if( id != other.id )
 				return false;
 
-			if ( isFinger != other.isFinger || isTool != other.isTool )
+			if( !tipPosition.isEqualTo( other.tipPosition ) )
+				return false;
+
+			if( !tipVelocity.isEqualTo( other.tipVelocity ) )
+				return false;
+
+			if( isFinger != other.isFinger || isTool != other.isTool )
 				return false;
 
 			return true;

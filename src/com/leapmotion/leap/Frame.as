@@ -96,16 +96,16 @@ package com.leapmotion.leap
 		 * Translation since last Frame.
 		 */
 		public var translationVector:Vector3;
-		
+
 		/**
 		 * @private
-		 * Reference to the Controller which created this object. 
+		 * Reference to the Controller which created this object.
 		 */
 		public var controller:Controller;
 
 		/**
 		 * Constructs a Frame object.
-		 * 
+		 *
 		 * <p>Frame instances created with this constructor are invalid.
 		 * Get valid Frame objects by calling the <code>LeapMotion.frame()</code> function.</p>
 		 *
@@ -139,9 +139,9 @@ package com.leapmotion.leap
 			var i:int = 0;
 			var length:int = handsVector.length;
 
-			for ( i; i < length; ++i )
+			for( i; i < length; ++i )
 			{
-				if ( handsVector[ i ].id == id )
+				if( handsVector[ i ].id == id )
 				{
 					return handsVector[ i ];
 					break;
@@ -190,9 +190,9 @@ package com.leapmotion.leap
 			var i:int = 0;
 			var length:int = fingersVector.length;
 
-			for ( i; i < length; ++i )
+			for( i; i < length; ++i )
 			{
-				if ( fingersVector[ i ].id == id )
+				if( fingersVector[ i ].id == id )
 				{
 					return fingersVector[ i ];
 					break;
@@ -201,7 +201,7 @@ package com.leapmotion.leap
 
 			return Finger.invalid();
 		}
-		
+
 		/**
 		 * The list of Finger objects detected in this frame,
 		 * given in arbitrary order.
@@ -241,9 +241,9 @@ package com.leapmotion.leap
 			var i:int = 0;
 			var length:int = toolsVector.length;
 
-			for ( i; i < length; ++i )
+			for( i; i < length; ++i )
 			{
-				if ( toolsVector[ i ].id == id )
+				if( toolsVector[ i ].id == id )
 				{
 					return toolsVector[ i ];
 					break;
@@ -265,7 +265,7 @@ package com.leapmotion.leap
 		{
 			return toolsVector;
 		}
-		
+
 		/**
 		 * The Pointable object with the specified ID in this frame.
 		 *
@@ -291,9 +291,9 @@ package com.leapmotion.leap
 			var i:int = 0;
 			var length:int = pointablesVector.length;
 
-			for ( i; i < length; ++i )
+			for( i; i < length; ++i )
 			{
-				if ( pointablesVector[ i ].id == id )
+				if( pointablesVector[ i ].id == id )
 				{
 					return pointablesVector[ i ];
 					break;
@@ -308,7 +308,7 @@ package com.leapmotion.leap
 		 * frame, given in arbitrary order.
 		 *
 		 * <p>The list can be empty if no fingers or tools are detected.</p>
-		 * 
+		 *
 		 * @return The Pointable vector containing all Pointable objects
 		 * detected in this frame.
 		 */
@@ -337,9 +337,9 @@ package com.leapmotion.leap
 			var i:int = 0;
 			var length:int = gesturesVector.length;
 
-			for ( i; i < length; ++i )
+			for( i; i < length; ++i )
 			{
-				if ( gesturesVector[ i ].id == id )
+				if( gesturesVector[ i ].id == id )
 				{
 					return gesturesVector[ i ];
 					break;
@@ -348,24 +348,24 @@ package com.leapmotion.leap
 
 			return Gesture.invalid();
 		}
-		
+
 		/**
 		 * Returns a Gesture vector containing all gestures that have occured
 		 * since the specified frame.
-		 * 
+		 *
 		 * <p>If no frame is specifed, the gestures recognized or continuing in
 		 * this frame will be returned.</p>
-		 * 
+		 *
 		 * @param sinceFrame An earlier Frame object. The starting frame must
 		 * still be in the frame history cache, which has a default length of 60 frames.
 		 * @return The list of gestures.
-		 * 
+		 *
 		 */
 		public function gestures( sinceFrame:Frame = null ):Vector.<Gesture>
 		{
 			if( !isValid() )
 				return new Vector.<Gesture>();
-			
+
 			if( !sinceFrame )
 			{
 				// The gestures recognized or continuing in this frame.
@@ -380,7 +380,7 @@ package com.leapmotion.leap
 				var gesturesSinceFrame:Vector.<Gesture> = new Vector.<Gesture>();
 				var i:int = 0;
 				var j:int = 0;
-				
+
 				for( i; i < controller.frameHistory.length; ++i )
 				{
 					for( j; j < controller.frameHistory[ i ].gesturesVector.length; ++j )
@@ -389,7 +389,7 @@ package com.leapmotion.leap
 					if( sinceFrame == controller.frameHistory[ i ] )
 						break;
 				}
-				
+
 				return gesturesSinceFrame;
 			}
 		}
@@ -416,7 +416,7 @@ package com.leapmotion.leap
 		 */
 		public function rotationAxis( sinceFrame:Frame ):Vector3
 		{
-			if ( sinceFrame && sinceFrame.rotation )
+			if( sinceFrame && sinceFrame.rotation )
 			{
 				var vector:Vector3 = new Vector3( rotation.zBasis.y - sinceFrame.rotation.yBasis.z, rotation.xBasis.z - sinceFrame.rotation.zBasis.x, rotation.yBasis.x - sinceFrame.rotation.xBasis.y );
 				return vector.normalized();
@@ -449,16 +449,16 @@ package com.leapmotion.leap
 		 */
 		public function rotationAngle( sinceFrame:Frame, axis:Vector3 = null ):Number
 		{
-			if ( !isValid() || !sinceFrame.isValid() )
+			if( !isValid() || !sinceFrame.isValid() )
 				return 0.0;
-			
+
 			var returnValue:Number = 0.0;
 			var rotationSinceFrameMatrix:Matrix = rotationMatrix( sinceFrame );
 			var cs:Number = ( rotationSinceFrameMatrix.xBasis.x + rotationSinceFrameMatrix.yBasis.y + rotationSinceFrameMatrix.zBasis.z - 1 ) * 0.5;
 			var angle:Number = Math.acos( cs );
 			returnValue = isNaN( angle ) ? 0.0 : angle;
 
-			if ( axis )
+			if( axis )
 			{
 				var rotAxis:Vector3 = rotationAxis( sinceFrame );
 				returnValue *= rotAxis.dot( axis.normalized() );
@@ -482,32 +482,29 @@ package com.leapmotion.leap
 		 */
 		public function rotationMatrix( sinceFrame:Frame ):Matrix
 		{
-			if ( sinceFrame && sinceFrame.rotation )
+			if( sinceFrame && sinceFrame.rotation )
 			{
-				return sinceFrame.rotation.multiply(
-					new Matrix( new Vector3( this.rotation.xBasis.x, this.rotation.yBasis.x, this.rotation.zBasis.x ),
-						new Vector3( this.rotation.xBasis.y, this.rotation.yBasis.y, this.rotation.zBasis.y ),
-						new Vector3( this.rotation.xBasis.z, this.rotation.yBasis.z, this.rotation.zBasis.z ) ) );
-			}	
+				return sinceFrame.rotation.multiply( new Matrix( new Vector3( this.rotation.xBasis.x, this.rotation.yBasis.x, this.rotation.zBasis.x ), new Vector3( this.rotation.xBasis.y, this.rotation.yBasis.y, this.rotation.zBasis.y ), new Vector3( this.rotation.xBasis.z, this.rotation.yBasis.z, this.rotation.zBasis.z ) ) );
+			}
 			else
 			{
 				return Matrix.identity();
 			}
 		}
-		
+
 		/**
 		 * The estimated probability that the overall motion between
 		 * the current frame and the specified frame is intended to
 		 * be a rotating motion.
-		 * 
+		 *
 		 * <p>If either this frame or sinceFrame is an invalid Frame
 		 * object, then this method returns zero.</p>
-		 *  
+		 *
 		 * @param sinceFrame The starting frame for computing the relative rotation.
 		 * @return A value between 0 and 1 representing the estimated
 		 * probability that the overall motion between the current frame
 		 * and the specified frame is intended to be a rotating motion.
-		 * 
+		 *
 		 */
 		public function rotationProbability( sinceFrame:Frame ):Number
 		{
@@ -540,24 +537,24 @@ package com.leapmotion.leap
 		 */
 		public function scaleFactor( sinceFrame:Frame ):Number
 		{
-			if ( sinceFrame && sinceFrame.scaleFactorNumber )
+			if( sinceFrame && sinceFrame.scaleFactorNumber )
 				return Math.exp( scaleFactorNumber - sinceFrame.scaleFactorNumber );
 			else
 				return 1;
 		}
-		
+
 		/**
 		 * The estimated probability that the overall motion between the current
 		 * frame and the specified frame is intended to be a scaling motion.
-		 * 
+		 *
 		 * <p>If either this frame or sinceFrame is an invalid Frame object,
 		 * then this method returns zero.</p>
-		 *  
+		 *
 		 * @param sinceFrame The starting frame for computing the relative scaling.
 		 * @return A value between 0 and 1 representing the estimated probability
 		 * that the overall motion between the current frame and the specified
 		 * frame is intended to be a scaling motion.
-		 * 
+		 *
 		 */
 		public function scaleProbability( sinceFrame:Frame ):Number
 		{
@@ -588,24 +585,24 @@ package com.leapmotion.leap
 		 */
 		public function translation( sinceFrame:Frame ):Vector3
 		{
-			if ( sinceFrame.translationVector )
+			if( sinceFrame.translationVector )
 				return new Vector3( translationVector.x - sinceFrame.translationVector.x, translationVector.y - sinceFrame.translationVector.y, translationVector.z - sinceFrame.translationVector.z );
 			else
 				return new Vector3( 0, 0, 0 );
 		}
-		
+
 		/**
 		 * The estimated probability that the overall motion between the current
 		 * frame and the specified frame is intended to be a translating motion.
-		 * 
+		 *
 		 * <p>If either this frame or sinceFrame is an invalid Frame object,
 		 * then this method returns zero.</p>
-		 *  
+		 *
 		 * @param sinceFrame The starting frame for computing the translation.
 		 * @return A value between 0 and 1 representing the estimated probability
 		 * that the overall motion between the current frame and the specified
 		 * frame is intended to be a translating motion.
-		 * 
+		 *
 		 */
 		public function translationProbability( sinceFrame:Frame ):Number
 		{
@@ -617,23 +614,23 @@ package com.leapmotion.leap
 
 		/**
 		 * Compare Frame object equality.
-		 * 
+		 *
 		 * <p>Two Frame objects are equal if and only if both Frame objects
 		 * represent the exact same frame of tracking data and both
 		 * Frame objects are valid.</p>
-		 *  
+		 *
 		 * @param other The Frame to compare with.
 		 * @return True; if equal. False otherwise.
-		 * 
+		 *
 		 */
 		public function isEqualTo( other:Frame ):Boolean
 		{
 			if( id != other.id || !isValid() || other.isValid() )
 				return false;
-			
+
 			return true;
 		}
-		
+
 		/**
 		 * Reports whether this Frame instance is valid.
 		 *

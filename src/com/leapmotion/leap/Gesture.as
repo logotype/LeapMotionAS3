@@ -1,5 +1,6 @@
 package com.leapmotion.leap
 {
+
 	/**
 	 * The Gesture class represents a recognized movement by the user.
 	 *
@@ -47,7 +48,7 @@ package com.leapmotion.leap
 	 * Always check object validity in situations where a gesture might be invalid.</p>
 	 *
 	 * <p>The following keys can be used with the Config class to configure the gesture recognizer:</p>
-	 * 
+	 *
 	 * <table class="innertable">
 	 *   <tr>
 	 *    <th>Key string</th>
@@ -116,7 +117,7 @@ package com.leapmotion.leap
 	 *    <td>mm</td>
 	 *  </tr>
 	 * </table>
-	 * 
+	 *
 	 * @author logotype
 	 * @see CircleGesture
 	 * @see SwipeGesture
@@ -128,107 +129,107 @@ package com.leapmotion.leap
 	public class Gesture
 	{
 		/**
-		 * An invalid state. 
+		 * An invalid state.
 		 */
 		static public const STATE_INVALID:int = 0;
-		
+
 		/**
 		 * The gesture is starting.<br/>
-		 * Just enough has happened to recognize it. 
+		 * Just enough has happened to recognize it.
 		 */
 		static public const STATE_START:int = 1;
 
 		/**
 		 * The gesture is in progress.<br/>
-		 * (Note: not all gestures have updates). 
+		 * (Note: not all gestures have updates).
 		 */
 		static public const STATE_UPDATE:int = 2;
-		
+
 		/**
-		 * The gesture has completed or stopped. 
+		 * The gesture has completed or stopped.
 		 */
 		static public const STATE_STOP:int = 3;
 
 		/**
-		 * An invalid type. 
+		 * An invalid type.
 		 */
 		static public const TYPE_INVALID:int = 4;
-		
+
 		/**
-		 * A straight line movement by the hand with fingers extended. 
+		 * A straight line movement by the hand with fingers extended.
 		 */
 		static public const TYPE_SWIPE:int = 5;
-		
+
 		/**
-		 * A circular movement by a finger. 
+		 * A circular movement by a finger.
 		 */
 		static public const TYPE_CIRCLE:int = 6;
-		
+
 		/**
-		 * A forward tapping movement by a finger. 
+		 * A forward tapping movement by a finger.
 		 */
 		static public const TYPE_SCREEN_TAP:int = 7;
-		
+
 		/**
-		 * A downward tapping movement by a finger. 
+		 * A downward tapping movement by a finger.
 		 */
 		static public const TYPE_KEY_TAP:int = 8;
 
 		/**
 		 * The elapsed duration of the recognized movement up to the frame
 		 * containing this Gesture object, in microseconds.
-		 * 
+		 *
 		 * <p>The duration reported for the first Gesture in the sequence (with
 		 * the <code>STATE_START</code> state) will typically be a small positive number
 		 * since the movement must progress far enough for the Leap to recognize
-		 * it as an intentional gesture.</p> 
+		 * it as an intentional gesture.</p>
 		 */
 		public var duration:int;
 
 		/**
-		 * The elapsed duration in seconds. 
+		 * The elapsed duration in seconds.
 		 */
 		public var durationSeconds:Number;
-		
+
 		/**
-		 * The Frame containing this Gesture instance. 
-		 */		
+		 * The Frame containing this Gesture instance.
+		 */
 		public var frame:Frame;
-		
+
 		/**
 		 * The list of hands associated with this Gesture, if any.
-		 * 
-		 * <p>If no hands are related to this gesture, the list is empty.</p> 
+		 *
+		 * <p>If no hands are related to this gesture, the list is empty.</p>
 		 */
 		public var hands:Vector.<Hand> = new Vector.<Hand>();
-		
+
 		/**
 		 * The gesture ID.
-		 * 
+		 *
 		 * <p>All Gesture objects belonging to the same recognized movement share
 		 * the same ID value. Use the ID value with the Frame.gesture() method
-		 * to find updates related to this Gesture object in subsequent frames.</p> 
+		 * to find updates related to this Gesture object in subsequent frames.</p>
 		 */
 		public var id:int;
 
 		/**
 		 * The list of fingers and tools associated with this Gesture, if any.
-		 * 
-		 * <p>If no Pointable objects are related to this gesture, the list is empty.</p> 
+		 *
+		 * <p>If no Pointable objects are related to this gesture, the list is empty.</p>
 		 */
 		public var pointables:Vector.<Pointable> = new Vector.<Pointable>();
 
 		/**
 		 * The gesture state.
-		 * 
+		 *
 		 * <p>Recognized movements occur over time and have a beginning, a middle,
 		 * and an end. The <code>state</code> attribute reports where in that sequence
-		 * this Gesture object falls.</p> 
+		 * this Gesture object falls.</p>
 		 */
 		public var state:int;
-		
+
 		/**
-		 * The gesture type. 
+		 * The gesture type.
 		 */
 		public var type:int;
 
@@ -256,7 +257,7 @@ package com.leapmotion.leap
 		 */
 		public function isEqualTo( other:Gesture ):Boolean
 		{
-			return (id == other.id) ? true : false;
+			return ( id == other.id ) ? true : false;
 		}
 
 		/**

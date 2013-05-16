@@ -14,13 +14,13 @@ package com.leapmotion.leap.native
 		 * Called once, when this Listener object is newly added to a Controller.
 		 */
 		static private const LEAPNATIVE_INIT:String = "onInit";
-		
+
 		/**
 		 * Called when the Controller object connects to the Leap software,
 		 * or when this Listener object is added to a Controller that is alrady connected.
 		 */
 		static private const LEAPNATIVE_CONNECTED:String = "onConnect";
-		
+
 		/**
 		 * Called when the Controller object disconnects from the Leap software
 		 */
@@ -41,24 +41,24 @@ package com.leapmotion.leap.native
 		 * received frame.
 		 */
 		static private const LEAPNATIVE_FRAME:String = "onFrame";
-		
+
 		/**
 		 * Called when this application becomes the foreground application.
-		 * 
+		 *
 		 * <p>Only the foreground application receives tracking data from the
 		 * Leap Motion Controller. This function is only called when the
 		 * controller object is in a connected state.</p>
-		 * 
+		 *
 		 */
 		static private const LEAPNATIVE_FOCUSGAINED:String = "onFocusGained";
-		
+
 		/**
 		 * Called when this application loses the foreground focus.
-		 * 
+		 *
 		 * <p>Only the foreground application receives tracking data from the
 		 * Leap Motion Controller. This function is only called when the
 		 * controller object is in a connected state.</p>
-		 * 
+		 *
 		 */
 		static private const LEAPNATIVE_FOCUSLOST:String = "onFocusLost";
 
@@ -102,7 +102,7 @@ package com.leapmotion.leap.native
 			controller = _controller;
 			context = tryCreatingExtensionContext();
 
-			if ( context )
+			if( context )
 				controller.context = context;
 
 			context.addEventListener( StatusEvent.STATUS, contextStatusModeEventHandler, false, 0, true );
@@ -116,27 +116,27 @@ package com.leapmotion.leap.native
 		[Inline]
 		final private function contextStatusModeEventHandler( event:StatusEvent ):void
 		{
-			if ( event.code == LEAPNATIVE_FRAME )
+			if( event.code == LEAPNATIVE_FRAME )
 			{
 				handleOnFrame();
 			}
-			else if ( event.code == LEAPNATIVE_FOCUSGAINED )
+			else if( event.code == LEAPNATIVE_FOCUSGAINED )
 			{
 				handleOnFocusGained();
 			}
-			else if ( event.code == LEAPNATIVE_FOCUSLOST )
+			else if( event.code == LEAPNATIVE_FOCUSLOST )
 			{
 				handleOnFocusLost();
 			}
-			else if ( event.code == LEAPNATIVE_CONNECTED )
+			else if( event.code == LEAPNATIVE_CONNECTED )
 			{
 				handleOnConnect();
 			}
-			else if ( event.code == LEAPNATIVE_DISCONNECTED )
+			else if( event.code == LEAPNATIVE_DISCONNECTED )
 			{
 				handleOnDisconnect();
 			}
-			else if ( event.code == LEAPNATIVE_INIT )
+			else if( event.code == LEAPNATIVE_INIT )
 			{
 				handleOnInit();
 			}
@@ -155,7 +155,7 @@ package com.leapmotion.leap.native
 		{
 			controller.leapmotion::listener.onInit( controller );
 		}
-		
+
 		/**
 		 * Inline method. Triggered when native extension context connects to the Leap.
 		 *
@@ -166,7 +166,7 @@ package com.leapmotion.leap.native
 			_isConnected = true;
 			controller.leapmotion::listener.onConnect( controller );
 		}
-		
+
 		/**
 		 * Inline method. Triggered when native extension context disconnects from the Leap.
 		 *
@@ -188,7 +188,7 @@ package com.leapmotion.leap.native
 		{
 			controller.leapmotion::listener.onFocusGained( controller );
 		}
-		
+
 		/**
 		 * Inline method. Triggered when native extension context switches to background.
 		 *
@@ -198,7 +198,7 @@ package com.leapmotion.leap.native
 		{
 			controller.leapmotion::listener.onFocusLost( controller );
 		}
-		
+
 		/**
 		 * Inline method. Triggered when native extension context dispatches a Frame.
 		 *
@@ -207,7 +207,7 @@ package com.leapmotion.leap.native
 		final private function handleOnFrame():void
 		{
 			// Add frame to history
-			if ( controller.frameHistory.length > 59 )
+			if( controller.frameHistory.length > 59 )
 			{
 				controller.frameHistory.splice( 59, 1 );
 			}
@@ -215,7 +215,7 @@ package com.leapmotion.leap.native
 			controller.frameHistory.unshift( _frame );
 
 			_frame = context.call( "getFrame" );
-			
+
 			// Add Controller to frame
 			_frame.controller = controller;
 
@@ -229,20 +229,20 @@ package com.leapmotion.leap.native
 		 */
 		public static function isSupported():Boolean
 		{
-			if ( !initialized )
+			if( !initialized )
 			{
 				initialized = true;
-				if ( tryCreatingExtensionContextClassReference() )
+				if( tryCreatingExtensionContextClassReference() )
 				{
 					sharedContext = tryCreatingExtensionContext( "shared" );
-					if ( sharedContext )
+					if( sharedContext )
 					{
 						try
 						{
 							var supported:Boolean = sharedContext.call( "isSupported" );
 							return supported;
 						}
-						catch ( error:Error )
+						catch( error:Error )
 						{
 							trace( "[LeapNative] Leap Native Extension is not supported." );
 							trace( "[LeapNative] If you are on Windows, add the Leap software folder to your PATH." );
@@ -269,7 +269,7 @@ package com.leapmotion.leap.native
 				ExtensionContextClass = getDefinitionByName( "flash.external.ExtensionContext" );
 				return true;
 			}
-			catch ( error:Error )
+			catch( error:Error )
 			{
 				trace( "[LeapNative] tryCreatingExtensionContextClassReference: " + error.message );
 			}
@@ -290,7 +290,7 @@ package com.leapmotion.leap.native
 				var context:Object = ExtensionContextClass.createExtensionContext( "com.leapmotion.leap.air.native.LeapNative", contextType );
 				return context;
 			}
-			catch ( error:Error )
+			catch( error:Error )
 			{
 				trace( "[LeapNative] tryCreatingExtensionContext: " + error.message );
 			}

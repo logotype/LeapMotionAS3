@@ -31,7 +31,8 @@ namespace leapnative {
         Controller*     controller;
 
         FREObject getFrame();
-        FREObject getClosestScreenHit(int pointableId);
+        FREObject getClosestScreenHitPointable(int pointableId);
+        FREObject getClosestScreenHit(Vector position, Vector direction);
         FREObject hasFocus();
         
         //frame class
