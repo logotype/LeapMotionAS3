@@ -37,6 +37,8 @@ extern "C" {
         
         bool gestureEnabled = createBoolFromFREObject(argv[1]);
         
+        std::cout << "LeapNative_enableGesture called: " << gestureClassType << std::endl;
+        
         switch (gestureClassType) {
             case 5:
                 device->controller->enableGesture(Gesture::TYPE_SWIPE, gestureEnabled);
