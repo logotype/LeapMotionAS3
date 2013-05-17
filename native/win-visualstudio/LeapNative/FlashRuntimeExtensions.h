@@ -11,7 +11,7 @@
 // is strictly forbidden unless prior written permission is obtained from
 // Adobe Systems Incorporated.
 
-// AdobePatentID="P969"
+// AdobePatentID="P969E1"
 
 #ifdef WIN32
 	typedef unsigned __int32	uint32_t;
@@ -401,9 +401,19 @@ typedef struct {
     uint32_t  height;          /* height of the BitmapData bitmap */
     uint32_t  hasAlpha;        /* if non-zero, pixel format is ARGB32, otherwise pixel format is _RGB32, host endianness */
     uint32_t  isPremultiplied; /* pixel color values are premultiplied with alpha if non-zero, un-multiplied if zero */
-    uint32_t  lineStride32;    /* line stride in number of 32 bit values, typically the same as nWidth */
+    uint32_t  lineStride32;    /* line stride in number of 32 bit values, typically the same as width */
     uint32_t* bits32;          /* pointer to the first 32-bit pixel of the bitmap data */
 } FREBitmapData;
+
+typedef struct {
+    uint32_t  width;           /* width of the BitmapData bitmap */
+    uint32_t  height;          /* height of the BitmapData bitmap */
+    uint32_t  hasAlpha;        /* if non-zero, pixel format is ARGB32, otherwise pixel format is _RGB32, host endianness */
+    uint32_t  isPremultiplied; /* pixel color values are premultiplied with alpha if non-zero, un-multiplied if zero */
+    uint32_t  lineStride32;    /* line stride in number of 32 bit values, typically the same as width */
+    uint32_t  isInvertedY;     /* if non-zero, last row of pixels starts at bits32, otherwise, first row of pixels starts at bits32. */
+    uint32_t* bits32;          /* pointer to the first 32-bit pixel of the bitmap data */
+} FREBitmapData2;
 
 /**
  * Referenced data is valid only for duration of the call
@@ -420,6 +430,26 @@ typedef struct {
 FREResult FREAcquireBitmapData(
         FREObject      object         , 
         FREBitmapData* descriptorToSet
+);
+
+/**
+ * Referenced data is valid only for duration of the call
+ * to a registered function.
+ *
+ * Use of this API requires that the extension and application must be packaged for 
+ * the 3.1 namespace or later.
+ *
+ * @return  FRE_OK
+ *          FRE_TYPE_MISMATCH
+ *          FRE_INVALID_OBJECT
+ *          FRE_INVALID_ARGUMENT
+ *          FRE_WRONG_THREAD
+ *          FRE_ILLEGAL_STATE
+ */
+
+FREResult FREAcquireBitmapData2(
+        FREObject      object         , 
+        FREBitmapData2* descriptorToSet
 );
 
 /**
