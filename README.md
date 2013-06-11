@@ -1,11 +1,13 @@
 LeapMotionAS3
 =================
 
-This is the AS3 framework for working with the Leap.
+This is the AS3 framework for working with Leap Motion.
 
 Leap Motion is a motion-control software and hardware company developing the world's most powerful and sensitive 3D motion-control and motion-sensing technology.
 
 [leapmotion.com](http://www.leapmotion.com)
+
+Compatible with Leap Motion software version 0.8.0 (build 5300) released 2013-06-11.
 
 Demos
 -----------
@@ -77,9 +79,9 @@ Features
 + Same structure as official API
 + Gestures (Circle, Key Tap, Screen Tap, Swipe)
 + Works great with [Away3D](https://github.com/away3d/away3d-core-fp11) and [Starling](https://github.com/PrimaryFeather/Starling-Framework)
-+ Connect multiple devices to the same Leap (via an optional "host" argument)
-+ Uses AIR 3.7/ASC 2.0 compiler features (be sure to add the `-inline` and `-swf-version=20` compiler arguments)
-+ No external dependencies, creates a optimized socket directly to the Leap
++ Connect multiple devices to the same Leap Motion (via an optional "host" argument)
++ Uses AIR 3.8/ASC 2.0 compiler features (be sure to add the `-inline` and `-swf-version=20` compiler arguments)
++ No external dependencies, creates a optimized socket when the ANE isn't available
 + AIR Native Extension (ANE) which directly interfaces with the C++ library (Mac OSX and Windows)
 + Compatible with Mac OSX, Windows, iOS (iPad/iPhone/etc) and Android
 

@@ -2,7 +2,7 @@
 <project name="extension-ant-build" default="help">
 
     <description>
-        LeapMotionAS3 is the AS3 framework for working with the Leap.
+        LeapMotionAS3 is the AS3 framework for working with Leap Motion.
         This set of tasks allows you to rebuild the ANE &amp; run the Sample, and more.
     </description>
 
