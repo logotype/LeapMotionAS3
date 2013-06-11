@@ -147,7 +147,7 @@ package com.leapmotion.leap
 		 */
 		public function toString():String
 		{
-			return "[InteractionBox depth:" + depth() + " height:" + height() + " width:" + width() + "]";
+			return "[InteractionBox depth:" + depth + " height:" + height + " width:" + width + "]";
 		}
 	}
 }
