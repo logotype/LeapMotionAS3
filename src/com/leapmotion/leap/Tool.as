@@ -4,7 +4,7 @@ package com.leapmotion.leap
 	/**
 	 * The Tool class represents a tracked tool.
 	 *
-	 * <p>Tools are Pointable objects that the Leap has classified as a tool.
+	 * <p>Tools are Pointable objects that the Leap Motion has classified as a tool.
 	 * Tools are longer, thinner, and straighter than a typical finger.
 	 * Get valid Tool objects from a Frame or a Hand object.</p>
 	 *

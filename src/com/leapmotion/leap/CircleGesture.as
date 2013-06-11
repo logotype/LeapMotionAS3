@@ -5,7 +5,7 @@ package com.leapmotion.leap
 	 * The CircleGesture classes represents a circular finger movement.
 	 *
 	 * <p>A circle movement is recognized when the tip of a finger draws
-	 * a circle within the Leap field of view.</p>
+	 * a circle within the Leap Motion field of view.</p>
 	 *
 	 * <p><strong>Important: To use circle gestures in your application, you must
 	 * enable recognition of the circle gesture.</strong><br/>
@@ -67,8 +67,8 @@ package com.leapmotion.leap
 		static public var classType:int = Gesture.TYPE_CIRCLE;
 
 		/**
-		 * The center point of the circle within the Leap frame of reference.<br/>
-		 * The center of the circle in mm from the Leap origin.
+		 * The center point of the circle within the Leap Motion frame of reference.<br/>
+		 * The center of the circle in mm from the Leap Motion origin.
 		 */
 		public var center:Vector3;
 
@@ -98,7 +98,7 @@ package com.leapmotion.leap
 		 * circle three times.</p>
 		 *
 		 * <p>Progress starts where the circle gesture began. Since it the circle must
-		 * be partially formed before the Leap can recognize it, progress will be
+		 * be partially formed before the Leap Motion can recognize it, progress will be
 		 * greater than zero when a circle gesture first appears in the frame.</p>
 		 */
 		public var progress:Number;

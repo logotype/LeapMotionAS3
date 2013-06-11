@@ -16,13 +16,13 @@ package com.leapmotion.leap.native
 		static private const LEAPNATIVE_INIT:String = "onInit";
 
 		/**
-		 * Called when the Controller object connects to the Leap software,
+		 * Called when the Controller object connects to the Leap Motion software,
 		 * or when this Listener object is added to a Controller that is alrady connected.
 		 */
 		static private const LEAPNATIVE_CONNECTED:String = "onConnect";
 
 		/**
-		 * Called when the Controller object disconnects from the Leap software
+		 * Called when the Controller object disconnects from the Leap Motion software
 		 */
 		static private const LEAPNATIVE_DISCONNECTED:String = "onDisconnect";
 
@@ -46,7 +46,7 @@ package com.leapmotion.leap.native
 		 * Called when this application becomes the foreground application.
 		 *
 		 * <p>Only the foreground application receives tracking data from the
-		 * Leap Motion Controller. This function is only called when the
+		 * Leap Motion. This function is only called when the
 		 * controller object is in a connected state.</p>
 		 *
 		 */
@@ -56,7 +56,7 @@ package com.leapmotion.leap.native
 		 * Called when this application loses the foreground focus.
 		 *
 		 * <p>Only the foreground application receives tracking data from the
-		 * Leap Motion Controller. This function is only called when the
+		 * Leap Motion. This function is only called when the
 		 * controller object is in a connected state.</p>
 		 *
 		 */
@@ -88,7 +88,7 @@ package com.leapmotion.leap.native
 		private var _frame:Frame;
 
 		/**
-		 * Whether the Leap is currently connected.
+		 * Whether the Leap Motion is currently connected.
 		 */
 		private var _isConnected:Boolean = false;
 
@@ -244,8 +244,8 @@ package com.leapmotion.leap.native
 						}
 						catch( error:Error )
 						{
-							trace( "[LeapNative] Leap Native Extension is not supported." );
-							trace( "[LeapNative] If you are on Windows, add the Leap software folder to your PATH." );
+							trace( "[LeapNative] Leap Motion Native Extension is not supported." );
+							trace( "[LeapNative] If you are on Windows, add the Leap Motion software folder to your PATH." );
 							trace( "[LeapNative] Falling back on Socket implementation." );
 						}
 						return true;
@@ -298,7 +298,7 @@ package com.leapmotion.leap.native
 		}
 
 		/**
-		 * Whether the Leap is currently connected.
+		 * Whether the Leap Motion is currently connected.
 		 */
 		public function get isConnected():Boolean
 		{
@@ -369,7 +369,7 @@ package com.leapmotion.leap.native
 		 * Requests a change in policy.
 		 *
 		 * <p>A request to change a policy is subject to user approval and a policy
-		 * can be changed by the user at any time (using the Leap settings window).
+		 * can be changed by the user at any time (using the Leap Motion settings window).
 		 * The desired policy flags must be set every time an application runs.</p>
 		 *
 		 * <p>Policy changes are completed asynchronously and, because they are subject
@@ -380,17 +380,17 @@ package com.leapmotion.leap.native
 		 * <p>Currently, the background frames policy is the only policy supported.
 		 * The background frames policy determines whether an application
 		 * receives frames of tracking data while in the background. By
-		 * default, the Leap only sends tracking data to the foreground application.
+		 * default, the Leap Motion only sends tracking data to the foreground application.
 		 * Only applications that need this ability should request the background
 		 * frames policy.</p>
 		 *
-		 * <p>At this time, you can use the Leap applications Settings window to
+		 * <p>At this time, you can use the Leap Motion applications Settings window to
 		 * globally enable or disable the background frames policy. However,
 		 * each application that needs tracking data while in the background
 		 * must also set the policy flag using this function.</p>
 		 *
 		 * <p>This function can be called before the Controller object is connected,
-		 * but the request will be sent to the Leap after the Controller connects.</p>
+		 * but the request will be sent to the Leap Motion after the Controller connects.</p>
 		 *
 		 * @param flags A PolicyFlag value indicating the policies to request.
 		 */

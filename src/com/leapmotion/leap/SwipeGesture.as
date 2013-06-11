@@ -68,7 +68,7 @@ package com.leapmotion.leap
 		public var pointable:Pointable;
 
 		/**
-		 * The current swipe position within the Leap frame of reference, in mm.
+		 * The current swipe position within the Leap Motion frame of reference, in mm.
 		 */
 		public var position:Vector3;
 

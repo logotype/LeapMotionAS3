@@ -5,11 +5,11 @@ package com.leapmotion.leap
 	 * The Frame class represents a set of hand and finger tracking
 	 * data detected in a single frame.
 	 *
-	 * <p>The Leap detects hands, fingers and tools within the tracking area,
+	 * <p>The Leap Motion detects hands, fingers and tools within the tracking area,
 	 * reporting their positions, orientations and motions in frames at
-	 * the Leap frame rate.</p>
+	 * the Leap Motion frame rate.</p>
 	 *
-	 * <p>Access Frame objects through a listener of a Leap Controller.
+	 * <p>Access Frame objects through a listener of a Leap Motion Controller.
 	 * Add a listener to receive events when a new Frame is available.</p>
 	 *
 	 * @author logotype
@@ -63,12 +63,19 @@ package com.leapmotion.leap
 
 		/**
 		 * A unique ID for this Frame.
-		 * <p>Consecutive frames processed by the Leap have consecutive increasing values.</p>
+		 * <p>Consecutive frames processed by the Leap Motion have consecutive increasing values.</p>
 		 */
 		public var id:int;
+		
+		/**
+		 * The current InteractionBox for the frame.
+		 * <p>See the InteractionBox class documentation for more details on how this class should be used.</p>
+		 * @see InteractionBox
+		 */
+		public var interactionBox:InteractionBox;
 
 		/**
-		 * The frame capture time in microseconds elapsed since the Leap started.
+		 * The frame capture time in microseconds elapsed since the Leap Motion started.
 		 */
 		public var timestamp:Number;
 
@@ -400,7 +407,7 @@ package com.leapmotion.leap
 		 *
 		 * <p>The returned direction vector is normalized.</p>
 		 *
-		 * <p>The Leap derives frame rotation from the relative change
+		 * <p>The Leap Motion derives frame rotation from the relative change
 		 * in position and orientation of all objects detected in
 		 * the field of view.</p>
 		 *
@@ -435,7 +442,7 @@ package com.leapmotion.leap
 		 * the rotation axis (using the right-hand rule) between the
 		 * start and end frames. The value is always between 0 and pi radians (0 and 180 degrees).</p>
 		 *
-		 * <p>The Leap derives frame rotation from the relative change in position
+		 * <p>The Leap Motion derives frame rotation from the relative change in position
 		 * and orientation of all objects detected in the field of view.</p>
 		 *
 		 * <p>If either this frame or sinceFrame is an invalid Frame object,
@@ -522,7 +529,7 @@ package com.leapmotion.leap
 		 * scaling took place. Values between 0.0 and 1.0 indicate contraction
 		 * and values greater than 1.0 indicate expansion.</p>
 		 *
-		 * <p>The Leap derives scaling from the relative inward or outward
+		 * <p>The Leap Motion derives scaling from the relative inward or outward
 		 * motion of all objects detected in the field of view (independent
 		 * of translation and rotation).</p>
 		 *
@@ -571,7 +578,7 @@ package com.leapmotion.leap
 		 * <p>The returned translation vector provides the magnitude and
 		 * direction of the movement in millimeters.</p>
 		 *
-		 * <p>The Leap derives frame translation from the linear motion
+		 * <p>The Leap Motion derives frame translation from the linear motion
 		 * of all objects detected in the field of view.</p>
 		 *
 		 * <p>If either this frame or sinceFrame is an invalid Frame object,

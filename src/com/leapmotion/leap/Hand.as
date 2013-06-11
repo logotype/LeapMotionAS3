@@ -47,8 +47,8 @@ package com.leapmotion.leap
 		 * the same across consecutive frames while the tracked hand remains visible.
 		 *
 		 * <p>If tracking is lost (for example, when a hand is occluded by another
-		 * hand or when it is withdrawn from or reaches the edge of the Leap field
-		 * of view), the Leap may assign a new ID when it detects the hand in a future frame.</p>
+		 * hand or when it is withdrawn from or reaches the edge of the Leap Motion field
+		 * of view), the Leap Motion may assign a new ID when it detects the hand in a future frame.</p>
 		 *
 		 * <p>Use the ID value with the <code>Frame.hand()</code> function to find this Hand object
 		 * in future frames.</p>
@@ -61,7 +61,7 @@ package com.leapmotion.leap
 		public var palmNormal:Vector3;
 
 		/**
-		 * The center position of the palm in millimeters from the Leap origin.
+		 * The center position of the palm in millimeters from the Leap Motion origin.
 		 */
 		public var palmPosition:Vector3;
 
@@ -448,7 +448,7 @@ package com.leapmotion.leap
 		 * scaling took place. Values between 0.0 and 1.0 indicate contraction
 		 * and values greater than 1.0 indicate expansion.</p>
 		 *
-		 * <p>The Leap derives scaling from the relative inward or outward motion
+		 * <p>The Leap Motion derives scaling from the relative inward or outward motion
 		 * of a hand and its associated fingers and tools (independent of
 		 * translation and rotation).</p>
 		 *

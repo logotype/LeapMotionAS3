@@ -2,7 +2,7 @@ package com.leapmotion.leap
 {
 
 	/**
-	 * The Config class provides access to Leap system configuration information.
+	 * The Config class provides access to Leap Motion system configuration information.
 	 *
 	 * <p>You can get and set gesture configuration parameters using the Config
 	 * object obtained from a connected Controller object. The key strings
@@ -79,7 +79,7 @@ package com.leapmotion.leap
 	 *
 	 * <p>After setting a configuration value, you must call the <code>Config.save()</code> method
 	 * to commit the changes. The configuration value changes are not persistent;
-	 * your application needs to set the values everytime it runs.</p>
+	 * your application must set the values everytime it runs.</p>
 	 *
 	 * @author logotype
 	 *
@@ -234,8 +234,8 @@ package com.leapmotion.leap
 		 *
 		 * Call <code>save()</code> after making a set of configuration changes.
 		 * The <code>save()</code> function transfers the configuration changes
-		 * to the Leap application. The configuration value changes are not
-		 * persistent; your application needs to set the values everytime it runs.
+		 * to the Leap Motion application. The configuration value changes are not
+		 * persistent; your application must set the values everytime it runs.
 		 *
 		 * @return
 		 *

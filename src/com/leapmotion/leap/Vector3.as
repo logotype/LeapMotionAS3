@@ -5,7 +5,7 @@ package com.leapmotion.leap
 	 * The Vector class represents a three-component mathematical vector
 	 * or point such as a direction or position in three-dimensional space.
 	 *
-	 * <p>The Leap software employs a right-handed Cartesian coordinate system.
+	 * <p>The Leap Motion software employs a right-handed Cartesian coordinate system.
 	 * Values given are in units of real-world millimeters. The origin is
 	 * centered at the center of the Leap Motion Controller. The x- and z-axes lie in
 	 * the horizontal plane, with the x-axis running parallel to the long edge

@@ -6,16 +6,16 @@ package com.leapmotion.leap
 	 * The Screen class represents a computer monitor screen.
 	 *
 	 * <p>The Screen class reports characteristics describing the position and
-	 * orientation of the monitor screen within the Leap coordinate system.
+	 * orientation of the monitor screen within the Leap Motion coordinate system.
 	 * These characteristics include the bottom-left corner position of the
 	 * screen, direction vectors for the horizontal and vertical axes of the
 	 * screen, and the screen's normal vector. The screen must be properly
-	 * registered with the Screen Locator for the Leap to report these
+	 * registered with the Screen Locator for the Leap Motion to report these
 	 * characteristics accurately. The Screen class also reports the size
 	 * of the screen in pixels, using information obtained from the operating
 	 * system.</p>
 	 *
-	 * <p>(Run the Screen Locator from the Leap Application Settings dialog,
+	 * <p>(Run the Screen Locator from the Leap Motion Application Settings dialog,
 	 * on the Screen page.)</p>
 	 *
 	 * <p>You can get the point of intersection between the screen and a ray
@@ -139,7 +139,7 @@ package com.leapmotion.leap
 
 		/**
 		 * A Vector representing the horizontal axis of this Screen
-		 * within the Leap coordinate system.
+		 * within the Leap Motion coordinate system.
 		 *
 		 * <p>The magnitude of this vector estimates the physical width of
 		 * this Screen in millimeters. The direction of this vector is
@@ -159,7 +159,7 @@ package com.leapmotion.leap
 
 		/**
 		 * A Vector representing the vertical axis of this Screen
-		 * within the Leap coordinate system.
+		 * within the Leap Motion coordinate system.
 		 *
 		 * <p>The magnitude of this vector estimates the physical height of
 		 * this Screen in millimeters. The direction of this vector is
@@ -179,10 +179,10 @@ package com.leapmotion.leap
 
 		/**
 		 * A Vector representing the bottom left corner of this Screen
-		 * within the Leap coordinate system.
+		 * within the Leap Motion coordinate system.
 		 *
 		 * <p>The point represented by this vector defines the origin of the
-		 * screen in the Leap coordinate system.</p>
+		 * screen in the Leap Motion coordinate system.</p>
 		 *
 		 * <p>Together, <code>horizontalAxis()</code>, <code>verticalAxis()</code>, and <code>bottomLeftCorner()</code>
 		 * describe the physical position, size and orientation of this Screen.</p>
@@ -214,7 +214,7 @@ package com.leapmotion.leap
 		 * place the origin in the top-left corner).</p>
 		 *
 		 * <p>Set the normalize parameter to false to request the intersection
-		 * point in Leap coordinates (millimeters from the Leap origin).</p>
+		 * point in Leap Motion coordinates (millimeters from the Leap Motion origin).</p>
 		 *
 		 * <p>If the Pointable object points outside the screen's border (but
 		 * still intersects the plane in which the screen lies), the
@@ -243,8 +243,8 @@ package com.leapmotion.leap
 		 *
 		 * @param normalize	 	If true, return normalized coordinates representing
 		 * 						the intersection point as a percentage of the screen's
-		 * 						width and height. If false, return Leap coordinates
-		 * 						(millimeters from the Leap origin, which is located
+		 * 						width and height. If false, return Leap Motion coordinates
+		 * 						(millimeters from the Leap Motion origin, which is located
 		 * 						at the center of the top surface of the Leap Motion Controller).
 		 * 						If true and the clampRatio parameter is set to 1.0,
 		 * 						coordinates will be of the form (0..1, 0..1, 0).
@@ -289,7 +289,7 @@ package com.leapmotion.leap
 		 * place the origin in the top-left corner).</p>
 		 *
 		 * <p>Set the normalize parameter to false to request the intersection
-		 * point in Leap coordinates (millimeters from the Leap origin).</p>
+		 * point in Leap Motion coordinates (millimeters from the Leap Motion origin).</p>
 		 *
 		 * <p>If the Pointable object points outside the screen's border (but
 		 * still intersects the plane in which the screen lies), the
@@ -320,8 +320,8 @@ package com.leapmotion.leap
 		 *
 		 * @param normalize		If true, return normalized coordinates representing
 		 * 						the intersection point as a percentage of the screen's
-		 * 						width and height. If false, return Leap coordinates
-		 * 						(millimeters from the Leap origin, which is located
+		 * 						width and height. If false, return Leap Motion coordinates
+		 * 						(millimeters from the Leap Motion origin, which is located
 		 * 						at the center of the top surface of the Leap Motion Controller).
 		 * 						If true and the clampRatio parameter is set to 1.0,
 		 * 						coordinates will be of the form (0..1, 0..1, 0).
@@ -365,7 +365,7 @@ package com.leapmotion.leap
 		 * place the origin in the top-left corner).</p>
 		 *
 		 * <p>Set the normalize parameter to false to request the projection point in Leap
-		 * coordinates (millimeters from the Leap origin).</p>
+		 * coordinates (millimeters from the Leap Motion origin).</p>
 		 *
 		 * <p>If the specified point projects outside the screen's border, the returned
 		 * projection point is clamped to the nearest point on the edge of the screen.</p>
@@ -384,8 +384,8 @@ package com.leapmotion.leap
 		 *
 		 * @param normalize		If true, return normalized coordinates representing
 		 * 						the projection point as a percentage of the screen's
-		 * 						width and height. If false, return Leap coordinates
-		 * 						(millimeters from the Leap origin, which is located
+		 * 						width and height. If false, return Leap Motion coordinates
+		 * 						(millimeters from the Leap Motion origin, which is located
 		 * 						at the center of the top surface of the Leap Motion Controller).
 		 * 						If true and the clampRatio parameter is set to 1.0,
 		 * 						coordinates will be of the form (0..1, 0..1, 0).

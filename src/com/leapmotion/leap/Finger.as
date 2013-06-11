@@ -4,7 +4,7 @@ package com.leapmotion.leap
 	/**
 	 * The Finger class represents a tracked finger.
 	 *
-	 * <p>Fingers are Pointable objects that the Leap has classified as a finger.
+	 * <p>Fingers are Pointable objects that the Leap Motion has classified as a finger.
 	 * Get valid Finger objects from a Frame or a Hand object.</p>
 	 *
 	 * <p>Note that Finger objects can be invalid, which means that they do not

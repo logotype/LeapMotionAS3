@@ -4,14 +4,14 @@ package com.leapmotion.leap
 	/**
 	 * The Gesture class represents a recognized movement by the user.
 	 *
-	 * <p>The Leap watches the activity within its field of view for certain movement
+	 * <p>The Leap Motion watches the activity within its field of view for certain movement
 	 * patterns typical of a user gesture or command. For example, a movement from
 	 * side to side with the hand can indicate a swipe gesture, while a finger poking
 	 * forward can indicate a screen tap gesture.</p>
 	 *
-	 * <p>When the Leap recognizes a gesture, it assigns an ID and adds a Gesture object
+	 * <p>When the Leap Motion recognizes a gesture, it assigns an ID and adds a Gesture object
 	 * to the frame gesture list. For continuous gestures, which occur over many frames,
-	 * the Leap updates the gesture by adding a Gesture object having the same ID and
+	 * the Leap Motion updates the gesture by adding a Gesture object having the same ID and
 	 * updated properties in each subsequent frame.</p>
 	 *
 	 * <p><strong>Important: Recognition for each type of gesture must be enabled using the
@@ -33,7 +33,7 @@ package com.leapmotion.leap
 	 * <p>Circle and swipe gestures are continuous and these objects can have a state
 	 * of start, update, and stop.</p>
 	 *
-	 * <p>The screen tap gesture is a discrete gesture. The Leap only creates a single
+	 * <p>The screen tap gesture is a discrete gesture. The Leap Motion only creates a single
 	 * ScreenTapGesture object appears for each tap and it always has a stop state.</p>
 	 *
 	 * <p>Get valid Gesture instances from a Frame object. You can get a list of gestures
@@ -181,7 +181,7 @@ package com.leapmotion.leap
 		 *
 		 * <p>The duration reported for the first Gesture in the sequence (with
 		 * the <code>STATE_START</code> state) will typically be a small positive number
-		 * since the movement must progress far enough for the Leap to recognize
+		 * since the movement must progress far enough for the Leap Motion to recognize
 		 * it as an intentional gesture.</p>
 		 */
 		public var duration:int;

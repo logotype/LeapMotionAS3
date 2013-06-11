@@ -5,7 +5,7 @@ package com.leapmotion.leap
 	 * The Listener interface defines a set of callback functions that you can
 	 * implement to respond to events dispatched by the Leap.
 	 *
-	 * <p>To handle Leap events, implement the Listener interface and assign
+	 * <p>To handle Leap Motion events, implement the Listener interface and assign
 	 * it to the Controller instance. The Controller calls the relevant Listener
 	 * callback function when an event occurs, passing in a reference to itself.
 	 * You have to implement callbacks for every method specified in the interface.</p>
@@ -22,7 +22,7 @@ package com.leapmotion.leap
 	public interface Listener
 	{
 		/**
-		 * Called when the Controller object connects to the Leap software,
+		 * Called when the Controller object connects to the Leap Motion software,
 		 * or when this Listener object is added to a Controller that is already connected.
 		 *
 		 * @param controller The Controller object invoking this callback function.
@@ -31,10 +31,10 @@ package com.leapmotion.leap
 		function onConnect( controller:Controller ):void;
 
 		/**
-		 * Called when the Controller object disconnects from the Leap software.
+		 * Called when the Controller object disconnects from the Leap Motion software.
 		 *
-		 * <p>The controller can disconnect when the Leap device is unplugged,
-		 * the user shuts the Leap software down, or the Leap software encounters
+		 * <p>The controller can disconnect when the Leap Motion device is unplugged,
+		 * the user shuts the Leap Motion software down, or the Leap software encounters
 		 * an unrecoverable error.</p>
 		 *
 		 * <listing>
@@ -43,7 +43,7 @@ package com.leapmotion.leap
 		 * }</listing>
 		 *
 		 * <p>Note: When you launch a Leap-enabled application in a debugger,
-		 * the Leap library does not disconnect from the application.
+		 * the Leap Motion library does not disconnect from the application.
 		 * This is to allow you to step through code without losing the connection
 		 * because of time outs.</p>
 		 *

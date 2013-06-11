@@ -14,12 +14,12 @@ package com.leapmotion.leap
 	[Event( name = "leapmotionInit", type = "com.leapmotion.leap.events.LeapEvent" )]
 
 	/**
-	 * Called when the Controller object connects to the Leap software.
+	 * Called when the Controller object connects to the Leap Motion software.
 	 */
 	[Event( name = "leapmotionConnected", type = "com.leapmotion.leap.events.LeapEvent" )]
 
 	/**
-	 * Called when the Controller object disconnects from the Leap software.
+	 * Called when the Controller object disconnects from the Leap Motion software.
 	 */
 	[Event( name = "leapmotionDisconnected", type = "com.leapmotion.leap.events.LeapEvent" )]
 
@@ -49,7 +49,7 @@ package com.leapmotion.leap
 	 *
 	 * <p>Polling is an appropriate strategy for applications which already have an
 	 * intrinsic update loop, such as a game. You can also implement the Leap::Listener
-	 * interface to handle events as they occur. The Leap dispatches events to the listener
+	 * interface to handle events as they occur. The Leap Motion dispatches events to the listener
 	 * upon initialization and exiting, on connection changes, and when a new frame
 	 * of tracking data is available. When these events occur, the controller object
 	 * invokes the appropriate callback function defined in the Listener interface.</p>
@@ -68,7 +68,7 @@ package com.leapmotion.leap
 	 * the controller calls the <code>Listener::onConnect()</code> function. At this point,
 	 * your application will start receiving frames of data. The controller calls
 	 * the <code>Listener::onFrame()</code> function each time a new frame is available.
-	 * If the controller loses its connection with the Leap software or
+	 * If the controller loses its connection with the Leap Motion software or
 	 * device for any reason, it calls the <code>Listener::onDisconnect()</code> function.
 	 * If the listener is removed from the controller or the controller is destroyed,
 	 * it calls the <code>Listener::onExit()</code> function. At that point, unless the listener
@@ -130,7 +130,7 @@ package com.leapmotion.leap
 
 		/**
 		 * Constructs a Controller object.
-		 * @param host IP or hostname of the computer running the Leap software.
+		 * @param host IP or hostname of the computer running the Leap Motion software.
 		 * (currently only supported for socket connections).
 		 *
 		 */
@@ -192,23 +192,23 @@ package com.leapmotion.leap
 
 		/**
 		 * The list of screens whose positions have been identified by using
-		 * the Leap application Screen Locator.
+		 * the Leap Motion application Screen Locator.
 		 *
 		 * <p>The list always contains at least one entry representing the
 		 * default screen. If the user has not registered the location of
 		 * this default screen, then the coordinates, directions, and other
 		 * values reported by the functions in its Screen object will not
 		 * be accurate. Other monitor screens only appear in the list if
-		 * their positions have been registered using the Leap Screen Locator.</p>
+		 * their positions have been registered using the Leap Motion Screen Locator.</p>
 		 *
 		 * <p>A Screen object represents the position and orientation of a
-		 * display monitor screen within the Leap coordinate system.
+		 * display monitor screen within the Leap Motion coordinate system.
 		 * For example, if the screen location is known, you can get Leap
 		 * coordinates for the bottom-left corner of the screen.
-		 * Registering the screen location also allows the Leap to calculate
+		 * Registering the screen location also allows the Leap Motion to calculate
 		 * the point on the screen at which a finger or tool is pointing.</p>
 		 *
-		 * <p>A user can run the Screen Locator tool from the Leap application
+		 * <p>A user can run the Screen Locator tool from the Leap Motion application
 		 * Settings window. Avoid assuming that a screen location is known
 		 * or that an existing position is still correct. The registered
 		 * position is only valid as long as the relative position of the
@@ -255,7 +255,7 @@ package com.leapmotion.leap
 		 *
 		 * <p>The projected ray emanates from the Pointable tipPosition along
 		 * the Pointable's direction vector. If the projected ray does not
-		 * intersect any screen surface directly, then the Leap checks for
+		 * intersect any screen surface directly, then the Leap Motion checks for
 		 * intersection with the planes extending from the surfaces of the
 		 * known screens and returns the Screen with the closest intersection.</p>
 		 *
@@ -296,7 +296,7 @@ package com.leapmotion.leap
 		 * 
 		 * <p>The projected ray emanates from the position along the direction
 		 * vector. If the projected ray does not intersect any screen surface
-		 * directly, then the Leap checks for intersection with the planes
+		 * directly, then the Leap Motion checks for intersection with the planes
 		 * extending from the surfaces of the known screens and returns the
 		 * Screen with the closest intersection.</p>
 		 *
@@ -360,6 +360,24 @@ package com.leapmotion.leap
 
 			return Screen.invalid();
 		}
+		
+		/**
+		 * The list of currently attached and recognized Leap Motion controller devices.
+		 * 
+		 * <p>The Device objects in the list describe information such as the range and tracking volume.</p>
+		 * 
+		 * <p>Currently, the Leap Motion Controller only recognizes a single device at a time.</p>
+		 *  
+		 * @return A list of Device objects. 
+		 * 
+		 */
+		public function devices():Vector.<Device>
+		{
+			// TODO: Implement
+			var deviceList:Vector.<Device> = new Vector.<Device>();
+			deviceList.push( new Device() );
+			return deviceList;
+		}
 
 		/**
 		 * Enables or disables reporting of a specified gesture type.
@@ -416,7 +434,7 @@ package com.leapmotion.leap
 		 * Requests a change in policy.
 		 *
 		 * <p>A request to change a policy is subject to user approval and a policy
-		 * can be changed by the user at any time (using the Leap settings window).
+		 * can be changed by the user at any time (using the Leap Motion settings window).
 		 * The desired policy flags must be set every time an application runs.</p>
 		 *
 		 * <p>Policy changes are completed asynchronously and, because they are subject
@@ -427,17 +445,17 @@ package com.leapmotion.leap
 		 * <p>Currently, the background frames policy is the only policy supported.
 		 * The background frames policy determines whether an application
 		 * receives frames of tracking data while in the background. By
-		 * default, the Leap only sends tracking data to the foreground application.
+		 * default, the Leap Motion only sends tracking data to the foreground application.
 		 * Only applications that need this ability should request the background
 		 * frames policy.</p>
 		 *
-		 * <p>At this time, you can use the Leap applications Settings window to
+		 * <p>At this time, you can use the Leap Motion applications Settings window to
 		 * globally enable or disable the background frames policy. However,
 		 * each application that needs tracking data while in the background
 		 * must also set the policy flag using this function.</p>
 		 *
 		 * <p>This function can be called before the Controller object is connected,
-		 * but the request will be sent to the Leap after the Controller connects.</p>
+		 * but the request will be sent to the Leap Motion after the Controller connects.</p>
 		 *
 		 * @param flags A PolicyFlag value indicating the policies to request.
 		 */
@@ -455,7 +473,7 @@ package com.leapmotion.leap
 		 *
 		 * <p>You can either handle the onConnect event using a event listener
 		 * or poll the <code>isConnected()</code> function if you need to wait for your
-		 * application to be connected to the Leap before performing
+		 * application to be connected to the Leap Motion before performing
 		 * some other operation.</p>
 		 *
 		 * @return True, if connected; false otherwise.
@@ -468,7 +486,7 @@ package com.leapmotion.leap
 
 		/**
 		 * Returns a Config object, which you can use to query the
-		 * Leap system for configuration information.
+		 * Leap Motion system for configuration information.
 		 *
 		 * @return
 		 *

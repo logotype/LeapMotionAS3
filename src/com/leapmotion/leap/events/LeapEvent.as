@@ -12,18 +12,18 @@ package com.leapmotion.leap.events
 		static public const LEAPMOTION_INIT:String = "leapmotionInit";
 
 		/**
-		 * Called when the Controller object connects to the Leap software, or when this Listener object is added to a Controller that is alrady connected.
+		 * Called when the Controller object connects to the Leap Motion software, or when this Listener object is added to a Controller that is alrady connected.
 		 */
 		static public const LEAPMOTION_CONNECTED:String = "leapmotionConnected";
 
 		/**
-		 * The controller can disconnect when the Leap Motion Controller is unplugged, the user shuts the Leap software down, or the Leap software encounters an unrecoverable error.
-		 * Note: When you launch a Leap-enabled application in a debugger, the Leap library does not disconnect from the application. This is to allow you to step through code without losing the connection because of time outs.
+		 * The controller can disconnect when the Leap Motion is unplugged, the user shuts the Leap Motion software down, or the Leap Motion software encounters an unrecoverable error.
+		 * Note: When you launch a Leap-enabled application in a debugger, the Leap Motion library does not disconnect from the application. This is to allow you to step through code without losing the connection because of time outs.
 		 */
 		static public const LEAPMOTION_DISCONNECTED:String = "leapmotionDisconnected";
 
 		/**
-		 * Called when the Leap handshake procedure exceeds a specified timeout.
+		 * Called when the Leap Motion handshake procedure exceeds a specified timeout.
 		 */
 		static public const LEAPMOTION_TIMEOUT:String = "leapmotionTimeout";
 
@@ -36,7 +36,7 @@ package com.leapmotion.leap.events
 		 * Called when this application becomes the foreground application.
 		 *
 		 * <p>Only the foreground application receives tracking data from the
-		 * Leap Motion Controller. This function is only called when the
+		 * Leap Motion. This function is only called when the
 		 * controller object is in a connected state.</p>
 		 */
 		static public const LEAPMOTION_FOCUSGAINED:String = "leapmotionFocusGained";
@@ -45,7 +45,7 @@ package com.leapmotion.leap.events
 		 * Called when this application loses the foreground focus.
 		 *
 		 * <p>Only the foreground application receives tracking data from the
-		 * Leap Motion Controller. This function is only called when the
+		 * Leap Motion. This function is only called when the
 		 * controller object is in a connected state.</p>
 		 */
 		static public const LEAPMOTION_FOCUSLOST:String = "leapmotionFocusLost";

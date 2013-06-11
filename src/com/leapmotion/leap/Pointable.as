@@ -6,7 +6,7 @@ package com.leapmotion.leap
 	 * Both fingers and tools are classified as Pointable objects. Use the Pointable.isFinger
 	 * property to determine whether a Pointable object represents a finger. Use the
 	 * Pointable.isTool property to determine whether a Pointable object represents a tool.
-	 * The Leap classifies a detected entity as a tool when it is thinner, straighter,
+	 * The Leap Motion classifies a detected entity as a tool when it is thinner, straighter,
 	 * and longer than a typical finger.
 	 *
 	 * <p>Note that Pointable objects can be invalid, which means that they do not contain valid
@@ -21,6 +21,27 @@ package com.leapmotion.leap
 	 */
 	public class Pointable
 	{
+		/**
+		 * The Pointable object is too far from the plane to be considered hovering or touching.
+		 * 
+		 * <p>Defines the values for reporting the state of a Pointable object in relation to an adaptive touch plane.</p>  
+		 */
+		static public const ZONE_NONE:int = 0;
+		
+		/**
+		 * The Pointable object is close to, but not touching the plane. 
+		 * 
+		 * <p>Defines the values for reporting the state of a Pointable object in relation to an adaptive touch plane.</p>  
+		 */
+		static public const ZONE_HOVERING:int = 1;
+		
+		/**
+		 * The Pointable has penetrated the plane.  
+		 * 
+		 * <p>Defines the values for reporting the state of a Pointable object in relation to an adaptive touch plane.</p>  
+		 */
+		static public const ZONE_TOUCHING:int = 2;
+		
 		/**
 		 * The direction in which this finger or tool is pointing.<br/>
 		 * The direction is expressed as a unit vector pointing in the
@@ -50,7 +71,7 @@ package com.leapmotion.leap
 		 * tool remains visible.
 		 *
 		 * <p>If tracking is lost (for example, when a finger is occluded by another
-		 * finger or when it is withdrawn from the Leap field of view), the Leap
+		 * finger or when it is withdrawn from the Leap Motion field of view), the Leap
 		 * may assign a new ID when it detects the entity in a future frame.</p>
 		 *
 		 * <p>Use the ID value with the <code>Frame.pointable()</code> function to find this
@@ -79,7 +100,7 @@ package com.leapmotion.leap
 		public var width:Number = 0;
 
 		/**
-		 * The tip position in millimeters from the Leap origin.
+		 * The tip position in millimeters from the Leap Motion origin.
 		 */
 		public var tipPosition:Vector3;
 
@@ -105,6 +126,62 @@ package com.leapmotion.leap
 			tipVelocity = Vector3.invalid();
 		}
 
+		/**
+		 * A value proportional to the distance between this Pointable
+		 * object and the adaptive touch plane.
+		 * 
+		 * <p>The touch distance is a value in the range [-1, 1].
+		 * The value 1.0 indicates the Pointable is at the far edge of
+		 * the hovering zone. The value 0 indicates the Pointable is
+		 * just entering the touching zone. A value of -1.0 indicates
+		 * the Pointable is firmly within the touching zone.
+		 * Values in between are proportional to the distance from the plane.
+		 * Thus, the touchDistance of 0.5 indicates that the Pointable
+		 * is halfway into the hovering zone.</p>
+		 * 
+		 * <p>You can use the touchDistance value to modulate visual
+		 * feedback given to the user as their fingers close in on a
+		 * touch target, such as a button.</p>
+		 *  
+		 * @return The normalized touch distance of this Pointable object. 
+		 * 
+		 */
+		public function touchDistance():Number
+		{
+			// TODO: implement
+			return 0.0;
+		}
+		
+		/**
+		 * The current touch zone of this Pointable object.
+		 * 
+		 * <p>The Leap Motion software computes the touch zone based on a
+		 * floating touch plane that adapts to the user's finger movement
+		 * and hand posture. The Leap Motion software interprets purposeful
+		 * movements toward this plane as potential touch points.
+		 * When a Pointable moves close to the adaptive touch plane,
+		 * it enters the "hovering" zone. When a Pointable reaches or
+		 * passes through the plane, it enters the "touching" zone.</p>
+		 * 
+		 * <p>The possible states are present in the Zone enum of this class:</p>
+		 * 
+		 * <code>Zone.NONE – The Pointable is outside the hovering zone.
+		 * Zone.HOVERING – The Pointable is close to, but not touching the touch plane.
+		 * Zone.TOUCHING – The Pointable has penetrated the touch plane.</code>
+		 * 
+		 * <p>The touchDistance value provides a normalized indication of the
+		 * distance to the touch plane when the Pointable is in the hovering
+		 * or touching zones.</p>
+		 *  
+		 * @return The touch zone of this Pointable. 
+		 * 
+		 */
+		public function touchZone():uint
+		{
+			// TODO: implement
+			return ZONE_NONE;
+		}
+		
 		/**
 		 * Reports whether this is a valid Pointable object.
 		 * @return True if <code>direction</code>, <code>tipPosition</code> and <code>tipVelocity</code> are true.
