@@ -86,6 +86,8 @@ namespace leapnative {
         
         FREObject freInteractionBox;
         FRENewObject( (const uint8_t*) "com.leapmotion.leap.InteractionBox", 0, NULL, &freInteractionBox, NULL);
+
+        FRESetObjectProperty(freInteractionBox, (const uint8_t*) "frame", freCurrentFrame, NULL);
         FRESetObjectProperty(freInteractionBox, (const uint8_t*) "center", createVector3(frame.interactionBox().center().x, frame.interactionBox().center().y, frame.interactionBox().center().z), NULL);
 
         FREObject freInteractionBoxDepth;
@@ -455,14 +457,12 @@ namespace leapnative {
     }
     
     //start screen class
-    FREObject LNLeapDevice::getScreenDistanceToPoint(int screenId, float pX, float pY, float pZ) {
+    FREObject LNLeapDevice::getScreenDistanceToPoint(int screenId, Vector point) {
         ScreenList screenList = controller->calibratedScreens();
         Screen screen = screenList[screenId];
         
-        Vector vectorPoint = Vector(pX, pY, pZ);
-        
         FREObject freScreenDistance;
-        FRENewObjectFromDouble((double) screen.distanceToPoint(vectorPoint), &freScreenDistance);
+        FRENewObjectFromDouble((double) screen.distanceToPoint(point), &freScreenDistance);
         
         return freScreenDistance;
     }
@@ -547,14 +547,12 @@ namespace leapnative {
     //end screen class
     
     //start device class
-    FREObject LNLeapDevice::getDeviceDistanceToBoundary(float pX, float pY, float pZ) {
+    FREObject LNLeapDevice::getDeviceDistanceToBoundary(Vector position) {
         DeviceList deviceList = controller->devices();
         Device device = deviceList[0];
-
-        Vector vectorPoint = Vector(pX, pY, pZ);
         
         FREObject freDeviceDistanceToBoundary;
-        FRENewObjectFromDouble((double) device.distanceToBoundary(vectorPoint), &freDeviceDistanceToBoundary);
+        FRENewObjectFromDouble((double) device.distanceToBoundary(position), &freDeviceDistanceToBoundary);
         
         return freDeviceDistanceToBoundary;
     }
@@ -599,6 +597,32 @@ namespace leapnative {
         return freDeviceRange;
     }
     //end device class
+    
+    //start interactionbox class
+    FREObject LNLeapDevice::getInteractionBoxDenormalizePoint(int frameId, Vector normalizedPosition) {
+        //find frame by id
+        int i = 0;
+        for (i = 0; i < 59; i++) {
+            if (frameId == controller->frame(i).id()) {
+                Vector pos = controller->frame(i).interactionBox().denormalizePoint(normalizedPosition);
+                return createVector3(pos.x, pos.y, pos.z);
+            }
+        }
+        return createVector3(NAN, NAN, NAN);
+    }
+
+    FREObject LNLeapDevice::getInteractionBoxNormalizePoint(int frameId, Vector position, bool clamp) {
+        //find frame by id
+        int i = 0;
+        for (i = 0; i < 59; i++) {
+            if (frameId == controller->frame(i).id()) {
+                Vector pos = controller->frame(i).interactionBox().normalizePoint(position, clamp);
+                return createVector3(pos.x, pos.y, pos.z);
+            }
+        }
+        return createVector3(NAN, NAN, NAN);
+    }
+    //end interactionbox class
     
     //start config class
     FREObject LNLeapDevice::getConfigBool(uint32_t len, const uint8_t* key) {

@@ -42,7 +42,7 @@ namespace leapnative {
         FREObject handProbability(int handId, int frameId, int sinceFrameId, int type);
         
         //screen class
-        FREObject getScreenDistanceToPoint(int screenId, float pX, float pY, float pZ);
+        FREObject getScreenDistanceToPoint(int screenId, Vector point);
         FREObject getScreenHeightPixels(int screenId);
         FREObject getScreenWidthPixels(int screenId);
         FREObject getScreenHorizontalAxis(int screenId);
@@ -53,12 +53,16 @@ namespace leapnative {
         FREObject getScreenIsValid(int screenId);
         FREObject getScreenNormal(int screenId);
         
-        // device class
-        FREObject getDeviceDistanceToBoundary(float pX, float pY, float pZ);
+        //device class
+        FREObject getDeviceDistanceToBoundary(Vector position);
         FREObject getDeviceHorizontalViewAngle();
         FREObject getDeviceVerticalViewAngle();
         FREObject getDeviceIsValid();
         FREObject getDeviceRange();
+        
+        //interactionbox class
+        FREObject getInteractionBoxDenormalizePoint(int frameId, Vector normalizedPosition);
+        FREObject getInteractionBoxNormalizePoint(int frameId, Vector position, bool clamp);
 
         //config class
         FREObject getConfigBool(uint32_t len, const uint8_t* key);
