@@ -52,6 +52,13 @@ namespace leapnative {
         FREObject getScreenProject(int screenId, Vector position, bool normalize, float clampRatio = 1.0f);
         FREObject getScreenIsValid(int screenId);
         FREObject getScreenNormal(int screenId);
+        
+        // device class
+        FREObject getDeviceDistanceToBoundary(float pX, float pY, float pZ);
+        FREObject getDeviceHorizontalViewAngle();
+        FREObject getDeviceVerticalViewAngle();
+        FREObject getDeviceIsValid();
+        FREObject getDeviceRange();
 
         //config class
         FREObject getConfigBool(uint32_t len, const uint8_t* key);

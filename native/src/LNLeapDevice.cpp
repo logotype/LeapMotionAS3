@@ -164,8 +164,33 @@ namespace leapnative {
 
                 FRESetObjectProperty(frePointable, (const uint8_t*) "direction", createVector3(pointable.direction().x, pointable.direction().y, pointable.direction().z), NULL);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "tipPosition", createVector3(pointable.tipPosition().x, pointable.tipPosition().y, pointable.tipPosition().z), NULL);
+                FRESetObjectProperty(frePointable, (const uint8_t*) "stabilizedTipPosition", createVector3(pointable.stabilizedTipPosition().x, pointable.stabilizedTipPosition().y, pointable.stabilizedTipPosition().z), NULL);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "tipVelocity", createVector3(pointable.tipVelocity().x, pointable.tipVelocity().y, pointable.tipVelocity().z), NULL);
                 
+                FREObject frePointableTouchDistance;
+                FRENewObjectFromDouble(pointable.touchDistance(), &frePointableTouchDistance);
+                FRESetObjectProperty(frePointable, (const uint8_t*) "touchDistance", frePointableTouchDistance, NULL);
+                
+                int zone;
+                switch (pointable.touchZone()) {
+                    case Pointable::ZONE_NONE:
+                        zone = 0;
+                        break;
+                    case Pointable::ZONE_HOVERING:
+                        zone = 1;
+                        break;
+                    case Pointable::ZONE_TOUCHING:
+                        zone = 2;
+                        break;
+                    default:
+                        zone = 0;
+                        break;
+                }
+                
+                FREObject frePointableZone;
+                FRENewObjectFromInt32(zone, &frePointableZone);
+                FRESetObjectProperty(frePointable, (const uint8_t*) "touchZone", frePointableZone, NULL);
+
                 //map to hand & back
                 if(pointable.hand().isValid()) {
                     FREObject freHand = freHandsMap[pointable.hand().id()];
@@ -504,6 +529,60 @@ namespace leapnative {
         return createVector3(vector.x, vector.y, vector.z);
     }
     //end screen class
+    
+    //start device class
+    FREObject LNLeapDevice::getDeviceDistanceToBoundary(float pX, float pY, float pZ) {
+        DeviceList deviceList = controller->devices();
+        Device device = deviceList[0];
+
+        Vector vectorPoint = Vector(pX, pY, pZ);
+        
+        FREObject freDeviceDistanceToBoundary;
+        FRENewObjectFromDouble((double) device.distanceToBoundary(vectorPoint), &freDeviceDistanceToBoundary);
+        
+        return freDeviceDistanceToBoundary;
+    }
+    
+    FREObject LNLeapDevice::getDeviceHorizontalViewAngle() {
+        DeviceList deviceList = controller->devices();
+        Device device = deviceList[0];
+        
+        FREObject freDeviceHorizontalViewAngle;
+        FRENewObjectFromDouble((double) device.horizontalViewAngle(), &freDeviceHorizontalViewAngle);
+        
+        return freDeviceHorizontalViewAngle;
+    }
+    
+    FREObject LNLeapDevice::getDeviceVerticalViewAngle() {
+        DeviceList deviceList = controller->devices();
+        Device device = deviceList[0];
+        
+        FREObject freDeviceVerticalViewAngle;
+        FRENewObjectFromDouble((double) device.verticalViewAngle(), &freDeviceVerticalViewAngle);
+        
+        return freDeviceVerticalViewAngle;
+    }
+    
+    FREObject LNLeapDevice::getDeviceIsValid() {
+        DeviceList deviceList = controller->devices();
+        Device device = deviceList[0];
+        
+        FREObject freReturnValue;
+        FRENewObjectFromBool(device.isValid() ? 1 : 0, &freReturnValue);
+        
+        return freReturnValue;
+    }
+    
+    FREObject LNLeapDevice::getDeviceRange() {
+        DeviceList deviceList = controller->devices();
+        Device device = deviceList[0];
+        
+        FREObject freDeviceRange;
+        FRENewObjectFromDouble((double) device.range(), &freDeviceRange);
+        
+        return freDeviceRange;
+    }
+    //end device class
     
     //start config class
     FREObject LNLeapDevice::getConfigBool(uint32_t len, const uint8_t* key) {

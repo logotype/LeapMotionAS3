@@ -157,7 +157,7 @@ package com.leapmotion.leap.native
 		}
 
 		/**
-		 * Inline method. Triggered when native extension context connects to the Leap.
+		 * Inline method. Triggered when native extension context connects to the Leap Motion.
 		 *
 		 */
 		[Inline]
@@ -168,7 +168,7 @@ package com.leapmotion.leap.native
 		}
 
 		/**
-		 * Inline method. Triggered when native extension context disconnects from the Leap.
+		 * Inline method. Triggered when native extension context disconnects from the Leap Motion.
 		 *
 		 */
 		[Inline]

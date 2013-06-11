@@ -499,6 +499,45 @@ extern "C" {
     }
     //end hand class
     
+    //start device class
+    FREObject LeapNative_getDeviceDistanceToBoundary(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        double pX;
+        double pY;
+        double pZ;
+        FREGetObjectAsDouble(argv[0], &pX);
+        FREGetObjectAsDouble(argv[1], &pY);
+        FREGetObjectAsDouble(argv[2], &pZ);
+        return device->getDeviceDistanceToBoundary((float) pX, (float) pY, (float) pZ);
+    }
+    
+    FREObject LeapNative_getDeviceHorizontalViewAngle(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        return device->getDeviceHorizontalViewAngle();
+    }
+    
+    FREObject LeapNative_getDeviceVerticalViewAngle(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        return device->getDeviceVerticalViewAngle();
+    }
+    
+    FREObject LeapNative_getDeviceIsValid(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        return device->getDeviceIsValid();
+    }
+    
+    FREObject LeapNative_getDeviceRange(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        return device->getDeviceRange();
+    }
+    //end device class
+    
     FRENamedFunction _Shared_methods[] = {
         { (const uint8_t*) "isSupported", false, LeapNative_isSupported }
 	};
@@ -516,6 +555,7 @@ extern "C" {
   		{ (const uint8_t*) "hasFocus", false, LeapNative_hasFocus },
   		{ (const uint8_t*) "getClosestScreenHitPointable", false, LeapNative_getClosestScreenHitPointable },
   		{ (const uint8_t*) "getClosestScreenHit", false, LeapNative_getClosestScreenHit },
+
   		{ (const uint8_t*) "getScreenDistanceToPoint", false, LeapNative_getScreenDistanceToPoint },
   		{ (const uint8_t*) "getScreenHeightPixels", false, LeapNative_getScreenHeightPixels },
   		{ (const uint8_t*) "getScreenWidthPixels", false, LeapNative_getScreenWidthPixels },
@@ -526,6 +566,13 @@ extern "C" {
   		{ (const uint8_t*) "getScreenProject", false, LeapNative_getScreenProject },
   		{ (const uint8_t*) "getScreenIsValid", false, LeapNative_getScreenIsValid },
   		{ (const uint8_t*) "getScreenNormal", false, LeapNative_getScreenNormal },
+
+  		{ (const uint8_t*) "getDeviceDistanceToBoundary", false, LeapNative_getDeviceDistanceToBoundary },
+  		{ (const uint8_t*) "getDeviceHorizontalViewAngle", false, LeapNative_getDeviceHorizontalViewAngle },
+  		{ (const uint8_t*) "getDeviceVerticalViewAngle", false, LeapNative_getDeviceVerticalViewAngle },
+  		{ (const uint8_t*) "getDeviceIsValid", false, LeapNative_getDeviceIsValid },
+  		{ (const uint8_t*) "getDeviceRange", false, LeapNative_getDeviceRange },
+
   		{ (const uint8_t*) "getConfigBool", false, LeapNative_getConfigBool },
   		{ (const uint8_t*) "getConfigFloat", false, LeapNative_getConfigFloat },
   		{ (const uint8_t*) "getConfigInt32", false, LeapNative_getConfigInt32 },

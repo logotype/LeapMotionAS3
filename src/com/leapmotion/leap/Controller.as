@@ -111,7 +111,7 @@ package com.leapmotion.leap
 
 		/**
 		 * @private
-		 * History of frame of tracking data from the Leap.
+		 * History of frame of tracking data from the Leap Motion.
 		 */
 		public var frameHistory:Vector.<Frame> = new Vector.<Frame>();
 
@@ -149,7 +149,7 @@ package com.leapmotion.leap
 		}
 
 		/**
-		 * Returns a frame of tracking data from the Leap.
+		 * Returns a frame of tracking data from the Leap Motion.
 		 *
 		 * <p>Use the optional history parameter to specify which frame to retrieve.
 		 * Call <code>frame()</code> or <code>frame(0)</code> to access the most recent frame;
@@ -192,7 +192,7 @@ package com.leapmotion.leap
 
 		/**
 		 * The list of screens whose positions have been identified by using
-		 * the Leap Motion application Screen Locator.
+		 * the Leap Motion Screen Locator.
 		 *
 		 * <p>The list always contains at least one entry representing the
 		 * default screen. If the user has not registered the location of
@@ -373,9 +373,8 @@ package com.leapmotion.leap
 		 */
 		public function devices():Vector.<Device>
 		{
-			// TODO: Implement
 			var deviceList:Vector.<Device> = new Vector.<Device>();
-			deviceList.push( new Device() );
+			deviceList.push( new Device( this ) );
 			return deviceList;
 		}
 

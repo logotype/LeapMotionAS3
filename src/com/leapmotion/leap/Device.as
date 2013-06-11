@@ -16,14 +16,24 @@ package com.leapmotion.leap
 	public class Device
 	{
 		/**
+		 * @private
+		 * Native Extension context.
+		 */
+		private var context:Object;
+		
+		/**
 		 * Constructs a Device object.
 		 * 
 		 * <p>An uninitialized device is considered invalid. Get valid Device objects
 		 * from a DeviceList object obtained using the <code>controller.devices()</code> method.</p> 
 		 * 
 		 */
-		public function Device()
+		public function Device( _controller:Controller )
 		{
+			if( !_controller || !_controller.context )
+				throw new Error( "Native Context not available. The Device class is only available in Adobe AIR." );
+			else
+				context = _controller.context;
 		}
 		
 		/**
@@ -41,7 +51,7 @@ package com.leapmotion.leap
 		 */
 		public function distanceToBoundary( position:Vector3 ):Number
 		{
-			return 0.0;
+			return context.call( "getDeviceDistanceToBoundary", position.x, position.y, position.z );
 		}
 		
 		/**
@@ -56,7 +66,7 @@ package com.leapmotion.leap
 		 */
 		public function horizontalViewAngle():Number
 		{
-			return 0,0;
+			return context.call( "getDeviceHorizontalViewAngle" );
 		}
 		
 		/**
@@ -71,7 +81,7 @@ package com.leapmotion.leap
 		 */
 		public function verticalViewAngle():Number
 		{
-			return 0.0;
+			return context.call( "getDeviceVerticalViewAngle" );
 		}
 		
 		/**
@@ -82,7 +92,7 @@ package com.leapmotion.leap
 		 */
 		public function isValid():Boolean
 		{
-			return false;
+			return context.call( "getDeviceIsValid" );
 		}
 		
 		/**
@@ -97,7 +107,7 @@ package com.leapmotion.leap
 		 */
 		public function isEqualTo( other:Device ):Boolean
 		{
-			return false;
+			return true;
 		}
 		
 		/**
@@ -114,7 +124,7 @@ package com.leapmotion.leap
 		 */
 		public function range():Number
 		{
-			return 0.0;
+			return context.call( "getDeviceRange" );
 		}
 		
 		/**

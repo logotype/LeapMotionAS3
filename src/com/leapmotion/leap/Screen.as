@@ -15,7 +15,7 @@ package com.leapmotion.leap
 	 * of the screen in pixels, using information obtained from the operating
 	 * system.</p>
 	 *
-	 * <p>(Run the Screen Locator from the Leap Motion Application Settings dialog,
+	 * <p>(Run the Screen Locator from the Leap Motion Settings dialog,
 	 * on the Screen page.)</p>
 	 *
 	 * <p>You can get the point of intersection between the screen and a ray

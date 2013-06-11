@@ -3,7 +3,7 @@ package com.leapmotion.leap
 
 	/**
 	 * The Listener interface defines a set of callback functions that you can
-	 * implement to respond to events dispatched by the Leap.
+	 * implement to respond to events dispatched by the Leap Motion.
 	 *
 	 * <p>To handle Leap Motion events, implement the Listener interface and assign
 	 * it to the Controller instance. The Controller calls the relevant Listener

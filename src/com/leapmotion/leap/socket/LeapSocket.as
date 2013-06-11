@@ -45,7 +45,7 @@ package com.leapmotion.leap.socket
 		static private const STATE_OPEN:int = 1;
 
 		/**
-		 * The raw socket connection to Leap.
+		 * The raw socket connection to Leap Motion.
 		 */
 		private var socket:Socket;
 
@@ -70,7 +70,7 @@ package com.leapmotion.leap.socket
 		private var handshakeBytesReceived:int;
 
 		/**
-		 * The device handshake response from Leap.
+		 * The device handshake response from Leap Motion.
 		 */
 		private var leapMotionDeviceHandshakeResponse:String = "";
 
@@ -490,7 +490,7 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Parses the HTTP header received from the Leap.
+		 * Parses the HTTP header received from the Leap Motion.
 		 *
 		 * @param line
 		 * @return
@@ -503,7 +503,7 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Reads the handshake received from the Leap.
+		 * Reads the handshake received from the Leap Motion.
 		 *
 		 * @return
 		 *
@@ -523,7 +523,7 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Sends the HTTP handshake to the Leap.
+		 * Sends the HTTP handshake to the Leap Motion.
 		 *
 		 */
 		final private function sendHandshake():void
@@ -542,7 +542,7 @@ package com.leapmotion.leap.socket
 		}
 
 		/**
-		 * Reads the handshake response from the Leap.
+		 * Reads the handshake response from the Leap Motion.
 		 *
 		 */
 		final private function readLeapMotionHandshake():void

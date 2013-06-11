@@ -19,7 +19,7 @@ package com.leapmotion.leap
 	 * or reported.</strong></p>
 	 *
 	 * <p>Subclasses of Gesture define the properties for the specific movement
-	 * patterns recognized by the Leap.</p>
+	 * patterns recognized by the Leap Motion.</p>
 	 *
 	 * <p>The Gesture subclasses for include:
 	 * <pre>
