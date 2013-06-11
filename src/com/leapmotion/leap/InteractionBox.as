@@ -17,8 +17,30 @@ package com.leapmotion.leap
 	 */
 	public class InteractionBox
 	{
+		/**
+		 * The center of the InteractionBox in device coordinates (millimeters).
+		 * <p>This point is equidistant from all sides of the box.</p> 
+		 */
 		public var center:Vector3;
 		
+		/**
+		 * The depth of the InteractionBox in millimeters, measured along the z-axis. 
+		 * 
+		 */
+		public var depth:Number;
+		
+		/**
+		 * The height of the InteractionBox in millimeters, measured along the y-axis. 
+		 * 
+		 */
+		public var height:Number;
+		
+		/**
+		 * The width of the InteractionBox in millimeters, measured along the x-axis. 
+		 * 
+		 */
+		public var width:Number;
+
 		/**
 		 * Constructs a InteractionBox object. 
 		 * 
@@ -39,6 +61,7 @@ package com.leapmotion.leap
 		 */
 		public function denormalizePoint( normalizedPosition:Vector3 ):Vector3
 		{
+			// TODO: Implement (try to avoid context call, should be able to reverse-engineer this)
 			return Vector3.invalid();
 		}
 		
@@ -57,37 +80,8 @@ package com.leapmotion.leap
 		 */
 		public function normalizePoint( position:Vector3, clamp:Boolean = true ):Vector3
 		{
+			// TODO: Implement (try to avoid context call, should be able to reverse-engineer this)
 			return Vector3.invalid();
-		}
-		
-		/**
-		 * The depth of the InteractionBox in millimeters, measured along the z-axis. 
-		 * @return The InteractionBox depth in millimeters.
-		 * 
-		 */
-		public function depth():Number
-		{
-			return 0.0;
-		}
-		
-		/**
-		 * The height of the InteractionBox in millimeters, measured along the y-axis. 
-		 * @return The InteractionBox height in millimeters.
-		 * 
-		 */
-		public function height():Number
-		{
-			return 0.0;
-		}
-		
-		/**
-		 * The width of the InteractionBox in millimeters, measured along the x-axis. 
-		 * @return The InteractionBox width in millimeters.
-		 * 
-		 */
-		public function width():Number
-		{
-			return 0.0;
 		}
 		
 		/**
@@ -97,7 +91,8 @@ package com.leapmotion.leap
 		 */
 		public function isValid():Boolean
 		{
-			return false;
+			// TODO: Better validity checking
+			return center.isValid();
 		}
 		
 		/**
@@ -112,7 +107,22 @@ package com.leapmotion.leap
 		 */
 		public function isEqualTo( other:InteractionBox ):Boolean
 		{
-			return false;
+			if( !this.isValid() || !other.isValid() )
+				return false;
+
+			if( !center.isEqualTo( other.center ) )
+				return false;
+			
+			if( depth != other.depth )
+				return false;
+			
+			if( height != other.height )
+				return false;
+			
+			if( width != other.width )
+				return false;
+			
+			return true;
 		}
 		
 		/**

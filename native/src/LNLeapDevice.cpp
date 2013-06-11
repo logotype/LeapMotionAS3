@@ -84,6 +84,22 @@ namespace leapnative {
         FRENewObjectFromInt32((int32_t) frame.timestamp(), &freTimestamp);
         FRESetObjectProperty(freCurrentFrame, (const uint8_t*) "timestamp", freTimestamp, NULL);
         
+        FREObject freInteractionBox;
+        FRENewObject( (const uint8_t*) "com.leapmotion.leap.InteractionBox", 0, NULL, &freInteractionBox, NULL);
+        FRESetObjectProperty(freInteractionBox, (const uint8_t*) "center", createVector3(frame.interactionBox().center().x, frame.interactionBox().center().y, frame.interactionBox().center().z), NULL);
+
+        FREObject freInteractionBoxDepth;
+        FRENewObjectFromDouble(frame.interactionBox().depth(), &freInteractionBoxDepth);
+        FRESetObjectProperty(freInteractionBox, (const uint8_t*) "depth", freInteractionBoxDepth, NULL);
+        
+        FREObject freInteractionBoxHeight;
+        FRENewObjectFromDouble(frame.interactionBox().height(), &freInteractionBoxHeight);
+        FRESetObjectProperty(freInteractionBox, (const uint8_t*) "height", freInteractionBoxHeight, NULL);
+        
+        FREObject freInteractionBoxWidth;
+        FRENewObjectFromDouble(frame.interactionBox().width(), &freInteractionBoxWidth);
+        FRESetObjectProperty(freInteractionBox, (const uint8_t*) "width", freInteractionBoxWidth, NULL);
+        
         std::map<int, FREObject> freHandsMap;
         if (!frame.hands().empty()) {
             
