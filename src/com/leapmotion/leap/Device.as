@@ -134,7 +134,7 @@ package com.leapmotion.leap
 		 */
 		public function toString():String
 		{
-			return "[Device range:" + range() + " verticalViewAngle:" + verticalViewAngle() + "]";
+			return "[Device range:" + range() + " horizontalViewAngle:" + horizontalViewAngle() + " verticalViewAngle:" + verticalViewAngle() + "]";
 		}
 	}
 }
