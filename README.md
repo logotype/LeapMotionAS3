@@ -7,8 +7,6 @@ Leap Motion is a motion-control software and hardware company developing the wor
 
 [leapmotion.com](http://www.leapmotion.com)
 
-Compatible with Leap Motion software version 0.8.0 (build 5300) released 2013-06-11.
-
 Demos
 -----------
 

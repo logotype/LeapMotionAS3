@@ -102,6 +102,8 @@ namespace leapnative {
         FRENewObjectFromDouble(frame.interactionBox().width(), &freInteractionBoxWidth);
         FRESetObjectProperty(freInteractionBox, (const uint8_t*) "width", freInteractionBoxWidth, NULL);
         
+        FRESetObjectProperty(freCurrentFrame, (const uint8_t*) "interactionBox", freInteractionBox, NULL);
+
         std::map<int, FREObject> freHandsMap;
         if (!frame.hands().empty()) {
             

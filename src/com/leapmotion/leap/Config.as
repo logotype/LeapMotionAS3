@@ -112,12 +112,12 @@ package com.leapmotion.leap
 		static public const TYPE_STRING:int = 8;
 
 		/**
+		 * @private
 		 * Native Extension context.
 		 */
 		private var context:Object;
 
 		/**
-		 * @private
 		 * Constructs a Config object.
 		 *
 		 * @param controller The Controller object reference.
