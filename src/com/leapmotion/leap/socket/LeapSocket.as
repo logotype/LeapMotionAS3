@@ -261,11 +261,11 @@ package com.leapmotion.leap.socket
 				// InteractionBox
 				if( json.interactionBox )
 				{
-					frame.interactionBox = new InteractionBox();
-					frame.interactionBox.center = new Vector3( json.interactionBox.center[ 0 ], json.interactionBox.center[ 1 ], json.interactionBox.center[ 2 ] );
-					frame.interactionBox.width = json.interactionBox.size[ 0 ];
-					frame.interactionBox.height = json.interactionBox.size[ 1 ];
-					frame.interactionBox.depth = json.interactionBox.size[ 2 ];
+					currentFrame.interactionBox = new InteractionBox();
+					currentFrame.interactionBox.center = new Vector3( json.interactionBox.center[ 0 ], json.interactionBox.center[ 1 ], json.interactionBox.center[ 2 ] );
+					currentFrame.interactionBox.width = json.interactionBox.size[ 0 ];
+					currentFrame.interactionBox.height = json.interactionBox.size[ 1 ];
+					currentFrame.interactionBox.depth = json.interactionBox.size[ 2 ];
 				}
 
 				// Pointables

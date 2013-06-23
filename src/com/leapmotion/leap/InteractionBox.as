@@ -89,10 +89,20 @@ package com.leapmotion.leap
 		 */
 		public function normalizePoint( position:Vector3, clamp:Boolean = true ):Vector3
 		{
-			if( !frame.controller || !frame.controller.context )
-				throw new Error( "Native Context not available. The method is only available in Adobe AIR." );
+			var vec:Vector3 = Vector3.invalid();
 			
-			return frame.controller.context.call( "getInteractionBoxNormalizePoint", frame.id, position.x, position.y, position.z, clamp );
+			vec.x = ( ( position.x - center.x ) / width ) + 0.5;
+			vec.y = ( ( position.y - center.y ) / height ) + 0.5;
+			vec.z = ( ( position.z - center.z ) / depth ) + 0.5;
+
+			if( clamp )
+			{
+				vec.x = Math.min( Math.max( vec.x, 0 ), 1 );
+				vec.y = Math.min( Math.max( vec.y, 0 ), 1 );
+				vec.z = Math.min( Math.max( vec.z, 0 ), 1 );
+			}
+			
+			return vec;
 		}
 		
 		/**
