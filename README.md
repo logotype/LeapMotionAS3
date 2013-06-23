@@ -10,7 +10,7 @@ Leap Motion is a motion-control software and hardware company developing the wor
 Demos
 -----------
 
-[<img src="http://logotype.se/leapmotion/victor1.png">](http://www.youtube.com/watch?v=y9SDf5GSDF8) [<img src="http://logotype.se/leapmotion/victor2.png">](http://www.youtube.com/watch?v=Hduiif_GfsU) [<img src="http://logotype.se/leapmotion/wouter1.png">](https://vimeo.com/60170459) [<img src="http://logotype.se/leapmotion/wouter2.png">](https://vimeo.com/61708308) [<img src="http://logotype.se/leapmotion/victor3.png">](http://www.youtube.com/watch?v=qd7DD8kKd-E) [<img src="http://logotype.se/leapmotion/ben1.png">](http://vimeo.com/62464243) [<img src="http://logotype.se/leapmotion/niko1.png">](http://www.youtube.com/watch?v=rQa2b_sFFi8) [<img src="http://logotype.se/leapmotion/raw1.png">](http://vimeo.com/62725367) [<img src="http://logotype.se/leapmotion/ben2.png">](https://vimeo.com/62758339) [<img src="http://logotype.se/leapmotion/specialmoves2.png">](http://vimeo.com/66831642) [<img src="http://logotype.se/leapmotion/matstec1.png">](http://vimeo.com/65882620) [<img src="http://logotype.se/leapmotion/quasimondo1.png">](http://www.youtube.com/watch?v=eHpD3Wuj2Co)
+[<img src="http://logotype.se/leapmotion/victor1.png">](http://www.youtube.com/watch?v=y9SDf5GSDF8) [<img src="http://logotype.se/leapmotion/victor2.png">](http://www.youtube.com/watch?v=Hduiif_GfsU) [<img src="http://logotype.se/leapmotion/wouter1.png">](https://vimeo.com/60170459) [<img src="http://logotype.se/leapmotion/wouter2.png">](https://vimeo.com/61708308) [<img src="http://logotype.se/leapmotion/victor3.png">](http://www.youtube.com/watch?v=qd7DD8kKd-E) [<img src="http://logotype.se/leapmotion/ben1.png">](http://vimeo.com/62464243) [<img src="http://logotype.se/leapmotion/niko2.png">](http://www.youtube.com/watch?v=-P4awZlnxhU) [<img src="http://logotype.se/leapmotion/raw1.png">](http://vimeo.com/62725367) [<img src="http://logotype.se/leapmotion/ben2.png">](https://vimeo.com/62758339) [<img src="http://logotype.se/leapmotion/specialmoves2.png">](http://vimeo.com/66831642) [<img src="http://logotype.se/leapmotion/matstec1.png">](http://vimeo.com/65882620) [<img src="http://logotype.se/leapmotion/quasimondo1.png">](http://www.youtube.com/watch?v=eHpD3Wuj2Co)
 
 
 Quick start
@@ -78,7 +78,7 @@ Features
 + Gestures (Circle, Key Tap, Screen Tap, Swipe)
 + Works great with [Away3D](https://github.com/away3d/away3d-core-fp11) and [Starling](https://github.com/PrimaryFeather/Starling-Framework)
 + Connect multiple devices to the same Leap Motion (via an optional "host" argument)
-+ Uses AIR 3.8/ASC 2.0 compiler features (be sure to add the `-inline` and `-swf-version=20` compiler arguments)
++ Uses AIR 3.8/ASC 2.0 compiler features (add the `-inline` and `-swf-version=21` compiler arguments)
 + No external dependencies, creates a optimized socket when the ANE isn't available
 + AIR Native Extension (ANE) which directly interfaces with the C++ library (Mac OSX and Windows)
 + Compatible with Mac OSX, Windows, iOS (iPad/iPhone/etc) and Android
@@ -98,7 +98,7 @@ You can use this library on both web and AIR projects. If you are using it on an
 3. In that same window, choose Native Extensions and click on Add ANE… Select that same ane file.
 4. Select Actionscript Build Packaging > Native extensions. Check the checkbox next to the native extension. Ignore the warning that says the extension isn't used.
 
-####Flash CS6
+####Flash CC/Flash CS6
 
 
 1. Select File > Actionscript settings.
