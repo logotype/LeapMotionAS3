@@ -87,7 +87,6 @@ namespace leapnative {
         FREObject freInteractionBox;
         FRENewObject( (const uint8_t*) "com.leapmotion.leap.InteractionBox", 0, NULL, &freInteractionBox, NULL);
 
-        FRESetObjectProperty(freInteractionBox, (const uint8_t*) "frame", freCurrentFrame, NULL);
         FRESetObjectProperty(freInteractionBox, (const uint8_t*) "center", createVector3(frame.interactionBox().center().x, frame.interactionBox().center().y, frame.interactionBox().center().z), NULL);
 
         FREObject freInteractionBoxDepth;
@@ -599,32 +598,6 @@ namespace leapnative {
         return freDeviceRange;
     }
     //end device class
-    
-    //start interactionbox class
-    FREObject LNLeapDevice::getInteractionBoxDenormalizePoint(int frameId, Vector normalizedPosition) {
-        //find frame by id
-        int i = 0;
-        for (i = 0; i < 59; i++) {
-            if (frameId == controller->frame(i).id()) {
-                Vector pos = controller->frame(i).interactionBox().denormalizePoint(normalizedPosition);
-                return createVector3(pos.x, pos.y, pos.z);
-            }
-        }
-        return createVector3(NAN, NAN, NAN);
-    }
-
-    FREObject LNLeapDevice::getInteractionBoxNormalizePoint(int frameId, Vector position, bool clamp) {
-        //find frame by id
-        int i = 0;
-        for (i = 0; i < 59; i++) {
-            if (frameId == controller->frame(i).id()) {
-                Vector pos = controller->frame(i).interactionBox().normalizePoint(position, clamp);
-                return createVector3(pos.x, pos.y, pos.z);
-            }
-        }
-        return createVector3(NAN, NAN, NAN);
-    }
-    //end interactionbox class
     
     //start config class
     FREObject LNLeapDevice::getConfigBool(uint32_t len, const uint8_t* key) {

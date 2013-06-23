@@ -42,13 +42,6 @@ package com.leapmotion.leap
 		public var width:Number;
 		
 		/**
-		 * @private
-		 * The Frame associated with this InteractionBox object.<br/>
-		 * 
-		 */
-		public var frame:Frame;
-
-		/**
 		 * Constructs a InteractionBox object. 
 		 * 
 		 */
@@ -68,10 +61,13 @@ package com.leapmotion.leap
 		 */
 		public function denormalizePoint( normalizedPosition:Vector3 ):Vector3
 		{
-			if( !frame.controller || !frame.controller.context )
-				throw new Error( "Native Context not available. The method is only available in Adobe AIR." );
+			var vec:Vector3 = Vector3.invalid();
+			
+			vec.x = ( ( ( normalizedPosition.x + center.x ) - 0.5 ) * width );
+			vec.y = ( ( ( normalizedPosition.y + center.y ) - 0.5 ) * height );
+			vec.z = ( ( ( normalizedPosition.z + center.z ) - 0.5 ) * depth );
 
-			return frame.controller.context.call( "getInteractionBoxDenormalizePoint", frame.id, normalizedPosition.x, normalizedPosition.y, normalizedPosition.z );
+			return vec;
 		}
 		
 		/**

@@ -544,48 +544,6 @@ extern "C" {
     }
     //end device class
     
-    //start interactionbox class
-    FREObject LeapNative_getInteractionBoxDenormalizePoint(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
-        leapnative::LNLeapDevice* device;
-        FREGetContextNativeData(ctx, (void **) &device);
-        
-        int frameId;
-        FREGetObjectAsInt32(argv[0], &frameId);
-
-        double pX;
-        double pY;
-        double pZ;
-        FREGetObjectAsDouble(argv[1], &pX);
-        FREGetObjectAsDouble(argv[2], &pY);
-        FREGetObjectAsDouble(argv[3], &pZ);
-
-        Vector normalizedPosition = Vector((float) pX, (float) pY, (float) pZ);
-        
-        return device->getInteractionBoxDenormalizePoint(frameId, normalizedPosition);
-    }
-
-    FREObject LeapNative_getInteractionBoxNormalizePoint(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
-        leapnative::LNLeapDevice* device;
-        FREGetContextNativeData(ctx, (void **) &device);
-        
-        int frameId;
-        FREGetObjectAsInt32(argv[0], &frameId);
-        
-        double pX;
-        double pY;
-        double pZ;
-        FREGetObjectAsDouble(argv[1], &pX);
-        FREGetObjectAsDouble(argv[2], &pY);
-        FREGetObjectAsDouble(argv[3], &pZ);
-
-        Vector position = Vector((float) pX, (float) pY, (float) pZ);
-
-        bool clamp = createBoolFromFREObject(argv[4]);
-
-        return device->getInteractionBoxNormalizePoint(frameId, position, clamp);
-    }
-    //end interactionbox class
-    
     FRENamedFunction _Shared_methods[] = {
         { (const uint8_t*) "isSupported", false, LeapNative_isSupported }
 	};
@@ -620,9 +578,6 @@ extern "C" {
   		{ (const uint8_t*) "getDeviceVerticalViewAngle", false, LeapNative_getDeviceVerticalViewAngle },
   		{ (const uint8_t*) "getDeviceIsValid", false, LeapNative_getDeviceIsValid },
   		{ (const uint8_t*) "getDeviceRange", false, LeapNative_getDeviceRange },
-
-  		{ (const uint8_t*) "getInteractionBoxDenormalizePoint", false, LeapNative_getInteractionBoxDenormalizePoint },
-  		{ (const uint8_t*) "getInteractionBoxNormalizePoint", false, LeapNative_getInteractionBoxNormalizePoint },
 
   		{ (const uint8_t*) "getConfigBool", false, LeapNative_getConfigBool },
   		{ (const uint8_t*) "getConfigFloat", false, LeapNative_getConfigFloat },

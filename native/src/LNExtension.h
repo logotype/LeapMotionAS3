@@ -61,10 +61,6 @@ extern "C" {
     FREObject LeapNative_getDeviceIsValid(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
     FREObject LeapNative_getDeviceRange(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
     
-    //interactionbox class
-    FREObject LeapNative_getInteractionBoxDenormalizePoint(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
-    FREObject LeapNative_getInteractionBoxNormalizePoint(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
-
     //config class
     FREObject LeapNative_getConfigBool(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
     FREObject LeapNative_getConfigFloat(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);

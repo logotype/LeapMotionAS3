@@ -60,10 +60,6 @@ namespace leapnative {
         FREObject getDeviceIsValid();
         FREObject getDeviceRange();
         
-        //interactionbox class
-        FREObject getInteractionBoxDenormalizePoint(int frameId, Vector normalizedPosition);
-        FREObject getInteractionBoxNormalizePoint(int frameId, Vector position, bool clamp);
-
         //config class
         FREObject getConfigBool(uint32_t len, const uint8_t* key);
         FREObject getConfigFloat(uint32_t len, const uint8_t* key);
