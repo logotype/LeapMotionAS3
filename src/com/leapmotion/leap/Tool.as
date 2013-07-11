@@ -7,6 +7,10 @@ package com.leapmotion.leap
 	 * <p>Tools are Pointable objects that the Leap Motion has classified as a tool.
 	 * Tools are longer, thinner, and straighter than a typical finger.
 	 * Get valid Tool objects from a Frame or a Hand object.</p>
+	 * 
+	 * <p>Tools may reference a hand, but unlike fingers they are not permanently
+	 * associated. Instead, a tool can be transferred between hands while
+	 * keeping the same ID.</p>
 	 *
 	 * <p>Note that Tool objects can be invalid, which means that they do not
 	 * contain valid tracking data and do not correspond to a physical tool.

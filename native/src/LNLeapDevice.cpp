@@ -55,15 +55,17 @@ namespace leapnative {
     FREObject LNLeapDevice::getFrame() {
         
         Frame frame = controller->frame();
-        
-        // TODO: Only continue with valid Frame?
-        
+                
         FREObject freCurrentFrame;
         FRENewObject( (const uint8_t*) "com.leapmotion.leap.Frame", 0, NULL, &freCurrentFrame, NULL);
         
         FREObject freFrameId;
         FRENewObjectFromInt32((int32_t) frame.id(), &freFrameId);
         FRESetObjectProperty(freCurrentFrame, (const uint8_t*) "id", freFrameId, NULL);
+
+        FREObject freCurrentFramesPerSecond;
+        FRENewObjectFromDouble(frame.currentFramesPerSecond(), &freCurrentFramesPerSecond);
+        FRESetObjectProperty(freCurrentFrame, (const uint8_t*) "currentFramesPerSecond", freCurrentFramesPerSecond, NULL);
         
         const Vector frameTranslation = frame.translation(lastFrame);
         FRESetObjectProperty(freCurrentFrame, (const uint8_t*) "translationVector", createVector3(frameTranslation.x, frameTranslation.y, frameTranslation.z), NULL);
@@ -122,6 +124,7 @@ namespace leapnative {
                 FRESetObjectProperty(freHand, (const uint8_t*) "id", freHandId, NULL);
                 FRESetObjectProperty(freHand, (const uint8_t*) "palmNormal", createVector3(hand.palmNormal()[0], hand.palmNormal()[1], hand.palmNormal()[2]), NULL);
                 FRESetObjectProperty(freHand, (const uint8_t*) "palmPosition", createVector3(hand.palmPosition()[0], hand.palmPosition()[1], hand.palmPosition()[2]), NULL);
+                FRESetObjectProperty(freHand, (const uint8_t*) "stabilizedPalmPosition", createVector3(hand.stabilizedPalmPosition()[0], hand.stabilizedPalmPosition()[1], hand.stabilizedPalmPosition()[2]), NULL);
                 FRESetObjectProperty(freHand, (const uint8_t*) "palmVelocity", createVector3(hand.palmVelocity()[0], hand.palmVelocity()[1], hand.palmVelocity()[2]), NULL);
                 
                 const Matrix rotation = hand.rotationMatrix(lastFrame);
@@ -141,6 +144,10 @@ namespace leapnative {
                 FREObject freSphereRadius;
                 FRENewObjectFromDouble(hand.sphereRadius(), &freSphereRadius);
                 FRESetObjectProperty(freHand, (const uint8_t*) "sphereRadius", freSphereRadius, NULL);
+                
+                FREObject freTimeVisible;
+                FRENewObjectFromDouble(hand.timeVisible(), &freTimeVisible);
+                FRESetObjectProperty(freHand, (const uint8_t*) "timeVisible", freTimeVisible, NULL);
                 
                 const Vector translation = hand.translation(lastFrame);
                 FRESetObjectProperty(freHand, (const uint8_t*) "translationVector", createVector3(translation.x, translation.y, translation.z), NULL);
@@ -185,6 +192,10 @@ namespace leapnative {
                 FRESetObjectProperty(frePointable, (const uint8_t*) "tipPosition", createVector3(pointable.tipPosition().x, pointable.tipPosition().y, pointable.tipPosition().z), NULL);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "stabilizedTipPosition", createVector3(pointable.stabilizedTipPosition().x, pointable.stabilizedTipPosition().y, pointable.stabilizedTipPosition().z), NULL);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "tipVelocity", createVector3(pointable.tipVelocity().x, pointable.tipVelocity().y, pointable.tipVelocity().z), NULL);
+                
+                FREObject frePointableTimeVisible;
+                FRENewObjectFromDouble(pointable.timeVisible(), &frePointableTimeVisible);
+                FRESetObjectProperty(frePointable, (const uint8_t*) "timeVisible", frePointableTimeVisible, NULL);
                 
                 FREObject frePointableTouchDistance;
                 FRENewObjectFromDouble(pointable.touchDistance(), &frePointableTouchDistance);

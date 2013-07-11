@@ -6,6 +6,15 @@ package com.leapmotion.leap
 	 *
 	 * <p>Fingers are Pointable objects that the Leap Motion has classified as a finger.
 	 * Get valid Finger objects from a Frame or a Hand object.</p>
+	 * 
+	 * <p>Fingers may be permanently associated to a hand. In this case the
+	 * angular order of the finger IDs will be invariant. As fingers move in
+	 * and out of view it is possible for the guessed ID of a finger to be
+	 * incorrect. Consequently, it may be necessary for finger IDs to be
+	 * exchanged. All tracked properties, such as velocity, will remain
+	 * continuous in the API. However, quantities that are derived from the
+	 * API output (such as a history of positions) will be discontinuous
+	 * unless they have a corresponding ID exchange.</p>
 	 *
 	 * <p>Note that Finger objects can be invalid, which means that they do not
 	 * contain valid tracking data and do not correspond to a physical finger.

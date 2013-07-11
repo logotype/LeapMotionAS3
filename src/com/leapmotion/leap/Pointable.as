@@ -81,6 +81,10 @@ package com.leapmotion.leap
 		 *
 		 * <p>Use the ID value with the <code>Frame.pointable()</code> function to find this
 		 * Pointable object in future frames.</p>
+		 * 
+		 * <p>IDs should be from 1 to 100 (inclusive). If more than 100 objects are
+		 * tracked an IDs of -1 will be used until an ID in the defined range is available.</p>
+		 * 
 		 */
 		public var id:int;
 
@@ -115,7 +119,13 @@ package com.leapmotion.leap
 		 * <p>A modified tip position of this Pointable object with some additional smoothing and stabilization applied.</p> 
 		 */
 		public var stabilizedTipPosition:Vector3;
-
+		
+		/**
+		 * The duration of time this Pointable has been visible to the Leap Motion Controller.
+		 * <p>The duration (in seconds) that this Pointable has been tracked.</p>
+		 */
+		public var timeVisible:Number;
+		
 		/**
 		 * The rate of change of the tip position in millimeters/second.
 		 */

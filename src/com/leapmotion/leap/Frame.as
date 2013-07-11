@@ -18,16 +18,25 @@ package com.leapmotion.leap
 	public class Frame
 	{
 		/**
+		 * The current framerate (in frames per second) of the Leap Motion Controller.
+		 * <p>This value may fluctuate depending on available computing resources,
+		 * activity within the device field of view, software tracking settings,
+		 * and other factors.</p>
+		 * <p>An estimate of frames per second of the Leap Motion Controller.</p>
+		 */
+		public var currentFramesPerSecond:Number;
+		
+		/**
 		 * @private
 		 * The list of Finger objects detected in this frame, given in arbitrary order.<br/>
-		 * The list can be empty if no fingers are detected.
+		 * <p>The list can be empty if no fingers are detected.</p>
 		 */
 		public var fingersVector:Vector.<Finger> = new Vector.<Finger>();
-
+		
 		/**
 		 * @private
 		 * The list of Hand objects detected in this frame, given in arbitrary order.<br/>
-		 * The list can be empty if no hands are detected.
+		 * <p>The list can be empty if no hands are detected.</p>
 		 */
 		public var handsVector:Vector.<Hand> = new Vector.<Hand>();
 
