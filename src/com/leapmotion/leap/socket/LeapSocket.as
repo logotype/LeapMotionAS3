@@ -144,11 +144,12 @@ package com.leapmotion.leap.socket
 			binaryPayload = new ByteArray();
 			output = new ByteArray();
 
-			socket = new Socket( this.host + "/v2.json", 6437 );
+			socket = new Socket();
 			socket.addEventListener( Event.CONNECT, onSocketConnectHandler );
 			socket.addEventListener( IOErrorEvent.IO_ERROR, onIOErrorHandler );
 			socket.addEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityErrorHandler );
 			socket.addEventListener( ProgressEvent.SOCKET_DATA, onSocketDataHandler );
+			socket.connect( this.host + "/v2.json", 6437 );
 			
 			heartBeatTimer.addEventListener( TimerEvent.TIMER, onSendHeartBeatHandler );
 		}
