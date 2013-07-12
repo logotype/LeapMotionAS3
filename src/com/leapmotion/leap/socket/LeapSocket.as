@@ -149,7 +149,7 @@ package com.leapmotion.leap.socket
 			socket.addEventListener( IOErrorEvent.IO_ERROR, onIOErrorHandler );
 			socket.addEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityErrorHandler );
 			socket.addEventListener( ProgressEvent.SOCKET_DATA, onSocketDataHandler );
-			socket.connect( this.host + "/v2.json", 6437 );
+			socket.connect( this.host, 6437 );
 			
 			heartBeatTimer.addEventListener( TimerEvent.TIMER, onSendHeartBeatHandler );
 		}
@@ -270,13 +270,15 @@ package com.leapmotion.leap.socket
 						hand.id = json.hands[ i ].id;
 						hand.palmNormal = new Vector3( json.hands[ i ].palmNormal[ 0 ], json.hands[ i ].palmNormal[ 1 ], json.hands[ i ].palmNormal[ 2 ] );
 						hand.palmPosition = new Vector3( json.hands[ i ].palmPosition[ 0 ], json.hands[ i ].palmPosition[ 1 ], json.hands[ i ].palmPosition[ 2 ] );
-						hand.stabilizedPalmPosition = new Vector3( json.hands[ i ].stabilizedPalmPosition[ 0 ], json.hands[ i ].stabilizedPalmPosition[ 1 ], json.hands[ i ].stabilizedPalmPosition[ 2 ] );
+						// NOT YET AVAILABLE IN 0.8.1+6221
+						//hand.stabilizedPalmPosition = new Vector3( json.hands[ i ].stabilizedPalmPosition[ 0 ], json.hands[ i ].stabilizedPalmPosition[ 1 ], json.hands[ i ].stabilizedPalmPosition[ 2 ] );
 						hand.palmVelocity = new Vector3( json.hands[ i ].palmPosition[ 0 ], json.hands[ i ].palmPosition[ 1 ], json.hands[ i ].palmPosition[ 2 ] );
 						hand.rotation = new Matrix( new Vector3( json.hands[ i ].r[ 0 ][ 0 ], json.hands[ i ].r[ 0 ][ 1 ], json.hands[ i ].r[ 0 ][ 2 ] ), new Vector3( json.hands[ i ].r[ 1 ][ 0 ], json.hands[ i ].r[ 1 ][ 1 ], json.hands[ i ].r[ 1 ][ 2 ] ), new Vector3( json.hands[ i ].r[ 2 ][ 0 ], json.hands[ i ].r[ 2 ][ 1 ], json.hands[ i ].r[ 2 ][ 2 ] ) );
 						hand.scaleFactorNumber = json.hands[ i ].s;
 						hand.sphereCenter = new Vector3( json.hands[ i ].sphereCenter[ 0 ], json.hands[ i ].sphereCenter[ 1 ], json.hands[ i ].sphereCenter[ 2 ] );
 						hand.sphereRadius = json.hands[ i ].sphereRadius;
-						hand.timeVisible = json.hands[ i ].timeVisible;
+						// NOT YET AVAILABLE IN 0.8.1+6221
+						//hand.timeVisible = json.hands[ i ].timeVisible;
 						hand.translationVector = new Vector3( json.hands[ i ].t[ 0 ], json.hands[ i ].t[ 1 ], json.hands[ i ].t[ 2 ] );
 						currentFrame.hands.push( hand );
 					}
@@ -318,7 +320,8 @@ package com.leapmotion.leap.socket
 						pointable.direction = new Vector3( json.pointables[ i ].direction[ 0 ], json.pointables[ i ].direction[ 1 ], json.pointables[ i ].direction[ 2 ] );
 						pointable.tipPosition = new Vector3( json.pointables[ i ].tipPosition[ 0 ], json.pointables[ i ].tipPosition[ 1 ], json.pointables[ i ].tipPosition[ 2 ] );
 						pointable.stabilizedTipPosition = new Vector3( json.pointables[ i ].stabilizedTipPosition[ 0 ], json.pointables[ i ].stabilizedTipPosition[ 1 ], json.pointables[ i ].stabilizedTipPosition[ 2 ] );
-						pointable.timeVisible = json.pointables[ i ].timeVisible;
+						// NOT YET AVAILABLE IN 0.8.1+6221
+						//pointable.timeVisible = json.pointables[ i ].timeVisible;
 						pointable.touchDistance = json.pointables[ i ].touchDist;
 						switch( json.pointables[ i ].touchZone )
 						{
@@ -585,7 +588,7 @@ package com.leapmotion.leap.socket
 		final private function sendHandshake():void
 		{
 			var text:String = "";
-			text += "GET / HTTP/1.1\r\n";
+			text += "GET /v2.json HTTP/1.1\r\n";
 			text += "Host: " + host + ":6437\r\n";
 			text += "Upgrade: websocket\r\n";
 			text += "Connection: Upgrade\r\n";
