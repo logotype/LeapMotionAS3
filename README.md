@@ -72,7 +72,7 @@ Features
 --------
 
 <img src="http://logotype.se/leapImageTelemetry.png">
-+ High performance, 110 FPS for data (typically 2% CPU usage on a recent MacBook Pro)
++ High performance, 210 FPS for data (typically 2% CPU usage on a recent MacBook Pro)
 + Clean, lightweight and documented code
 + Same structure as official API
 + Gestures (Circle, Key Tap, Screen Tap, Swipe)

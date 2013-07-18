@@ -1,5 +1,8 @@
 package com.leapmotion.leap.native
 {
+	import flash.desktop.NativeApplication;
+	import flash.events.Event;
+	
 	import com.leapmotion.leap.Controller;
 	import com.leapmotion.leap.Frame;
 	import com.leapmotion.leap.interfaces.ILeapConnection;
@@ -103,9 +106,21 @@ package com.leapmotion.leap.native
 			context = tryCreatingExtensionContext();
 
 			if( context )
+			{
 				controller.context = context;
-
-			context.addEventListener( StatusEvent.STATUS, contextStatusModeEventHandler, false, 0, true );
+				context.addEventListener( StatusEvent.STATUS, contextStatusModeEventHandler, false, 0, true );
+				NativeApplication.nativeApplication.addEventListener( Event.EXITING, onNativeApplicatonExitHandler );
+			}
+		}
+		
+		/**
+		 * Triggered when application closes.
+		 * @param event
+		 *
+		 */
+		private function onNativeApplicatonExitHandler( event:Event ) :void
+		{
+			context.dispose();
 		}
 
 		/**
