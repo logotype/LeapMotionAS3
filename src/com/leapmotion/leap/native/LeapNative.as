@@ -191,7 +191,6 @@ package com.leapmotion.leap.native
 		{
 			_isConnected = false;
 			controller.leapmotion::listener.onDisconnect( controller );
-			controller.leapmotion::listener.onExit( controller );
 		}
 
 		/**
