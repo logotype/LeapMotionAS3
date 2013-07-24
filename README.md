@@ -1,5 +1,4 @@
-LeapMotionAS3
-=================
+[<img src="http://logotype.se/leapmotion/logo_as3.png">](https://github.com/logotype/LeapMotionAS3)
 
 This is the AS3 framework for working with Leap Motion.
 
