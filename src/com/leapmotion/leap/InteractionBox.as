@@ -63,9 +63,9 @@ package com.leapmotion.leap
 		{
 			var vec:Vector3 = Vector3.invalid();
 			
-			vec.x = ( ( ( normalizedPosition.x + center.x ) - 0.5 ) * width );
-			vec.y = ( ( ( normalizedPosition.y + center.y ) - 0.5 ) * height );
-			vec.z = ( ( ( normalizedPosition.z + center.z ) - 0.5 ) * depth );
+		    vec.x = ( normalizedPosition.x - 0.5 ) * width + center.x;
+		    vec.y = ( normalizedPosition.y - 0.5 ) * height + center.y;
+		    vec.z = ( normalizedPosition.z - 0.5 ) * depth + center.z;
 
 			return vec;
 		}
@@ -87,9 +87,9 @@ package com.leapmotion.leap
 		{
 			var vec:Vector3 = Vector3.invalid();
 			
-			vec.x = ( ( position.x - center.x ) / width ) + 0.5;
-			vec.y = ( ( position.y - center.y ) / height ) + 0.5;
-			vec.z = ( ( position.z - center.z ) / depth ) + 0.5;
+		    vec.x = ( ( position.x - center.x ) / width ) + 0.5;
+		    vec.y = ( ( position.y - center.y ) / height ) + 0.5;
+		    vec.z = ( ( position.z - center.z ) / depth ) + 0.5;
 
 			if( clamp )
 			{
