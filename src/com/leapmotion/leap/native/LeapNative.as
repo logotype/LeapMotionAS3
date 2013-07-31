@@ -261,6 +261,7 @@ package com.leapmotion.leap.native
 							trace( "[LeapNative] Leap Motion Native Extension is not supported." );
 							trace( "[LeapNative] If you are on Windows, add the Leap Motion software folder to your PATH." );
 							trace( "[LeapNative] Falling back on Socket implementation." );
+							return false;
 						}
 						return true;
 					}

@@ -30,7 +30,7 @@
 	<dirname property="Examples.BUILD_ROOT" file="${ant.file.extension-ant-build}"/>
 
 	<property name="Examples.AS3_ROOT" value="${Examples.BUILD_ROOT}/../src-examples"/>
-	<property name="Examples.LIBS_ROOT" location="${Examples.BUILD_ROOT}/../libs"/>
+	<property name="Examples.LIBS_ROOT" location="${Examples.BUILD_ROOT}/../src-examples/libs"/>
 	<property name="Examples.DEBUG_ROOT" location="${Examples.BUILD_ROOT}/../bin-debug"/>
 	<property name="Examples.DEBUG_EXTENSIONS_ROOT" location="${Examples.DEBUG_ROOT}/extensions"/>
 	<property name="Examples.RELEASE_ROOT" location="${Examples.BUILD_ROOT}/../bin-release"/>
