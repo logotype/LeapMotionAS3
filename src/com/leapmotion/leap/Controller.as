@@ -134,7 +134,7 @@ package com.leapmotion.leap
 		 * (currently only supported for socket connections).
 		 *
 		 */
-		public function Controller( host:String = null )
+		public function Controller( host:String = null, port:int = 6437 )
 		{
 			leapmotion::listener = new DefaultListener();
 
@@ -144,7 +144,7 @@ package com.leapmotion.leap
 			}
 			else
 			{
-				connection = new LeapSocket( this, host );
+				connection = new LeapSocket( this, host, port );
 			}
 		}
 

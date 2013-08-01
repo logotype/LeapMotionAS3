@@ -66,6 +66,11 @@ package com.leapmotion.leap.socket
 		 * Specifies which host to connect to, default localhost.
 		 */
 		private var host:String = "localhost";
+		
+		/**
+		 * Specifies which port to connect to, default 6437.
+		 */
+		private var port:int = 6437;
 
 		/**
 		 * Number of bytes of the handshake response.
@@ -123,10 +128,13 @@ package com.leapmotion.leap.socket
 		 * @param host IP or hostname of the computer running the Leap Motion software.
 		 *
 		 */
-		final public function LeapSocket( _controller:Controller, host:String = null )
+		final public function LeapSocket( _controller:Controller, host:String = null, port:int = 6437 )
 		{
 			if( host )
 				this.host = host;
+			
+			if( port )
+				this.port = port;
 
 			controller = _controller;
 
@@ -149,7 +157,7 @@ package com.leapmotion.leap.socket
 			socket.addEventListener( IOErrorEvent.IO_ERROR, onIOErrorHandler );
 			socket.addEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityErrorHandler );
 			socket.addEventListener( ProgressEvent.SOCKET_DATA, onSocketDataHandler );
-			socket.connect( this.host, 6437 );
+			socket.connect( this.host, this.port );
 			
 			heartBeatTimer.addEventListener( TimerEvent.TIMER, onSendHeartBeatHandler );
 		}
@@ -589,7 +597,7 @@ package com.leapmotion.leap.socket
 		{
 			var text:String = "";
 			text += "GET /v2.json HTTP/1.1\r\n";
-			text += "Host: " + host + ":6437\r\n";
+			text += "Host: " + host + ":" + this.port + "\r\n";
 			text += "Upgrade: websocket\r\n";
 			text += "Connection: Upgrade\r\n";
 			text += "Sec-WebSocket-Key: " + base64nonce + "\r\n";
