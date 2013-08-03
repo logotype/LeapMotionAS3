@@ -120,7 +120,7 @@ If you are using the ANE on Windows, you need to add the Leap Motion program fol
 2. Click Advanced System Settings link in the left column.
 3. In the System Properties window click the Environment Variables button.
 4. In the Environment Variables window, highlight the Path variable in the Systems Variable section and click the Edit button.
-5. Add the Leap Motion folder from your program files at the end of that line (ex: C:\Program Files (x86)\Leap Motion\Leap Motion).
+5. Add the Leap Motion folder from your program files at the end of that line (ex: C:\Program Files (x86)\Leap Motion\Core Services).
 
 Documentation
 -----------
