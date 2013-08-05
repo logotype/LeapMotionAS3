@@ -596,7 +596,7 @@ package com.leapmotion.leap.socket
 		final private function sendHandshake():void
 		{
 			var text:String = "";
-			text += "GET /v2.json HTTP/1.1\r\n";
+			text += "GET /v3.json HTTP/1.1\r\n";
 			text += "Host: " + host + ":" + this.port + "\r\n";
 			text += "Upgrade: websocket\r\n";
 			text += "Connection: Upgrade\r\n";
