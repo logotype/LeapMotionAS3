@@ -169,6 +169,9 @@ package com.leapmotion.leap.socket
 		 */
 		private function onSendHeartBeatHandler( event:TimerEvent ) :void
 		{
+			if( !socket.connected )
+				return;
+			
 			sendUTF( "{\"heartbeat\": true}" );
 		}
 
