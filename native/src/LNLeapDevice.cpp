@@ -106,7 +106,7 @@ namespace leapnative {
         FRESetObjectProperty(freCurrentFrame, (const uint8_t*) "interactionBox", freInteractionBox, NULL);
 
         std::map<int, FREObject> freHandsMap;
-        if (!frame.hands().empty()) {
+        if (!frame.hands().isEmpty()) {
             
             FREObject freHands;
             FREGetObjectProperty(freCurrentFrame, (const uint8_t*) "hands", &freHands, NULL);
@@ -159,7 +159,7 @@ namespace leapnative {
         }
         
         std::map<int, FREObject> frePointablesMap;
-        if(!frame.pointables().empty()) {
+        if(!frame.pointables().isEmpty()) {
             
             FREObject frePointables;
             FREGetObjectProperty(freCurrentFrame, (const uint8_t*) "pointables", &frePointables, NULL);
@@ -261,7 +261,7 @@ namespace leapnative {
             }
         }
         
-        if(!frame.gestures().empty()) {
+        if(!frame.gestures().isEmpty()) {
             
             FREObject freGestures;
             FREGetObjectProperty(freCurrentFrame, (const uint8_t*) "gesturesVector", &freGestures, NULL);
@@ -388,7 +388,7 @@ namespace leapnative {
                 FRENewObjectFromInt32(gesture.id(), &freGestureId);
                 FRESetObjectProperty(freGesture, (const uint8_t*) "id", freGestureId, NULL);
                 
-                if (!gesture.hands().empty()) {
+                if (!gesture.hands().isEmpty()) {
                     
                     FREObject freGestureHands;
                     FREGetObjectProperty(freGesture, (const uint8_t*) "hands", &freGestureHands, NULL);
@@ -401,7 +401,7 @@ namespace leapnative {
                     }
                 }
                 
-                if (!gesture.pointables().empty()) {
+                if (!gesture.pointables().isEmpty()) {
                     
                     FREObject freGesturePointables;
                     FREGetObjectProperty(freGesture, (const uint8_t*) "pointables", &freGesturePointables, NULL);
@@ -431,7 +431,7 @@ namespace leapnative {
     }
     
     FREObject LNLeapDevice::getClosestScreenHitPointable(int pointableId) {
-        ScreenList screenList = controller->calibratedScreens();
+        ScreenList screenList = controller->locatedScreens();
         Frame frame = controller->frame();
         PointableList pointables = frame.pointables();
         Pointable pointable;
@@ -458,7 +458,7 @@ namespace leapnative {
     }
     
     FREObject LNLeapDevice::getClosestScreenHit(Vector position, Vector direction) {
-        ScreenList screenList = controller->calibratedScreens();
+        ScreenList screenList = controller->locatedScreens();
         Frame frame = controller->frame();
         Screen screen = screenList.closestScreenHit(position, direction);
 
@@ -470,7 +470,7 @@ namespace leapnative {
     
     //start screen class
     FREObject LNLeapDevice::getScreenDistanceToPoint(int screenId, Vector point) {
-        ScreenList screenList = controller->calibratedScreens();
+        ScreenList screenList = controller->locatedScreens();
         Screen screen = screenList[screenId];
         
         FREObject freScreenDistance;
@@ -480,7 +480,7 @@ namespace leapnative {
     }
     
     FREObject LNLeapDevice::getScreenHeightPixels(int screenId) {
-        ScreenList screenList = controller->calibratedScreens();
+        ScreenList screenList = controller->locatedScreens();
         Screen screen = screenList[screenId];
         
         FREObject freReturnValue;
@@ -490,7 +490,7 @@ namespace leapnative {
     }
     
     FREObject LNLeapDevice::getScreenWidthPixels(int screenId) {
-        ScreenList screenList = controller->calibratedScreens();
+        ScreenList screenList = controller->locatedScreens();
         Screen screen = screenList[screenId];
         
         FREObject freReturnValue;
@@ -500,7 +500,7 @@ namespace leapnative {
     }
     
     FREObject LNLeapDevice::getScreenHorizontalAxis(int screenId) {
-        ScreenList screenList = controller->calibratedScreens();
+        ScreenList screenList = controller->locatedScreens();
         Screen screen = screenList[screenId];
         
         const Vector vector = screen.horizontalAxis();
@@ -508,7 +508,7 @@ namespace leapnative {
     }
     
     FREObject LNLeapDevice::getScreenVerticalAxis(int screenId) {
-        ScreenList screenList = controller->calibratedScreens();
+        ScreenList screenList = controller->locatedScreens();
         Screen screen = screenList[screenId];
         
         const Vector vector = screen.verticalAxis();
@@ -516,7 +516,7 @@ namespace leapnative {
     }
     
     FREObject LNLeapDevice::getScreenBottomLeftCorner(int screenId) {
-        ScreenList screenList = controller->calibratedScreens();
+        ScreenList screenList = controller->locatedScreens();
         Screen screen = screenList[screenId];
         
         const Vector vector = screen.bottomLeftCorner();
@@ -524,7 +524,7 @@ namespace leapnative {
     }
     
     FREObject LNLeapDevice::getScreenIntersect(int screenId, Vector position, Vector direction, bool normalize, float clampRatio) {
-        ScreenList screenList = controller->calibratedScreens();
+        ScreenList screenList = controller->locatedScreens();
         Screen screen = screenList[screenId];
         
         const Vector vector = screen.intersect(position, direction, normalize, clampRatio);
@@ -532,7 +532,7 @@ namespace leapnative {
     }
     
     FREObject LNLeapDevice::getScreenProject(int screenId, Vector position, bool normalize, float clampRatio) {
-        ScreenList screenList = controller->calibratedScreens();
+        ScreenList screenList = controller->locatedScreens();
         Screen screen = screenList[screenId];
         
         const Vector vector = screen.project(position, normalize, clampRatio);
@@ -540,7 +540,7 @@ namespace leapnative {
     }
     
     FREObject LNLeapDevice::getScreenIsValid(int screenId) {
-        ScreenList screenList = controller->calibratedScreens();
+        ScreenList screenList = controller->locatedScreens();
         Screen screen = screenList[screenId];
         
         FREObject freReturnValue;
@@ -550,7 +550,7 @@ namespace leapnative {
     }
     
     FREObject LNLeapDevice::getScreenNormal(int screenId) {
-        ScreenList screenList = controller->calibratedScreens();
+        ScreenList screenList = controller->locatedScreens();
         Screen screen = screenList[screenId];
         
         const Vector vector = screen.normal();

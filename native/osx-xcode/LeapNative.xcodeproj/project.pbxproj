@@ -52,7 +52,7 @@
 		6C2DA07816BBD63400FC1899 /* LNLeapDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LNLeapDevice.h; sourceTree = "<group>"; };
 		6C2DA08316BBF41B00FC1899 /* LNLeapListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LNLeapListener.cpp; sourceTree = "<group>"; };
 		6C2DA08416BBF41B00FC1899 /* LNLeapListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LNLeapListener.h; sourceTree = "<group>"; };
-		6C2DA08716BBF67D00FC1899 /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libLeap.dylib; path = ../../../LeapSDK/lib/libLeap.dylib; sourceTree = "<group>"; };
+		6C2DA08716BBF67D00FC1899 /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libLeap.dylib; path = ../../../LeapDeveloperKit/LeapSDK/lib/libLeap.dylib; sourceTree = "<group>"; };
 		6CD8E59016E66ED9009C8ACA /* LNFREUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LNFREUtilities.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -296,12 +296,12 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../../../LeapSDK/include";
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/../../../LeapDeveloperKit/LeapSDK/include\"";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../runtimes/air/mac @executable_path/../Frameworks /Library/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../LeapSDK/lib\"",
-					"\"$(SRCROOT)/../../../LeapSDK/lib/libc++\"",
+					"\"$(PROJECT_DIR)/../../../LeapDeveloperKit/LeapSDK/lib\"",
+					"\"$(PROJECT_DIR)/../../../LeapDeveloperKit/LeapSDK/lib/libc++\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = NO;
@@ -333,12 +333,12 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../../../LeapSDK/include";
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/../../../LeapDeveloperKit/LeapSDK/include\"";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../runtimes/air/mac @executable_path/../Frameworks /Library/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../LeapSDK/lib\"",
-					"\"$(SRCROOT)/../../../LeapSDK/lib/libc++\"",
+					"\"$(PROJECT_DIR)/../../../LeapDeveloperKit/LeapSDK/lib\"",
+					"\"$(PROJECT_DIR)/../../../LeapDeveloperKit/LeapSDK/lib/libc++\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
@@ -360,8 +360,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LeapNative/LeapNative-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = "${inherited}";
 				INFOPLIST_FILE = "LeapNative/LeapNative-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "/Applications/Adobe Flash Builder 4.7/eclipse/plugins/com.adobe.flash.compiler_4.7.0.349722/AIRSDK/runtimes/air/mac @executable_path/../Frameworks /Library/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = framework;
@@ -381,8 +383,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LeapNative/LeapNative-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = "${inherited}";
 				INFOPLIST_FILE = "LeapNative/LeapNative-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "/Applications/Adobe Flash Builder 4.7/eclipse/plugins/com.adobe.flash.compiler_4.7.0.349722/AIRSDK/runtimes/air/mac @executable_path/../Frameworks /Library/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = framework;
