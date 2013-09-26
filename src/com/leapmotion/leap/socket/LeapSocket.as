@@ -355,7 +355,7 @@ package com.leapmotion.leap.socket
 						pointable.tipPosition = new Vector3( json.pointables[ i ].tipPosition[ 0 ], json.pointables[ i ].tipPosition[ 1 ], json.pointables[ i ].tipPosition[ 2 ] );
 						pointable.stabilizedTipPosition = new Vector3( json.pointables[ i ].stabilizedTipPosition[ 0 ], json.pointables[ i ].stabilizedTipPosition[ 1 ], json.pointables[ i ].stabilizedTipPosition[ 2 ] );
 						pointable.timeVisible = json.pointables[ i ].timeVisible;
-						pointable.touchDistance = json.pointables[ i ].touchDist;
+						pointable.touchDistance = json.pointables[ i ].touchDistance;
 						switch( json.pointables[ i ].touchZone )
 						{
 							case "hovering":
