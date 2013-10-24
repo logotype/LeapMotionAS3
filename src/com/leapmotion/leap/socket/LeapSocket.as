@@ -20,14 +20,15 @@ package com.leapmotion.leap.socket
 	import com.leapmotion.leap.util.SHA1;
 	
 	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
 	import flash.events.SecurityErrorEvent;
-	import flash.events.TimerEvent;
+	import flash.events.ThrottleEvent;
+	import flash.events.ThrottleType;
 	import flash.net.Socket;
 	import flash.utils.ByteArray;
 	import flash.utils.Endian;
-	import flash.utils.Timer;
 
 	/**
 	 * The LeapSocket class handles the communication via WebSockets.
@@ -35,7 +36,7 @@ package com.leapmotion.leap.socket
 	 * @author logotype
 	 *
 	 */
-	final public class LeapSocket implements ILeapConnection
+	final public class LeapSocket extends EventDispatcher implements ILeapConnection
 	{
 		/**
 		 * The initial state before handshake.
@@ -118,11 +119,6 @@ package com.leapmotion.leap.socket
 		private var binaryPayload:ByteArray;
 		
 		/**
-		 * Required to suppress OS controls.
-		 */
-		private var heartBeatTimer:Timer = new Timer( 80, 0 );
-
-		/**
 		 * Constructs a LeapSocket object.
 		 *
 		 * @param host IP or hostname of the computer running the Leap Motion software.
@@ -159,22 +155,28 @@ package com.leapmotion.leap.socket
 			socket.addEventListener( ProgressEvent.SOCKET_DATA, onSocketDataHandler );
 			socket.connect( this.host, this.port );
 			
-			heartBeatTimer.addEventListener( TimerEvent.TIMER, onSendHeartBeatHandler );
+			addEventListener( ThrottleEvent.THROTTLE, onThrottleHandler );
 		}
 		
 		/**
-		 * Triggered every 100 ms to suppress OS controls 
+		 * Triggered when SWF instance is outside viewport 
 		 * @param event
 		 * 
 		 */
-		private function onSendHeartBeatHandler( event:TimerEvent ) :void
+		private function onThrottleHandler( event:ThrottleEvent ) :void
 		{
-			if( !socket.connected )
-				return;
-			
-			sendUTF( "{\"heartbeat\": true}" );
+			switch( event.state )
+			{
+				case ThrottleType.PAUSE:
+				case ThrottleType.THROTTLE:
+					sendUTF( "{\focused\": false}" );
+					break;
+				case ThrottleType.RESUME:
+					sendUTF( "{\focused\": true}" );
+					break;
+			}
 		}
-
+		
 		/**
 		 * Triggered once the Socket-connection is established, send handshake.
 		 * @param event
@@ -198,8 +200,7 @@ package com.leapmotion.leap.socket
 		{
 			_isConnected = false;
 			controller.leapmotion::listener.onDisconnect( controller );
-			heartBeatTimer.stop();
-			heartBeatTimer.reset();
+			this.removeEventListener( ThrottleEvent.THROTTLE, onThrottleHandler );
 		}
 
 		/**
@@ -211,8 +212,7 @@ package com.leapmotion.leap.socket
 		{
 			_isConnected = false;
 			controller.leapmotion::listener.onDisconnect( controller );
-			heartBeatTimer.stop();
-			heartBeatTimer.reset();
+			this.removeEventListener( ThrottleEvent.THROTTLE, onThrottleHandler );
 		}
 
 		/**
@@ -226,8 +226,7 @@ package com.leapmotion.leap.socket
 			_isConnected = false;
 			controller.leapmotion::listener.onDisconnect( controller );
 			controller.leapmotion::listener.onExit( controller );
-			heartBeatTimer.stop();
-			heartBeatTimer.reset();
+			this.removeEventListener( ThrottleEvent.THROTTLE, onThrottleHandler );
 		}
 
 		/**
@@ -709,8 +708,6 @@ package com.leapmotion.leap.socket
 			leapMotionDeviceHandshakeResponse = null;
 			currentState = STATE_OPEN;
 			controller.leapmotion::listener.onConnect( controller );
-			heartBeatTimer.reset();
-			heartBeatTimer.start();
 		}
 
 		/**
