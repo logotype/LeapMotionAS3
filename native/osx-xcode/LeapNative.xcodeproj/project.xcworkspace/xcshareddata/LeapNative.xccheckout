@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>1FA67146-8726-4FF8-951F-FC1A56055780</string>
+	<key>IDESourceControlProjectName</key>
+	<string>LeapNative</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>6AE1F54A-C95B-4756-929E-C49B3815A52D</key>
+		<string>https://github.com/logotype/LeapMotionAS3.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>native/osx-xcode/LeapNative.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>6AE1F54A-C95B-4756-929E-C49B3815A52D</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/logotype/LeapMotionAS3.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>6AE1F54A-C95B-4756-929E-C49B3815A52D</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6AE1F54A-C95B-4756-929E-C49B3815A52D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>LeapMotionAS3</string>
+		</dict>
+	</array>
+</dict>
+</plist>
