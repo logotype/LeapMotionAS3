@@ -169,10 +169,10 @@ package com.leapmotion.leap.socket
 			{
 				case ThrottleType.PAUSE:
 				case ThrottleType.THROTTLE:
-					sendUTF( "{\focused\": false}" );
+					sendUTF( "{\"focused\": false}" );
 					break;
 				case ThrottleType.RESUME:
-					sendUTF( "{\focused\": true}" );
+					sendUTF( "{\"focused\": true}" );
 					break;
 			}
 		}
@@ -862,11 +862,11 @@ package com.leapmotion.leap.socket
 			switch( flags )
 			{
 				case Controller.POLICY_BACKGROUND_FRAMES:
-					sendUTF( "{\background\": true}" );
+					sendUTF( "{\"background\": true}" );
 					break;
 				case Controller.POLICY_DEFAULT:
 				default:
-					sendUTF( "{\background\": false}" );
+					sendUTF( "{\"background\": false}" );
 					break;
 			}
 		}
