@@ -1,13 +1,11 @@
 package com.leapmotion.leap.native
 {
-	import flash.desktop.NativeApplication;
-	import flash.events.Event;
-	
 	import com.leapmotion.leap.Controller;
 	import com.leapmotion.leap.Frame;
 	import com.leapmotion.leap.interfaces.ILeapConnection;
 	import com.leapmotion.leap.namespaces.leapmotion;
-
+	
+	import flash.events.Event;
 	import flash.events.StatusEvent;
 	import flash.utils.getDefinitionByName;
 
@@ -109,8 +107,32 @@ package com.leapmotion.leap.native
 			{
 				controller.context = context;
 				context.addEventListener( StatusEvent.STATUS, contextStatusModeEventHandler, false, 0, true );
-				NativeApplication.nativeApplication.addEventListener( Event.EXITING, onNativeApplicatonExitHandler );
+				var NativeApplicationClass:* = getNativeApplicationClassReference();
+				if( NativeApplicationClass )
+				{
+					NativeApplicationClass.nativeApplication.addEventListener( "exiting", onNativeApplicatonExitHandler );
+				}
 			}
+		}
+		
+		/**
+		 * Tries to return a reference to the class object of the class
+		 * specified.
+		 *
+		 * @return NativeApplication, if definition could be found; null otherwise.
+		 *
+		 */
+		private static function getNativeApplicationClassReference():*
+		{
+			try
+			{
+				return getDefinitionByName( "flash.desktop.NativeApplication" );
+			}
+			catch( error:Error )
+			{
+				trace( "[LeapNative] getNativeApplicationClassReference: " + error.message );
+			}
+			return null;
 		}
 		
 		/**
@@ -120,7 +142,14 @@ package com.leapmotion.leap.native
 		 */
 		private function onNativeApplicatonExitHandler( event:Event ) :void
 		{
-			context.dispose();
+			try
+			{
+				context.dispose();
+			}
+			catch( error:Error )
+			{
+				
+			}
 		}
 
 		/**
