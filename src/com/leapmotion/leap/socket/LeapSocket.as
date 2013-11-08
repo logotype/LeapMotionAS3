@@ -44,9 +44,14 @@ package com.leapmotion.leap.socket
 		static private const STATE_CONNECTING:int = 0;
 
 		/**
-		 * The established connection state, after handshake process is complete.
+		 * The connection configuration state, after handshake process is complete.
 		 */
-		static private const STATE_OPEN:int = 1;
+		static private const STATE_CONFIGURE:int = 1;
+
+		/**
+		 * The established connection state, after configuration process is complete.
+		 */
+		static private const STATE_OPEN:int = 2;
 
 		/**
 		 * The raw socket connection to Leap Motion.
@@ -242,6 +247,12 @@ package com.leapmotion.leap.socket
 			if( currentState == STATE_CONNECTING )
 			{
 				readLeapMotionHandshake();
+				return;
+			}
+			else if( currentState == STATE_CONFIGURE )
+			{
+				sendUTF( "{\"background\": true}" );
+				currentState = STATE_OPEN;
 				return;
 			}
 
@@ -706,7 +717,7 @@ package com.leapmotion.leap.socket
 			}
 
 			leapMotionDeviceHandshakeResponse = null;
-			currentState = STATE_OPEN;
+			currentState = STATE_CONFIGURE;
 			controller.leapmotion::listener.onConnect( controller );
 		}
 
