@@ -71,7 +71,7 @@ package com.leapmotion.leap.socket
 		/**
 		 * Specifies which host to connect to, default localhost.
 		 */
-		private var host:String = "localhost";
+		private var host:String = "127.0.0.1";
 		
 		/**
 		 * Specifies which port to connect to, default 6437.
@@ -129,7 +129,7 @@ package com.leapmotion.leap.socket
 		 * @param host IP or hostname of the computer running the Leap Motion software.
 		 *
 		 */
-		final public function LeapSocket( _controller:Controller, host:String = null, port:int = 6437 )
+		final public function LeapSocket( _controller:Controller, host:String = "127.0.0.1", port:int = 6437 )
 		{
 			if( host )
 				this.host = host;

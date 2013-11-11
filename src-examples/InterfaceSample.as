@@ -4,6 +4,7 @@ package
 	import com.leapmotion.leap.Frame;
 	import com.leapmotion.leap.Gesture;
 	import com.leapmotion.leap.Listener;
+	import com.leapmotion.leap.native.LeapNative;
 	
 	import flash.display.Sprite;
 	import flash.utils.getTimer;
@@ -17,7 +18,7 @@ package
 		
 		public function InterfaceSample()
 		{
-			controller = new Controller();
+			controller = new Controller(new LeapNative(this));
 			controller.setListener( this );
 		}
 		

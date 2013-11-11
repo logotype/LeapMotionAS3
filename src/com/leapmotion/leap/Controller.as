@@ -3,8 +3,6 @@ package com.leapmotion.leap
 	import com.leapmotion.leap.interfaces.DefaultListener;
 	import com.leapmotion.leap.interfaces.ILeapConnection;
 	import com.leapmotion.leap.namespaces.leapmotion;
-	import com.leapmotion.leap.native.LeapNative;
-	import com.leapmotion.leap.socket.LeapSocket;
 	
 	import flash.events.EventDispatcher;
 
@@ -130,22 +128,14 @@ package com.leapmotion.leap
 
 		/**
 		 * Constructs a Controller object.
-		 * @param host IP or hostname of the computer running the Leap Motion software.
+		 * @param obj the instance of LeapNative or LeapSocket
 		 * (currently only supported for socket connections).
 		 *
 		 */
-		public function Controller( host:String = null, port:int = 6437 )
+		public function Controller(obj:ILeapConnection)
 		{
 			leapmotion::listener = new DefaultListener();
-
-			if( !host && LeapNative.isSupported() )
-			{
-				connection = new LeapNative( this );
-			}
-			else
-			{
-				connection = new LeapSocket( this, host, port );
-			}
+			connection = obj
 		}
 
 		/**
