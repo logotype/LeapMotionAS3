@@ -19,7 +19,9 @@ Clone the repo, `git clone git://github.com/logotype/LeapMotionAS3.git`.
 
 Create an instance of the Controller class:
 
-    controller = new Controller();
+    var leapConnection:ILeapConnection;
+    leapConnection = LeapNative.isSupported() ? new LeapNative(this) : new LeapSocket(this);
+    controller = new Controller( leapConnection );
     controller.addEventListener( LeapEvent.LEAPMOTION_INIT, onInit );
     controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, onConnect );
     controller.addEventListener( LeapEvent.LEAPMOTION_DISCONNECTED, onDisconnect );
