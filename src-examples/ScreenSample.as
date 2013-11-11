@@ -4,6 +4,7 @@ package
 	import com.leapmotion.leap.Screen;
 	import com.leapmotion.leap.Vector3;
 	import com.leapmotion.leap.events.LeapEvent;
+	import com.leapmotion.leap.native.LeapNative;
 	
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
@@ -33,7 +34,7 @@ package
 			cursor.graphics.endFill();
 			this.addChild( cursor );
 
-			controller = new Controller();
+			controller = new Controller( new LeapNative( this ) );
 			controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, onConnect );
 			controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, onFrame );
 		}

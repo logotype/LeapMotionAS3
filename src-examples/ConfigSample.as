@@ -2,6 +2,7 @@ package
 {
 	import com.leapmotion.leap.*;
 	import com.leapmotion.leap.events.*;
+	import com.leapmotion.leap.native.*;
 
 	import flash.display.Sprite;
 
@@ -12,7 +13,7 @@ package
 
 		public function ConfigSample()
 		{
-			controller = new Controller();
+			controller = new Controller(new LeapNative(this));
 			controller.addEventListener( LeapEvent.LEAPMOTION_INIT, onInit );
 			controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, onConnect );
 			controller.addEventListener( LeapEvent.LEAPMOTION_DISCONNECTED, onDisconnect );
