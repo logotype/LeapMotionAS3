@@ -3,8 +3,6 @@ package com.leapmotion.leap
 	import com.leapmotion.leap.interfaces.DefaultListener;
 	import com.leapmotion.leap.interfaces.ILeapConnection;
 	import com.leapmotion.leap.namespaces.leapmotion;
-	import com.leapmotion.leap.native.LeapNative;
-	import com.leapmotion.leap.socket.LeapSocket;
 	
 	import flash.events.EventDispatcher;
 
