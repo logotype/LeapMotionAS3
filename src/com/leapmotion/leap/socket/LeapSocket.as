@@ -251,7 +251,7 @@ package com.leapmotion.leap.socket
 			}
 			else if( currentState == STATE_CONFIGURE )
 			{
-				sendUTF( "{\"background\": true}" );
+				sendUTF( "{\"focused\": true}" );
 				currentState = STATE_OPEN;
 				return;
 			}
