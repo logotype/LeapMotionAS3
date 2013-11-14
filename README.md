@@ -125,7 +125,7 @@ If you are using the ANE on Windows, you need to add the Leap Motion program fol
 Documentation
 -----------
 
-[API documentation](http://logotype.se/leapmotion/docs/)
+[API documentation](http://logotype.github.io/LeapMotionAS3Docs/index.html)
 
 To generate documentation, simply run `ant docs` from the build/ directory.
 
