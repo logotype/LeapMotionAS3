@@ -44,14 +44,19 @@ package com.leapmotion.leap.socket
 		static private const STATE_CONNECTING:int = 0;
 
 		/**
+		 * The connection verification state, after handshake process is complete.
+		 */
+		static private const STATE_VERSION:int = 1;
+		
+		/**
 		 * The connection configuration state, after handshake process is complete.
 		 */
-		static private const STATE_CONFIGURE:int = 1;
-
+		static private const STATE_CONFIGURE:int = 2;
+		
 		/**
 		 * The established connection state, after configuration process is complete.
 		 */
-		static private const STATE_OPEN:int = 2;
+		static private const STATE_OPEN:int = 3;
 
 		/**
 		 * The raw socket connection to Leap Motion.
@@ -249,7 +254,8 @@ package com.leapmotion.leap.socket
 				readLeapMotionHandshake();
 				return;
 			}
-			else if( currentState == STATE_CONFIGURE )
+
+			if( currentState == STATE_CONFIGURE )
 			{
 				sendUTF( "{\"focused\": true}" );
 				currentState = STATE_OPEN;
@@ -275,7 +281,7 @@ package com.leapmotion.leap.socket
 				leapSocketFrame.binaryPayload.position = 0;
 				utf8data = leapSocketFrame.binaryPayload.readUTFBytes( leapSocketFrame.length );
 				json = JSON.parse( utf8data );
-				
+
 				// Server-side events. Currently only deviceConnect events are supported.
 				if( json.event )
 				{
@@ -532,16 +538,23 @@ package com.leapmotion.leap.socket
 				// Timestamp
 				currentFrame.timestamp = json.timestamp;
 
-				// Add frame to history
-				if( controller.frameHistory.length > 59 )
-					controller.frameHistory.splice( 59, 1 );
-
-				controller.frameHistory.unshift( _frame );
-
-				_frame = currentFrame;
-
-				controller.leapmotion::listener.onFrame( controller, _frame );
-
+				if( currentState == STATE_OPEN )
+				{
+					// Add frame to history
+					if( controller.frameHistory.length > 59 )
+						controller.frameHistory.splice( 59, 1 );
+					
+					controller.frameHistory.unshift( _frame );
+					
+					_frame = currentFrame;
+					
+					controller.leapmotion::listener.onFrame( controller, _frame );
+				}
+				else if( currentState == STATE_VERSION && json.version )
+				{
+					currentState = STATE_CONFIGURE;
+				}
+				
 				// Release current frame and create a new one
 				leapSocketFrame = new LeapSocketFrame();
 			}
@@ -717,7 +730,7 @@ package com.leapmotion.leap.socket
 			}
 
 			leapMotionDeviceHandshakeResponse = null;
-			currentState = STATE_CONFIGURE;
+			currentState = STATE_VERSION;
 			controller.leapmotion::listener.onConnect( controller );
 		}
 
