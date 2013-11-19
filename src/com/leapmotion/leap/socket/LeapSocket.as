@@ -259,6 +259,7 @@ package com.leapmotion.leap.socket
 			{
 				sendUTF( "{\"focused\": true}" );
 				currentState = STATE_OPEN;
+				controller.leapmotion::listener.onConnect( controller );
 				return;
 			}
 
@@ -552,6 +553,9 @@ package com.leapmotion.leap.socket
 				}
 				else if( currentState == STATE_VERSION && json.version )
 				{
+					if( json.version !== 4 )
+						throw new Error( "Please update the Leap App (Invalid protocol version)" );
+
 					currentState = STATE_CONFIGURE;
 				}
 				
@@ -731,7 +735,6 @@ package com.leapmotion.leap.socket
 
 			leapMotionDeviceHandshakeResponse = null;
 			currentState = STATE_VERSION;
-			controller.leapmotion::listener.onConnect( controller );
 		}
 
 		/**
