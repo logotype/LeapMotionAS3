@@ -44,7 +44,7 @@
     <property name="Examples.MAIN_RELEASE_DESCRIPTOR" value="${Examples.RELEASE_ROOT}/app.xml"/>
 
 	<target name="docs" description="Generate the ASDocs to /docs">
-        <exec executable="/Applications/Adobe Flash Builder 4.7/sdks/4.6.0/bin/aasdoc" failonerror="true">
+        <exec executable="${ASC1_AIR_SDK_HOME}/bin/aasdoc" failonerror="true">
             <arg line="-doc-sources ${Extension.AS3_ROOT}" />
             <arg value="-window-title" />
             <arg value="LeapMotionAS3" />
@@ -73,19 +73,40 @@
 	</target>
 	
 	<target name="config-sdk-extension" depends="init-ant-contrib">
-        <property name="Extension.AIR_SDK_HOME" value="${ASC2_AIR_SDK_HOME}"/>
-        <property name="Extension.AIR_SDK_VERSION" value="${ASC2_AIR_SDK_VERSION}"/>
-        <property name="Extension.OUTPUT_NAME" value="${Extension.EXTENSION_NAME}" />
+        <if>
+            <equals arg1="${Extension.ASC_VERSION}" arg2="2"/>
+            <then>
+                <property name="Extension.AIR_SDK_HOME" value="${ASC2_AIR_SDK_HOME}"/>
+                <property name="Extension.AIR_SDK_VERSION" value="${ASC2_AIR_SDK_VERSION}"/>
+                <property name="Extension.OUTPUT_NAME" value="${Extension.EXTENSION_NAME}-asc2" />
+            </then>
+            <else>
+                <property name="Extension.AIR_SDK_HOME" value="${ASC1_AIR_SDK_HOME}"/>
+                <property name="Extension.AIR_SDK_VERSION" value="${ASC1_AIR_SDK_VERSION}"/>
+                <property name="Extension.OUTPUT_NAME" value="${Extension.EXTENSION_NAME}" />
+            </else>
+        </if>
 		<property name="FLEX_HOME" value="${Extension.AIR_SDK_HOME}"/>
 		<taskdef resource="flexTasks.tasks" classpath="${Extension.AIR_SDK_HOME}/ant/lib/flexTasks.jar" />
 		<property name="Flex.ADT" value="${Extension.AIR_SDK_HOME}/lib/adt.jar"/>
 	</target>
 
 	<target name="config-sdk-examples" depends="init-ant-contrib">
-        <property name="Examples.AIR_SDK_HOME" value="${ASC2_AIR_SDK_HOME}"/>
-        <property name="Examples.AIR_SDK_VERSION" value="${ASC2_AIR_SDK_VERSION}"/>
-        <property name="Flex.MXMLC" value="${Examples.AIR_SDK_HOME}/lib/mxmlc-cli.jar"/>
-        <property name="Extension.OUTPUT_NAME" value="${Extension.EXTENSION_NAME}" />
+        <if>
+            <equals arg1="${Examples.ASC_VERSION}" arg2="2"/>
+            <then>
+                <property name="Examples.AIR_SDK_HOME" value="${ASC2_AIR_SDK_HOME}"/>
+                <property name="Examples.AIR_SDK_VERSION" value="${ASC2_AIR_SDK_VERSION}"/>
+                <property name="Flex.MXMLC" value="${Examples.AIR_SDK_HOME}/lib/mxmlc-cli.jar"/>
+                <property name="Extension.OUTPUT_NAME" value="${Extension.EXTENSION_NAME}-asc2" />
+            </then>
+            <else>
+                <property name="Examples.AIR_SDK_HOME" value="${ASC1_AIR_SDK_HOME}"/>
+                <property name="Examples.AIR_SDK_VERSION" value="${ASC1_AIR_SDK_VERSION}"/>
+                <property name="Flex.MXMLC" value="${Examples.AIR_SDK_HOME}/lib/mxmlc.jar"/>
+                <property name="Extension.OUTPUT_NAME" value="${Extension.EXTENSION_NAME}" />
+            </else>
+        </if>
 		<property name="FLEX_HOME" value="${Examples.AIR_SDK_HOME}"/>
 		<taskdef resource="flexTasks.tasks" classpath="${Examples.AIR_SDK_HOME}/ant/lib/flexTasks.jar" />
 		<property name="Flex.ADT" value="${Examples.AIR_SDK_HOME}/lib/adt.jar"/>
@@ -251,6 +272,15 @@
 	</target>
 
 	<target name="list-external-libraries" depends="init-ant-contrib">
+        <if>
+            <equals arg1="${Examples.ASC_VERSION}" arg2="2"/>
+            <then>
+                <property name="excluded-library" value="${Extension.EXTENSION_NAME}" />
+            </then>
+            <else>
+                <property name="excluded-library" value="${Extension.EXTENSION_NAME}-asc2" />
+            </else>
+        </if>
         <pathconvert property="aneFiles" pathsep="' '" dirsep="/">
             <path>
                 <fileset dir="${Extension.BIN_ROOT}" includes="**/*.ane" excludes="${excluded-library}.ane"/>
@@ -275,20 +305,46 @@
                            value="${Examples.MAIN_SWF}"/>
         </replace>
 
-        <java jar="${Flex.MXMLC}" fork="true" failonerror="true" maxmemory="256m">
-            <arg value="-debug=true"/>
-            <arg value="-load-config=${FLEX_HOME}/frameworks/air-config.xml"/>
-            <arg value="+flexlib=${FLEX_HOME}/frameworks"/>
-            <arg value="-advanced-telemetry=true"/>
-            <arg value="-external-library-path+=${aneFiles}"/>
-            <arg value="-library-path+=${swcFiles}"/>
-            <arg value="-source-path=${Examples.AS3_ROOT}"/>
-            <arg value="-file-specs=${Examples.MAIN_SRC_FILE}"/>
-            <arg value="-output=${Examples.DEBUG_ROOT}/${Examples.MAIN_SWF}"/>
-        </java>
+        <if>
+            <equals arg1="${Examples.ASC_VERSION}" arg2="2"/>
+            <then>
+                <java jar="${Flex.MXMLC}" fork="true" failonerror="true" maxmemory="256m">
+                    <arg value="-debug=true"/>
+                    <arg value="-load-config=${FLEX_HOME}/frameworks/air-config.xml"/>
+                    <arg value="+flexlib=${FLEX_HOME}/frameworks"/>
+                    <arg value="-advanced-telemetry=true"/>
+                    <arg value="-external-library-path+=${aneFiles}"/>
+                    <arg value="-library-path+=${swcFiles}"/>
+                    <arg value="-source-path=${Examples.AS3_ROOT}"/>
+                    <arg value="-file-specs=${Examples.MAIN_SRC_FILE}"/>
+                    <arg value="-output=${Examples.DEBUG_ROOT}/${Examples.MAIN_SWF}"/>
+                </java>
+            </then>
+            <else>
+                <java jar="${Flex.MXMLC}" fork="true" failonerror="true" maxmemory="256m">
+                    <arg value="-debug=true"/>
+                    <arg value="-load-config=${FLEX_HOME}/frameworks/air-config.xml"/>
+                    <arg value="+flexlib=${FLEX_HOME}/frameworks"/>
+                    <arg value="-external-library-path+=${aneFiles}"/>
+                    <arg value="-library-path+=${swcFiles}"/>
+                    <arg value="-source-path=${Examples.AS3_ROOT}"/>
+                    <arg value="-file-specs=${Examples.MAIN_SRC_FILE}"/>
+                    <arg value="-output=${Examples.DEBUG_ROOT}/${Examples.MAIN_SWF}"/>
+                </java>
+            </else>
+        </if>
     </target>
 
     <target name="unpack-native-extensions-debug" depends="init-ant-contrib">
+        <if>
+            <equals arg1="${Examples.ASC_VERSION}" arg2="2"/>
+            <then>
+                <property name="excluded-library" value="${Extension.EXTENSION_NAME}" />
+            </then>
+            <else>
+                <property name="excluded-library" value="${Extension.EXTENSION_NAME}-asc2" />
+            </else>
+        </if>
         <for param="nativeExtensionFile">
             <path>
                 <fileset dir="${Extension.BIN_ROOT}" includes="**/*.ane" excludes="${excluded-library}.ane"/>
@@ -333,17 +389,34 @@
                            value="${Examples.MAIN_SWF}"/>
         </replace>
 
-        <java jar="${Flex.MXMLC}" fork="true" failonerror="true" maxmemory="256m">
-            <arg value="-debug=true"/>
-            <arg value="-load-config=${FLEX_HOME}/frameworks/air-config.xml"/>
-            <arg value="+flexlib=${FLEX_HOME}/frameworks"/>
-            <arg value="-advanced-telemetry=true"/>
-            <arg value="-library-path+=${aneFiles}"/>
-            <arg value="-library-path+=${swcFiles}"/>
-            <arg value="-source-path=${Examples.AS3_ROOT}"/>
-            <arg value="-file-specs=${Examples.MAIN_SRC_FILE}"/>
-            <arg value="-output=${Examples.DEBUG_ROOT}/${Examples.MAIN_SWF}"/>
-        </java>
+        <if>
+            <equals arg1="${Examples.ASC_VERSION}" arg2="2"/>
+            <then>
+                <java jar="${Flex.MXMLC}" fork="true" failonerror="true" maxmemory="256m">
+                    <arg value="-debug=true"/>
+                    <arg value="-load-config=${FLEX_HOME}/frameworks/air-config.xml"/>
+                    <arg value="+flexlib=${FLEX_HOME}/frameworks"/>
+                    <arg value="-advanced-telemetry=true"/>
+                    <arg value="-library-path+=${aneFiles}"/>
+                    <arg value="-library-path+=${swcFiles}"/>
+                    <arg value="-source-path=${Examples.AS3_ROOT}"/>
+                    <arg value="-file-specs=${Examples.MAIN_SRC_FILE}"/>
+                    <arg value="-output=${Examples.DEBUG_ROOT}/${Examples.MAIN_SWF}"/>
+                </java>
+            </then>
+            <else>
+                <java jar="${Flex.MXMLC}" fork="true" failonerror="true" maxmemory="256m">
+                    <arg value="-debug=true"/>
+                    <arg value="-load-config=${FLEX_HOME}/frameworks/air-config.xml"/>
+                    <arg value="+flexlib=${FLEX_HOME}/frameworks"/>
+                    <arg value="-library-path+=${aneFiles}"/>
+                    <arg value="-library-path+=${swcFiles}"/>
+                    <arg value="-source-path=${Examples.AS3_ROOT}"/>
+                    <arg value="-file-specs=${Examples.MAIN_SRC_FILE}"/>
+                    <arg value="-output=${Examples.DEBUG_ROOT}/${Examples.MAIN_SWF}"/>
+                </java>
+            </else>
+        </if>
     </target>
 
     <target name="run-debug-swf-socket" depends="compile-debug-swf-socket, init-ant-contrib, unpack-native-extensions-debug" description="Runs the Sample.as in debug mode using socket fallback">
@@ -375,20 +448,46 @@
                            value="${Examples.MAIN_SWF}"/>
         </replace>
 
-        <java jar="${Flex.MXMLC}" fork="true" failonerror="true" maxmemory="256m">
-            <arg value="-debug=false"/>
-            <arg value="-load-config=${FLEX_HOME}/frameworks/air-config.xml"/>
-            <arg value="+flexlib=${FLEX_HOME}/frameworks"/>
-            <arg value="-advanced-telemetry=true"/>
-            <arg value="-external-library-path+=${aneFiles}"/>
-            <arg value="-library-path+=${swcFiles}"/>
-            <arg value="-source-path=${Examples.AS3_ROOT}"/>
-            <arg value="-file-specs=${Examples.MAIN_SRC_FILE}"/>
-            <arg value="-output=${Examples.RELEASE_ROOT}/${Examples.MAIN_SWF}"/>
-        </java>
+        <if>
+            <equals arg1="${Examples.ASC_VERSION}" arg2="2"/>
+            <then>
+                <java jar="${Flex.MXMLC}" fork="true" failonerror="true" maxmemory="256m">
+                    <arg value="-debug=false"/>
+                    <arg value="-load-config=${FLEX_HOME}/frameworks/air-config.xml"/>
+                    <arg value="+flexlib=${FLEX_HOME}/frameworks"/>
+                    <arg value="-advanced-telemetry=true"/>
+                    <arg value="-external-library-path+=${aneFiles}"/>
+                    <arg value="-library-path+=${swcFiles}"/>
+                    <arg value="-source-path=${Examples.AS3_ROOT}"/>
+                    <arg value="-file-specs=${Examples.MAIN_SRC_FILE}"/>
+                    <arg value="-output=${Examples.RELEASE_ROOT}/${Examples.MAIN_SWF}"/>
+                </java>
+            </then>
+            <else>
+                <java jar="${Flex.MXMLC}" fork="true" failonerror="true" maxmemory="256m">
+                    <arg value="-debug=false"/>
+                    <arg value="-load-config=${FLEX_HOME}/frameworks/air-config.xml"/>
+                    <arg value="+flexlib=${FLEX_HOME}/frameworks"/>
+                    <arg value="-external-library-path+=${aneFiles}"/>
+                    <arg value="-library-path+=${swcFiles}"/>
+                    <arg value="-source-path=${Examples.AS3_ROOT}"/>
+                    <arg value="-file-specs=${Examples.MAIN_SRC_FILE}"/>
+                    <arg value="-output=${Examples.RELEASE_ROOT}/${Examples.MAIN_SWF}"/>
+                </java>
+            </else>
+        </if>
     </target>
 
     <target name="unpack-native-extensions-release" depends="init-ant-contrib">
+        <if>
+            <equals arg1="${Examples.ASC_VERSION}" arg2="2"/>
+            <then>
+                <property name="excluded-library" value="${Extension.EXTENSION_NAME}" />
+            </then>
+            <else>
+                <property name="excluded-library" value="${Extension.EXTENSION_NAME}-asc2" />
+            </else>
+        </if>
         <for param="nativeExtensionFile">
             <path>
                 <fileset dir="${Extension.BIN_ROOT}" includes="**/*.ane" excludes="${excluded-library}.ane"/>
