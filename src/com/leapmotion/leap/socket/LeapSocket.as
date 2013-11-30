@@ -47,12 +47,7 @@ package com.leapmotion.leap.socket
 		 * The connection verification state, after handshake process is complete.
 		 */
 		static private const STATE_VERSION:int = 1;
-		
-		/**
-		 * The connection configuration state, after handshake process is complete.
-		 */
-		static private const STATE_CONFIGURE:int = 2;
-		
+				
 		/**
 		 * The established connection state, after configuration process is complete.
 		 */
@@ -250,18 +245,7 @@ package com.leapmotion.leap.socket
 		final private function onSocketDataHandler( event:ProgressEvent = null ):void
 		{
 			if( currentState == STATE_CONNECTING )
-			{
 				readLeapMotionHandshake();
-				return;
-			}
-
-			if( currentState == STATE_CONFIGURE )
-			{
-				sendUTF( "{\"focused\": true}" );
-				currentState = STATE_OPEN;
-				controller.leapmotion::listener.onConnect( controller );
-				return;
-			}
 
 			_isConnected = true;
 
@@ -556,7 +540,10 @@ package com.leapmotion.leap.socket
 					if( json.version !== 4 )
 						throw new Error( "Please update the Leap App (Invalid protocol version)" );
 
-					currentState = STATE_CONFIGURE;
+					sendUTF( "{\"focused\": true}" );
+
+					currentState = STATE_OPEN;
+					controller.leapmotion::listener.onConnect( controller );
 				}
 				
 				// Release current frame and create a new one
@@ -656,7 +643,7 @@ package com.leapmotion.leap.socket
 			text += "Origin: *\r\n";
 			text += "Sec-WebSocket-Version: 13\r\n";
 			text += "\r\n";
-
+			
 			socket.writeMultiByte( text, "us-ascii" );
 		}
 
@@ -679,7 +666,7 @@ package com.leapmotion.leap.socket
 			leapMotionDeviceHandshakeResponse = leapMotionDeviceHandshakeResponse.slice( 0, headersTerminatorIndex );
 
 			var lines:Array = leapMotionDeviceHandshakeResponse.split( /\r?\n/ );
-
+			
 			// Validate status line
 			var responseLine:String = lines.shift();
 			var responseLineMatch:Array = responseLine.match( /^(HTTP\/\d\.\d) (\d{3}) ?(.*)$/i );
