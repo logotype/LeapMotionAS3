@@ -142,6 +142,19 @@ package com.leapmotion.leap
 		public var isTool:Boolean;
 		
 		/**
+		 * Whether or not this Pointable is in an extended posture.
+		 *
+		 * <p>A finger is considered extended if it is extended straight from the hand as if
+		 * pointing. A finger is not extended when it is bent down and curled towards the 
+		 * palm. Tools are always extended.</p>
+		 *
+		 * @return True, if the pointable is extended.
+		 * 
+		 * @since 1.f
+		 */
+		public var isExtended:Boolean;
+		
+		/**
 		 * The current touch zone of this Pointable object.
 		 * 
 		 * <p>The Leap Motion software computes the touch zone based on a
@@ -203,7 +216,7 @@ package com.leapmotion.leap
 
 			return false;
 		}
-
+		
 		/**
 		 * Compare Pointable object equality/inequality.
 		 *

@@ -129,6 +129,11 @@ package com.leapmotion.leap
 		static public const TYPE_PINKY:int = 4;
 		
 		/**
+		 * The name of this finger.
+		 */
+		public var currentType:int;
+		
+		/**
 		 * Constructs a Finger object.
 		 *
 		 * <p>An uninitialized finger is considered invalid.
@@ -139,6 +144,33 @@ package com.leapmotion.leap
 		{
 			isFinger = true;
 			isTool = false;
+		}
+		
+		/**
+		 * The position of the specified joint on this finger in millimeters from the Leap Motion origin.
+		 *
+		 * @param jointIx An index value from the Finger::Joint enumeration identifying the
+		 * joint of interest.
+		 * @return The Vector containing the coordinates of the joint position.
+		 * 
+		 * @since 1.f
+		 */
+		public function jointPosition( jointIx:int ):Vector3
+		{
+			return new Vector3(0,0,0);
+		}
+		
+		/**
+		 * The name of this finger.
+		 *
+		 * @return The anatomical type of this finger as a member of the Finger::Type
+		 * enumeration.
+		 * 
+		 * @since 1.f
+		 */
+		public function type():int
+		{
+			return currentType;
 		}
 
 		/**
