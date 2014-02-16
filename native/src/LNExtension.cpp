@@ -531,6 +531,18 @@ extern "C" {
         return device->getDeviceVerticalViewAngle();
     }
     
+    FREObject LeapNative_getDeviceIsEmbedded(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        return device->getDeviceIsEmbedded();
+    }
+    
+    FREObject LeapNative_getDeviceIsStreaming(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        return device->getDeviceIsStreaming();
+    }
+    
     FREObject LeapNative_getDeviceIsValid(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
         leapnative::LNLeapDevice* device;
         FREGetContextNativeData(ctx, (void **) &device);
@@ -545,51 +557,53 @@ extern "C" {
     //end device class
     
     FRENamedFunction _Shared_methods[] = {
-        { (const uint8_t*) "isSupported", false, LeapNative_isSupported }
+        { (const uint8_t*) "isSupported", 0, LeapNative_isSupported }
 	};
     
 	FRENamedFunction _Instance_methods[] = {
-  		{ (const uint8_t*) "getFrame", false, LeapNative_getFrame },
-  		{ (const uint8_t*) "frameRotationProbability", false, LeapNative_frameRotationProbability },
-  		{ (const uint8_t*) "frameScaleProbability", false, LeapNative_frameScaleProbability },
-  		{ (const uint8_t*) "frameTranslationProbability", false, LeapNative_frameTranslationProbability },
-  		{ (const uint8_t*) "handRotationProbability", false, LeapNative_handRotationProbability },
-  		{ (const uint8_t*) "handScaleProbability", false, LeapNative_handScaleProbability },
-  		{ (const uint8_t*) "handTranslationProbability", false, LeapNative_handTranslationProbability },
-  		{ (const uint8_t*) "enableGesture", false, LeapNative_enableGesture },
-  		{ (const uint8_t*) "isGestureEnabled", false, LeapNative_isGestureEnabled },
-  		{ (const uint8_t*) "hasFocus", false, LeapNative_hasFocus },
-  		{ (const uint8_t*) "getClosestScreenHitPointable", false, LeapNative_getClosestScreenHitPointable },
-  		{ (const uint8_t*) "getClosestScreenHit", false, LeapNative_getClosestScreenHit },
+  		{ (const uint8_t*) "getFrame", 0, LeapNative_getFrame },
+  		{ (const uint8_t*) "frameRotationProbability", 0, LeapNative_frameRotationProbability },
+  		{ (const uint8_t*) "frameScaleProbability", 0, LeapNative_frameScaleProbability },
+  		{ (const uint8_t*) "frameTranslationProbability", 0, LeapNative_frameTranslationProbability },
+  		{ (const uint8_t*) "handRotationProbability", 0, LeapNative_handRotationProbability },
+  		{ (const uint8_t*) "handScaleProbability", 0, LeapNative_handScaleProbability },
+  		{ (const uint8_t*) "handTranslationProbability", 0, LeapNative_handTranslationProbability },
+  		{ (const uint8_t*) "enableGesture", 0, LeapNative_enableGesture },
+  		{ (const uint8_t*) "isGestureEnabled", 0, LeapNative_isGestureEnabled },
+  		{ (const uint8_t*) "hasFocus", 0, LeapNative_hasFocus },
+  		{ (const uint8_t*) "getClosestScreenHitPointable", 0, LeapNative_getClosestScreenHitPointable },
+  		{ (const uint8_t*) "getClosestScreenHit", 0, LeapNative_getClosestScreenHit },
 
-  		{ (const uint8_t*) "getScreenDistanceToPoint", false, LeapNative_getScreenDistanceToPoint },
-  		{ (const uint8_t*) "getScreenHeightPixels", false, LeapNative_getScreenHeightPixels },
-  		{ (const uint8_t*) "getScreenWidthPixels", false, LeapNative_getScreenWidthPixels },
-  		{ (const uint8_t*) "getScreenHorizontalAxis", false, LeapNative_getScreenHorizontalAxis },
-  		{ (const uint8_t*) "getScreenVerticalAxis", false, LeapNative_getScreenVerticalAxis },
-  		{ (const uint8_t*) "getScreenBottomLeftCorner", false, LeapNative_getScreenBottomLeftCorner },
-  		{ (const uint8_t*) "getScreenIntersect", false, LeapNative_getScreenIntersect },
-  		{ (const uint8_t*) "getScreenProject", false, LeapNative_getScreenProject },
-  		{ (const uint8_t*) "getScreenIsValid", false, LeapNative_getScreenIsValid },
-  		{ (const uint8_t*) "getScreenNormal", false, LeapNative_getScreenNormal },
+  		{ (const uint8_t*) "getScreenDistanceToPoint", 0, LeapNative_getScreenDistanceToPoint },
+  		{ (const uint8_t*) "getScreenHeightPixels", 0, LeapNative_getScreenHeightPixels },
+  		{ (const uint8_t*) "getScreenWidthPixels", 0, LeapNative_getScreenWidthPixels },
+  		{ (const uint8_t*) "getScreenHorizontalAxis", 0, LeapNative_getScreenHorizontalAxis },
+  		{ (const uint8_t*) "getScreenVerticalAxis", 0, LeapNative_getScreenVerticalAxis },
+  		{ (const uint8_t*) "getScreenBottomLeftCorner", 0, LeapNative_getScreenBottomLeftCorner },
+  		{ (const uint8_t*) "getScreenIntersect", 0, LeapNative_getScreenIntersect },
+  		{ (const uint8_t*) "getScreenProject", 0, LeapNative_getScreenProject },
+  		{ (const uint8_t*) "getScreenIsValid", 0, LeapNative_getScreenIsValid },
+  		{ (const uint8_t*) "getScreenNormal", 0, LeapNative_getScreenNormal },
 
-  		{ (const uint8_t*) "getDeviceDistanceToBoundary", false, LeapNative_getDeviceDistanceToBoundary },
-  		{ (const uint8_t*) "getDeviceHorizontalViewAngle", false, LeapNative_getDeviceHorizontalViewAngle },
-  		{ (const uint8_t*) "getDeviceVerticalViewAngle", false, LeapNative_getDeviceVerticalViewAngle },
-  		{ (const uint8_t*) "getDeviceIsValid", false, LeapNative_getDeviceIsValid },
-  		{ (const uint8_t*) "getDeviceRange", false, LeapNative_getDeviceRange },
+  		{ (const uint8_t*) "getDeviceDistanceToBoundary", 0, LeapNative_getDeviceDistanceToBoundary },
+  		{ (const uint8_t*) "getDeviceHorizontalViewAngle", 0, LeapNative_getDeviceHorizontalViewAngle },
+  		{ (const uint8_t*) "getDeviceVerticalViewAngle", 0, LeapNative_getDeviceVerticalViewAngle },
+  		{ (const uint8_t*) "getDeviceIsEmbedded", 0, LeapNative_getDeviceIsEmbedded },
+  		{ (const uint8_t*) "getDeviceIsStreaming", 0, LeapNative_getDeviceIsStreaming },
+  		{ (const uint8_t*) "getDeviceIsValid", 0, LeapNative_getDeviceIsValid },
+  		{ (const uint8_t*) "getDeviceRange", 0, LeapNative_getDeviceRange },
 
-  		{ (const uint8_t*) "getConfigBool", false, LeapNative_getConfigBool },
-  		{ (const uint8_t*) "getConfigFloat", false, LeapNative_getConfigFloat },
-  		{ (const uint8_t*) "getConfigInt32", false, LeapNative_getConfigInt32 },
-  		{ (const uint8_t*) "getConfigString", false, LeapNative_getConfigString },
-  		{ (const uint8_t*) "getConfigType", false, LeapNative_getConfigType },
-  		{ (const uint8_t*) "setConfigBool", false, LeapNative_setConfigBool },
-  		{ (const uint8_t*) "setConfigFloat", false, LeapNative_setConfigFloat },
-  		{ (const uint8_t*) "setConfigString", false, LeapNative_setConfigString },
-  		{ (const uint8_t*) "setConfigSave", false, LeapNative_setConfigSave },
-   		{ (const uint8_t*) "setPolicyFlags", false, LeapNative_setPolicyFlags },
-   		{ (const uint8_t*) "getPolicyFlags", false, LeapNative_getPolicyFlags }
+  		{ (const uint8_t*) "getConfigBool", 0, LeapNative_getConfigBool },
+  		{ (const uint8_t*) "getConfigFloat", 0, LeapNative_getConfigFloat },
+  		{ (const uint8_t*) "getConfigInt32", 0, LeapNative_getConfigInt32 },
+  		{ (const uint8_t*) "getConfigString", 0, LeapNative_getConfigString },
+  		{ (const uint8_t*) "getConfigType", 0, LeapNative_getConfigType },
+  		{ (const uint8_t*) "setConfigBool", 0, LeapNative_setConfigBool },
+  		{ (const uint8_t*) "setConfigFloat", 0, LeapNative_setConfigFloat },
+  		{ (const uint8_t*) "setConfigString", 0, LeapNative_setConfigString },
+  		{ (const uint8_t*) "setConfigSave", 0, LeapNative_setConfigSave },
+   		{ (const uint8_t*) "setPolicyFlags", 0, LeapNative_setPolicyFlags },
+   		{ (const uint8_t*) "getPolicyFlags", 0, LeapNative_getPolicyFlags }
 	};
     
     void contextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctions, const FRENamedFunction** functions) {

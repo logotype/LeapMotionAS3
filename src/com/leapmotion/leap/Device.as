@@ -154,18 +154,6 @@ package com.leapmotion.leap
 		}
 		
 		/**
-		 * Returns the type of device.  For the most part, you should not need to use this,
-		 * however if you have functionality that relies on a particular device type you may
-		 * need to.  More values are likely to be added.
-		 * 
-		 * @since 1.2
-		 */
-		public function deviceType():int
-		{
-			return context.call( "getDeviceType" );
-		}
-		
-		/**
 		 * A string containing a brief, human readable description of the Device object.
 		 * @return A description of the Device as a string.
 		 *

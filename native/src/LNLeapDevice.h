@@ -57,6 +57,8 @@ namespace leapnative {
         FREObject getDeviceDistanceToBoundary(Vector position);
         FREObject getDeviceHorizontalViewAngle();
         FREObject getDeviceVerticalViewAngle();
+        FREObject getDeviceIsEmbedded();
+        FREObject getDeviceIsStreaming();
         FREObject getDeviceIsValid();
         FREObject getDeviceRange();
         

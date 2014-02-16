@@ -122,6 +122,15 @@ namespace leapnative {
                 FREObject freHandId;
                 FRENewObjectFromInt32(hand.id(), &freHandId);
                 FRESetObjectProperty(freHand, (const uint8_t*) "id", freHandId, NULL);
+                
+                FREObject freHandIsLeft;
+                FRENewObjectFromBool(hand.isLeft(), &freHandIsLeft);
+                FRESetObjectProperty(freHand, (const uint8_t*) "isLeft", freHandIsLeft, NULL);
+                
+                FREObject freHandIsRight;
+                FRENewObjectFromBool(hand.isRight(), &freHandIsRight);
+                FRESetObjectProperty(freHand, (const uint8_t*) "isRight", freHandIsRight, NULL);
+                
                 FRESetObjectProperty(freHand, (const uint8_t*) "palmNormal", createVector3(hand.palmNormal()[0], hand.palmNormal()[1], hand.palmNormal()[2]), NULL);
                 FRESetObjectProperty(freHand, (const uint8_t*) "palmPosition", createVector3(hand.palmPosition()[0], hand.palmPosition()[1], hand.palmPosition()[2]), NULL);
                 FRESetObjectProperty(freHand, (const uint8_t*) "stabilizedPalmPosition", createVector3(hand.stabilizedPalmPosition()[0], hand.stabilizedPalmPosition()[1], hand.stabilizedPalmPosition()[2]), NULL);
@@ -144,6 +153,14 @@ namespace leapnative {
                 FREObject freSphereRadius;
                 FRENewObjectFromDouble(hand.sphereRadius(), &freSphereRadius);
                 FRESetObjectProperty(freHand, (const uint8_t*) "sphereRadius", freSphereRadius, NULL);
+                
+                FREObject frePinchStrength;
+                FRENewObjectFromDouble(hand.pinchStrength(), &frePinchStrength);
+                FRESetObjectProperty(freHand, (const uint8_t*) "pinchStrength", frePinchStrength, NULL);
+                
+                FREObject freGrabStrength;
+                FRENewObjectFromDouble(hand.grabStrength(), &freGrabStrength);
+                FRESetObjectProperty(freHand, (const uint8_t*) "grabStrength", freGrabStrength, NULL);
                 
                 FREObject freTimeVisible;
                 FRENewObjectFromDouble(hand.timeVisible(), &freTimeVisible);
@@ -183,15 +200,28 @@ namespace leapnative {
                 FREObject frePointableLength;
                 FRENewObjectFromDouble(pointable.length(), &frePointableLength);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "length", frePointableLength, NULL);
-
+                
                 FREObject frePointableWidth;
                 FRENewObjectFromDouble(pointable.width(), &frePointableWidth);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "width", frePointableWidth, NULL);
+                
+                FREObject frePointableExtended;
+                FRENewObjectFromBool(pointable.isExtended(), &frePointableExtended);
+                FRESetObjectProperty(frePointable, (const uint8_t*) "isExtended", frePointableExtended, NULL);
 
                 FRESetObjectProperty(frePointable, (const uint8_t*) "direction", createVector3(pointable.direction().x, pointable.direction().y, pointable.direction().z), NULL);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "tipPosition", createVector3(pointable.tipPosition().x, pointable.tipPosition().y, pointable.tipPosition().z), NULL);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "stabilizedTipPosition", createVector3(pointable.stabilizedTipPosition().x, pointable.stabilizedTipPosition().y, pointable.stabilizedTipPosition().z), NULL);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "tipVelocity", createVector3(pointable.tipVelocity().x, pointable.tipVelocity().y, pointable.tipVelocity().z), NULL);
+                if(pointable.isFinger()) {
+                    FRESetObjectProperty(frePointable, (const uint8_t*) "dipPosition", createVector3(Finger(pointable).jointPosition(Leap::Finger::JOINT_DIP).x, Finger(pointable).jointPosition(Leap::Finger::JOINT_DIP).y, Finger(pointable).jointPosition(Leap::Finger::JOINT_DIP).z), NULL);
+                    FRESetObjectProperty(frePointable, (const uint8_t*) "pipPosition", createVector3(Finger(pointable).jointPosition(Leap::Finger::JOINT_PIP).x, Finger(pointable).jointPosition(Leap::Finger::JOINT_PIP).y, Finger(pointable).jointPosition(Leap::Finger::JOINT_PIP).z), NULL);
+                    FRESetObjectProperty(frePointable, (const uint8_t*) "mcpPosition", createVector3(Finger(pointable).jointPosition(Leap::Finger::JOINT_MCP).x, Finger(pointable).jointPosition(Leap::Finger::JOINT_MCP).y, Finger(pointable).jointPosition(Leap::Finger::JOINT_MCP).z), NULL);
+                    
+                    FREObject frePointableType;
+                    FRENewObjectFromInt32(Finger(pointable).type(), &frePointableType);
+                    FRESetObjectProperty(frePointable, (const uint8_t*) "type", frePointableType, NULL);
+                }
                 
                 FREObject frePointableTimeVisible;
                 FRENewObjectFromDouble(pointable.timeVisible(), &frePointableTimeVisible);
@@ -220,7 +250,7 @@ namespace leapnative {
                 FREObject frePointableZone;
                 FRENewObjectFromInt32(zone, &frePointableZone);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "touchZone", frePointableZone, NULL);
-
+                
                 //map to hand & back
                 if(pointable.hand().isValid()) {
                     FREObject freHand = freHandsMap[pointable.hand().id()];
@@ -587,6 +617,26 @@ namespace leapnative {
         FRENewObjectFromDouble((double) device.verticalViewAngle(), &freDeviceVerticalViewAngle);
         
         return freDeviceVerticalViewAngle;
+    }
+    
+    FREObject LNLeapDevice::getDeviceIsEmbedded() {
+        DeviceList deviceList = controller->devices();
+        Device device = deviceList[0];
+        
+        FREObject freReturnValue;
+        FRENewObjectFromBool(device.isEmbedded() ? 1 : 0, &freReturnValue);
+        
+        return freReturnValue;
+    }
+    
+    FREObject LNLeapDevice::getDeviceIsStreaming() {
+        DeviceList deviceList = controller->devices();
+        Device device = deviceList[0];
+        
+        FREObject freReturnValue;
+        FRENewObjectFromBool(device.isStreaming() ? 1 : 0, &freReturnValue);
+        
+        return freReturnValue;
     }
     
     FREObject LNLeapDevice::getDeviceIsValid() {

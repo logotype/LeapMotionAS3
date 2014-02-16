@@ -58,6 +58,8 @@ extern "C" {
     FREObject LeapNative_getDeviceDistanceToBoundary(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
     FREObject LeapNative_getDeviceHorizontalViewAngle(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
     FREObject LeapNative_getDeviceVerticalViewAngle(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
+    FREObject LeapNative_getDeviceIsEmbedded(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
+    FREObject LeapNative_getDeviceIsStreaming(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
     FREObject LeapNative_getDeviceIsValid(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
     FREObject LeapNative_getDeviceRange(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
     

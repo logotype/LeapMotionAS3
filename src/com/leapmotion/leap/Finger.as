@@ -131,7 +131,7 @@ package com.leapmotion.leap
 		/**
 		 * The name of this finger.
 		 */
-		public var currentType:int;
+		public var type:int;
 		
 		/**
 		 * The position of the distal interphalangeal joint of the finger.
@@ -191,11 +191,28 @@ package com.leapmotion.leap
 		 */
 		public function jointPosition( jointIx:int ):Vector3
 		{
-			return new Vector3(0,0,0);
+			switch( jointIx )
+			{
+				case JOINT_MCP:
+					return mcpPosition;
+					break;
+				case JOINT_PIP:
+					return pipPosition;
+					break;
+				case JOINT_DIP:
+					return dipPosition;
+					break;
+				case JOINT_TIP:
+					return tipPosition;
+					break;
+				default:
+					return Vector3.invalid();
+					break;
+			}
 		}
 		
 		/**
-		 * The joint positions of this finger as an array in the order base to tip.
+		 * The joint positions of this finger as a vector in the order base to tip.
 		 * 
 		 * @return A Vector of joint positions.
 		 */
@@ -210,19 +227,6 @@ package com.leapmotion.leap
 			return positionsVector;
 		}
 		
-		/**
-		 * The name of this finger.
-		 *
-		 * @return The anatomical type of this finger as a member of the Finger::Type
-		 * enumeration.
-		 * 
-		 * @since 1.f
-		 */
-		public function type():int
-		{
-			return currentType;
-		}
-
 		/**
 		 * Returns an invalid Finger object.
 		 *

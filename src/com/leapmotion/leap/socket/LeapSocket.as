@@ -77,7 +77,12 @@ package com.leapmotion.leap.socket
 		 * Specifies which port to connect to, default 6437.
 		 */
 		private var port:int = 6437;
-
+		
+		/**
+		 * Specifies which protocol version.
+		 */
+		private var protocol:int = 5;
+		
 		/**
 		 * Number of bytes of the handshake response.
 		 */
@@ -397,6 +402,7 @@ package com.leapmotion.leap.socket
 							Finger( pointable ).dipPosition = new Vector3( json.pointables[ i ].dipPosition[ 0 ], json.pointables[ i ].dipPosition[ 1 ], json.pointables[ i ].dipPosition[ 2 ] );
 							Finger( pointable ).pipPosition = new Vector3( json.pointables[ i ].pipPosition[ 0 ], json.pointables[ i ].pipPosition[ 1 ], json.pointables[ i ].pipPosition[ 2 ] );
 							Finger( pointable ).mcpPosition = new Vector3( json.pointables[ i ].mcpPosition[ 0 ], json.pointables[ i ].mcpPosition[ 1 ], json.pointables[ i ].mcpPosition[ 2 ] );
+							Finger( pointable ).type = json.pointables[ i ].type;
 							currentFrame.fingers.push( pointable );
 							if( pointable.hand )
 								pointable.hand.fingers.push( pointable );
@@ -546,7 +552,7 @@ package com.leapmotion.leap.socket
 				}
 				else if( currentState == STATE_VERSION && json.version )
 				{
-					if( json.version !== 4 )
+					if( json.version !== protocol )
 						throw new Error( "Please update the Leap App (Invalid protocol version)" );
 
 					sendUTF( "{\"focused\": true}" );
@@ -644,7 +650,7 @@ package com.leapmotion.leap.socket
 		final private function sendHandshake():void
 		{
 			var text:String = "";
-			text += "GET /v5.json HTTP/1.1\r\n";
+			text += "GET /v" + protocol + ".json HTTP/1.1\r\n";
 			text += "Host: " + host + ":" + this.port + "\r\n";
 			text += "Upgrade: websocket\r\n";
 			text += "Connection: Upgrade\r\n";

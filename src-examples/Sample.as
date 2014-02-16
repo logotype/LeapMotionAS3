@@ -64,7 +64,15 @@ package
 					// Calculate the hand's average finger tip position
 					var avgPos:Vector3 = Vector3.zero();
 					for each ( var finger:Finger in fingers )
+					{
 						avgPos = avgPos.plus( finger.tipPosition );
+
+						// Skeleton API
+						trace( "Finger distal: " + finger.dipPosition );
+						trace( "Finger proximal: " + finger.pipPosition );
+						trace( "Finger knuckle: " + finger.mcpPosition );
+						trace( "Finger type: " + finger.type );
+					}
 
 					avgPos = avgPos.divide( fingers.length );
 					trace( "Hand has " + fingers.length + " fingers, average finger tip position: " + avgPos );
