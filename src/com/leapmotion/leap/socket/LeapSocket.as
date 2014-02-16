@@ -314,6 +314,10 @@ package com.leapmotion.leap.socket
 						hand.sphereCenter = new Vector3( json.hands[ i ].sphereCenter[ 0 ], json.hands[ i ].sphereCenter[ 1 ], json.hands[ i ].sphereCenter[ 2 ] );
 						hand.sphereRadius = json.hands[ i ].sphereRadius;
 						hand.timeVisible = json.hands[ i ].timeVisible;
+						hand.isLeft = json.hands[ i ].isLeft;
+						hand.isRight = json.hands[ i ].isRight;
+						hand.pinchStrength = json.hands[ i ].pinchStrength;
+						hand.grabStrength = json.hands[ i ].grabStrength;
 						hand.translationVector = new Vector3( json.hands[ i ].t[ 0 ], json.hands[ i ].t[ 1 ], json.hands[ i ].t[ 2 ] );
 						currentFrame.hands.push( hand );
 					}
@@ -379,6 +383,7 @@ package com.leapmotion.leap.socket
 						{
 							pointable.isTool = true;
 							pointable.isFinger = false;
+							pointable.isExtended = true;
 							pointable.width = json.pointables[ i ].width;
 							currentFrame.tools.push( pointable );
 							if( pointable.hand )
@@ -388,6 +393,10 @@ package com.leapmotion.leap.socket
 						{
 							pointable.isTool = false;
 							pointable.isFinger = true;
+							pointable.isExtended = json.pointables[ i ].extended;
+							Finger( pointable ).dipPosition = new Vector3( json.pointables[ i ].dipPosition[ 0 ], json.pointables[ i ].dipPosition[ 1 ], json.pointables[ i ].dipPosition[ 2 ] );
+							Finger( pointable ).pipPosition = new Vector3( json.pointables[ i ].pipPosition[ 0 ], json.pointables[ i ].pipPosition[ 1 ], json.pointables[ i ].pipPosition[ 2 ] );
+							Finger( pointable ).mcpPosition = new Vector3( json.pointables[ i ].mcpPosition[ 0 ], json.pointables[ i ].mcpPosition[ 1 ], json.pointables[ i ].mcpPosition[ 2 ] );
 							currentFrame.fingers.push( pointable );
 							if( pointable.hand )
 								pointable.hand.fingers.push( pointable );
@@ -635,7 +644,7 @@ package com.leapmotion.leap.socket
 		final private function sendHandshake():void
 		{
 			var text:String = "";
-			text += "GET /v4.json HTTP/1.1\r\n";
+			text += "GET /v5.json HTTP/1.1\r\n";
 			text += "Host: " + host + ":" + this.port + "\r\n";
 			text += "Upgrade: websocket\r\n";
 			text += "Connection: Upgrade\r\n";

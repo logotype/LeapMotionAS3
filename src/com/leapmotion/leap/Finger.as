@@ -134,6 +134,40 @@ package com.leapmotion.leap
 		public var currentType:int;
 		
 		/**
+		 * The position of the distal interphalangeal joint of the finger.
+		 * This joint is closest to the tip.
+		 * 
+		 * <p>The distal interphalangeal joint is located between the most extreme segment
+		 * of the finger (the distal phalanx) and the middle segment (the intermediate
+		 * phalanx).</p>
+		 */  
+		public var dipPosition:Vector3;
+		
+		/**
+		 * The position of the proximal interphalangeal joint of the finger. This joint is the middle
+		 * joint of a finger.
+		 *
+		 * <p>The proximal interphalangeal joint is located between the two finger segments
+		 * closest to the hand (the proximal and the intermediate phalanges). On a thumb,
+		 * which lacks an intermediate phalanx, this joint index identifies the knuckle joint
+		 * between the proximal phalanx and the metacarpal bone.</p>
+		 */  
+		public var pipPosition:Vector3;
+		
+		/**
+		 * The position of the metacarpopophalangeal joint, or knuckle, of the finger.
+		 *
+		 * <p>The metacarpopophalangeal joint is located at the base of a finger between
+		 * the metacarpal bone and the first phalanx. The common name for this joint is
+		 * the knuckle.</p>
+		 *
+		 * <p>On a thumb, which has one less phalanx than a finger, this joint index
+		 * identifies the thumb joint near the base of the hand, between the carpal
+		 * and metacarpal bones.</p>
+		 */  
+		public var mcpPosition:Vector3;
+		
+		/**
 		 * Constructs a Finger object.
 		 *
 		 * <p>An uninitialized finger is considered invalid.
@@ -158,6 +192,22 @@ package com.leapmotion.leap
 		public function jointPosition( jointIx:int ):Vector3
 		{
 			return new Vector3(0,0,0);
+		}
+		
+		/**
+		 * The joint positions of this finger as an array in the order base to tip.
+		 * 
+		 * @return A Vector of joint positions.
+		 */
+		public function positions():Vector.<Vector3>
+		{
+			var positionsVector:Vector.<Vector3> = new Vector.<Vector3>();
+			positionsVector.push(mcpPosition);
+			positionsVector.push(pipPosition);
+			positionsVector.push(dipPosition);
+			positionsVector.push(tipPosition);
+			
+			return positionsVector;
 		}
 		
 		/**
