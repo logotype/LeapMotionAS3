@@ -214,9 +214,9 @@ namespace leapnative {
                 FRESetObjectProperty(frePointable, (const uint8_t*) "stabilizedTipPosition", createVector3(pointable.stabilizedTipPosition().x, pointable.stabilizedTipPosition().y, pointable.stabilizedTipPosition().z), NULL);
                 FRESetObjectProperty(frePointable, (const uint8_t*) "tipVelocity", createVector3(pointable.tipVelocity().x, pointable.tipVelocity().y, pointable.tipVelocity().z), NULL);
                 if(pointable.isFinger()) {
-                    FRESetObjectProperty(frePointable, (const uint8_t*) "dipPosition", createVector3(Finger(pointable).jointPosition(Leap::Finger::JOINT_DIP).x, Finger(pointable).jointPosition(Leap::Finger::JOINT_DIP).y, Finger(pointable).jointPosition(Leap::Finger::JOINT_DIP).z), NULL);
-                    FRESetObjectProperty(frePointable, (const uint8_t*) "pipPosition", createVector3(Finger(pointable).jointPosition(Leap::Finger::JOINT_PIP).x, Finger(pointable).jointPosition(Leap::Finger::JOINT_PIP).y, Finger(pointable).jointPosition(Leap::Finger::JOINT_PIP).z), NULL);
-                    FRESetObjectProperty(frePointable, (const uint8_t*) "mcpPosition", createVector3(Finger(pointable).jointPosition(Leap::Finger::JOINT_MCP).x, Finger(pointable).jointPosition(Leap::Finger::JOINT_MCP).y, Finger(pointable).jointPosition(Leap::Finger::JOINT_MCP).z), NULL);
+                    FRESetObjectProperty(frePointable, (const uint8_t*) "dipPosition", createVector3(Finger(pointable).jointPosition(Finger::JOINT_DIP).x, Finger(pointable).jointPosition(Finger::JOINT_DIP).y, Finger(pointable).jointPosition(Finger::JOINT_DIP).z), NULL);
+                    FRESetObjectProperty(frePointable, (const uint8_t*) "pipPosition", createVector3(Finger(pointable).jointPosition(Finger::JOINT_PIP).x, Finger(pointable).jointPosition(Finger::JOINT_PIP).y, Finger(pointable).jointPosition(Finger::JOINT_PIP).z), NULL);
+                    FRESetObjectProperty(frePointable, (const uint8_t*) "mcpPosition", createVector3(Finger(pointable).jointPosition(Finger::JOINT_MCP).x, Finger(pointable).jointPosition(Finger::JOINT_MCP).y, Finger(pointable).jointPosition(Finger::JOINT_MCP).z), NULL);
                     
                     FREObject frePointableType;
                     FRENewObjectFromInt32(Finger(pointable).type(), &frePointableType);
