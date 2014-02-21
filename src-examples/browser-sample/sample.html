@@ -14,6 +14,7 @@
 			var pauseOnGesture = false;
 			var focusListener;
 			var blurListener;
+			var flashObject;
 			
 			// Support both the WebSocket and MozWebSocket objects
 			if ((typeof(WebSocket) == 'undefined') &&
@@ -22,7 +23,8 @@
 			}
 			
 			function ready() {
-				alert("called from flash");
+				flashObject = document.getElementById("flashObject");
+				init();
 			}
 			
 			// Create the socket with event handlers
@@ -44,29 +46,19 @@
 										   ws.send(JSON.stringify({focused: false})); // relinquish focus
 									 });
 			
-					document.getElementById("main").style.visibility = "visible";
-					document.getElementById("connection").innerHTML = "WebSocket connection open!";
 				};
 			
 				// On message received
 				ws.onmessage = function(event) {
 					if (!paused) {
-						var obj = JSON.parse(event.data);
-						var str = JSON.stringify(obj, undefined, 2);
-						document.getElementById("output").innerHTML = '<pre>' + str + '</pre>';
-						if (pauseOnGesture && obj.gestures.length > 0) {
-							togglePause();
-						}
+						flashObject.data(event.data);
+						console.log(event.data);
 					}
 				};
 				
 				// On socket close
 				ws.onclose = function(event) {
 					ws = null;
-					window.removeListener("focus", focusListener);
-					window.removeListener("blur", blurListener);
-					document.getElementById("main").style.visibility = "hidden";
-					document.getElementById("connection").innerHTML = "WebSocket connection closed";
 				}
 			
 				// On socket error
@@ -74,29 +66,11 @@
 				  alert("Received error");
 				};
 			}
-			
-			function togglePause() {
-			  paused = !paused;
-			
-			  if (paused) {
-				document.getElementById("pause").innerText = "Resume";
-			  } else {
-				document.getElementById("pause").innerText = "Pause";
-			  }
-			}
-			
-			function pauseForGestures() {
-			  if (document.getElementById("pauseOnGesture").checked) {
-				pauseOnGesture = true;
-			  } else {
-				pauseOnGesture = false;
-			  }
-			}
         </script>
 	</head>
 	<body>
 		<div id="flashContent">
-			<object type="application/x-shockwave-flash" data="sample.swf" width="550" height="400" id="sample" style="float: none; vertical-align:middle">
+			<object id="flashObject" type="application/x-shockwave-flash" data="sample.swf" width="550" height="400" id="sample" style="float: none; vertical-align:middle">
 				<param name="movie" value="sample.swf" />
 				<param name="quality" value="high" />
 				<param name="bgcolor" value="#ffffff" />
