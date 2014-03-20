@@ -77,6 +77,14 @@ package com.leapmotion.leap
 		 * <p>The duration (in seconds) that this Hand has been tracked.</p> 
 		 */
 		public var timeVisible:Number;
+		
+		/**
+		 * How confident we are with a given hand pose.
+		 *     
+		 * The confidence level ranges between 0.0 and 1.0 inclusive.
+		 * @since 2.0
+		 */
+		public var confidence:Number;
 
 		/**
 		 * Identifies whether this Hand is a left hand.

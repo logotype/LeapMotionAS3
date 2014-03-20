@@ -81,7 +81,7 @@ package com.leapmotion.leap.socket
 		/**
 		 * Specifies which protocol version.
 		 */
-		private var protocol:int = 5;
+		private var protocol:int = 6;
 		
 		/**
 		 * Number of bytes of the handshake response.

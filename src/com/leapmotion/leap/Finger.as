@@ -130,6 +130,8 @@ package com.leapmotion.leap
 		
 		/**
 		 * The name of this finger.
+		 *
+		 * <p>The anatomical type of this finger as a member of the Finger::Type enumeration.</p>
 		 */
 		public var type:int;
 		
