@@ -1,11 +1,3 @@
-//
-//  LNLeapListener.h
-//  LeapNative
-//
-//  Created by Wouter Verweirder on 01/02/13.
-//  Copyright (c) 2013 Wouter Verweirder. All rights reserved.
-//
-
 #ifndef __LeapNative__LNLeapListener__
 #define __LeapNative__LNLeapListener__
 

@@ -1,11 +1,3 @@
-//
-//  LNLeapListener.cpp
-//  LeapNative
-//
-//  Created by Wouter Verweirder on 01/02/13.
-//  Copyright (c) 2013 Wouter Verweirder. All rights reserved.
-//
-
 #include "LNLeapListener.h"
 
 namespace leapnative {

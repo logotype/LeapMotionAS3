@@ -92,7 +92,12 @@ package com.leapmotion.leap.native
 		 * Whether the Leap Motion is currently connected.
 		 */
 		private var _isConnected:Boolean = false;
-
+		
+		/**
+		 * Whether the the application is connected to the deamon/service.
+		 */
+		private var _isServiceConnected:Boolean = false;
+		
 		/**
 		 * Event Dispatcher singleton.
 		 */
@@ -348,7 +353,15 @@ package com.leapmotion.leap.native
 		{
 			return _isConnected;
 		}
-
+		
+		/**
+		 * Whether the the application is connected to the deamon/service.
+		 */
+		public function get isServiceConnected():Boolean
+		{
+			return context.call( "isServiceConnected" );
+		}
+		
 		/**
 		 * Most recent Frame received.
 		 */

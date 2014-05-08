@@ -1,11 +1,3 @@
-//
-//  LNLeapDevice.cpp
-//  LeapNative
-//
-//  Created by Wouter Verweirder on 01/02/13.
-//  Copyright (c) 2013 Wouter Verweirder. All rights reserved.
-//
-
 #include "LNLeapDevice.h"
 #include <map>
 
@@ -460,133 +452,12 @@ namespace leapnative {
         return freReturnValue;
     }
     
-    FREObject LNLeapDevice::getClosestScreenHitPointable(int pointableId) {
-        ScreenList screenList = controller->locatedScreens();
-        Frame frame = controller->frame();
-        PointableList pointables = frame.pointables();
-        Pointable pointable;
-        
-        // TODO: Create a fake pointable width tipPosition and direction instead of looping
-        bool didFind = false;
-        for (int i = 0; i < pointables.count(); i++) {
-            if (pointables[i].id() == pointableId) {
-                pointable = pointables[i];
-                didFind = true;
-                break;
-            }
-        }
-        
-        FREObject freScreenId;
-        
-        if(didFind) {
-            Screen screen = screenList.closestScreenHit(pointable);
-            FRENewObjectFromInt32(screen.id(), &freScreenId);
-        } else {
-            FRENewObjectFromInt32(0, &freScreenId);
-        }
-        return freScreenId;
-    }
-    
-    FREObject LNLeapDevice::getClosestScreenHit(Vector position, Vector direction) {
-        ScreenList screenList = controller->locatedScreens();
-        Frame frame = controller->frame();
-        Screen screen = screenList.closestScreenHit(position, direction);
-
-        FREObject freScreenId;
-        FRENewObjectFromInt32(screen.id(), &freScreenId);
-
-        return freScreenId;
-    }
-    
-    //start screen class
-    FREObject LNLeapDevice::getScreenDistanceToPoint(int screenId, Vector point) {
-        ScreenList screenList = controller->locatedScreens();
-        Screen screen = screenList[screenId];
-        
-        FREObject freScreenDistance;
-        FRENewObjectFromDouble((double) screen.distanceToPoint(point), &freScreenDistance);
-        
-        return freScreenDistance;
-    }
-    
-    FREObject LNLeapDevice::getScreenHeightPixels(int screenId) {
-        ScreenList screenList = controller->locatedScreens();
-        Screen screen = screenList[screenId];
-        
+    FREObject LNLeapDevice::isServiceConnected() {
         FREObject freReturnValue;
-        FRENewObjectFromInt32((int32_t) screen.heightPixels(), &freReturnValue);
-        
+        // disabled during beta 2.0 FRENewObjectFromBool(controller->isServiceConnected(), &freReturnValue);
+        FRENewObjectFromBool(true, &freReturnValue);
         return freReturnValue;
     }
-    
-    FREObject LNLeapDevice::getScreenWidthPixels(int screenId) {
-        ScreenList screenList = controller->locatedScreens();
-        Screen screen = screenList[screenId];
-        
-        FREObject freReturnValue;
-        FRENewObjectFromInt32((int32_t) screen.widthPixels(), &freReturnValue);
-        
-        return freReturnValue;
-    }
-    
-    FREObject LNLeapDevice::getScreenHorizontalAxis(int screenId) {
-        ScreenList screenList = controller->locatedScreens();
-        Screen screen = screenList[screenId];
-        
-        const Vector vector = screen.horizontalAxis();
-        return createVector3(vector.x, vector.y, vector.z);
-    }
-    
-    FREObject LNLeapDevice::getScreenVerticalAxis(int screenId) {
-        ScreenList screenList = controller->locatedScreens();
-        Screen screen = screenList[screenId];
-        
-        const Vector vector = screen.verticalAxis();
-        return createVector3(vector.x, vector.y, vector.z);
-    }
-    
-    FREObject LNLeapDevice::getScreenBottomLeftCorner(int screenId) {
-        ScreenList screenList = controller->locatedScreens();
-        Screen screen = screenList[screenId];
-        
-        const Vector vector = screen.bottomLeftCorner();
-        return createVector3(vector.x, vector.y, vector.z);
-    }
-    
-    FREObject LNLeapDevice::getScreenIntersect(int screenId, Vector position, Vector direction, bool normalize, float clampRatio) {
-        ScreenList screenList = controller->locatedScreens();
-        Screen screen = screenList[screenId];
-        
-        const Vector vector = screen.intersect(position, direction, normalize, clampRatio);
-        return createVector3(vector.x, vector.y, vector.z);
-    }
-    
-    FREObject LNLeapDevice::getScreenProject(int screenId, Vector position, bool normalize, float clampRatio) {
-        ScreenList screenList = controller->locatedScreens();
-        Screen screen = screenList[screenId];
-        
-        const Vector vector = screen.project(position, normalize, clampRatio);
-        return createVector3(vector.x, vector.y, vector.z);
-    }
-    
-    FREObject LNLeapDevice::getScreenIsValid(int screenId) {
-        ScreenList screenList = controller->locatedScreens();
-        Screen screen = screenList[screenId];
-        
-        FREObject freReturnValue;
-        FRENewObjectFromBool(screen.isValid(), &freReturnValue);
-        
-        return freReturnValue;
-    }
-    
-    FREObject LNLeapDevice::getScreenNormal(int screenId) {
-        ScreenList screenList = controller->locatedScreens();
-        Screen screen = screenList[screenId];
-        
-        const Vector vector = screen.normal();
-        return createVector3(vector.x, vector.y, vector.z);
-    }
-    //end screen class
     
     //start device class
     FREObject LNLeapDevice::getDeviceDistanceToBoundary(Vector position) {
@@ -655,6 +526,16 @@ namespace leapnative {
         
         FREObject freDeviceRange;
         FRENewObjectFromDouble((double) device.range(), &freDeviceRange);
+        
+        return freDeviceRange;
+    }
+    
+    FREObject LNLeapDevice::getDeviceType() {
+        DeviceList deviceList = controller->devices();
+        Device device = deviceList[0];
+        
+        FREObject freDeviceRange;
+        FRENewObjectFromDouble((int) device.type(), &freDeviceRange);
         
         return freDeviceRange;
     }

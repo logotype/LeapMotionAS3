@@ -35,7 +35,7 @@ package com.leapmotion.leap
 		 * <p>The joints along the finger are indexed from 0 to 3 (tip to knuckle). The same
 		 * joint identifiers are used for the thumb, even though the thumb has one less
 		 * phalanx bone than the other digits. This puts the base joint (JOINT_MCP) at the
-		 * base of thumb's metacarpal bone.</p> 
+		 * base of the thumb's metacarpal bone.</p> 
 		 *
 		 * <p>Pass a member of this enumeration to Finger::jointPosition() to get the
 		 * physical position of that joint.</p>

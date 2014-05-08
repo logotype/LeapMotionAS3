@@ -116,6 +116,11 @@ package com.leapmotion.leap.socket
 		private var _isConnected:Boolean = false;
 		
 		/**
+		 * Whether the the application is connected to the deamon/service.
+		 */
+		private var _isServiceConnected:Boolean = false;
+		
+		/**
 		 * Whether the Leap Motion is reporting gestures.
 		 */
 		private var _isGesturesEnabled:Boolean = false;
@@ -786,6 +791,14 @@ package com.leapmotion.leap.socket
 		final public function get isConnected():Boolean
 		{
 			return _isConnected;
+		}
+		
+		/**
+		 * Whether the the application is connected to the deamon/service.
+		 */
+		final public function get isServiceConnected():Boolean
+		{
+			return _isServiceConnected;
 		}
 		
 		/**

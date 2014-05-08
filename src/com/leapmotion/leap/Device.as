@@ -21,7 +21,18 @@ package com.leapmotion.leap
 		 */
 		private var context:Object;
 		
+		/**
+		 * The available types of Leap Motion controllers. 
+		 */
+		
+		/**
+		 * A standalone USB peripheral. The original Leap Motion controller device. 
+		 */		
 		static public const DEVICE_PERIPHERAL:int = 1;
+		
+		/**
+		 * A controller embedded in a laptop computer. 
+		 */		
 		static public const DEVICE_KEYBOARD:int = 0;
 		static public const DEVICE_LAPTOP:int = 0;
 		
@@ -132,7 +143,7 @@ package com.leapmotion.leap
 		}
 		
 		/**
-		 * Reports the device is embedded instead of an external peripheral.
+		 * Reports whether this device is embedded in another computer or computer peripheral.
 		 * 
 		 * @since 1.2
 		 */    
@@ -142,15 +153,31 @@ package com.leapmotion.leap
 		}
 		
 		/**
-		 * The device's streaming state. All listed Devices are implied to be physically attached,
-		 * and if this is true they are currently streaming data. Currently we only support one
-		 * streaming device at a time.
+		 * Reports whether this device is streaming data to your application.
+		 * 
+		 * Currently only one controller can provide data at a time.
 		 * 
 		 * @since 1.2
 		 */
 		public function isStreaming():Boolean
 		{
 			return context.call( "getDeviceIsStreaming" );
+		}
+		
+		/**
+		 * The device type.
+		 * 
+		 * <p>Use the device type value in the (rare) circumstances that you have
+		 * an application feature which relies on a particular type of device.
+		 * Current types of device include the original Leap Motion peripheral,
+		 * keyboard-embedded controllers, and laptop-embedded controllers.</p>
+		 * 
+		 * @return The physical device type as a member of the DeviceType enumeration.
+		 * 
+		 */
+		public function type():Boolean
+		{
+			return context.call( "getDeviceType" );
 		}
 		
 		/**

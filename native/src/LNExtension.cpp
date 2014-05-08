@@ -1,11 +1,3 @@
-//
-//  LNExtension.cpp
-//  LeapNative
-//
-//  Created by Wouter Verweirder on 01/02/13.
-//  Copyright (c) 2013 Wouter Verweirder. All rights reserved.
-//
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
@@ -97,195 +89,12 @@ extern "C" {
         return device->hasFocus();
     }
     
-    FREObject LeapNative_getClosestScreenHitPointable(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+    FREObject LeapNative_isServiceConnected(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
         leapnative::LNLeapDevice* device;
         FREGetContextNativeData(ctx, (void **) &device);
         
-        int pointableId;
-        FREGetObjectAsInt32(argv[0], &pointableId);
-        
-        return device->getClosestScreenHitPointable(pointableId);
+        return device->isServiceConnected();
     }
-    
-    FREObject LeapNative_getClosestScreenHit(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
-        leapnative::LNLeapDevice* device;
-        FREGetContextNativeData(ctx, (void **) &device);
-        
-        double pX;
-        FREGetObjectAsDouble(argv[0], &pX);
-        
-        double pY;
-        FREGetObjectAsDouble(argv[1], &pY);
-        
-        double pZ;
-        FREGetObjectAsDouble(argv[2], &pZ);
-        
-        double dX;
-        FREGetObjectAsDouble(argv[3], &dX);
-        
-        double dY;
-        FREGetObjectAsDouble(argv[4], &dY);
-        
-        double dZ;
-        FREGetObjectAsDouble(argv[5], &dZ);
-        
-        Vector position = Vector((float) pX, (float) pY, (float) pZ);
-        Vector direction = Vector((float) dX, (float) dY, (float) dZ);
-        
-        return device->getClosestScreenHit(position, direction);
-    }
-
-    //start screen class
-    FREObject LeapNative_getScreenDistanceToPoint(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
-        leapnative::LNLeapDevice* device;
-        FREGetContextNativeData(ctx, (void **) &device);
-
-        int screenId;
-        double pX;
-        double pY;
-        double pZ;
-        FREGetObjectAsInt32(argv[0], &screenId);
-        FREGetObjectAsDouble(argv[1], &pX);
-        FREGetObjectAsDouble(argv[2], &pY);
-        FREGetObjectAsDouble(argv[3], &pZ);
-        
-        Vector point = Vector((float) pX, (float) pY, (float) pZ);
-
-        return device->getScreenDistanceToPoint(screenId, point);
-    }
-    
-    FREObject LeapNative_getScreenHeightPixels(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
-        leapnative::LNLeapDevice* device;
-        FREGetContextNativeData(ctx, (void **) &device);
-        
-        int screenId;
-        FREGetObjectAsInt32(argv[0], &screenId);
-        
-        return device->getScreenHeightPixels(screenId);
-    }
-    
-    FREObject LeapNative_getScreenWidthPixels(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
-        leapnative::LNLeapDevice* device;
-        FREGetContextNativeData(ctx, (void **) &device);
-        
-        int screenId;
-        FREGetObjectAsInt32(argv[0], &screenId);
-        
-        return device->getScreenWidthPixels(screenId);
-    }
-    
-    FREObject LeapNative_getScreenHorizontalAxis(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
-        leapnative::LNLeapDevice* device;
-        FREGetContextNativeData(ctx, (void **) &device);
-        
-        int screenId;
-        FREGetObjectAsInt32(argv[0], &screenId);
-        
-        return device->getScreenHorizontalAxis(screenId);
-    }
-    
-    FREObject LeapNative_getScreenVerticalAxis(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
-        leapnative::LNLeapDevice* device;
-        FREGetContextNativeData(ctx, (void **) &device);
-        
-        int screenId;
-        FREGetObjectAsInt32(argv[0], &screenId);
-        
-        return device->getScreenVerticalAxis(screenId);
-    }
-    
-    FREObject LeapNative_getScreenBottomLeftCorner(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
-        leapnative::LNLeapDevice* device;
-        FREGetContextNativeData(ctx, (void **) &device);
-        
-        int screenId;
-        FREGetObjectAsInt32(argv[0], &screenId);
-        
-        return device->getScreenBottomLeftCorner(screenId);
-    }
-    
-    FREObject LeapNative_getScreenIntersect(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
-        leapnative::LNLeapDevice* device;
-        FREGetContextNativeData(ctx, (void **) &device);
-        
-        int screenId;
-        FREGetObjectAsInt32(argv[0], &screenId);
-        
-        double pX;
-        FREGetObjectAsDouble(argv[1], &pX);
-        
-        double pY;
-        FREGetObjectAsDouble(argv[2], &pY);
-        
-        double pZ;
-        FREGetObjectAsDouble(argv[3], &pZ);
-        
-        double dX;
-        FREGetObjectAsDouble(argv[4], &dX);
-        
-        double dY;
-        FREGetObjectAsDouble(argv[5], &dY);
-        
-        double dZ;
-        FREGetObjectAsDouble(argv[6], &dZ);
-        
-        bool normalize = createBoolFromFREObject(argv[7]);
-        
-        double clampRatio;
-        FREGetObjectAsDouble(argv[8], &clampRatio);
-        
-        Vector position = Vector((float) pX, (float) pY, (float) pZ);
-        Vector direction = Vector((float) dX, (float) dY, (float) dZ);
-        
-        return device->getScreenIntersect(screenId, position, direction, normalize, (float) clampRatio);
-    }
-    
-    FREObject LeapNative_getScreenProject(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
-        leapnative::LNLeapDevice* device;
-        FREGetContextNativeData(ctx, (void **) &device);
-        
-        int screenId;
-        FREGetObjectAsInt32(argv[0], &screenId);
-        
-        double pX;
-        FREGetObjectAsDouble(argv[1], &pX);
-        
-        double pY;
-        FREGetObjectAsDouble(argv[2], &pY);
-        
-        double pZ;
-        FREGetObjectAsDouble(argv[3], &pZ);
-        
-        bool normalize = createBoolFromFREObject(argv[4]);
-        
-        double clampRatio;
-        FREGetObjectAsDouble(argv[5], &clampRatio);
-        
-        Vector position = Vector((float) pX, (float) pY, (float) pZ);
-        
-        return device->getScreenProject(screenId, position, normalize, (float) clampRatio);
-    }
-    
-    FREObject LeapNative_getScreenIsValid(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
-        leapnative::LNLeapDevice* device;
-        FREGetContextNativeData(ctx, (void **) &device);
-        
-        int screenId;
-        FREGetObjectAsInt32(argv[0], &screenId);
-        
-        return device->getScreenIsValid(screenId);
-    }
-    
-    FREObject LeapNative_getScreenNormal(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
-        leapnative::LNLeapDevice* device;
-        FREGetContextNativeData(ctx, (void **) &device);
-        
-        int screenId;
-        FREGetObjectAsInt32(argv[0], &screenId);
-        
-        return device->getScreenNormal(screenId);
-    }
-    //end screen class
     
     //start config class
     FREObject LeapNative_getConfigBool(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
@@ -554,6 +363,12 @@ extern "C" {
         FREGetContextNativeData(ctx, (void **) &device);
         return device->getDeviceRange();
     }
+    
+    FREObject LeapNative_getDeviceType(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        return device->getDeviceType();
+    }
     //end device class
     
     FRENamedFunction _Shared_methods[] = {
@@ -571,19 +386,7 @@ extern "C" {
   		{ (const uint8_t*) "enableGesture", 0, LeapNative_enableGesture },
   		{ (const uint8_t*) "isGestureEnabled", 0, LeapNative_isGestureEnabled },
   		{ (const uint8_t*) "hasFocus", 0, LeapNative_hasFocus },
-  		{ (const uint8_t*) "getClosestScreenHitPointable", 0, LeapNative_getClosestScreenHitPointable },
-  		{ (const uint8_t*) "getClosestScreenHit", 0, LeapNative_getClosestScreenHit },
-
-  		{ (const uint8_t*) "getScreenDistanceToPoint", 0, LeapNative_getScreenDistanceToPoint },
-  		{ (const uint8_t*) "getScreenHeightPixels", 0, LeapNative_getScreenHeightPixels },
-  		{ (const uint8_t*) "getScreenWidthPixels", 0, LeapNative_getScreenWidthPixels },
-  		{ (const uint8_t*) "getScreenHorizontalAxis", 0, LeapNative_getScreenHorizontalAxis },
-  		{ (const uint8_t*) "getScreenVerticalAxis", 0, LeapNative_getScreenVerticalAxis },
-  		{ (const uint8_t*) "getScreenBottomLeftCorner", 0, LeapNative_getScreenBottomLeftCorner },
-  		{ (const uint8_t*) "getScreenIntersect", 0, LeapNative_getScreenIntersect },
-  		{ (const uint8_t*) "getScreenProject", 0, LeapNative_getScreenProject },
-  		{ (const uint8_t*) "getScreenIsValid", 0, LeapNative_getScreenIsValid },
-  		{ (const uint8_t*) "getScreenNormal", 0, LeapNative_getScreenNormal },
+  		{ (const uint8_t*) "isServiceConnected", 0, LeapNative_isServiceConnected },
 
   		{ (const uint8_t*) "getDeviceDistanceToBoundary", 0, LeapNative_getDeviceDistanceToBoundary },
   		{ (const uint8_t*) "getDeviceHorizontalViewAngle", 0, LeapNative_getDeviceHorizontalViewAngle },
@@ -592,6 +395,7 @@ extern "C" {
   		{ (const uint8_t*) "getDeviceIsStreaming", 0, LeapNative_getDeviceIsStreaming },
   		{ (const uint8_t*) "getDeviceIsValid", 0, LeapNative_getDeviceIsValid },
   		{ (const uint8_t*) "getDeviceRange", 0, LeapNative_getDeviceRange },
+  		{ (const uint8_t*) "getDeviceType", 0, LeapNative_getDeviceType },
 
   		{ (const uint8_t*) "getConfigBool", 0, LeapNative_getConfigBool },
   		{ (const uint8_t*) "getConfigFloat", 0, LeapNative_getConfigFloat },

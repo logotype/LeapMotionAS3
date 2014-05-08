@@ -1,11 +1,3 @@
-//
-//  LNFREUtilities.h
-//  LeapNative
-//
-//  Created by Wouter Verweirder on 05/03/13.
-//  Copyright (c) 2013 Wouter Verweirder. All rights reserved.
-//
-
 #ifndef LeapNative_LNFREUtilities_h
 #define LeapNative_LNFREUtilities_h
 

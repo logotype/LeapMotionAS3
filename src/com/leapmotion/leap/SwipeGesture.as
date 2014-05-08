@@ -2,14 +2,16 @@ package com.leapmotion.leap
 {
 
 	/**
-	 * The SwipeGesture class represents a swiping motion of a finger or tool.
+	 * The SwipeGesture class represents a swiping motion of hand and a finger or tool.
+	 * 
+	 * SwipeGesture objects are generated for each visible finger or tool on the swiping hand.
+	 * Swipe gestures are continuous; a gesture object with the same ID value will appear
+	 * in each frame while the gesture continues.
 	 *
 	 * <p><strong>Important: To use swipe gestures in your application, you must enable
 	 * recognition of the swipe gesture.</strong><br/>You can enable recognition with:</p>
 	 *
 	 * <p><code>leap.controller.enableGesture(Gesture.TYPE_SWIPE);</code></p>
-	 *
-	 * <p>Swipe gestures are continuous.</p>
 	 *
 	 * <p>You can set the minimum length and velocity required for a movement to be
 	 * recognized as a swipe using the config attribute of a connected Controller object.
