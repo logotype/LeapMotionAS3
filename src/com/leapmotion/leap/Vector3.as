@@ -192,7 +192,13 @@ package com.leapmotion.leap
 			if( denom <= 0 )
 				return 0;
 
-			return Math.acos( dot( other ) / Math.sqrt( denom ) );
+			var val:Number = dot( other ) / Math.sqrt( denom );
+			if( val >= 1.0 ) {
+				return 0.0;
+			} else if( val <= -1.0 ) {
+				return Math.PI;
+			}
+			return Math.acos( val );
 		}
 
 		/**
