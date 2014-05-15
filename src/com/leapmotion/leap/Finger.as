@@ -127,20 +127,19 @@ package com.leapmotion.leap
 		 */
 		public function bone( boneIx:int ):Bone
 		{
-			// TODO: implement
 			switch( boneIx )
 			{
 				case Bone.TYPE_METACARPAL:
-					return Bone.invalid();
+					return metacarpal;
 					break;
 				case Bone.TYPE_PROXIMAL:
-					return Bone.invalid();
+					return proximal;
 					break;
 				case Bone.TYPE_INTERMEDIATE:
-					return Bone.invalid();
+					return intermediate;
 					break;
 				case Bone.TYPE_DISTAL:
-					return Bone.invalid();
+					return distal;
 					break;
 				default:
 					return Bone.invalid();

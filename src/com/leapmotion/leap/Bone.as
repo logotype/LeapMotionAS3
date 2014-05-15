@@ -76,6 +76,22 @@ package com.leapmotion.leap
 		public var type:int;
 		
 		/**
+		 * The base point the bone is anchored to.
+		 *
+		 * @returns The Vector containing the coordinates of the previous joint position.
+		 * @since 2.0
+		 */
+		public var prevJoint:Vector3;
+		
+		/**
+		 * The end point of the bone towards the tip direction.
+		 *
+		 * @returns The Vector containing the coordinates of the next joint position.
+		 * @since 2.0
+		 */
+		public var nextJoint:Vector3;
+		
+		/**
 		 * The orientation of the bone as a basis matrix.
 		 *
 		 * <p>The basis is defined as follows:
@@ -93,28 +109,6 @@ package com.leapmotion.leap
 		
 		public function Bone()
 		{
-		}
-		
-		/**
-		 * The base point the bone is anchored to.
-		 *
-		 * @returns The Vector containing the coordinates of the previous joint position.
-		 * @since 2.0
-		 */
-		public function prevJoint():Vector3
-		{
-			return Vector3.invalid();
-		}
-		
-		/**
-		 * The end point of the bone towards the tip direction.
-		 *
-		 * @returns The Vector containing the coordinates of the next joint position.
-		 * @since 2.0
-		 */
-		public function nextJoint():Vector3
-		{
-			return Vector3.invalid();
 		}
 		
 		/**

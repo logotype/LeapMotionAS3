@@ -114,6 +114,11 @@ package com.leapmotion.leap
 		public var tipPosition:Vector3;
 		
 		/**
+		 * The btipPosition "bone tip position" is a few mm closer to the wrist than the tipPosition. 
+		 */
+		public var btipPosition:Vector3;
+		
+		/**
 		 * The stabilized tip position of this Pointable.
 		 * <p>Smoothing and stabilization is performed in order to make this value more suitable for interaction with 2D content.</p>
 		 * <p>A modified tip position of this Pointable object with some additional smoothing and stabilization applied.</p> 
@@ -197,6 +202,26 @@ package com.leapmotion.leap
 		 *  
 		 */
 		public var touchDistance:Number = 0;
+		
+		/**
+		 * Bone connected to the wrist inside the palm
+		 */
+		public var metacarpal:Bone;
+
+		/**
+		 * Bone connecting to the palm
+		 */
+		public var proximal:Bone;
+		
+		/**
+		 * Bone between the tip and the base
+		 */
+		public var intermediate:Bone;
+		
+		/**
+		 * Bone at the tip of the finger
+		 */
+		public var distal:Bone;
 		
 		public function Pointable()
 		{

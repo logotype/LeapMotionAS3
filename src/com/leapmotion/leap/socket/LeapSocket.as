@@ -1,5 +1,6 @@
 package com.leapmotion.leap.socket
 {
+	import com.leapmotion.leap.Bone;
 	import com.leapmotion.leap.CircleGesture;
 	import com.leapmotion.leap.Controller;
 	import com.leapmotion.leap.Finger;
@@ -317,6 +318,7 @@ package com.leapmotion.leap.socket
 			var currentFrame:Frame;
 			var hand:Hand;
 			var pointable:Pointable;
+			var bone:Bone;
 			var gesture:Gesture;
 			var isTool:Boolean;
 			var length:int;
@@ -413,9 +415,48 @@ package com.leapmotion.leap.socket
 					pointable.length = json.pointables[ i ].length;
 					pointable.direction = new Vector3( json.pointables[ i ].direction[ 0 ], json.pointables[ i ].direction[ 1 ], json.pointables[ i ].direction[ 2 ] );
 					pointable.tipPosition = new Vector3( json.pointables[ i ].tipPosition[ 0 ], json.pointables[ i ].tipPosition[ 1 ], json.pointables[ i ].tipPosition[ 2 ] );
+					pointable.btipPosition = new Vector3( json.pointables[ i ].btipPosition[ 0 ], json.pointables[ i ].btipPosition[ 1 ], json.pointables[ i ].btipPosition[ 2 ] );
 					pointable.stabilizedTipPosition = new Vector3( json.pointables[ i ].stabilizedTipPosition[ 0 ], json.pointables[ i ].stabilizedTipPosition[ 1 ], json.pointables[ i ].stabilizedTipPosition[ 2 ] );
 					pointable.timeVisible = json.pointables[ i ].timeVisible;
 					pointable.touchDistance = json.pointables[ i ].touchDistance;
+					
+					// Bones
+					bone = new Bone();
+					bone.type = Bone.TYPE_METACARPAL;
+					bone.width = json.pointables[ i ].width;
+					bone.length = json.pointables[ i ].length;
+					bone.prevJoint = new Vector3( json.pointables[ i ].carpPosition[ 0 ], json.pointables[ i ].carpPosition[ 1 ], json.pointables[ i ].carpPosition[ 2 ] );
+					bone.nextJoint = new Vector3( json.pointables[ i ].mcpPosition[ 0 ], json.pointables[ i ].mcpPosition[ 1 ], json.pointables[ i ].mcpPosition[ 2 ] );
+					bone.basis = new Matrix( new Vector3( json.pointables[ i ].bases[ 0 ][ 0 ][ 0 ], json.pointables[ i ].bases[ 0 ][ 0 ][ 1 ], json.pointables[ i ].bases[ 0 ][ 0 ][ 2 ] ), new Vector3( json.pointables[ i ].bases[ 0 ][ 1 ][ 0 ], json.pointables[ i ].bases[ 0 ][ 1 ][ 1 ], json.pointables[ i ].bases[ 0 ][ 1 ][ 2 ] ), new Vector3( json.pointables[ i ].bases[ 0 ][ 2 ][ 0 ], json.pointables[ i ].bases[ 0 ][ 2 ][ 1 ], json.pointables[ i ].bases[ 0 ][ 2 ][ 2 ] ) );
+					pointable.metacarpal = bone;
+					
+					bone = new Bone();
+					bone.type = Bone.TYPE_PROXIMAL;
+					bone.width = json.pointables[ i ].width;
+					bone.length = json.pointables[ i ].length;
+					bone.prevJoint = new Vector3( json.pointables[ i ].mcpPosition[ 0 ], json.pointables[ i ].mcpPosition[ 1 ], json.pointables[ i ].mcpPosition[ 2 ] );
+					bone.nextJoint = new Vector3( json.pointables[ i ].pipPosition[ 0 ], json.pointables[ i ].pipPosition[ 1 ], json.pointables[ i ].pipPosition[ 2 ] );
+					bone.basis = new Matrix( new Vector3( json.pointables[ i ].bases[ 1 ][ 0 ][ 0 ], json.pointables[ i ].bases[ 1 ][ 0 ][ 1 ], json.pointables[ i ].bases[ 1 ][ 0 ][ 2 ] ), new Vector3( json.pointables[ i ].bases[ 1 ][ 1 ][ 0 ], json.pointables[ i ].bases[ 1 ][ 1 ][ 1 ], json.pointables[ i ].bases[ 1 ][ 1 ][ 2 ] ), new Vector3( json.pointables[ i ].bases[ 1 ][ 2 ][ 0 ], json.pointables[ i ].bases[ 1 ][ 2 ][ 1 ], json.pointables[ i ].bases[ 1 ][ 2 ][ 2 ] ) );
+					pointable.proximal = bone;
+					
+					bone = new Bone();
+					bone.type = Bone.TYPE_INTERMEDIATE;
+					bone.width = json.pointables[ i ].width;
+					bone.length = json.pointables[ i ].length;
+					bone.prevJoint = new Vector3( json.pointables[ i ].pipPosition[ 0 ], json.pointables[ i ].pipPosition[ 1 ], json.pointables[ i ].pipPosition[ 2 ] );
+					bone.nextJoint = new Vector3( json.pointables[ i ].dipPosition[ 0 ], json.pointables[ i ].dipPosition[ 1 ], json.pointables[ i ].dipPosition[ 2 ] );
+					bone.basis = new Matrix( new Vector3( json.pointables[ i ].bases[ 2 ][ 0 ][ 0 ], json.pointables[ i ].bases[ 2 ][ 0 ][ 1 ], json.pointables[ i ].bases[ 2 ][ 0 ][ 2 ] ), new Vector3( json.pointables[ i ].bases[ 2 ][ 1 ][ 0 ], json.pointables[ i ].bases[ 2 ][ 1 ][ 1 ], json.pointables[ i ].bases[ 2 ][ 1 ][ 2 ] ), new Vector3( json.pointables[ i ].bases[ 2 ][ 2 ][ 0 ], json.pointables[ i ].bases[ 2 ][ 2 ][ 1 ], json.pointables[ i ].bases[ 2 ][ 2 ][ 2 ] ) );
+					pointable.intermediate = bone;
+					
+					bone = new Bone();
+					bone.type = Bone.TYPE_DISTAL;
+					bone.width = json.pointables[ i ].width;
+					bone.length = json.pointables[ i ].length;
+					bone.prevJoint = new Vector3( json.pointables[ i ].dipPosition[ 0 ], json.pointables[ i ].dipPosition[ 1 ], json.pointables[ i ].dipPosition[ 2 ] );
+					bone.nextJoint = new Vector3( json.pointables[ i ].btipPosition[ 0 ], json.pointables[ i ].btipPosition[ 1 ], json.pointables[ i ].btipPosition[ 2 ] );
+					bone.basis = new Matrix( new Vector3( json.pointables[ i ].bases[ 3 ][ 0 ][ 0 ], json.pointables[ i ].bases[ 3 ][ 0 ][ 1 ], json.pointables[ i ].bases[ 3 ][ 0 ][ 2 ] ), new Vector3( json.pointables[ i ].bases[ 3 ][ 1 ][ 0 ], json.pointables[ i ].bases[ 3 ][ 1 ][ 1 ], json.pointables[ i ].bases[ 3 ][ 1 ][ 2 ] ), new Vector3( json.pointables[ i ].bases[ 3 ][ 2 ][ 0 ], json.pointables[ i ].bases[ 3 ][ 2 ][ 1 ], json.pointables[ i ].bases[ 3 ][ 2 ][ 2 ] ) );
+					pointable.distal = bone;
+					
 					switch( json.pointables[ i ].touchZone )
 					{
 						case "hovering":
