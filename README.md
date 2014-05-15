@@ -29,6 +29,7 @@ Create an instance of the Controller class:
 What you'll get from the `LEAPMOTION_FRAME` handler is a `Frame` instance, with strongly
 typed properties such as `Hands`, `Pointables`, `Direction`, `Gestures` and more:
 
+```actionscript
     private function onFrame( event:LeapEvent ):void
     {
         // Get the most recent frame and report some basic information
@@ -64,6 +65,7 @@ typed properties such as `Hands`, `Pointables`, `Direction`, `Gestures` and more
     		trace( "Hand pitch: " + LeapUtil.toDegrees( direction.pitch ) + " degrees, " + "roll: " + LeapUtil.toDegrees( normal.roll ) + " degrees, " + "yaw: " + LeapUtil.toDegrees( direction.yaw ) + " degrees\n" );
     	}
     }
+```
 
 Optionally, you can simply call `controller.frame()` e.g. in your main loop, or implement the `Listener` interface for callbacks.
 
