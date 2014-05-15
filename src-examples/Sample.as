@@ -68,10 +68,16 @@ package
 						avgPos = avgPos.plus( finger.tipPosition );
 
 						// Skeleton API
-						trace( "Finger distal: " + finger.dipPosition );
-						trace( "Finger proximal: " + finger.pipPosition );
-						trace( "Finger knuckle: " + finger.mcpPosition );
+						trace( "Skeleton distal: " + finger.dipPosition );
+						trace( "Skeleton proximal: " + finger.pipPosition );
+						trace( "Skeleton knuckle: " + finger.mcpPosition );
 						trace( "Finger type: " + finger.type );
+						
+						// Bone API
+						trace( "Bone metacarpal: " + finger.metacarpal );
+						trace( "Bone proximal: " + finger.proximal );
+						trace( "Bone intermediate: " + finger.intermediate );
+						trace( "Bone distal: " + finger.distal );
 					}
 
 					avgPos = avgPos.divide( fingers.length );

@@ -205,5 +205,13 @@ package com.leapmotion.leap
 		{
 			return new Bone();
 		}
+
+		/**
+		 * A string containing a brief, human readable description of the Pointable object.
+		 */
+		public function toString():String
+		{
+			return "[Bone direction: " + direction() + " type: " + type + " prevJoint: " + prevJoint + " nextJoint: " + nextJoint + "]";
+		}
 	}
 }
