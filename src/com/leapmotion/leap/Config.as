@@ -77,10 +77,13 @@ package com.leapmotion.leap
 	 *  </tr>
 	 * </table>
 	 *
-	 * <p>After setting a configuration value, you must call the <code>Config.save()</code> method
-	 * to commit the changes. The configuration value changes are not persistent;
-	 * your application must set the values everytime it runs.</p>
-	 *
+	 * <p>After setting a configuration value, you must call the <code>Config::save()</code>
+	 * method to commit the changes. You can save after the Controller has
+	 * connected to the Leap Motion service/daemon. In other words, after the
+	 * Controller has dispatched the serviceConnected or connected events or
+	 * <code>Controller::isConnected</code> is true. The configuration value changes are
+	 * not persistent; your application needs to set the values every time it runs.</p>
+	 * 
 	 * @author logotype
 	 *
 	 */
@@ -234,8 +237,11 @@ package com.leapmotion.leap
 		 *
 		 * Call <code>save()</code> after making a set of configuration changes.
 		 * The <code>save()</code> function transfers the configuration changes
-		 * to the Leap Motion application. The configuration value changes are not
-		 * persistent; your application must set the values everytime it runs.
+		 * to the Leap Motion service. You can save after the Controller has
+		 * connected to the Leap Motion service/daemon. In other words, after
+		 * the Controller has dispatched the serviceConnected or connected
+		 * events or <code>Controller::isConnected</code> is true. The configuration value
+		 * changes are not persistent; your application must set the values everytime it runs.
 		 *
 		 * @return
 		 *

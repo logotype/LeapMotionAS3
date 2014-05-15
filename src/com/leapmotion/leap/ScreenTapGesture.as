@@ -55,6 +55,9 @@ package com.leapmotion.leap
 	 *       controller.config().setFloat(&quot;Gesture.ScreenTap.HistorySeconds&quot;, .5) &amp;&amp;
 	 *       controller.config().setFloat(&quot;Gesture.ScreenTap.MinDistance&quot;, 1.0))
 	 *        controller.config().save();</code>
+	 * 
+	 * <p>The Controller object must be connected to the Leap Motion service/daemon
+	 * before setting the configuration parameters.</p>
 	 *
 	 * @author logotype
 	 *

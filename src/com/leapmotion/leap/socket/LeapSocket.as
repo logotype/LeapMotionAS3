@@ -364,6 +364,7 @@ package com.leapmotion.leap.socket
 					hand.id = json.hands[ i ].id;
 					hand.palmNormal = new Vector3( json.hands[ i ].palmNormal[ 0 ], json.hands[ i ].palmNormal[ 1 ], json.hands[ i ].palmNormal[ 2 ] );
 					hand.palmPosition = new Vector3( json.hands[ i ].palmPosition[ 0 ], json.hands[ i ].palmPosition[ 1 ], json.hands[ i ].palmPosition[ 2 ] );
+					hand.palmWidth = new Vector3( json.hands[ i ].palmWidth[ 0 ], json.hands[ i ].palmWidth[ 1 ], json.hands[ i ].palmWidth[ 2 ] );
 					hand.stabilizedPalmPosition = new Vector3( json.hands[ i ].stabilizedPalmPosition[ 0 ], json.hands[ i ].stabilizedPalmPosition[ 1 ], json.hands[ i ].stabilizedPalmPosition[ 2 ] );
 					hand.palmVelocity = new Vector3( json.hands[ i ].palmPosition[ 0 ], json.hands[ i ].palmPosition[ 1 ], json.hands[ i ].palmPosition[ 2 ] );
 					hand.rotation = new Matrix( new Vector3( json.hands[ i ].r[ 0 ][ 0 ], json.hands[ i ].r[ 0 ][ 1 ], json.hands[ i ].r[ 0 ][ 2 ] ), new Vector3( json.hands[ i ].r[ 1 ][ 0 ], json.hands[ i ].r[ 1 ][ 1 ], json.hands[ i ].r[ 1 ][ 2 ] ), new Vector3( json.hands[ i ].r[ 2 ][ 0 ], json.hands[ i ].r[ 2 ][ 1 ], json.hands[ i ].r[ 2 ][ 2 ] ) );

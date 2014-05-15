@@ -53,6 +53,9 @@ package com.leapmotion.leap
 	 * <listing>if(controller.config().setFloat(&quot;Gesture.Circle.MinRadius&quot;, 10.0) &amp;&amp;
 	 *       controller.config().setFloat(&quot;Gesture.Circle.MinArc&quot;, .5))
 	 *        controller.config().save();</listing>
+	 * 
+	 * <p>The Controller object must be connected to the Leap Motion service/daemon
+	 * before setting the configuration parameters.</p>
 	 *
 	 * @author logotype
 	 * @see Gesture

@@ -21,6 +21,22 @@ package com.leapmotion.leap
 	public class Hand
 	{
 		/**
+		 * The orientation of the hand as a basis matrix.
+		 *
+		 * <p>The basis is defined as follows:
+		 *
+		 * * xAxis: Positive in the direction of the pinky
+		 * * yAxis: Positive above the hand
+		 * * zAxis: Positive in the direction of the wrist
+		 *
+		 * Note: Since the left hand is a mirror of the right hand, the
+		 * basis matrix will be left-handed for left hands.</p>
+		 *
+		 * @returns The basis of the hand as a matrix.
+		 */
+		public var basis:Matrix;
+		
+		/**
 		 * The direction from the palm position toward the fingers.
 		 *
 		 * <p>The direction is expressed as a unit vector pointing in the same
@@ -64,7 +80,12 @@ package com.leapmotion.leap
 		 * The center position of the palm in millimeters from the Leap Motion origin.
 		 */
 		public var palmPosition:Vector3;
-
+		
+		/**
+		 * The estimated width of the palm when the hand is in a flat position.
+		 */
+		public var palmWidth:Vector3;
+		
 		/**
 		 * The stabilized palm position of this Hand.
 		 * <p>Smoothing and stabilization is performed in order to make this value more suitable for interaction with 2D content.</p>

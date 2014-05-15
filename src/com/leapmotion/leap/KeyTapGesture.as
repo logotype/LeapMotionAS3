@@ -6,7 +6,7 @@ package com.leapmotion.leap
 	 *
 	 * <p>A key tap gesture is recognized when the tip of a finger rotates down
 	 * toward the palm and then springs back to approximately the original
-	 * postion, as if tapping. The tapping finger must pause briefly before
+	 * position, as if tapping. The tapping finger must pause briefly before
 	 * beginning the tap.</p>
 	 *
 	 * <p><strong>Important: To use key tap gestures in your application, you must enable
@@ -56,6 +56,9 @@ package com.leapmotion.leap
 	 *       controller.config().setFloat(&quot;Gesture.KeyTap.HistorySeconds&quot;, .2) &amp;&amp;
 	 *       controller.config().setFloat(&quot;Gesture.KeyTap.MinDistance&quot;, 8.0))
 	 *        controller.config().save();</code>
+	 * 
+	 * <p>The Controller object must be connected to the Leap Motion service/daemon
+	 * before setting the configuration parameters.</p>
 	 *
 	 * @author logotype
 	 *
