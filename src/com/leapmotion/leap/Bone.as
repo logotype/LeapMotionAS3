@@ -1,5 +1,7 @@
 package com.leapmotion.leap
 {
+	import com.leapmotion.leap.util.LeapUtil;
+
 	/**
 	 * The Bone class represents a tracked bone.
 	 * 
@@ -107,6 +109,11 @@ package com.leapmotion.leap
 		 */
 		public var basis:Matrix;
 		
+		/**
+		 * Constructs an invalid Bone object.
+		 *
+		 * <p>Get valid Bone objects from a Finger object.</p>
+		 */		
 		public function Bone()
 		{
 		}
@@ -119,7 +126,7 @@ package com.leapmotion.leap
 		 */
 		public function center():Vector3
 		{
-			return Vector3.invalid();
+			return LeapUtil.lerpVector( prevJoint, nextJoint, 0.5 );
 		}
 		
 		/**
@@ -130,7 +137,7 @@ package com.leapmotion.leap
 		 */
 		public function direction():Vector3
 		{
-			return Vector3.invalid();
+			return new Vector3( basis.zBasis.x * -1, basis.zBasis.y * -1, basis.zBasis.z * -1 );
 		}
 		
 		/**
@@ -146,7 +153,44 @@ package com.leapmotion.leap
 			
 			return false;
 		}
-		
+
+		/**
+		 * Compare Bone object equality/inequality.
+		 *
+		 * <p>Two Bone objects are equal if and only if both Bone
+		 * objects represent the exact same physical entities in
+		 * the same frame and both Bone objects are valid.</p>
+		 *
+		 * @param other The Bone to compare with.
+		 * @return True; if equal, False otherwise.
+		 *
+		 */
+		public function isEqualTo( other:Bone ):Boolean
+		{
+			if( !isValid() || !other.isValid() )
+				return false;
+			
+			if( !direction.isEqualTo( other.direction ) )
+				return false;
+			
+			if( length != other.length )
+				return false;
+			
+			if( width != other.width )
+				return false;
+			
+			if( type != other.type )
+				return false;
+			
+			if( prevJoint.isEqualTo( other.prevJoint ) )
+				return false;
+			
+			if( nextJoint.isEqualTo( other.nextJoint ) )
+				return false;
+			
+			return true;
+		}
+
 		/**
 		 * Returns an invalid Bone object.
 		 *
