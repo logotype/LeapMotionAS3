@@ -84,7 +84,7 @@ package com.leapmotion.leap
 		/**
 		 * The estimated width of the palm when the hand is in a flat position.
 		 */
-		public var palmWidth:Vector3;
+		public var palmWidth:Number;
 		
 		/**
 		 * The stabilized palm position of this Hand.

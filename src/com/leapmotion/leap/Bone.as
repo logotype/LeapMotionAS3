@@ -148,7 +148,7 @@ package com.leapmotion.leap
 		 */
 		public function isValid():Boolean
 		{
-			if( ( direction && direction.isValid() ) && ( center && center.isValid() ) )
+			if( ( prevJoint && prevJoint.isValid() ) && ( nextJoint && nextJoint.isValid() ) )
 				return true;
 			
 			return false;
@@ -168,9 +168,6 @@ package com.leapmotion.leap
 		public function isEqualTo( other:Bone ):Boolean
 		{
 			if( !isValid() || !other.isValid() )
-				return false;
-			
-			if( !direction.isEqualTo( other.direction ) )
 				return false;
 			
 			if( length != other.length )

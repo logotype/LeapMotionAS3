@@ -26,6 +26,45 @@ namespace leapnative {
         controller = NULL;
     }
     
+    FREObject LNLeapDevice::createBone(Finger pointable, int boneType) {
+        
+        Bone::Type boneEnum = static_cast<Bone::Type>(boneType);
+        
+        FREObject freBone;
+        FRENewObject( (const uint8_t*) "com.leapmotion.leap.Bone", 0, NULL, &freBone, NULL);
+        
+        FREObject freBoneType;
+        FRENewObjectFromInt32(boneEnum, &freBoneType);
+        FRESetObjectProperty(freBone, (const uint8_t*) "type", freBoneType, NULL);
+        
+        FREObject freBoneWidth;
+        FRENewObjectFromDouble(pointable.width(), &freBoneWidth);
+        FRESetObjectProperty(freBone, (const uint8_t*) "width", freBoneWidth, NULL);
+        
+        FREObject freBoneLength;
+        FRENewObjectFromDouble(pointable.length(), &freBoneLength);
+        FRESetObjectProperty(freBone, (const uint8_t*) "length", freBoneLength, NULL);
+        
+        FRESetObjectProperty(freBone, (const uint8_t*) "prevJoint", createVector3(
+                                                                                  Finger(pointable).bone(boneEnum).prevJoint().x,
+                                                                                  Finger(pointable).bone(boneEnum).prevJoint().y,
+                                                                                  Finger(pointable).bone(boneEnum).prevJoint().z), NULL);
+        
+        FRESetObjectProperty(freBone, (const uint8_t*) "nextJoint", createVector3(
+                                                                                  Finger(pointable).bone(boneEnum).nextJoint().x,
+                                                                                  Finger(pointable).bone(boneEnum).nextJoint().y,
+                                                                                  Finger(pointable).bone(boneEnum).nextJoint().z), NULL);
+        
+        const Matrix bMat = Finger(pointable).bone(boneEnum).basis();
+        FRESetObjectProperty(freBone, (const uint8_t*) "basis", createMatrix(
+                                                                             createVector3(bMat.xBasis[0], bMat.xBasis[1], bMat.xBasis[2]),
+                                                                             createVector3(bMat.yBasis[0], bMat.yBasis[1], bMat.yBasis[2]),
+                                                                             createVector3(bMat.zBasis[0], bMat.zBasis[1], bMat.zBasis[2]),
+                                                                             createVector3(bMat.origin[0], bMat.origin[1], bMat.origin[2])
+                                                                             ), NULL);
+        return freBone;
+    }
+    
     FREObject LNLeapDevice::createVector3(double x, double y, double z) {
         FREObject obj;
 		FREObject freX, freY, freZ;
@@ -127,7 +166,11 @@ namespace leapnative {
                 FRESetObjectProperty(freHand, (const uint8_t*) "palmPosition", createVector3(hand.palmPosition()[0], hand.palmPosition()[1], hand.palmPosition()[2]), NULL);
                 FRESetObjectProperty(freHand, (const uint8_t*) "stabilizedPalmPosition", createVector3(hand.stabilizedPalmPosition()[0], hand.stabilizedPalmPosition()[1], hand.stabilizedPalmPosition()[2]), NULL);
                 FRESetObjectProperty(freHand, (const uint8_t*) "palmVelocity", createVector3(hand.palmVelocity()[0], hand.palmVelocity()[1], hand.palmVelocity()[2]), NULL);
-                
+
+                FREObject freHandPalmWidth;
+                FRENewObjectFromDouble(hand.palmWidth(), &freHandPalmWidth);
+                FRESetObjectProperty(freHand, (const uint8_t*) "palmWidth", freHandPalmWidth, NULL);
+
                 const Matrix rotation = hand.rotationMatrix(lastFrame);
                 FRESetObjectProperty(freHand, (const uint8_t*) "rotation", createMatrix(
                                      createVector3(rotation.xBasis[0], rotation.xBasis[1], rotation.xBasis[2]),
@@ -213,6 +256,12 @@ namespace leapnative {
                     FREObject frePointableType;
                     FRENewObjectFromInt32(Finger(pointable).type(), &frePointableType);
                     FRESetObjectProperty(frePointable, (const uint8_t*) "type", frePointableType, NULL);
+                    
+                    //bones
+                    FRESetObjectProperty(frePointable, (const uint8_t*) "metacarpal", createBone(Finger(pointable), Bone::TYPE_METACARPAL), NULL);
+                    FRESetObjectProperty(frePointable, (const uint8_t*) "proximal", createBone(Finger(pointable), Bone::TYPE_PROXIMAL), NULL);
+                    FRESetObjectProperty(frePointable, (const uint8_t*) "intermediate", createBone(Finger(pointable), Bone::TYPE_INTERMEDIATE), NULL);
+                    FRESetObjectProperty(frePointable, (const uint8_t*) "distal", createBone(Finger(pointable), Bone::TYPE_DISTAL), NULL);
                 }
                 
                 FREObject frePointableTimeVisible;

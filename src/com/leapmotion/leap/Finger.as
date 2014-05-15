@@ -105,6 +105,26 @@ package com.leapmotion.leap
 		public var mcpPosition:Vector3;
 		
 		/**
+		 * Bone connected to the wrist inside the palm
+		 */
+		public var metacarpal:Bone;
+		
+		/**
+		 * Bone connecting to the palm
+		 */
+		public var proximal:Bone;
+		
+		/**
+		 * Bone between the tip and the base
+		 */
+		public var intermediate:Bone;
+		
+		/**
+		 * Bone at the tip of the finger
+		 */
+		public var distal:Bone;
+		
+		/**
 		 * Constructs a Finger object.
 		 *
 		 * <p>An uninitialized finger is considered invalid.

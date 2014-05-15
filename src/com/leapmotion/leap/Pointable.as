@@ -203,26 +203,6 @@ package com.leapmotion.leap
 		 */
 		public var touchDistance:Number = 0;
 		
-		/**
-		 * Bone connected to the wrist inside the palm
-		 */
-		public var metacarpal:Bone;
-
-		/**
-		 * Bone connecting to the palm
-		 */
-		public var proximal:Bone;
-		
-		/**
-		 * Bone between the tip and the base
-		 */
-		public var intermediate:Bone;
-		
-		/**
-		 * Bone at the tip of the finger
-		 */
-		public var distal:Bone;
-		
 		public function Pointable()
 		{
 			direction = Vector3.invalid();
