@@ -71,7 +71,25 @@
         </exec>
         <echo>Documentation created successfully.</echo>
 	</target>
-	
+
+	<!-- Build the xcode project -->
+    <target name="build-xcode-mac" description="Build Mac Library">
+        <mkdir dir="${Extension.TMP_ROOT}/xcode/"/>
+
+        <exec executable="xcodebuild" failonerror="true" dir="../native/osx-xcode/">
+            <arg line="-project LeapNative.xcodeproj"/>
+            <arg line="-alltargets clean"/>
+            <arg line="-configuration Debug"/>
+        </exec>
+
+        <exec executable="xcodebuild" failonerror="true" dir="../native/osx-xcode/">
+            <arg line="-project LeapNative.xcodeproj"/>
+            <arg line="-alltargets"/>
+            <arg line="-configuration Debug"/>
+            <arg line="SYMROOT=${Extension.TMP_ROOT}/xcode/"/>
+        </exec>
+    </target>
+
 	<target name="config-sdk-extension" depends="init-ant-contrib">
         <if>
             <equals arg1="${Extension.ASC_VERSION}" arg2="2"/>
@@ -215,7 +233,12 @@
 	</target>
 
 	<target name="build-native-extension" depends="config-sdk-extension" description="Rebuilds the ANE &amp; SWC files">
-
+        <if>
+            <equals arg1="${isMac}" arg2="true"/>
+            <then>
+                <antcall target="build-xcode-mac" />
+            </then>
+        </if>
 		<antcall target="clean-tmp-folder" />
 		<antcall target="build-extension-swc" />
 		<antcall target="generate-extension-certificate" />
