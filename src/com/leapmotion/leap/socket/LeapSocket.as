@@ -1,5 +1,6 @@
 package com.leapmotion.leap.socket
 {
+	import com.leapmotion.leap.Arm;
 	import com.leapmotion.leap.Bone;
 	import com.leapmotion.leap.CircleGesture;
 	import com.leapmotion.leap.Controller;
@@ -317,6 +318,9 @@ package com.leapmotion.leap.socket
 			var i:uint;
 			var currentFrame:Frame;
 			var hand:Hand;
+			var arm:Arm;
+			var armDisplacement:Vector3;
+			var armLength:Number;
 			var pointable:Pointable;
 			var bone:Bone;
 			var gesture:Gesture;
@@ -377,6 +381,24 @@ package com.leapmotion.leap.socket
 					hand.pinchStrength = json.hands[ i ].pinchStrength;
 					hand.grabStrength = json.hands[ i ].grabStrength;
 					hand.translationVector = new Vector3( json.hands[ i ].t[ 0 ], json.hands[ i ].t[ 1 ], json.hands[ i ].t[ 2 ] );
+					
+					// Arm
+					if( json.hands[ i ].armBasis )
+					{
+						arm = new Arm();
+						arm.basis = new Matrix( new Vector3( json.hands[ i ].armBasis[ 0 ][ 0 ], json.hands[ i ].armBasis[ 0 ][ 1 ], json.hands[ i ].armBasis[ 0 ][ 2 ] ), new Vector3( json.hands[ i ].armBasis[ 1 ][ 0 ], json.hands[ i ].armBasis[ 1 ][ 1 ], json.hands[ i ].armBasis[ 1 ][ 2 ] ), new Vector3( json.hands[ i ].armBasis[ 2 ][ 0 ], json.hands[ i ].armBasis[ 2 ][ 1 ], json.hands[ i ].armBasis[ 2 ][ 2 ] ) );
+						arm.elbowPosition = new Vector3( json.hands[ i ].elbow[ 0 ], json.hands[ i ].elbow[ 1 ], json.hands[ i ].elbow[ 2 ] );
+						arm.wristPosition = new Vector3( json.hands[ i ].wrist[ 0 ], json.hands[ i ].wrist[ 1 ], json.hands[ i ].wrist[ 2 ] );
+						arm.width = json.hands[ i ].armWidth;
+						armDisplacement = arm.elbowPosition.minus( arm.wristPosition );
+						armLength = armDisplacement.magnitude();
+						arm.length = armLength;
+						hand.arm = arm;
+					}
+					else
+					{
+						hand.arm = Arm.invalid();
+					}
 					currentFrame.hands.push( hand );
 				}
 			}

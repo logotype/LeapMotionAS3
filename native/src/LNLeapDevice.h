@@ -63,6 +63,7 @@ namespace leapnative {
         LNLeapListener* listener;
         Frame           lastFrame;
         
+        FREObject createArm(Arm arm);
         FREObject createBone(Finger pointable, int boneType);
         FREObject createVector3(double x, double y, double z);
         FREObject createMatrix(FREObject xVector3, FREObject yVector3, FREObject zVector3, FREObject originVector3);

@@ -65,6 +65,36 @@ namespace leapnative {
         return freBone;
     }
     
+    FREObject LNLeapDevice::createArm(Arm arm) {
+        
+        FREObject freArm;
+        FRENewObject( (const uint8_t*) "com.leapmotion.leap.Arm", 0, NULL, &freArm, NULL);
+        
+        Vector displacement = arm.elbowPosition() - arm.wristPosition();
+        float length = displacement.magnitude();
+        
+        FREObject freArmLength;
+        FRENewObjectFromDouble(length, &freArmLength);
+        FRESetObjectProperty(freArm, (const uint8_t*) "length", freArmLength, NULL);
+        
+        FREObject freArmWidth;
+        FRENewObjectFromDouble(arm.width(), &freArmWidth);
+        FRESetObjectProperty(freArm, (const uint8_t*) "width", freArmWidth, NULL);
+        
+        FRESetObjectProperty(freArm, (const uint8_t*) "direction", createVector3(arm.direction().x, arm.direction().y, arm.direction().z), NULL);
+        FRESetObjectProperty(freArm, (const uint8_t*) "elbowPosition", createVector3(arm.elbowPosition().x, arm.elbowPosition().y, arm.elbowPosition().z), NULL);
+        FRESetObjectProperty(freArm, (const uint8_t*) "wristPosition", createVector3(arm.wristPosition().x, arm.wristPosition().y, arm.wristPosition().z), NULL);
+        
+        FRESetObjectProperty(freArm, (const uint8_t*) "basis", createMatrix(
+                                                                            createVector3(arm.basis().xBasis[0], arm.basis().xBasis[1], arm.basis().xBasis[2]),
+                                                                            createVector3(arm.basis().yBasis[0], arm.basis().yBasis[1], arm.basis().yBasis[2]),
+                                                                            createVector3(arm.basis().zBasis[0], arm.basis().zBasis[1], arm.basis().zBasis[2]),
+                                                                            createVector3(arm.basis().origin[0], arm.basis().origin[1], arm.basis().origin[2])
+                                                                            ), NULL);
+        
+        return freArm;
+    }
+    
     FREObject LNLeapDevice::createVector3(double x, double y, double z) {
         FREObject obj;
 		FREObject freX, freY, freZ;
@@ -166,7 +196,8 @@ namespace leapnative {
                 FRESetObjectProperty(freHand, (const uint8_t*) "palmPosition", createVector3(hand.palmPosition()[0], hand.palmPosition()[1], hand.palmPosition()[2]), NULL);
                 FRESetObjectProperty(freHand, (const uint8_t*) "stabilizedPalmPosition", createVector3(hand.stabilizedPalmPosition()[0], hand.stabilizedPalmPosition()[1], hand.stabilizedPalmPosition()[2]), NULL);
                 FRESetObjectProperty(freHand, (const uint8_t*) "palmVelocity", createVector3(hand.palmVelocity()[0], hand.palmVelocity()[1], hand.palmVelocity()[2]), NULL);
-
+                FRESetObjectProperty(freHand, (const uint8_t*) "arm", createArm(hand.arm()), NULL);
+                
                 FREObject freHandPalmWidth;
                 FRENewObjectFromDouble(hand.palmWidth(), &freHandPalmWidth);
                 FRESetObjectProperty(freHand, (const uint8_t*) "palmWidth", freHandPalmWidth, NULL);

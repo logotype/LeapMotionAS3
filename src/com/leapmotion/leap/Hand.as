@@ -70,7 +70,15 @@ package com.leapmotion.leap
 		 * in future frames.</p>
 		 */
 		public var id:int;
-
+		
+		/**
+		 * The arm to which this hand is attached.
+		 * 
+		 * <p>If the arm is not completely in view, Arm attributes are estimated based on
+		 * the attributes of entities that are ain view combined with typical human anatomy.</p>
+		 */
+		public var arm:Arm;
+		
 		/**
 		 * The normal vector to the palm.
 		 */

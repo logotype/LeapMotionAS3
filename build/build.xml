@@ -236,7 +236,7 @@
         <if>
             <equals arg1="${isMac}" arg2="true"/>
             <then>
-                <antcall target="build-xcode-mac" />
+                <!--<antcall target="build-xcode-mac" />-->
             </then>
         </if>
 		<antcall target="clean-tmp-folder" />

@@ -141,7 +141,7 @@ package com.leapmotion.leap
 		 */
 		public function toString():String
 		{
-			return "[Arm direction: " + direction() + " length: " + length + " width: " + width + " elbowPosition: " + elbowPosition + " wristPosition: " + wristPosition + "]";
+			return "[Arm direction: " + direction + " length: " + length + " width: " + width + " elbowPosition: " + elbowPosition + " wristPosition: " + wristPosition + "]";
 		}
 	}
 }
