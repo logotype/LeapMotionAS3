@@ -70,7 +70,14 @@ package com.leapmotion.leap
 		 */
 		public var gesturesVector:Vector.<Gesture> = new Vector.<Gesture>();
 
-		/**
+        /**
+         * The list of images from the Leap Motion cameras.
+         *
+         * @return An vector object containing the camera images analyzed to create this Frame.
+         */
+        public var images:Vector.<Image> = new Vector.<Image>();
+
+        /**
 		 * A unique ID for this Frame.
 		 * <p>Consecutive frames processed by the Leap Motion have consecutive increasing values.</p>
 		 */
