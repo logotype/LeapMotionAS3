@@ -88,16 +88,17 @@ package com.leapmotion.leap
 		 */
 		static public const POLICY_DEFAULT:uint = 0;
 
-		/**
-		 * Receive background frames.
-		 *
-		 * <p>Currently, the only supported policy is the background frames policy,
-		 * which determines whether your application receives frames of tracking
-		 * data when it is not the focused, foreground application.</p>
-		 */
-		static public const POLICY_BACKGROUND_FRAMES:uint = ( 1 << 0 );
+        /**
+         * Receive background frames.
+         */
+        static public const POLICY_BACKGROUND_FRAMES:uint = ( 1 << 0 );
 
-		/**
+        /**
+         * Receive raw images.
+         */
+        static public const POLICY_IMAGES:uint = ( 1 << 1 );
+
+        /**
 		 * @private
 		 * The Listener subclass instance.
 		 */

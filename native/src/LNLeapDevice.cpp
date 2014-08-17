@@ -521,6 +521,69 @@ namespace leapnative {
             }
         }
         
+        if(!frame.images().isEmpty()) {
+            FREObject freImages;
+            FREGetObjectProperty(freCurrentFrame, (const uint8_t*) "images", &freImages, NULL);
+            
+            ImageList images = frame.images();
+            
+            for(int i = 0; i < 2; i++) {
+                Image image = images[i];
+                //const unsigned char* image_buffer = image.data();
+                
+                FREObject freImage;
+                FRENewObject( (const uint8_t*) "com.leapmotion.leap.Image", 0, NULL, &freImage, NULL);
+                
+                FREObject freImageId;
+                FRENewObjectFromInt32(image.id(), &freImageId);
+                FRESetObjectProperty(freImage, (const uint8_t*) "id", freImageId, NULL);
+                
+                FREObject freImageWidth;
+                FRENewObjectFromInt32(image.width(), &freImageWidth);
+                FRESetObjectProperty(freImage, (const uint8_t*) "width", freImageWidth, NULL);
+                
+                FREObject freImageHeight;
+                FRENewObjectFromInt32(image.height(), &freImageHeight);
+                FRESetObjectProperty(freImage, (const uint8_t*) "height", freImageHeight, NULL);
+                
+                FREObject freImageDistortionWidth;
+                FRENewObjectFromInt32(image.distortionWidth(), &freImageDistortionWidth);
+                FRESetObjectProperty(freImage, (const uint8_t*) "distortionWidth", freImageDistortionWidth, NULL);
+                
+                FREObject freImageDistortionHeight;
+                FRENewObjectFromInt32(image.distortionHeight(), &freImageDistortionHeight);
+                FRESetObjectProperty(freImage, (const uint8_t*) "distortionHeight", freImageDistortionHeight, NULL);
+                
+                FREObject freImageRayOffsetX;
+                FRENewObjectFromInt32(image.rayOffsetX(), &freImageRayOffsetX);
+                FRESetObjectProperty(freImage, (const uint8_t*) "rayOffsetX", freImageRayOffsetX, NULL);
+                
+                FREObject freImageRayOffsetY;
+                FRENewObjectFromInt32(image.rayOffsetY(), &freImageRayOffsetY);
+                FRESetObjectProperty(freImage, (const uint8_t*) "rayOffsetY", freImageRayOffsetY, NULL);
+                
+                FREObject freImageRayScaleX;
+                FRENewObjectFromInt32(image.rayScaleX(), &freImageRayScaleX);
+                FRESetObjectProperty(freImage, (const uint8_t*) "rayScaleX", freImageRayScaleX, NULL);
+                
+                FREObject freImageRayScaleY;
+                FRENewObjectFromInt32(image.rayScaleY(), &freImageRayScaleY);
+                FRESetObjectProperty(freImage, (const uint8_t*) "rayScaleY", freImageRayScaleY, NULL);
+                
+                // Set distortion map
+                FREObject freDistortionMap;
+                FREGetObjectProperty(freImage, (const uint8_t*) "distortion", &freDistortionMap, NULL);
+                
+                for (int j = 0; j < (image.distortionWidth() * image.distortionHeight()); j++) {
+                    FREObject freDistortionValue;
+                    FRENewObjectFromDouble(image.distortion()[j], &freDistortionValue);
+                    FRESetArrayElementAt(freDistortionMap, j, freDistortionValue);
+                }
+                
+                FRESetArrayElementAt(freImages, i, freImage);
+            }
+        }
+        
         lastFrame = frame;
         
         return freCurrentFrame;

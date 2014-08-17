@@ -150,6 +150,7 @@ package com.leapmotion.leap.native
 			try
 			{
 				context.dispose();
+                context = null;
 			}
 			catch( error:Error )
 			{
@@ -262,7 +263,8 @@ package com.leapmotion.leap.native
 
 			controller.frameHistory.unshift( _frame );
 
-			_frame = context.call( "getFrame" );
+            if( context )
+			    _frame = context.call( "getFrame" );
 
 			// Add Controller to frame
 			_frame.controller = controller;
