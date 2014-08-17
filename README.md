@@ -77,6 +77,7 @@ Features
 + Clean, lightweight and documented code
 + Same structure as official API
 + Gestures (Circle, Key Tap, Screen Tap, Swipe)
++ Image API (Read raw data from infrared stereo cameras)
 + Skeleton/Bone API
 + Works great with [Away3D](https://github.com/away3d/away3d-core-fp11) and [Starling](https://github.com/PrimaryFeather/Starling-Framework)
 + Connect multiple devices to the same Leap Motion (via an optional "host" argument)
