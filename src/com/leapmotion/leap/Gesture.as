@@ -299,7 +299,6 @@ package com.leapmotion.leap
 
 		/**
 		 * A string containing a brief, human-readable description of this Gesture.
-		 *
 		 */
 		public function toString():String
 		{

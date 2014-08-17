@@ -18,7 +18,7 @@ package com.leapmotion.leap
 	 * contain valid tracking data and do not correspond to a physical bone.
 	 * Invalid Bone objects can be the result of asking for a Bone object
 	 * from an invalid finger, indexing a bone out of range, or constructing
-	 * a new bone. Test for validity with the Bone::isValid() function.</p>
+	 * a new bone. Test for validity with the <code>Bone::isValid()</code> function.</p>
 	 *  
 	 * @author logotype
 	 * 
@@ -28,7 +28,7 @@ package com.leapmotion.leap
 		/**
 		 * Enumerates the names of the bones.
 		 *
-		 * <p>Members of this enumeration are returned by Bone::type() to identify a
+		 * <p>Members of this enumeration are returned by <code>Bone::type()</code> to identify a
 		 * Bone object.</p>
 		 */
 
@@ -99,9 +99,9 @@ package com.leapmotion.leap
 		 * <p>The basis is defined as follows:
 		 *   xAxis: Clockwise rotation axis of the bone
 		 *   yAxis: Positive above the bone
-		 *   zAxis: Positive along the bone towards the wrist
+		 *   zAxis: Positive along the bone towards the wrist</p>
 		 *
-		 * Note: Since the left hand is a mirror of the right hand, left handed
+		 * <p>Note: Since the left hand is a mirror of the right hand, left handed
 		 * bones will contain a left-handed basis.</p>
 		 *
 		 * @returns The basis of the bone as a matrix.
@@ -193,7 +193,7 @@ package com.leapmotion.leap
 		 *
 		 * <p>You can use the instance returned by this function in comparisons testing
 		 * whether a given Finger instance is valid or invalid. (You can also use the
-		 * Bone::isValid() function.)</p>
+		 * <code>Bone::isValid()</code> function.)</p>
 		 *
 		 * @returns The invalid Bone instance.
 		 * @since 2.0

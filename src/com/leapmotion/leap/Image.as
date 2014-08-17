@@ -29,8 +29,18 @@ public class Image
     /**
      * The image data.
      *
-     * <p>TThe image data is a set of 8-bit intensity values. The buffer is
-     * <code>Image::width() * Image::height()</code> bytes long.</p>
+     * <p>The original image data is a set of 8-bit intensity values.</p>
+     *
+     * <p>A BitmapData object contains an array of pixel data. This data can represent either
+     * a fully opaque bitmap or a transparent bitmap that contains alpha channel data.
+     * Either type of BitmapData object is stored as a buffer of 32-bit integers.
+     * Each 32-bit integer determines the properties of a single pixel in the bitmap.</p>
+     *
+     * <p>Each 32-bit integer is a combination of four 8-bit channel values (from 0 to 255)
+     * that describe the alpha transparency and the red, green, and blue (ARGB) values
+     * of the pixel. (For ARGB values, the most significant byte represents the alpha
+     * channel value, followed by red, green, and blue.)</p>
+     *
      */
     public var data:BitmapData;
 

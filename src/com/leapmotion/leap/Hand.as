@@ -27,9 +27,9 @@ package com.leapmotion.leap
 		 *
 		 * * xAxis: Positive in the direction of the pinky
 		 * * yAxis: Positive above the hand
-		 * * zAxis: Positive in the direction of the wrist
+		 * * zAxis: Positive in the direction of the wrist</p>
 		 *
-		 * Note: Since the left hand is a mirror of the right hand, the
+		 * <p>Note: Since the left hand is a mirror of the right hand, the
 		 * basis matrix will be left-handed for left hands.</p>
 		 *
 		 * @returns The basis of the hand as a matrix.
@@ -226,7 +226,6 @@ package com.leapmotion.leap
 		 * Constructs a Hand object.
 		 *
 		 * <p>An uninitialized hand is considered invalid.
-		 *
 		 * Get valid Hand objects from a Frame object.</p>
 		 *
 		 */

@@ -235,13 +235,13 @@ package com.leapmotion.leap
 		/**
 		 * Saves the current state of the config.
 		 *
-		 * Call <code>save()</code> after making a set of configuration changes.
+		 * <p>Call <code>save()</code> after making a set of configuration changes.
 		 * The <code>save()</code> function transfers the configuration changes
 		 * to the Leap Motion service. You can save after the Controller has
 		 * connected to the Leap Motion service/daemon. In other words, after
 		 * the Controller has dispatched the serviceConnected or connected
 		 * events or <code>Controller::isConnected</code> is true. The configuration value
-		 * changes are not persistent; your application must set the values everytime it runs.
+		 * changes are not persistent; your application must set the values everytime it runs.</p>
 		 *
 		 * @return
 		 *

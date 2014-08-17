@@ -53,7 +53,7 @@ package com.leapmotion.leap
 		 * Converts a position defined by normalized InteractionBox coordinates
 		 * into device coordinates in millimeters.
 		 * 
-		 * This function performs the inverse of normalizePoint().
+		 * <p>This function performs the inverse of normalizePoint().</p>
 		 *  
 		 * @param normalizedPosition The input position in InteractionBox coordinates.
 		 * @return The corresponding denormalized position in device coordinates.
