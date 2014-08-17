@@ -30,7 +30,7 @@ public class Image
      * The image data.
      *
      * <p>TThe image data is a set of 8-bit intensity values. The buffer is
-     * <code>Image::width() * Image::height()</code bytes long.</p>
+     * <code>Image::width() * Image::height()</code> bytes long.</p>
      */
     public var data:BitmapData;
 

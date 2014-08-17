@@ -7,7 +7,7 @@ package
 	import flash.display.Sprite;
 	import flash.display.Bitmap;
 
-	[SWF(frameRate=60)]
+    [SWF(width="640", height="480", frameRate="60", backgroundColor="#000000")]
 	public class Sample extends Sprite
 	{
 		private var controller:Controller;
@@ -59,6 +59,8 @@ package
 			{
 				var image:Image = frame.images[0];
 				bitmap.bitmapData = image.data;
+				bitmap.width = 640;
+				bitmap.height = 480;
 			}
 
 			if ( frame.hands.length > 0 )
