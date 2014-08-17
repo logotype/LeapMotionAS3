@@ -5,14 +5,17 @@ package
 	import com.leapmotion.leap.util.*;
 	
 	import flash.display.Sprite;
+	import flash.display.Bitmap;
 
 	[SWF(frameRate=60)]
 	public class Sample extends Sprite
 	{
 		private var controller:Controller;
+		private var bitmap:Bitmap = new Bitmap();
 
 		public function Sample()
 		{
+			this.addChild( bitmap );
 			controller = new Controller();
 			controller.addEventListener( LeapEvent.LEAPMOTION_INIT, onInit );
 			controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, onConnect );
@@ -33,7 +36,7 @@ package
 			controller.enableGesture( Gesture.TYPE_CIRCLE );
 			controller.enableGesture( Gesture.TYPE_SCREEN_TAP );
 			controller.enableGesture( Gesture.TYPE_KEY_TAP );
-			controller.setPolicyFlags( Controller.POLICY_BACKGROUND_FRAMES );
+			controller.setPolicyFlags( Controller.POLICY_IMAGES );
 		}
 
 		private function onDisconnect( event:LeapEvent ):void
@@ -51,6 +54,12 @@ package
 			// Get the most recent frame and report some basic information
 			var frame:Frame = event.frame;
 			trace( "Frame id: " + frame.id + ", timestamp: " + frame.timestamp + ", hands: " + frame.hands.length + ", fingers: " + frame.fingers.length + ", tools: " + frame.tools.length + ", gestures: " + frame.gestures().length );
+
+			if ( frame.images.length > 0 )
+			{
+				var image:Image = frame.images[0];
+				bitmap.bitmapData = image.data;
+			}
 
 			if ( frame.hands.length > 0 )
 			{

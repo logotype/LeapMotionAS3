@@ -67,6 +67,7 @@ namespace leapnative {
         FREObject createBone(Finger pointable, int boneType);
         FREObject createVector3(double x, double y, double z);
         FREObject createMatrix(FREObject xVector3, FREObject yVector3, FREObject zVector3, FREObject originVector3);
+        void FREDebug(FREResult result, const char* note);
     };
 }
 

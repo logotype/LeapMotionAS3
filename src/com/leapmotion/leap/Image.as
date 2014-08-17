@@ -1,5 +1,6 @@
 package com.leapmotion.leap
 {
+    import flash.display.BitmapData;
     import flash.utils.ByteArray;
 
 /**
@@ -31,7 +32,7 @@ public class Image
      * <p>TThe image data is a set of 8-bit intensity values. The buffer is
      * <code>Image::width() * Image::height()</code bytes long.</p>
      */
-    public var data:ByteArray;
+    public var data:BitmapData;
 
     /**
      * The distortion calibration map for this image.

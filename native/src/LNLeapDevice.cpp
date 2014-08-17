@@ -529,8 +529,7 @@ namespace leapnative {
             
             for(int i = 0; i < 2; i++) {
                 Image image = images[i];
-                //const unsigned char* image_buffer = image.data();
-                
+
                 FREObject freImage;
                 FRENewObject( (const uint8_t*) "com.leapmotion.leap.Image", 0, NULL, &freImage, NULL);
                 
@@ -570,6 +569,50 @@ namespace leapnative {
                 FRENewObjectFromInt32(image.rayScaleY(), &freImageRayScaleY);
                 FRESetObjectProperty(freImage, (const uint8_t*) "rayScaleY", freImageRayScaleY, NULL);
                 
+                // The image data is a set of 8-bit intensity values.
+                // The buffer is Image::width() * Image::height() bytes long.
+                const unsigned char* image_buffer = image.data();
+
+                // Set image data
+                FREObject freImageData;
+                
+                // Pixels are now in image_buffer in the format RGBA8888
+                // We'll now loop over each pixel write them into the AS3 bitmapData memory
+                FREResult result;
+                
+                FREObject arguments[] = {freImageWidth, freImageHeight};
+                
+                result = FRENewObject((const uint8_t*) "flash.display.BitmapData", 2, arguments, &freImageData, NULL);
+                
+                FREBitmapData bmd;
+                result = FREAcquireBitmapData(freImageData, &bmd);
+                
+                int x, y;
+                
+                int offset = bmd.lineStride32 - bmd.width;
+                int byteIndex = 0;
+                
+                uint32_t *bmdPixels = bmd.bits32;
+                
+                for(y = 0; y < bmd.height; y++)
+                {
+                    for(x = 0; x < bmd.width; x++, bmdPixels++, byteIndex++)
+                    {
+                        int brightness = image_buffer[byteIndex];
+                        int alpha = 255;
+                        
+                        // Combine values into ARGB32
+                        *bmdPixels = (alpha << 24) | (brightness << 16) | (brightness << 8) | brightness;
+                    }
+                    
+                    bmdPixels += offset;
+                }
+                
+                result = FREInvalidateBitmapDataRect(freImageData, 0, 0, bmd.width, bmd.height);
+                result = FREReleaseBitmapData(freImageData);
+
+                FRESetObjectProperty(freImage, (const uint8_t*) "data", freImageData, NULL);
+
                 // Set distortion map
                 FREObject freDistortionMap;
                 FREGetObjectProperty(freImage, (const uint8_t*) "distortion", &freDistortionMap, NULL);
@@ -931,4 +974,42 @@ namespace leapnative {
         return freReturnValue;
     }
     //end hand class
+    
+    void LNLeapDevice::FREDebug(FREResult result, const char* note) {
+        switch (result) {
+            case FRE_OK:
+                std::cout << "[NATIVE " << note << "] OK" << std::endl;
+                break;
+            case FRE_NO_SUCH_NAME:
+                std::cout << "[NATIVE " << note << "] NO SUCH NAME" << std::endl;
+                break;
+            case FRE_INVALID_OBJECT:
+                std::cout << "[NATIVE " << note << "] INVALID OBJECT" << std::endl;
+                break;
+            case FRE_TYPE_MISMATCH:
+                std::cout << "[NATIVE " << note << "] TYPE MISMATCH" << std::endl;
+                break;
+            case FRE_ACTIONSCRIPT_ERROR:
+                std::cout << "[NATIVE " << note << "] ACTIONSCRIPT ERROR" << std::endl;
+                break;
+            case FRE_INVALID_ARGUMENT:
+                std::cout << "[NATIVE " << note << "] INVALID ARGUMENT" << std::endl;
+                break;
+            case FRE_READ_ONLY:
+                std::cout << "[NATIVE " << note << "] READ ONLY" << std::endl;
+                break;
+            case FRE_WRONG_THREAD:
+                std::cout << "[NATIVE " << note << "] WRONG THREAD" << std::endl;
+                break;
+            case FRE_ILLEGAL_STATE:
+                std::cout << "[NATIVE " << note << "] ILLEGAL STATE" << std::endl;
+                break;
+            case FRE_INSUFFICIENT_MEMORY:
+                std::cout << "[NATIVE " << note << "] INSUFFICIENT MEMORY" << std::endl;
+                break;
+            default:
+                std::cout << "[NATIVE " << note << "] OTHER RESULT" << std::endl;
+                break;
+        }
+    }
 }
