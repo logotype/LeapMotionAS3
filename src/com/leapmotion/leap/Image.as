@@ -1,7 +1,6 @@
 package com.leapmotion.leap
 {
     import flash.display.BitmapData;
-    import flash.utils.ByteArray;
 
 /**
  * The Image class represents a single greyscale image from one of the the Leap Motion cameras.
@@ -132,6 +131,12 @@ public class Image
     public var rayScaleY:Number;
 
     /**
+     * @private
+     * Reference to the Controller which created this object.
+     */
+    public var controller:Controller;
+
+    /**
      * Constructs a Image object.
      *
      * <p>An uninitialized image is considered invalid.
@@ -160,7 +165,10 @@ public class Image
      */
     public function rectify( uv:Vector3 ):Vector3
     {
-        return Vector3.invalid();
+        if( !controller.context )
+            throw new Error( "Method only supported for Native connections." );
+        else
+            return controller.context.call( "imageRectify", id, uv.x, uv.y, uv.z );
     }
 
     /**
@@ -179,7 +187,10 @@ public class Image
      */
     public function warp( xy:Vector3 ):Vector3
     {
-        return Vector3.invalid();
+        if( !controller.context )
+            throw new Error( "Method only supported for Native connections." );
+        else
+            return controller.context.call( "imageWarp", id, xy.x, xy.y, xy.z );
     }
 
     /**

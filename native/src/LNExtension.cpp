@@ -261,6 +261,46 @@ extern "C" {
     }
     //end frame class
     
+    //start image class
+    FREObject LeapNative_imageRectify(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        int imageId;
+        FREGetObjectAsInt32(argv[0], &imageId);
+        
+        double pX;
+        double pY;
+        double pZ;
+        FREGetObjectAsDouble(argv[1], &pX);
+        FREGetObjectAsDouble(argv[2], &pY);
+        FREGetObjectAsDouble(argv[3], &pZ);
+        
+        Vector uv = Vector((float) pX, (float) pY, (float) pZ);
+        
+        return device->imageRectify(imageId, uv);
+    }
+    
+    FREObject LeapNative_imageWarp(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        
+        int imageId;
+        FREGetObjectAsInt32(argv[0], &imageId);
+        
+        double pX;
+        double pY;
+        double pZ;
+        FREGetObjectAsDouble(argv[1], &pX);
+        FREGetObjectAsDouble(argv[2], &pY);
+        FREGetObjectAsDouble(argv[3], &pZ);
+        
+        Vector xy = Vector((float) pX, (float) pY, (float) pZ);
+        
+        return device->imageWarp(imageId, xy);
+    }
+    //end image class
+    
     //start hand class
     FREObject LeapNative_handRotationProbability(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
         leapnative::LNLeapDevice* device;
@@ -383,6 +423,8 @@ extern "C" {
   		{ (const uint8_t*) "handRotationProbability", 0, LeapNative_handRotationProbability },
   		{ (const uint8_t*) "handScaleProbability", 0, LeapNative_handScaleProbability },
   		{ (const uint8_t*) "handTranslationProbability", 0, LeapNative_handTranslationProbability },
+  		{ (const uint8_t*) "imageRectify", 0, LeapNative_imageRectify },
+  		{ (const uint8_t*) "imageWarp", 0, LeapNative_imageWarp },
   		{ (const uint8_t*) "enableGesture", 0, LeapNative_enableGesture },
   		{ (const uint8_t*) "isGestureEnabled", 0, LeapNative_isGestureEnabled },
   		{ (const uint8_t*) "hasFocus", 0, LeapNative_hasFocus },

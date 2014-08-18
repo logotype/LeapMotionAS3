@@ -124,9 +124,23 @@ package com.leapmotion.leap
 		 * @private
 		 * Reference to the Controller which created this object.
 		 */
-		public var controller:Controller;
+		public var _controller:Controller;
 
-		/**
+        /**
+         * @private
+         * Reference to the Controller which created this object.
+         */
+        public function set controller( _controllerInstance:Controller ):void
+        {
+            if( images.length > 0 )
+            {
+                images[0].controller = _controllerInstance;
+                images[1].controller = _controllerInstance;
+            }
+            _controller = _controllerInstance;
+        }
+
+        /**
 		 * Constructs a Frame object.
 		 *
 		 * <p>Frame instances created with this constructor are invalid.
@@ -404,12 +418,12 @@ package com.leapmotion.leap
 				var i:int = 0;
 				var j:int = 0;
 
-				for( i; i < controller.frameHistory.length; ++i )
+				for( i; i < _controller.frameHistory.length; ++i )
 				{
-					for( j; j < controller.frameHistory[ i ].gesturesVector.length; ++j )
-						gesturesSinceFrame.push( controller.frameHistory[ i ].gesturesVector[ j ] );
+					for( j; j < _controller.frameHistory[ i ].gesturesVector.length; ++j )
+						gesturesSinceFrame.push( _controller.frameHistory[ i ].gesturesVector[ j ] );
 
-					if( sinceFrame == controller.frameHistory[ i ] )
+					if( sinceFrame == _controller.frameHistory[ i ] )
 						break;
 				}
 
@@ -531,10 +545,10 @@ package com.leapmotion.leap
 		 */
 		public function rotationProbability( sinceFrame:Frame ):Number
 		{
-			if( !controller.context )
+			if( !_controller.context )
 				throw new Error( "Method only supported for Native connections." );
 			else
-				return controller.context.call( "frameRotationProbability", id, sinceFrame.id );
+				return _controller.context.call( "frameRotationProbability", id, sinceFrame.id );
 		}
 
 		/**
@@ -581,10 +595,10 @@ package com.leapmotion.leap
 		 */
 		public function scaleProbability( sinceFrame:Frame ):Number
 		{
-			if( !controller.context )
+			if( !_controller.context )
 				throw new Error( "Method only supported for Native connections." );
 			else
-				return controller.context.call( "frameScaleProbability", id, sinceFrame.id );
+				return _controller.context.call( "frameScaleProbability", id, sinceFrame.id );
 		}
 
 		/**
@@ -629,10 +643,10 @@ package com.leapmotion.leap
 		 */
 		public function translationProbability( sinceFrame:Frame ):Number
 		{
-			if( !controller.context )
+			if( !_controller.context )
 				throw new Error( "Method only supported for Native connections." );
 			else
-				return controller.context.call( "frameTranslationProbability", id, sinceFrame.id );
+				return _controller.context.call( "frameTranslationProbability", id, sinceFrame.id );
 		}
 
 		/**

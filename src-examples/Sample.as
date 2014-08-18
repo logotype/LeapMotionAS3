@@ -6,16 +6,20 @@ package
 	
 	import flash.display.Sprite;
 	import flash.display.Bitmap;
+	import flash.display.BlendMode;
 
-    [SWF(width="640", height="480", frameRate="60", backgroundColor="#000000")]
+    [SWF(width="1280", height="480", frameRate="60", backgroundColor="#000000")]
 	public class Sample extends Sprite
 	{
 		private var controller:Controller;
-		private var bitmap:Bitmap = new Bitmap();
+		private var bitmap1:Bitmap = new Bitmap();
+		private var bitmap2:Bitmap = new Bitmap();
 
 		public function Sample()
 		{
-			this.addChild( bitmap );
+			this.addChild( bitmap1 );
+			this.addChild( bitmap2 );
+			bitmap2.x = 640;
 			controller = new Controller();
 			controller.addEventListener( LeapEvent.LEAPMOTION_INIT, onInit );
 			controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, onConnect );
@@ -57,10 +61,15 @@ package
 
 			if ( frame.images.length > 0 )
 			{
-				var image:Image = frame.images[0];
-				bitmap.bitmapData = image.data;
-				bitmap.width = 640;
-				bitmap.height = 480;
+				var image1:Image = frame.images[0];
+				bitmap1.bitmapData = image1.data;
+				bitmap1.width = 640;
+				bitmap1.height = 480;
+
+				var image2:Image = frame.images[1];
+				bitmap2.bitmapData = image2.data;
+				bitmap2.width = 640;
+				bitmap2.height = 480;
 			}
 
 			if ( frame.hands.length > 0 )

@@ -28,6 +28,10 @@ namespace leapnative {
 
         //frame class
         FREObject frameProbability(int frameId, int sinceFrameId, int type);
+
+        //image class
+        FREObject imageRectify(int imageId, Vector uv);
+        FREObject imageWarp(int imageId, Vector xy);
         
         //hand class
         FREObject handProbability(int handId, int frameId, int sinceFrameId, int type);

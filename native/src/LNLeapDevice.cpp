@@ -576,8 +576,6 @@ namespace leapnative {
                 // Set image data
                 FREObject freImageData;
                 
-                // Pixels are now in image_buffer in the format RGBA8888
-                // We'll now loop over each pixel write them into the AS3 bitmapData memory
                 FREResult result;
                 
                 FREObject arguments[] = {freImageWidth, freImageHeight};
@@ -599,10 +597,9 @@ namespace leapnative {
                     for(x = 0; x < bmd.width; x++, bmdPixels++, byteIndex++)
                     {
                         int brightness = image_buffer[byteIndex];
-                        int alpha = 255;
                         
                         // Combine values into ARGB32
-                        *bmdPixels = (alpha << 24) | (brightness << 16) | (brightness << 8) | brightness;
+                        *bmdPixels = (255 << 24) | (brightness << 16) | (brightness << 8) | brightness;
                     }
                     
                     bmdPixels += offset;
@@ -918,6 +915,32 @@ namespace leapnative {
         return freReturnValue;
     }
     //end frame class
+    
+    //start image class
+    FREObject LNLeapDevice::imageRectify(int imageId, Vector uv) {
+        
+        Frame frameObj = controller->frame();
+        
+        if (!frameObj.images().isEmpty()) {
+            Vector rectifiedVector = frameObj.images()[imageId].rectify(uv);
+            return createVector3(rectifiedVector.x, rectifiedVector.y, rectifiedVector.z);
+        } else {
+            return createVector3(0, 0, 0);
+        }
+    }
+    
+    FREObject LNLeapDevice::imageWarp(int imageId, Vector xy) {
+        
+        Frame frameObj = controller->frame();
+        
+        if (!frameObj.images().isEmpty()) {
+            Vector warpedVector = frameObj.images()[imageId].warp(xy);
+            return createVector3(warpedVector.x, warpedVector.y, warpedVector.z);
+        } else {
+            return createVector3(0, 0, 0);
+        }
+    }
+    //end image class
     
     //start hand class
     FREObject LNLeapDevice::handProbability(int handId, int frameId, int sinceFrameId, int type) {

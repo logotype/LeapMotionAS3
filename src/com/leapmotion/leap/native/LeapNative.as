@@ -258,6 +258,13 @@ package com.leapmotion.leap.native
 			// Add frame to history
 			if( controller.frameHistory.length > 59 )
 			{
+                // Clean up by disposing BitmapData
+                if( controller.frameHistory[58].images.length > 0 )
+                {
+                    controller.frameHistory[58].images[0].data.dispose();
+                    controller.frameHistory[58].images[1].data.dispose();
+                }
+
 				controller.frameHistory.splice( 59, 1 );
 			}
 
