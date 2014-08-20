@@ -12,6 +12,11 @@ public class DefaultListener implements Listener
     {
     }
 
+    public function onInit( controller:Controller ):void
+    {
+        controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_INIT ) );
+    }
+
     public function onConnect( controller:Controller ):void
     {
         controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_CONNECTED ) );
@@ -27,6 +32,11 @@ public class DefaultListener implements Listener
         controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_EXIT ) );
     }
 
+    public function onFrame( controller:Controller, frame:Frame ):void
+    {
+        controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_FRAME, frame ) );
+    }
+
     public function onFocusGained( controller:Controller ):void
     {
         controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_FOCUSGAINED ) );
@@ -37,14 +47,19 @@ public class DefaultListener implements Listener
         controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_FOCUSLOST ) );
     }
 
-    public function onFrame( controller:Controller, frame:Frame ):void
+    public function onServiceConnect( controller:Controller ):void
     {
-        controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_FRAME, frame ) );
+        controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_FOCUSLOST ) );
     }
 
-    public function onInit( controller:Controller ):void
+    public function onServiceDisconnect( controller:Controller ):void
     {
-        controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_INIT ) );
+        controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_FOCUSLOST ) );
+    }
+
+    public function onDeviceChange( controller:Controller ):void
+    {
+        controller.dispatchEvent( new LeapEvent( LeapEvent.LEAPMOTION_FOCUSLOST ) );
     }
 }
 }

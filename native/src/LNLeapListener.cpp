@@ -34,4 +34,29 @@ namespace leapnative {
         FREDispatchStatusEventAsync(*m_ctx, (const uint8_t*) "onFrame", (const uint8_t*) "");
     }
     
+    void LNLeapListener::onFocusGained(const Controller& controller) {
+        std::cout << "LNLeapListener::FocusGained" << std::endl;
+        FREDispatchStatusEventAsync(*m_ctx, (const uint8_t*) "onFocusGained", (const uint8_t*) "");
+    }
+    
+    void LNLeapListener::onFocusLost(const Controller& controller) {
+        std::cout << "LNLeapListener::FocusLost" << std::endl;
+        FREDispatchStatusEventAsync(*m_ctx, (const uint8_t*) "onFocusLost", (const uint8_t*) "");
+    }
+    
+    void LNLeapListener::onServiceConnect(const Controller& controller) {
+        std::cout << "LNLeapListener::ServiceConnect" << std::endl;
+        FREDispatchStatusEventAsync(*m_ctx, (const uint8_t*) "onServiceConnect", (const uint8_t*) "");
+    }
+    
+    void LNLeapListener::onServiceDisconnect(const Controller& controller) {
+        std::cout << "LNLeapListener::ServiceDisconnect" << std::endl;
+        FREDispatchStatusEventAsync(*m_ctx, (const uint8_t*) "onServiceDisconnect", (const uint8_t*) "");
+    }
+    
+    void LNLeapListener::onDeviceChange(const Controller& controller) {
+        std::cout << "LNLeapListener::DeviceChange" << std::endl;
+        FREDispatchStatusEventAsync(*m_ctx, (const uint8_t*) "onDeviceChange", (const uint8_t*) "");
+    }
+    
 }

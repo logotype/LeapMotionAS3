@@ -64,6 +64,47 @@ public class LeapNative implements ILeapConnection
     static private const LEAPNATIVE_FOCUSLOST:String = "onFocusLost";
 
     /**
+     * Called when the Leap Motion daemon/service connects to your application Controller.
+     *
+     * <p>onServiceConnect/onServiceDisconnect are for connection established/lost.
+     * in normal course of events onServiceConnect will get called once after
+     * onInit and onServiceDisconnect will not get called. disconnect
+     * notification only happens if service stops running or something
+     * else bad happens to disconnect controller from service.</p>
+     *
+     * @param controller The Controller object invoking this callback function.
+     */
+    static public const LEAPNATIVE_SERVICE_CONNECT:String = "onServiceConnect";
+
+    /**
+     * Called if the Leap Motion daemon/service disconnects from your application Controller.
+     *
+     * <p>onServiceConnect/onServiceDisconnect are for connection established/lost.
+     * in normal course of events onServiceConnect will get called once after
+     * onInit and onServiceDisconnect will not get called. disconnect
+     * notification only happens if service stops running or something
+     * else bad happens to disconnect controller from service.</p>
+     *
+     * <p>Normally, this callback is not invoked. It is only called if some external event
+     * or problem shuts down the service or otherwise interrupts the connection.</p>
+     *
+     * @param controller The Controller object invoking this callback function.
+     */
+    static public const LEAPNATIVE_SERVICE_DISCONNECT:String = "onServiceDisconnect";
+
+    /**
+     * Called when a Leap Motion controller plugged in, unplugged, or the device changes state.
+     *
+     * State changes include changes in frame rate and entering or leaving "robust" mode.
+     * Note that there is currently no way to query whether a device is in robust mode.
+     * You can use Frame::currentFramerate() to get the framerate.
+     *
+     * @param controller The Controller object invoking this callback function.
+     */
+    static public const LEAPNATIVE_DEVICECHANGE:String = "onDeviceChange";
+
+
+    /**
      * Boolean toggle to check if the class has been initialized
      */
     private static var initialized:Boolean;
@@ -178,6 +219,18 @@ public class LeapNative implements ILeapConnection
         {
             handleOnFocusLost();
         }
+        else if( event.code == LEAPNATIVE_SERVICE_CONNECT )
+        {
+            handleOnServiceConnect();
+        }
+        else if( event.code == LEAPNATIVE_SERVICE_DISCONNECT )
+        {
+            handleOnServiceDisconnect();
+        }
+        else if( event.code == LEAPNATIVE_DEVICECHANGE )
+        {
+            handleOnDeviceChange();
+        }
         else if( event.code == LEAPNATIVE_CONNECTED )
         {
             handleOnConnect();
@@ -246,6 +299,36 @@ public class LeapNative implements ILeapConnection
     final private function handleOnFocusLost():void
     {
         controller.leapmotion::listener.onFocusLost( controller );
+    }
+
+    /**
+     * Inline method. Called when the Leap Motion daemon/service connects to your application Controller.
+     *
+     */
+    [Inline]
+    final private function handleOnServiceConnect():void
+    {
+        controller.leapmotion::listener.onServiceConnect( controller );
+    }
+
+    /**
+     * Inline method. Called if the Leap Motion daemon/service disconnects from your application Controller.
+     *
+     */
+    [Inline]
+    final private function handleOnServiceDisconnect():void
+    {
+        controller.leapmotion::listener.onServiceDisconnect( controller );
+    }
+
+    /**
+     * Inline method. Called when a Leap Motion controller plugged in, unplugged, or the device changes state.
+     *
+     */
+    [Inline]
+    final private function handleOnDeviceChange():void
+    {
+        controller.leapmotion::listener.onDeviceChange( controller );
     }
 
     /**
