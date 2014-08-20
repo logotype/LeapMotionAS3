@@ -1,6 +1,6 @@
 package com.leapmotion.leap
 {
-    import flash.display.BitmapData;
+import flash.display.BitmapData;
 
 /**
  * The Image class represents a single greyscale image from one of the the Leap Motion cameras.
