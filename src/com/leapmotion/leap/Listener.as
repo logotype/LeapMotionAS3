@@ -26,8 +26,8 @@ public interface Listener
      *
      * <listing>
      * public function onInit( controller:Controller ):void {
-		 *     trace( "Init" );
-		 * }</listing>
+     *     trace( "Init" );
+     * }</listing>
      *
      * @param controller The Controller object invoking this callback function.
      *
@@ -52,8 +52,8 @@ public interface Listener
      *
      * <listing>
      * public function onDisconnect( controller:Controller ):void {
-		 *     trace( "Disconnected" );
-		 * }</listing>
+     *     trace( "Disconnected" );
+     * }</listing>
      *
      * <p>Note: When you launch a Leap-enabled application in a debugger,
      * the Leap Motion library does not disconnect from the application.
@@ -71,8 +71,8 @@ public interface Listener
      *
      * <listing>
      * public function onExit( controller:Controller ):void {
-		 *     trace( "Exited" );
-		 * }</listing>
+     *     trace( "Exited" );
+     * }</listing>
      *
      * @param controller The Controller object invoking this callback function.
      *
@@ -86,8 +86,8 @@ public interface Listener
      *
      * <listing>
      * public function onFrame( controller:Controller, frame:Frame ):void {
-		 *     trace( "New frame" );
-		 * }</listing>
+     *     trace( "New frame" );
+     * }</listing>
      *
      * <p>Note, the Controller skips any pending onFrame events while your
      * onFrame handler executes. If your implementation takes too long to
@@ -113,8 +113,8 @@ public interface Listener
      *
      * <listing>
      * public function onFocusGained( controller:Controller ):void {
-		 *     trace( "Focus gained" );
-		 * }</listing>
+     *     trace( "Focus gained" );
+     * }</listing>
      *
      * @param controller The Controller object invoking this callback function.
      *
@@ -130,8 +130,8 @@ public interface Listener
      *
      * <listing>
      * public function onFocusLost( controller:Controller ):void {
-		 *     trace( "Focus lost" );
-		 * }</listing>
+     *     trace( "Focus lost" );
+     * }</listing>
      *
      * @param controller The Controller object invoking this callback function.
      *

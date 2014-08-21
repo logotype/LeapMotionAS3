@@ -144,7 +144,7 @@ namespace leapnative {
         FRESetObjectProperty(freCurrentFrame, (const uint8_t*) "scaleFactorNumber", freFrameScaleFactor, NULL);
         
         FREObject freTimestamp;
-        FRENewObjectFromInt32((int32_t) frame.timestamp(), &freTimestamp);
+        FRENewObjectFromInt32((int32_t) (frame.timestamp() >> 32), &freTimestamp);
         FRESetObjectProperty(freCurrentFrame, (const uint8_t*) "timestamp", freTimestamp, NULL);
         
         FREObject freInteractionBox;

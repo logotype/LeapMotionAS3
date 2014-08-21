@@ -438,7 +438,10 @@ final public class LeapSocket extends EventDispatcher implements ILeapConnection
                 pointable.length = json.pointables[ i ].length;
                 pointable.direction = new Vector3( json.pointables[ i ].direction[ 0 ], json.pointables[ i ].direction[ 1 ], json.pointables[ i ].direction[ 2 ] );
                 pointable.tipPosition = new Vector3( json.pointables[ i ].tipPosition[ 0 ], json.pointables[ i ].tipPosition[ 1 ], json.pointables[ i ].tipPosition[ 2 ] );
-                pointable.btipPosition = new Vector3( json.pointables[ i ].btipPosition[ 0 ], json.pointables[ i ].btipPosition[ 1 ], json.pointables[ i ].btipPosition[ 2 ] );
+                if( json.pointables[ i ].btipPosition )
+                {
+                    pointable.btipPosition = new Vector3( json.pointables[ i ].btipPosition[ 0 ], json.pointables[ i ].btipPosition[ 1 ], json.pointables[ i ].btipPosition[ 2 ] );
+                }
                 pointable.stabilizedTipPosition = new Vector3( json.pointables[ i ].stabilizedTipPosition[ 0 ], json.pointables[ i ].stabilizedTipPosition[ 1 ], json.pointables[ i ].stabilizedTipPosition[ 2 ] );
                 pointable.timeVisible = json.pointables[ i ].timeVisible;
                 pointable.touchDistance = json.pointables[ i ].touchDistance;
@@ -514,7 +517,14 @@ final public class LeapSocket extends EventDispatcher implements ILeapConnection
                     bone.width = json.pointables[ i ].width;
                     bone.length = json.pointables[ i ].length;
                     bone.prevJoint = new Vector3( json.pointables[ i ].dipPosition[ 0 ], json.pointables[ i ].dipPosition[ 1 ], json.pointables[ i ].dipPosition[ 2 ] );
-                    bone.nextJoint = new Vector3( json.pointables[ i ].btipPosition[ 0 ], json.pointables[ i ].btipPosition[ 1 ], json.pointables[ i ].btipPosition[ 2 ] );
+                    if( json.pointables[ i ].btipPosition )
+                    {
+                        bone.nextJoint = new Vector3( json.pointables[ i ].btipPosition[ 0 ], json.pointables[ i ].btipPosition[ 1 ], json.pointables[ i ].btipPosition[ 2 ] );
+                    }
+                    else
+                    {
+                        bone.nextJoint = Vector3.invalid();
+                    }
                     bone.basis = new Matrix( new Vector3( json.pointables[ i ].bases[ 3 ][ 0 ][ 0 ], json.pointables[ i ].bases[ 3 ][ 0 ][ 1 ], json.pointables[ i ].bases[ 3 ][ 0 ][ 2 ] ), new Vector3( json.pointables[ i ].bases[ 3 ][ 1 ][ 0 ], json.pointables[ i ].bases[ 3 ][ 1 ][ 1 ], json.pointables[ i ].bases[ 3 ][ 1 ][ 2 ] ), new Vector3( json.pointables[ i ].bases[ 3 ][ 2 ][ 0 ], json.pointables[ i ].bases[ 3 ][ 2 ][ 1 ], json.pointables[ i ].bases[ 3 ][ 2 ][ 2 ] ) );
                     Finger( pointable ).distal = bone;
 
