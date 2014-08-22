@@ -94,14 +94,31 @@
         <if>
             <equals arg1="${Extension.ASC_VERSION}" arg2="2"/>
             <then>
-                <property name="Extension.AIR_SDK_HOME" value="${ASC2_AIR_SDK_HOME}"/>
                 <property name="Extension.AIR_SDK_VERSION" value="${ASC2_AIR_SDK_VERSION}"/>
                 <property name="Extension.OUTPUT_NAME" value="${Extension.EXTENSION_NAME}-asc2" />
+                <if>
+                    <equals arg1="${isWindows}" arg2="true"/>
+                    <then>
+                        <property name="Extension.AIR_SDK_HOME" value="C:${ASC2_AIR_SDK_HOME}"/>
+                    </then>
+                    <else>
+                        <property name="Extension.AIR_SDK_HOME" value="${ASC2_AIR_SDK_HOME}"/>
+                    </else>
+                </if>
             </then>
             <else>
                 <property name="Extension.AIR_SDK_HOME" value="${ASC1_AIR_SDK_HOME}"/>
                 <property name="Extension.AIR_SDK_VERSION" value="${ASC1_AIR_SDK_VERSION}"/>
                 <property name="Extension.OUTPUT_NAME" value="${Extension.EXTENSION_NAME}" />
+                <if>
+                    <equals arg1="${isWindows}" arg2="true"/>
+                    <then>
+                        <property name="Extension.AIR_SDK_HOME" value="C:${ASC1_AIR_SDK_HOME}"/>
+                    </then>
+                    <else>
+                        <property name="Extension.AIR_SDK_HOME" value="${ASC2_AIR_SDK_HOME}"/>
+                    </else>
+                </if>
             </else>
         </if>
 		<property name="FLEX_HOME" value="${Extension.AIR_SDK_HOME}"/>
@@ -244,6 +261,16 @@
 		<antcall target="generate-extension-certificate" />
 		<unzip src="${Extension.BIN_ROOT}/${Extension.OUTPUT_NAME}.swc" dest="${Extension.TMP_ROOT}"/>
 		
+        <!-- copy the windows leap dll to the tmp folder -->
+        <copy todir="${Extension.TMP_ROOT}">
+            <fileset file="${Extension.NATIVE_BIN_ROOT}/${Extension.NATIVE_LIBRARY_LEAP}" />
+        </copy>
+        
+        <!-- copy the windows leap dll to the tmp folder -->
+        <copy todir="${Extension.TMP_ROOT}">
+            <fileset file="${Extension.NATIVE_BIN_ROOT}/${Extension.NATIVE_LIBRARY_LEAPD}" />
+        </copy>
+        
 		<!-- copy the mac framework to the tmp folder -->
 		<copy todir="${Extension.TMP_ROOT}/${Extension.NATIVE_LIBRARY_OSX}">
 			<fileset dir="${Extension.NATIVE_BIN_ROOT}/${Extension.NATIVE_LIBRARY_OSX}" />
@@ -253,7 +280,7 @@
 		<copy todir="${Extension.TMP_ROOT}">
 			<fileset file="${Extension.NATIVE_BIN_ROOT}/${Extension.NATIVE_LIBRARY_WINDOWS}" />
 		</copy>
-		
+
 		<!-- copy the extension.xml to the tmp folder -->
 		<copy todir="${Extension.TMP_ROOT}">
 			<fileset file="${Extension.BUILD_ROOT}/extension.xml" />
@@ -284,7 +311,9 @@
 			<arg value="-platform"/>
 			<arg value="Windows-x86"/>
 			<arg value="library.swf"/>
-			<arg line="'${Extension.NATIVE_LIBRARY_WINDOWS}'"/>
+            <arg line="'${Extension.NATIVE_LIBRARY_WINDOWS}'"/>
+            <arg line="'${Extension.NATIVE_LIBRARY_LEAP}'"/>
+            <arg line="'${Extension.NATIVE_LIBRARY_LEAPD}'"/>
 			<arg value="-platform"/>
 			<arg value="MacOS-x86"/>
 			<arg value="library.swf"/>
@@ -327,6 +356,10 @@
             <replacefilter token="APPLICATION_SWF"
                            value="${Examples.MAIN_SWF}"/>
         </replace>
+
+        <copy todir="${Examples.DEBUG_ROOT}">
+            <fileset file="${Extension.NATIVE_BIN_ROOT}/${Extension.NATIVE_LIBRARY_LEAP}" />
+        </copy>
 
         <if>
             <equals arg1="${Examples.ASC_VERSION}" arg2="2"/>
@@ -393,6 +426,7 @@
         </if>
 
         <exec executable="${ADL}">
+            <env key="PATH" value="${Examples.DEBUG_ROOT}"/>
             <arg value="${Examples.MAIN_DEBUG_DESCRIPTOR}"/>
             <arg value="-extdir"/>
             <arg value="${Examples.DEBUG_EXTENSIONS_ROOT}"/>
@@ -454,6 +488,7 @@
         </if>
 
         <exec executable="${ADL}">
+            <env key="PATH" value="${Examples.DEBUG_ROOT}"/>
             <arg value="${Examples.MAIN_DEBUG_DESCRIPTOR}"/>
             <arg value="${Examples.DEBUG_ROOT}"/>
         </exec>
@@ -536,6 +571,7 @@
         </if>
 
         <exec executable="${ADL}">
+            <env key="PATH" value="${Examples.RELEASE_ROOT}"/>
             <arg value="${Examples.MAIN_RELEASE_DESCRIPTOR}"/>
             <arg value="-extdir"/>
             <arg value="${Examples.RELEASE_EXTENSIONS_ROOT}"/>
