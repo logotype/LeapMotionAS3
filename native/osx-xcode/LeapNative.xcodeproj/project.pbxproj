@@ -11,7 +11,7 @@
 		3782F5F116D3C7270089BD7A /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3782F5F016D3C7270089BD7A /* AppKit.framework */; };
 		3782F5F316D3C72E0089BD7A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3782F5F216D3C72E0089BD7A /* CoreData.framework */; };
 		3782F5F516D3C7350089BD7A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3782F5F416D3C7350089BD7A /* Foundation.framework */; };
-		37A9AD6E17685FB800A59983 /* Adobe AIR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A9AD6D17685FB800A59983 /* Adobe AIR.framework */; };
+		37ABA8FB19C5F49700BAAEA5 /* Adobe AIR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37ABA8FA19C5F49700BAAEA5 /* Adobe AIR.framework */; };
 		6C2DA05616BBD08B00FC1899 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C2DA05416BBD08B00FC1899 /* InfoPlist.strings */; };
 		6C2DA06916BBD22700FC1899 /* LNExtension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C2DA06716BBD22700FC1899 /* LNExtension.cpp */; };
 		6C2DA06A16BBD22700FC1899 /* LNExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C2DA06816BBD22700FC1899 /* LNExtension.h */; };
@@ -41,7 +41,7 @@
 		3782F5F016D3C7270089BD7A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
 		3782F5F216D3C72E0089BD7A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		3782F5F416D3C7350089BD7A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		37A9AD6D17685FB800A59983 /* Adobe AIR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Adobe AIR.framework"; path = "/Applications/Adobe Flash Builder 4.7/eclipse/plugins/com.adobe.flash.compiler_4.7.0.349722/AIRSDK/runtimes/air/mac/Adobe AIR.framework"; sourceTree = "<absolute>"; };
+		37ABA8FA19C5F49700BAAEA5 /* Adobe AIR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Adobe AIR.framework"; path = "../../../../../../../AIRSDK/runtimes/air/mac/Adobe AIR.framework"; sourceTree = "<group>"; };
 		6C2DA04816BBD08B00FC1899 /* LeapNative.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LeapNative.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C2DA05316BBD08B00FC1899 /* LeapNative-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LeapNative-Info.plist"; sourceTree = "<group>"; };
 		6C2DA05516BBD08B00FC1899 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -61,7 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37A9AD6E17685FB800A59983 /* Adobe AIR.framework in Frameworks */,
+				37ABA8FB19C5F49700BAAEA5 /* Adobe AIR.framework in Frameworks */,
 				3782F5F516D3C7350089BD7A /* Foundation.framework in Frameworks */,
 				3782F5F316D3C72E0089BD7A /* CoreData.framework in Frameworks */,
 				3782F5F116D3C7270089BD7A /* AppKit.framework in Frameworks */,
@@ -95,7 +95,7 @@
 		6C2DA04A16BBD08B00FC1899 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				37A9AD6D17685FB800A59983 /* Adobe AIR.framework */,
+				37ABA8FA19C5F49700BAAEA5 /* Adobe AIR.framework */,
 				6C2DA04D16BBD08B00FC1899 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -354,7 +354,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = "\"/Applications/Adobe Flash Builder 4.7/eclipse/plugins/com.adobe.flash.compiler_4.7.0.349722/AIRSDK/runtimes/air/mac\"";
+				FRAMEWORK_SEARCH_PATHS = (
+					/Applications/Adobe,
+					Flash,
+					Builder,
+					4.7/eclipse/plugins/com.adobe.flash.compiler_4.7.0.349722/AIRSDK/runtimes/air/mac,
+					/AIRSDK/runtimes/air/mac,
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LeapNative/LeapNative-Prefix.pch";
@@ -378,7 +384,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = "\"/Applications/Adobe Flash Builder 4.7/eclipse/plugins/com.adobe.flash.compiler_4.7.0.349722/AIRSDK/runtimes/air/mac\"";
+				FRAMEWORK_SEARCH_PATHS = (
+					/Applications/Adobe,
+					Flash,
+					Builder,
+					4.7/eclipse/plugins/com.adobe.flash.compiler_4.7.0.349722/AIRSDK/runtimes/air/mac,
+					/AIRSDK/runtimes/air/mac,
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LeapNative/LeapNative-Prefix.pch";

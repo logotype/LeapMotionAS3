@@ -81,7 +81,7 @@ Features
 + Skeleton/Bone API
 + Works great with [Away3D](https://github.com/away3d/away3d-core-fp11) and [Starling](https://github.com/PrimaryFeather/Starling-Framework)
 + Connect multiple devices to the same Leap Motion (via an optional "host" argument)
-+ Uses AIR 14.0/ASC 2.0 compiler features (add the `-inline` and `-swf-version=25` compiler arguments)
++ Uses AIR 15.0/ASC 2.0 compiler features (add the `-inline` and `-swf-version=26` compiler arguments)
 + No external dependencies, creates a optimized socket when the ANE isn't available
 + AIR Native Extension (ANE) which directly interfaces with the C++ library (Mac OSX and Windows)
 + Compatible with Mac OSX, Windows, iOS (iPad/iPhone/etc) and Android
@@ -91,7 +91,7 @@ AIR Native Extension
 
 You can use this library on both web and AIR projects. If you are using it on an AIR for Desktop project, you can take advantage of the AIR Native Extension.
 
-[Download the ane-file](https://github.com/logotype/LeapMotionAS3/blob/master/bin/LeapMotionAS3-asc2.ane?raw=true) and place it somewhere in your project (preferably in the directory where you would put your swc files). Link the ane file to your project:
+[Download the ane-file](https://github.com/logotype/LeapMotionAS3/blob/master/bin/LeapMotionAS3.ane?raw=true) and place it somewhere in your project (preferably in the directory where you would put your swc files). Link the ane file to your project:
 
 ####Flash Builder 4.7
 
@@ -165,6 +165,4 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-IN THE SOFTWARE. 
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/0b1150a1c194ee9a45645c857cf4f861 "githalytics.com")](http://githalytics.com/logotype/LeapMotionAS3)
+IN THE SOFTWARE.

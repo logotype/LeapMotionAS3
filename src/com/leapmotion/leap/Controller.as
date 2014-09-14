@@ -99,6 +99,11 @@ public class Controller extends EventDispatcher
     static public const POLICY_IMAGES:uint = ( 1 << 1 );
 
     /**
+     * Optimize for top-down tracking/VR mount.
+     */
+    static public const POLICY_OPTIMIZE_HMD:uint = ( 1 << 2 );
+
+    /**
      * @private
      * The Listener subclass instance.
      */
