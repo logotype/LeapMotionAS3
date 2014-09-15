@@ -44,7 +44,7 @@
     <property name="Examples.MAIN_RELEASE_DESCRIPTOR" value="${Examples.RELEASE_ROOT}/app.xml"/>
 
 	<target name="docs" description="Generate the ASDocs to /docs">
-        <exec executable="/Applications/Adobe Flash Builder 4.7/eclipse/plugins/com.adobe.flash.compiler_4.7.0.349722/AIRSDK/bin/aasdoc" failonerror="true">
+        <exec executable="${AIR_SDK_HOME}/bin/aasdoc" failonerror="true">
             <arg line="-doc-sources ${Extension.AS3_ROOT}" />
             <arg value="-window-title" />
             <arg value="LeapMotionAS3" />
