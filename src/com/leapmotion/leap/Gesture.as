@@ -257,7 +257,7 @@ public class Gesture
      */
     public function isEqualTo( other:Gesture ):Boolean
     {
-        return ( id == other.id ) ? true : false;
+        return id == other.id;
     }
 
     /**

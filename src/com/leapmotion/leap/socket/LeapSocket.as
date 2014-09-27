@@ -222,6 +222,8 @@ final public class LeapSocket extends EventDispatcher implements ILeapConnection
             case ThrottleType.RESUME:
                 sendUTF( "{\"focused\": true}" );
                 break;
+            default:
+                break;
         }
     }
 
@@ -703,7 +705,6 @@ final public class LeapSocket extends EventDispatcher implements ILeapConnection
             if( hand.id == id )
             {
                 return hand;
-                break;
             }
         }
         return Hand.invalid();
@@ -725,7 +726,6 @@ final public class LeapSocket extends EventDispatcher implements ILeapConnection
             if( pointable.id == id )
             {
                 return pointable;
-                break;
             }
         }
         return Pointable.invalid();

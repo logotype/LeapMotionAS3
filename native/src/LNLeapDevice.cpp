@@ -575,15 +575,12 @@ namespace leapnative {
 
                 // Set image data
                 FREObject freImageData;
-                
-                FREResult result;
-                
                 FREObject arguments[] = {freImageWidth, freImageHeight};
                 
-                result = FRENewObject((const uint8_t*) "flash.display.BitmapData", 2, arguments, &freImageData, NULL);
+                FRENewObject((const uint8_t*) "flash.display.BitmapData", 2, arguments, &freImageData, NULL);
                 
                 FREBitmapData bmd;
-                result = FREAcquireBitmapData(freImageData, &bmd);
+                FREAcquireBitmapData(freImageData, &bmd);
                 
                 int x, y;
                 
@@ -605,8 +602,8 @@ namespace leapnative {
                     bmdPixels += offset;
                 }
                 
-                result = FREInvalidateBitmapDataRect(freImageData, 0, 0, bmd.width, bmd.height);
-                result = FREReleaseBitmapData(freImageData);
+                FREInvalidateBitmapDataRect(freImageData, 0, 0, bmd.width, bmd.height);
+                FREReleaseBitmapData(freImageData);
 
                 FRESetObjectProperty(freImage, (const uint8_t*) "data", freImageData, NULL);
 

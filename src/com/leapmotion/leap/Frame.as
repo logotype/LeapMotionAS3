@@ -181,7 +181,6 @@ public class Frame
             if( handsVector[ i ].id == id )
             {
                 return handsVector[ i ];
-                break;
             }
         }
 
@@ -232,7 +231,6 @@ public class Frame
             if( fingersVector[ i ].id == id )
             {
                 return fingersVector[ i ];
-                break;
             }
         }
 
@@ -283,7 +281,6 @@ public class Frame
             if( toolsVector[ i ].id == id )
             {
                 return toolsVector[ i ];
-                break;
             }
         }
 
@@ -333,7 +330,6 @@ public class Frame
             if( pointablesVector[ i ].id == id )
             {
                 return pointablesVector[ i ];
-                break;
             }
         }
 
@@ -379,7 +375,6 @@ public class Frame
             if( gesturesVector[ i ].id == id )
             {
                 return gesturesVector[ i ];
-                break;
             }
         }
 
@@ -489,7 +484,7 @@ public class Frame
         if( !isValid() || !sinceFrame.isValid() )
             return 0.0;
 
-        var returnValue:Number = 0.0;
+        var returnValue:Number;
         var rotationSinceFrameMatrix:Matrix = rotationMatrix( sinceFrame );
         var cs:Number = ( rotationSinceFrameMatrix.xBasis.x + rotationSinceFrameMatrix.yBasis.y + rotationSinceFrameMatrix.zBasis.z - 1 ) * 0.5;
         var angle:Number = Math.acos( cs );

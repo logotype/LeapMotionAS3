@@ -271,6 +271,8 @@ public class Config
                 return "[TYPE_FLOAT]";
             case TYPE_STRING:
                 return "[TYPE_STRING]";
+            default:
+                break;
         }
         return "[TYPE_UNKNOWN]";
     }

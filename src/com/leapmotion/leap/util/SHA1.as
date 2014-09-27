@@ -123,7 +123,7 @@ public class SHA1
             {
                 // 6.1.b
                 temp = w[ t - 3 ] ^ w[ t - 8 ] ^ w[ t - 14 ] ^ w[ t - 16 ];
-                w[ t ] = ( temp << 1 ) | ( temp >>> 31 )
+                w[ t ] = ( temp << 1 ) | ( temp >>> 31 );
 
                 // 6.1.d
                 temp = ( ( a << 5 ) | ( a >>> 27 ) ) + ( b ^ c ^ d ) + e + int( w[ t ] ) + 0x6ed9eba1;
@@ -138,7 +138,7 @@ public class SHA1
             {
                 // 6.1.b
                 temp = w[ t - 3 ] ^ w[ t - 8 ] ^ w[ t - 14 ] ^ w[ t - 16 ];
-                w[ t ] = ( temp << 1 ) | ( temp >>> 31 )
+                w[ t ] = ( temp << 1 ) | ( temp >>> 31 );
 
                 // 6.1.d
                 temp = ( ( a << 5 ) | ( a >>> 27 ) ) + ( ( b & c ) | ( b & d ) | ( c & d ) ) + e + int( w[ t ] ) + 0x8f1bbcdc;
@@ -153,7 +153,7 @@ public class SHA1
             {
                 // 6.1.b
                 temp = w[ t - 3 ] ^ w[ t - 8 ] ^ w[ t - 14 ] ^ w[ t - 16 ];
-                w[ t ] = ( temp << 1 ) | ( temp >>> 31 )
+                w[ t ] = ( temp << 1 ) | ( temp >>> 31 );
 
                 // 6.1.d
                 temp = ( ( a << 5 ) | ( a >>> 27 ) ) + ( b ^ c ^ d ) + e + int( w[ t ] ) + 0xca62c1d6;
@@ -200,7 +200,7 @@ public class SHA1
         var oldPosition:int = data.position;
         data.position = 0;
 
-        var blocks:Array = new Array();
+        var blocks:Array = [];
         var len:int = data.length * 8;
         var mask:int = 0xFF; // ignore hi byte of characters > 0xFF
         for( var i:int = 0; i < len; i += 8 )
@@ -227,7 +227,7 @@ public class SHA1
      */
     private static function createBlocksFromString( s:String ):Array
     {
-        var blocks:Array = new Array();
+        var blocks:Array = [];
         var len:int = s.length * 8;
         var mask:int = 0xFF; // ignore hi byte of characters > 0xFF
         for( var i:int = 0; i < len; i += 8 )
