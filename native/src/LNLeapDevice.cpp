@@ -582,26 +582,23 @@ namespace leapnative {
                 FREBitmapData bmd;
                 FREAcquireBitmapData(freImageData, &bmd);
                 
-                int x, y;
-                
                 int offset = bmd.lineStride32 - bmd.width;
                 int byteIndex = 0;
-                
                 uint32_t *bmdPixels = bmd.bits32;
+                int x, bitmapLength = bmd.width * bmd.height;
                 
-                for(y = 0; y < bmd.height; y++)
+                for(x = 0; x < bitmapLength; x++)
                 {
-                    for(x = 0; x < bmd.width; x++, bmdPixels++, byteIndex++)
-                    {
-                        int brightness = image_buffer[byteIndex];
-                        
+                    if (x % bmd.height != 1) {
                         // Combine values into ARGB32
-                        *bmdPixels = (255 << 24) | (brightness << 16) | (brightness << 8) | brightness;
+                        *bmdPixels = (255 << 24) | (image_buffer[byteIndex] << 16) | (image_buffer[byteIndex] << 8) | image_buffer[byteIndex];
+                        bmdPixels++;
+                        byteIndex++;
+                    } else {
+                        bmdPixels += offset;
                     }
-                    
-                    bmdPixels += offset;
                 }
-                
+
                 FREInvalidateBitmapDataRect(freImageData, 0, 0, bmd.width, bmd.height);
                 FREReleaseBitmapData(freImageData);
 
