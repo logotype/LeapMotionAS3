@@ -276,10 +276,7 @@ public class Gesture
      */
     public function isValid():Boolean
     {
-        if( isNaN( durationSeconds ) )
-            return false;
-
-        return true;
+        return isNaN( durationSeconds );
     }
 
     /**

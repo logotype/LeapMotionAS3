@@ -71,7 +71,7 @@ package samples.visualizer
 			pointable3Ds = new Vector.<Pointable3D>();
 			trails = new Vector.<Trail>();
 			var i:int = 0;
-			for ( i = 0; i < numPointable3Ds; i++ )
+			for ( i; i < numPointable3Ds; i++ )
 			{
 				var pointable3D:Pointable3D = new Pointable3D( sphereMaterial );
 				pointable3D.visible = false;

@@ -94,10 +94,7 @@ public class Arm
      */
     public function isValid():Boolean
     {
-        if( ( direction && direction.isValid() ) )
-            return true;
-
-        return false;
+        return direction && direction.isValid();
     }
 
     /**

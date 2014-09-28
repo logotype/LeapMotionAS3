@@ -56,6 +56,21 @@ package
 			trace( "onFocusLost" );
 		}
 		
+		public function onServiceConnect( controller:Controller ):void
+		{
+			trace( "onServiceConnect" );
+		}
+		
+		public function onServiceDisconnect( controller:Controller ):void
+		{
+			trace( "onServiceDisconnect" );
+		}
+		
+		public function onDeviceChange( controller:Controller ):void
+		{
+			trace( "onDeviceChange" );
+		}
+		
 		public function onFrame( controller:Controller, frame:Frame ):void
 		{
 			currentTime = ( getTimer() - startTime ) / 1000;

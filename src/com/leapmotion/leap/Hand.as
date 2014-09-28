@@ -240,10 +240,7 @@ public class Hand
      */
     public function isValid():Boolean
     {
-        if( ( direction && direction.isValid() ) && ( palmNormal && palmNormal.isValid() ) && ( palmPosition && palmPosition.isValid() ) && ( palmVelocity && palmVelocity.isValid() ) && ( sphereCenter && sphereCenter.isValid() ) )
-            return true;
-
-        return false;
+        return ( direction && direction.isValid() ) && ( palmNormal && palmNormal.isValid() ) && ( palmPosition && palmPosition.isValid() ) && ( palmVelocity && palmVelocity.isValid() ) && ( sphereCenter && sphereCenter.isValid() );
     }
 
     /**
@@ -259,10 +256,7 @@ public class Hand
      */
     public function isEqualTo( other:Hand ):Boolean
     {
-        if( id == other.id && frame == other.frame && isValid() && other.isValid() )
-            return true;
-
-        return false;
+        return id == other.id && frame == other.frame && isValid() && other.isValid();
     }
 
     /**

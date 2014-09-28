@@ -148,10 +148,7 @@ public class Bone
      */
     public function isValid():Boolean
     {
-        if( ( prevJoint && prevJoint.isValid() ) && ( nextJoint && nextJoint.isValid() ) )
-            return true;
-
-        return false;
+        return ( prevJoint && prevJoint.isValid() ) && ( nextJoint && nextJoint.isValid() );
     }
 
     /**

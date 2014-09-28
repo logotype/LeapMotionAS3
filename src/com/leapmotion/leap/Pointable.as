@@ -216,10 +216,7 @@ public class Pointable
      */
     public function isValid():Boolean
     {
-        if( ( direction && direction.isValid() ) && ( tipPosition && tipPosition.isValid() ) && ( tipVelocity && tipVelocity.isValid() ) )
-            return true;
-
-        return false;
+        return ( direction && direction.isValid() ) && ( tipPosition && tipPosition.isValid() ) && ( tipVelocity && tipVelocity.isValid() );
     }
 
     /**

@@ -200,10 +200,7 @@ public class Image
      */
     public function isValid():Boolean
     {
-        if( width > 0 && height > 0 )
-            return true;
-
-        return false;
+        return width > 0 && height > 0;
     }
 
     /**

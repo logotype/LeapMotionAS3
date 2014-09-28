@@ -30,20 +30,20 @@
 			// Create the socket with event handlers
 			function init() {
 				// Create and open the socket
-				ws = new WebSocket("ws://localhost:6437/v4.json");
+				ws = new WebSocket("ws://localhost:6437/v6.json");
 			
 				// On successful connection
 				ws.onopen = function(event) {
 					var enableMessage = JSON.stringify({enableGestures: true});
-					ws.send(enableMessage); // Enable gestures
-					ws.send(JSON.stringify({focused: true})); // claim focus
+					ws.send(enableMessage);
+					ws.send(JSON.stringify({focused: true}));
 			
 					focusListener = window.addEventListener('focus', function(e) {
-										   ws.send(JSON.stringify({focused: true})); // claim focus
+										   ws.send(JSON.stringify({focused: true}));
 									 });
 			
 					blurListener = window.addEventListener('blur', function(e) {
-										   ws.send(JSON.stringify({focused: false})); // relinquish focus
+										   ws.send(JSON.stringify({focused: false}));
 									 });
 			
 				};
@@ -58,7 +58,7 @@
 				// On socket close
 				ws.onclose = function(event) {
 					ws = null;
-				}
+				};
 			
 				// On socket error
 				ws.onerror = function(event) {
@@ -69,7 +69,7 @@
 	</head>
 	<body>
 		<div id="flashContent">
-			<object id="flashObject" type="application/x-shockwave-flash" data="sample.swf" width="550" height="400" id="sample" style="float: none; vertical-align:middle">
+			<object id="flashObject" type="application/x-shockwave-flash" data="sample.swf" width="550" height="400" style="float: none; vertical-align:middle">
 				<param name="movie" value="sample.swf" />
 				<param name="quality" value="high" />
 				<param name="bgcolor" value="#ffffff" />

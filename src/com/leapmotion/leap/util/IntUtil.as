@@ -7,10 +7,6 @@ package com.leapmotion.leap.util
  */
 public class IntUtil
 {
-
-    /** String for quick lookup of a hex character based on index */
-    private static var hexChars:String = "0123456789abcdef";
-
     /**
      * Rotates x left n bits
      */
@@ -39,6 +35,8 @@ public class IntUtil
      */
     public static function toHex( n:int, bigEndian:Boolean = false ):String
     {
+        /** String for quick lookup of a hex character based on index */
+        var hexChars:String = "0123456789abcdef";
         var s:String = "";
 
         if( bigEndian )

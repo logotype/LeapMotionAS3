@@ -1022,6 +1022,9 @@ final public class LeapSocket extends EventDispatcher implements ILeapConnection
             case Controller.POLICY_BACKGROUND_FRAMES:
                 sendUTF( "{\"background\": true}" );
                 break;
+            case Controller.POLICY_OPTIMIZE_HMD:
+                sendUTF( "{\"optimizeHMD\": true}" );
+                break;
             case Controller.POLICY_DEFAULT:
             default:
                 sendUTF( "{\"background\": false}" );
