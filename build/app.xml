@@ -3,7 +3,7 @@
 	<id>com.leapmotion.leap.Sample</id>
 	<filename>Sample</filename>
 	<name>Sample</name>
-	<versionNumber>0.0.0</versionNumber>
+	<versionNumber>1.0.0</versionNumber>
 	<initialWindow>
 		<content>APPLICATION_SWF</content>
 		<autoOrients>false</autoOrients>

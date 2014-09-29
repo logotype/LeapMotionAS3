@@ -142,7 +142,7 @@ package
 						if ( circle.state != Gesture.STATE_START )
 						{
 							var previousGesture:Gesture = controller.frame( 1 ).gesture( circle.id );
-							if( previousGesture.isValid() )
+							if( previousGesture.isValid() && previousGesture.type == Gesture.TYPE_CIRCLE )
 							{
 								var previousUpdate:CircleGesture = CircleGesture( controller.frame( 1 ).gesture( circle.id ) );
 								sweptAngle = ( circle.progress - previousUpdate.progress ) * 2 * Math.PI;
