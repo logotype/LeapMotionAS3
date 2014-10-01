@@ -1,4 +1,4 @@
-[<img src="http://logotype.se/leapmotion/logo_as3.png">](https://github.com/logotype/LeapMotionAS3)
+[<img src="http://logotype.github.io/LeapMotionAS3Docs/examples/logo_as3.png">](https://github.com/logotype/LeapMotionAS3)
 
 This is the AS3 framework for working with Leap Motion.
 
@@ -9,7 +9,7 @@ Leap Motion is a motion-control software and hardware company developing the wor
 Demos
 -----------
 
-[<img src="http://logotype.se/leapmotion/victor1.png">](http://www.youtube.com/watch?v=y9SDf5GSDF8) [<img src="http://logotype.se/leapmotion/victor2.png">](http://www.youtube.com/watch?v=Hduiif_GfsU) [<img src="http://logotype.se/leapmotion/wouter1.png">](https://vimeo.com/60170459) [<img src="http://logotype.se/leapmotion/wouter2.png">](https://vimeo.com/61708308) [<img src="http://logotype.se/leapmotion/victor3.png">](http://www.youtube.com/watch?v=qd7DD8kKd-E) [<img src="http://logotype.se/leapmotion/ben1.png">](http://vimeo.com/62464243) [<img src="http://logotype.se/leapmotion/niko2.png">](http://www.youtube.com/watch?v=-P4awZlnxhU) [<img src="http://logotype.se/leapmotion/raw1.png">](http://vimeo.com/62725367) [<img src="http://logotype.se/leapmotion/ben2.png">](https://vimeo.com/62758339) [<img src="http://logotype.se/leapmotion/specialmoves2.png">](http://vimeo.com/66831642) [<img src="http://logotype.se/leapmotion/matstec1.png">](http://vimeo.com/65882620) [<img src="http://logotype.se/leapmotion/quasimondo1.png">](http://www.youtube.com/watch?v=eHpD3Wuj2Co)
+[<img src="http://logotype.github.io/LeapMotionAS3Docs/examples/victor1.png">](http://www.youtube.com/watch?v=y9SDf5GSDF8) [<img src="http://logotype.github.io/LeapMotionAS3Docs/examples/victor2.png">](http://www.youtube.com/watch?v=Hduiif_GfsU) [<img src="http://logotype.github.io/LeapMotionAS3Docs/examples/wouter1.png">](https://vimeo.com/60170459) [<img src="http://logotype.github.io/LeapMotionAS3Docs/examples/wouter2.png">](https://vimeo.com/61708308) [<img src="http://logotype.github.io/LeapMotionAS3Docs/examples/victor3.png">](http://www.youtube.com/watch?v=qd7DD8kKd-E) [<img src="http://logotype.github.io/LeapMotionAS3Docs/examples/ben1.png">](http://vimeo.com/62464243) [<img src="http://logotype.github.io/LeapMotionAS3Docs/examples/niko2.png">](http://www.youtube.com/watch?v=-P4awZlnxhU) [<img src="http://logotype.github.io/LeapMotionAS3Docs/examples/raw1.png">](http://vimeo.com/62725367) [<img src="http://logotype.github.io/LeapMotionAS3Docs/examples/ben2.png">](https://vimeo.com/62758339) [<img src="http://logotype.github.io/LeapMotionAS3Docs/examples/specialmoves2.png">](http://vimeo.com/66831642) [<img src="http://logotype.github.io/LeapMotionAS3Docs/examples/matstec1.png">](http://vimeo.com/65882620) [<img src="http://logotype.github.io/LeapMotionAS3Docs/examples/quasimondo1.png">](http://www.youtube.com/watch?v=eHpD3Wuj2Co)
 
 
 Quick start

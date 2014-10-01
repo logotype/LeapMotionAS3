@@ -6,10 +6,9 @@ package
 	
 	import flash.display.Sprite;
 	import flash.display.Bitmap;
-	import flash.display.BlendMode;
 
     [SWF(width="1280", height="480", frameRate="60", backgroundColor="#000000")]
-	public class Sample extends Sprite
+	public class Sample extends Sprite implements Listener
 	{
 		private var controller:Controller;
 		private var bitmap1:Bitmap = new Bitmap();
@@ -21,42 +20,62 @@ package
 			this.addChild( bitmap2 );
 			bitmap2.x = 640;
 			controller = new Controller();
-			controller.addEventListener( LeapEvent.LEAPMOTION_INIT, onInit );
-			controller.addEventListener( LeapEvent.LEAPMOTION_CONNECTED, onConnect );
-			controller.addEventListener( LeapEvent.LEAPMOTION_DISCONNECTED, onDisconnect );
-			controller.addEventListener( LeapEvent.LEAPMOTION_EXIT, onExit );
-			controller.addEventListener( LeapEvent.LEAPMOTION_FRAME, onFrame );
+			controller.setListener( this );
 		}
 
-		private function onInit( event:LeapEvent ):void
+		public function onInit( controller:Controller ):void
 		{
-			trace( "Initialized" );
+			trace( "onInit" );
 		}
-
-		private function onConnect( event:LeapEvent ):void
+		
+		public function onConnect( controller:Controller ):void
 		{
-			trace( "Connected" );
+			trace( "onConnect" );
 			controller.enableGesture( Gesture.TYPE_SWIPE );
 			controller.enableGesture( Gesture.TYPE_CIRCLE );
 			controller.enableGesture( Gesture.TYPE_SCREEN_TAP );
 			controller.enableGesture( Gesture.TYPE_KEY_TAP );
 			controller.setPolicyFlags( Controller.POLICY_IMAGES );
 		}
-
-		private function onDisconnect( event:LeapEvent ):void
+		
+		public function onDisconnect( controller:Controller ):void
 		{
-			trace( "Disconnected" );
+			trace( "onDisconnect" );
 		}
-
-		private function onExit( event:LeapEvent ):void
+		
+		public function onExit( controller:Controller ):void
 		{
-			trace( "Exited" );
+			trace( "onExit" );
 		}
-
-		private function onFrame( event:LeapEvent ):void
+		
+		public function onFocusGained( controller:Controller ):void
+		{
+			trace( "onFocusGained" );
+		}
+		
+		public function onFocusLost( controller:Controller ):void
+		{
+			trace( "onFocusLost" );
+		}
+		
+		public function onServiceConnect( controller:Controller ):void
+		{
+			trace( "onServiceConnect" );
+		}
+		
+		public function onServiceDisconnect( controller:Controller ):void
+		{
+			trace( "onServiceDisconnect" );
+		}
+		
+		public function onDeviceChange( controller:Controller ):void
+		{
+			trace( "onDeviceChange" );
+		}
+		
+		public function onFrame( controller:Controller, frame:Frame ):void
 		{
 			// Get the most recent frame and report some basic information
-			var frame:Frame = event.frame;
 			trace( "Frame id: " + frame.id + ", timestamp: " + frame.timestamp + ", hands: " + frame.hands.length + ", fingers: " + frame.fingers.length + ", tools: " + frame.tools.length + ", gestures: " + frame.gestures().length );
 
 			if ( frame.images.length > 0 )
