@@ -72,7 +72,7 @@ Optionally, you can simply call `controller.frame()` e.g. in your main loop, or 
 Features
 --------
 
-<img src="http://logotype.se/leapImageTelemetry.png">
+<img src="http://logotype.github.io/LeapMotionAS3Docs/examples/leapImageTelemetry.png">
 + High performance, 210 FPS for data (typically 2% CPU usage on a recent MacBook Pro)
 + Clean, lightweight and documented code
 + Same structure as official API
