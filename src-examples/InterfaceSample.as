@@ -8,6 +8,7 @@ package
 	import flash.display.Sprite;
 	import flash.utils.getTimer;
 	
+	[SWF(frameRate=60)]
 	public class InterfaceSample extends Sprite implements Listener
 	{
 		private var controller:Controller;

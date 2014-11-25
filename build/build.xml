@@ -219,7 +219,7 @@
 		</java>
 	</target>
 
-	<target name="build-native-extension" depends="config-sdk-extension" description="Rebuilds the ANE &amp; SWC files">
+	<target name="build-native-extension" depends="build-xcode-mac, config-sdk-extension" description="Rebuilds the ANE &amp; SWC files">
         <if>
             <equals arg1="${isMac}" arg2="true"/>
             <then>

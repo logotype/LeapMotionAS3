@@ -81,7 +81,7 @@ Features
 + Skeleton/Bone API
 + Works great with [Away3D](https://github.com/away3d/away3d-core-fp11) and [Starling](https://github.com/PrimaryFeather/Starling-Framework)
 + Connect multiple devices to the same Leap Motion (via an optional "host" argument)
-+ Uses AIR 15.0/ASC 2.0 compiler features (add the `-inline` and `-swf-version=26` compiler arguments)
++ Uses AIR 16.0/ASC 2.0 compiler features (add the `-inline` and `-swf-version=27` compiler arguments)
 + No external dependencies, creates a optimized socket when the ANE isn't available
 + AIR Native Extension (ANE) which directly interfaces with the C++ library (Mac OSX and Windows)
 + Compatible with Mac OSX, Windows, iOS (iPad/iPhone/etc) and Android
