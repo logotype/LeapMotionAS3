@@ -696,6 +696,21 @@ namespace leapnative {
         return freDeviceRange;
     }
     
+    FREObject LNLeapDevice::getDeviceSerialNumber() {
+        DeviceList deviceList = controller->devices();
+        Device device = deviceList[0];
+
+        std::string serialNumberString(device.serialNumber());
+        
+        std::vector<uint8_t> serialNumberVector(serialNumberString.begin(), serialNumberString.end());
+        uint8_t *serialNumberArray = &serialNumberVector[0];
+        
+        FREObject freDeviceSerialNumber;
+        FRENewObjectFromUTF8(serialNumberString.length(), serialNumberArray, &freDeviceSerialNumber);
+        
+        return freDeviceSerialNumber;
+    }
+    
     FREObject LNLeapDevice::getDeviceType() {
         DeviceList deviceList = controller->devices();
         Device device = deviceList[0];

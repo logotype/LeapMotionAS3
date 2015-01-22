@@ -404,6 +404,12 @@ extern "C" {
         return device->getDeviceRange();
     }
     
+    FREObject LeapNative_getDeviceSerialNumber(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+        leapnative::LNLeapDevice* device;
+        FREGetContextNativeData(ctx, (void **) &device);
+        return device->getDeviceSerialNumber();
+    }
+    
     FREObject LeapNative_getDeviceType(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
         leapnative::LNLeapDevice* device;
         FREGetContextNativeData(ctx, (void **) &device);
@@ -436,7 +442,8 @@ extern "C" {
   		{ (const uint8_t*) "getDeviceIsEmbedded", 0, LeapNative_getDeviceIsEmbedded },
   		{ (const uint8_t*) "getDeviceIsStreaming", 0, LeapNative_getDeviceIsStreaming },
   		{ (const uint8_t*) "getDeviceIsValid", 0, LeapNative_getDeviceIsValid },
-  		{ (const uint8_t*) "getDeviceRange", 0, LeapNative_getDeviceRange },
+        { (const uint8_t*) "getDeviceRange", 0, LeapNative_getDeviceRange },
+        { (const uint8_t*) "getDeviceSerialNumber", 0, LeapNative_getDeviceSerialNumber },
   		{ (const uint8_t*) "getDeviceType", 0, LeapNative_getDeviceType },
 
   		{ (const uint8_t*) "getConfigBool", 0, LeapNative_getConfigBool },
@@ -453,7 +460,7 @@ extern "C" {
 	};
     
     void contextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctions, const FRENamedFunction** functions) {
-        std::cout << "context initializer" << std::endl;
+        std::cout << "LeapMotionAS3 initializer" << std::endl;
         if ( 0 == strcmp( (const char*) ctxType, "shared" ) )
 		{
 			*numFunctions = sizeof( _Shared_methods ) / sizeof( FRENamedFunction );
@@ -476,7 +483,7 @@ extern "C" {
         {
             delete device;
         }
-        std::cout << "context finalizer" << std::endl;
+        std::cout << "LeapMotionAS3 finalizer" << std::endl;
 		return;
 	}
     

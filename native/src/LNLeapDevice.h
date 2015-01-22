@@ -44,6 +44,7 @@ namespace leapnative {
         FREObject getDeviceIsStreaming();
         FREObject getDeviceIsValid();
         FREObject getDeviceRange();
+        FREObject getDeviceSerialNumber();
         FREObject getDeviceType();
         
         //config class
