@@ -131,7 +131,7 @@ package
 				var direction:Vector3 = hand.direction;
 
 				// Calculate the hand's pitch, roll, and yaw angles
-				trace( "Hand pitch: " + LeapUtil.toDegrees( direction.pitch ) + " degrees, " + "roll: " + LeapUtil.toDegrees( normal.roll ) + " degrees, " + "yaw: " + LeapUtil.toDegrees( direction.yaw ) + " degrees, " + "arm: " + hand.arm + "\n" );
+				trace( hand.isLeft ? "Left hand" : "Right hand" + ", Hand pitch: " + LeapUtil.toDegrees( direction.pitch ) + " degrees, " + "roll: " + LeapUtil.toDegrees( normal.roll ) + " degrees, " + "yaw: " + LeapUtil.toDegrees( direction.yaw ) + " degrees, " + "arm: " + hand.arm + "\n" );
 			}
 
 			var gestures:Vector.<Gesture> = frame.gestures();
