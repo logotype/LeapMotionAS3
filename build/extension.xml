@@ -1,6 +1,6 @@
 <extension xmlns="NATIVE_LIBRARY_XMLNS">
 	<id>NATIVE_EXTENSION_ID</id>
-	<versionNumber>2.2.0</versionNumber>
+	<versionNumber>2.2.6</versionNumber>
 	<platforms>
 		<platform name="Windows-x86">
 			<applicationDeployment>
@@ -9,7 +9,7 @@
 				<finalizer>LeapNativeFinalizer</finalizer>
 			</applicationDeployment>
 		</platform>
-		<platform name="MacOS-x86">
+		<platform name="MacOS-x86-64">
 			<applicationDeployment>
 				<nativeLibrary>NATIVE_LIBRARY_OSX</nativeLibrary>
 				<initializer>LeapNativeInitializer</initializer>

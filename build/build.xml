@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="extension-ant-build" default="help">
+<project name="extension-ant-build">
 
     <description>
         LeapMotionAS3 is the AS3 framework for working with Leap Motion.
         This set of tasks allows you to rebuild the ANE &amp; run the Sample, and more.
     </description>
-
-    <target name="help">
-        <echo message="run ant -p to see a list of available targets" />
-    </target>
 
 	<property file="build.properties"/>
 
@@ -102,19 +98,19 @@
                 <property name="Extension.AIR_SDK_HOME" value="${AIR_SDK_HOME}"/>
             </else>
         </if>
-		<property name="FLEX_HOME" value="${Extension.AIR_SDK_HOME}"/>
+		<property name="AIR_HOME" value="${Extension.AIR_SDK_HOME}"/>
 		<taskdef resource="flexTasks.tasks" classpath="${Extension.AIR_SDK_HOME}/ant/lib/flexTasks.jar" />
-		<property name="Flex.ADT" value="${Extension.AIR_SDK_HOME}/lib/adt.jar"/>
+		<property name="AIR.ADT" value="${Extension.AIR_SDK_HOME}/lib/adt.jar"/>
 	</target>
 
 	<target name="config-sdk-examples" depends="init-ant-contrib">
         <property name="Examples.AIR_SDK_HOME" value="${AIR_SDK_HOME}"/>
         <property name="Examples.AIR_SDK_VERSION" value="${AIR_SDK_VERSION}"/>
-        <property name="Flex.MXMLC" value="${Examples.AIR_SDK_HOME}/lib/mxmlc-cli.jar"/>
+        <property name="AIR.MXMLC" value="${Examples.AIR_SDK_HOME}/lib/mxmlc-cli.jar"/>
         <property name="Extension.OUTPUT_NAME" value="${Extension.EXTENSION_NAME}" />
-		<property name="FLEX_HOME" value="${Examples.AIR_SDK_HOME}"/>
+		<property name="AIR_HOME" value="${Examples.AIR_SDK_HOME}"/>
 		<taskdef resource="flexTasks.tasks" classpath="${Examples.AIR_SDK_HOME}/ant/lib/flexTasks.jar" />
-		<property name="Flex.ADT" value="${Examples.AIR_SDK_HOME}/lib/adt.jar"/>
+		<property name="AIR.ADT" value="${Examples.AIR_SDK_HOME}/lib/adt.jar"/>
 	</target>
 
     <target name="config-example" depends="init-ant-contrib">
@@ -185,7 +181,7 @@
 
 	<target name="generate-extension-certificate">
 		<mkdir dir="${Extension.AIR_CERTIFICATE_ROOT}"/>
-		<java jar="${Flex.ADT}" fork="true">
+		<java jar="${AIR.ADT}" fork="true">
 			<arg value="-certificate"/>
 			<arg value="-cn"/>
 			<arg value="${Extension.AIR_CERTIFICATE_NAME}"/>
@@ -203,7 +199,7 @@
 
 	<target name="generate-examples-certificate">
 		<mkdir dir="${Examples.AIR_CERTIFICATE_ROOT}"/>
-		<java jar="${Flex.ADT}" fork="true">
+		<java jar="${AIR.ADT}" fork="true">
 			<arg value="-certificate"/>
 			<arg value="-cn"/>
 			<arg value="${Examples.AIR_CERTIFICATE_NAME}"/>
@@ -219,7 +215,7 @@
 		</java>
 	</target>
 
-	<target name="build-native-extension" depends="build-xcode-mac, config-sdk-extension" description="Rebuilds the ANE &amp; SWC files">
+	<target name="build-native-extension" depends="config-sdk-extension" description="Rebuilds the ANE &amp; SWC files">
         <if>
             <equals arg1="${isMac}" arg2="true"/>
             <then>
@@ -262,7 +258,7 @@
 		<replace file="${Extension.TMP_ROOT}/extension.xml" token="NATIVE_LIBRARY_WINDOWS" value="${Extension.NATIVE_LIBRARY_WINDOWS}" />
 		<replace file="${Extension.TMP_ROOT}/extension.xml" token="NATIVE_LIBRARY_OSX" value="${Extension.NATIVE_LIBRARY_OSX}" />
 		
-		<java jar="${Flex.ADT}" fork="true" dir="${Extension.TMP_ROOT}" failonerror="true">
+		<java jar="${AIR.ADT}" fork="true" dir="${Extension.TMP_ROOT}" failonerror="true">
 			<arg value="-package"/>
 			<arg value="-storetype"/>
 			<arg value="pkcs12"/>
@@ -284,9 +280,9 @@
             <arg line="'${Extension.NATIVE_LIBRARY_WINDOWS}'"/>
             <arg line="'${Extension.NATIVE_LIBRARY_LEAP}'"/>
             <arg line="'${Extension.NATIVE_LIBRARY_LEAPD}'"/>
-			<arg value="-platform"/>
-			<arg value="MacOS-x86"/>
-			<arg value="library.swf"/>
+            <arg value="-platform"/>
+            <arg value="MacOS-x86-64"/>
+            <arg value="library.swf"/>
 			<arg line="'${Extension.NATIVE_LIBRARY_OSX}'"/>
 		</java>
 		<delete dir="${Extension.TMP_ROOT}"/>
@@ -321,10 +317,10 @@
         <copy todir="${Examples.DEBUG_ROOT}">
             <fileset file="${Extension.NATIVE_BIN_ROOT}/${Extension.NATIVE_LIBRARY_LEAP}" />
         </copy>
-        <java jar="${Flex.MXMLC}" fork="true" failonerror="true" maxmemory="256m">
+        <java jar="${AIR.MXMLC}" fork="true" failonerror="true" maxmemory="256m">
             <arg value="-debug=true"/>
-            <arg value="-load-config=${FLEX_HOME}/frameworks/air-config.xml"/>
-            <arg value="+flexlib=${FLEX_HOME}/frameworks"/>
+            <arg value="-load-config=${AIR_HOME}/frameworks/air-config.xml"/>
+            <arg value="+flexlib=${AIR_HOME}/frameworks"/>
             <arg value="-advanced-telemetry=true"/>
             <arg value="-external-library-path+=${aneFiles}"/>
             <arg value="-library-path+=${swcFiles}"/>
@@ -352,10 +348,10 @@
         <if>
             <equals arg1="${isWindows}" arg2="true"/>
             <then>
-                <property name="ADL" value="${FLEX_HOME}/bin/adl.exe"/>
+                <property name="ADL" value="${AIR_HOME}/bin/adl.exe"/>
             </then>
             <else>
-                <property name="ADL" value="${FLEX_HOME}/bin/adl"/>
+                <property name="ADL" value="${AIR_HOME}/bin/adl"/>
             </else>
         </if>
 
@@ -379,10 +375,10 @@
             <replacefilter token="APPLICATION_SWF"
                            value="${Examples.MAIN_SWF}"/>
         </replace>
-        <java jar="${Flex.MXMLC}" fork="true" failonerror="true" maxmemory="256m">
+        <java jar="${AIR.MXMLC}" fork="true" failonerror="true" maxmemory="256m">
             <arg value="-debug=true"/>
-            <arg value="-load-config=${FLEX_HOME}/frameworks/air-config.xml"/>
-            <arg value="+flexlib=${FLEX_HOME}/frameworks"/>
+            <arg value="-load-config=${AIR_HOME}/frameworks/air-config.xml"/>
+            <arg value="+flexlib=${AIR_HOME}/frameworks"/>
             <arg value="-advanced-telemetry=true"/>
             <arg value="-library-path+=${aneFiles}"/>
             <arg value="-library-path+=${swcFiles}"/>
@@ -396,10 +392,10 @@
         <if>
             <equals arg1="${isWindows}" arg2="true"/>
             <then>
-                <property name="ADL" value="${FLEX_HOME}/bin/adl.exe"/>
+                <property name="ADL" value="${AIR_HOME}/bin/adl.exe"/>
             </then>
             <else>
-                <property name="ADL" value="${FLEX_HOME}/bin/adl"/>
+                <property name="ADL" value="${AIR_HOME}/bin/adl"/>
             </else>
         </if>
 
@@ -421,10 +417,10 @@
             <replacefilter token="APPLICATION_SWF"
                            value="${Examples.MAIN_SWF}"/>
         </replace>
-        <java jar="${Flex.MXMLC}" fork="true" failonerror="true" maxmemory="256m">
+        <java jar="${AIR.MXMLC}" fork="true" failonerror="true" maxmemory="256m">
             <arg value="-debug=false"/>
-            <arg value="-load-config=${FLEX_HOME}/frameworks/air-config.xml"/>
-            <arg value="+flexlib=${FLEX_HOME}/frameworks"/>
+            <arg value="-load-config=${AIR_HOME}/frameworks/air-config.xml"/>
+            <arg value="+flexlib=${AIR_HOME}/frameworks"/>
             <arg value="-advanced-telemetry=true"/>
             <arg value="-external-library-path+=${aneFiles}"/>
             <arg value="-library-path+=${swcFiles}"/>
@@ -452,10 +448,10 @@
         <if>
             <equals arg1="${isWindows}" arg2="true"/>
             <then>
-                <property name="ADL" value="${FLEX_HOME}/bin/adl.exe"/>
+                <property name="ADL" value="${AIR_HOME}/bin/adl.exe"/>
             </then>
             <else>
-                <property name="ADL" value="${FLEX_HOME}/bin/adl"/>
+                <property name="ADL" value="${AIR_HOME}/bin/adl"/>
             </else>
         </if>
 
@@ -480,7 +476,7 @@
             </else>
         </if>
         <copy filtering="true" file="${Examples.MAIN_SRC_DESCRIPTOR}" tofile="${Examples.MAIN_RELEASE_DESCRIPTOR}"/>
-        <java jar="${Flex.ADT}" fork="true" failonerror="true">
+        <java jar="${AIR.ADT}" fork="true" failonerror="true">
             <arg value="-package"/>
             <arg value="-storetype"/>
             <arg value="pkcs12"/>
