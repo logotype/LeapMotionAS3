@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><!-- saved from url=(0014)about:internet --><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" href="../../../style.css" type="text/css" media="screen"><link rel="stylesheet" href="../../../print.css" type="text/css" media="print"><link rel="stylesheet" href="../../../override.css" type="text/css"><meta name="keywords" content="Listener,com.leapmotion.leap.Listener,angleTo,backward,bone,center,config,cross,denormalizePoint,devices,direction,distanceTo,distanceToBoundary,divide,divideAssign,dot,down,enableGesture,finger,finger,forward,frame,gesture,gestures,getBool,getFloat,getInt32,getString,hand,hasFocus,horizontalViewAngle,identity,invalid,invalid,invalid,invalid,invalid,invalid,invalid,invalid,invalid,invalid,invalid,isConnected,isEmbedded,isEqualTo,isEqualTo,isEqualTo,isEqualTo,isEqualTo,isEqualTo,isEqualTo,isEqualTo,isEqualTo,isEqualTo,isEqualTo,isGestureEnabled,isServiceConnected,isStreaming,isValid,isValid,isValid,isValid,isValid,isValid,isValid,isValid,isValid,isValid,left,magnitude,magnitudeSquared,minus,minusAssign,multiply,multiply,multiplyAssign,multiplyAssign,normalizePoint,normalized,onConnect,onDeviceChange,onDisconnect,onExit,onFocusGained,onFocusLost,onFrame,onInit,onServiceConnect,onServiceDisconnect,opposite,plus,plusAssign,pointable,pointable,policyFlags,positions,range,rectify,right,rigidInverse,rotationAngle,rotationAngle,rotationAxis,rotationAxis,rotationMatrix,rotationMatrix,rotationProbability,rotationProbability,save,scaleFactor,scaleFactor,scaleProbability,scaleProbability,setBool,setFloat,setInt32,setListener,setPolicyFlags,setRotation,setString,toString,toString,toString,toString,toString,toString,toString,toString,toString,tool,tool,transformDirection,transformPoint,translation,translation,translationProbability,translationProbability,type,type,up,verticalViewAngle,warp,xAxis,yAxis,zAxis,zero"><title>com.leapmotion.leap.Listener</title></head><body><script language="javascript" type="text/javascript" src="../../../asdoc.js"></script><script language="javascript" type="text/javascript" src="../../../help.js"></script><script language="javascript" type="text/javascript" src="../../../cookies.js"></script><script language="javascript" type="text/javascript"><!--
+				asdocTitle = 'Listener - LeapMotionAS3';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<script type="text/javascript">
+			scrollToNameAnchor();
+		</script><table class="titleTable" cellpadding="0" cellspacing="0" id="titleTable" style="display:none"><tr><td class="titleTableTitle" align="left">API Documentation</td><td class="titleTableTopNav" align="right"><a href="../../../package-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Packages</a>&nbsp;|&nbsp;<a href="../../../class-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Classes</a>&nbsp;|&nbsp;<a href="../../../all-index-A.html" onclick="loadClassListFrame('../../../index-list.html')">Index</a>&nbsp;|&nbsp;<a id="framesLink1" href="../../../index.html?com/leapmotion/leap/Listener.html&amp;com/leapmotion/leap/class-list.html">Frames</a><a id="noFramesLink1" style="display:none" href="" onclick="parent.location=document.location"> No Frames </a></td><td class="titleTableLogo" align="right" rowspan="3"><img src="../../../images/logo.jpg" class="logoImage" alt=" Adobe Logo " title=" Adobe Logo "></td></tr><tr class="titleTableRow2"><td class="titleTableSubTitle" id="subTitle" align="left">Listener</td><td class="titleTableSubNav" id="subNav" align="right"><a href="#methodSummary">Methods</a></td></tr><tr class="titleTableRow3"><td colspan="3">&nbsp;</td></tr></table><script language="javascript" type="text/javascript" xml:space="preserve">
+				<!--
+				
+					if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Listener"); titleBar_setSubNav(false,false,false,false,false,false,false,false,true,false,false	,false,false,false,false,false);}	
+				-->
+			</script><div xmlns:fn="http://www.w3.org/2005/xpath-functions" class="MainContent"><table class="classHeaderTable" cellpadding="0" cellspacing="0"><tr><td class="classHeaderTableLabel">Package</td><td><a href="package-detail.html" onclick="javascript:loadClassListFrame('class-list.html')">com.leapmotion.leap</a></td></tr><tr><td class="classHeaderTableLabel">Interface</td><td class="classSignature">public  interface  Listener</td></tr></table><p></p><p></p><p></p>
+ The Listener interface defines a set of callback functions that you can
+ implement to respond to events dispatched by the Leap Motion.
+  <p>To handle Leap Motion events, implement the Listener interface and assign
+ it to the Controller instance. The Controller calls the relevant Listener
+ callback function when an event occurs, passing in a reference to itself.
+ You have to implement callbacks for every method specified in the interface.</p>
+               <p>Note: you have to create an instance of the LeapMotion class and set the Listener to your class:</p>
+               <div class="listing"><pre>
+ leap = new LeapMotion();
+ leap.controller.setListener( this );</pre></div>
+            <p></p><br/><hr></div><a name="methodSummary"></a><div class="summarySection"><div class="summaryTableTitle">Public Methods </div><table cellspacing="0" cellpadding="3" class="summaryTable " id="summaryTableMethod"><tr><th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined By</th></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#onConnect()" class="signatureLink">onConnect</a>(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>):void</div><div class="summaryTableDescription">
+     Called when the Controller object connects to the Leap Motion software,
+     or when this Listener object is added to a Controller that is already connected.</div></td><td class="summaryTableOwnerCol">Listener</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#onDeviceChange()" class="signatureLink">onDeviceChange</a>(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>):void</div><div class="summaryTableDescription">
+     Called when a Leap Motion controller plugged in, unplugged, or the device changes state.</div></td><td class="summaryTableOwnerCol">Listener</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#onDisconnect()" class="signatureLink">onDisconnect</a>(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>):void</div><div class="summaryTableDescription">
+     Called when the Controller object disconnects from the Leap Motion software.</div></td><td class="summaryTableOwnerCol">Listener</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#onExit()" class="signatureLink">onExit</a>(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>):void</div><div class="summaryTableDescription">
+     Called when this Listener object is removed from the Controller or
+     the Controller instance is destroyed.</div></td><td class="summaryTableOwnerCol">Listener</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#onFocusGained()" class="signatureLink">onFocusGained</a>(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>):void</div><div class="summaryTableDescription">
+     Called when this application becomes the foreground application.</div></td><td class="summaryTableOwnerCol">Listener</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#onFocusLost()" class="signatureLink">onFocusLost</a>(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>):void</div><div class="summaryTableDescription">
+     Called when this application loses the foreground focus.</div></td><td class="summaryTableOwnerCol">Listener</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#onFrame()" class="signatureLink">onFrame</a>(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>, frame:<a href="../../../com/leapmotion/leap/Frame.html">Frame</a>):void</div><div class="summaryTableDescription">
+     Called when a new frame of hand and finger tracking data is available.</div></td><td class="summaryTableOwnerCol">Listener</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#onInit()" class="signatureLink">onInit</a>(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>):void</div><div class="summaryTableDescription">
+     Called once, when this Listener object is newly added to a Controller.</div></td><td class="summaryTableOwnerCol">Listener</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#onServiceConnect()" class="signatureLink">onServiceConnect</a>(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>):void</div><div class="summaryTableDescription">
+     Called when the Leap Motion daemon/service connects to your application Controller.</div></td><td class="summaryTableOwnerCol">Listener</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#onServiceDisconnect()" class="signatureLink">onServiceDisconnect</a>(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>):void</div><div class="summaryTableDescription">
+     Called if the Leap Motion daemon/service disconnects from your application Controller.</div></td><td class="summaryTableOwnerCol">Listener</td></tr></table></div><script language="javascript" type="text/javascript"><!--
+										showHideInherited();
+										--></script><div class="MainContent"><a name="methodDetail"></a><div class="detailSectionHeader">Method Detail</div><a name="onConnect()"></a><a name="onConnect(com.leapmotion.leap.Controller)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">onConnect</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td></tr></table><div class="detailBody"><code> public function onConnect(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>):void</code><p></p><p></p><p>
+     Called when the Controller object connects to the Leap Motion software,
+     or when this Listener object is added to a Controller that is already connected.
+          </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">controller</span>:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a></code> &mdash; The Controller object invoking this callback function.
+          </td></tr></table></p></div><a name="onDeviceChange()"></a><a name="onDeviceChange(com.leapmotion.leap.Controller)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">onDeviceChange</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function onDeviceChange(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>):void</code><p></p><p></p><p>
+     Called when a Leap Motion controller plugged in, unplugged, or the device changes state.
+          State changes include changes in frame rate and entering or leaving "robust" mode.
+     Note that there is currently no way to query whether a device is in robust mode.
+     You can use Frame::currentFramerate() to get the framerate.
+          </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">controller</span>:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a></code> &mdash; The Controller object invoking this callback function.
+     </td></tr></table></p></div><a name="onDisconnect()"></a><a name="onDisconnect(com.leapmotion.leap.Controller)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">onDisconnect</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function onDisconnect(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>):void</code><p></p><p></p><p>
+     Called when the Controller object disconnects from the Leap Motion software.
+          <p>The controller can disconnect when the Leap Motion device is unplugged,
+     the user shuts the Leap Motion software down, or the Leap software encounters
+     an unrecoverable error.</p>
+          <div class="listing"><pre>
+     public function onDisconnect( controller:Controller ):void {
+         trace( "Disconnected" );
+     }</pre></div>
+          <p>Note: When you launch a Leap-enabled application in a debugger,
+     the Leap Motion library does not disconnect from the application.
+     This is to allow you to step through code without losing the connection
+     because of time outs.</p>
+          </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">controller</span>:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a></code> &mdash; The Controller object invoking this callback function.
+          </td></tr></table></p></div><a name="onExit()"></a><a name="onExit(com.leapmotion.leap.Controller)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">onExit</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function onExit(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>):void</code><p></p><p></p><p>
+     Called when this Listener object is removed from the Controller or
+     the Controller instance is destroyed.
+          <div class="listing"><pre>
+     public function onExit( controller:Controller ):void {
+         trace( "Exited" );
+     }</pre></div>
+          </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">controller</span>:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a></code> &mdash; The Controller object invoking this callback function.
+          </td></tr></table></p></div><a name="onFocusGained()"></a><a name="onFocusGained(com.leapmotion.leap.Controller)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">onFocusGained</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function onFocusGained(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>):void</code><p></p><p></p><p>
+     Called when this application becomes the foreground application.
+          <p>Only the foreground application receives tracking data from the
+     Leap Motion Controller. This function is only called when the
+     controller object is in a connected state.</p>
+          <div class="listing"><pre>
+     public function onFocusGained( controller:Controller ):void {
+         trace( "Focus gained" );
+     }</pre></div>
+          </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">controller</span>:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a></code> &mdash; The Controller object invoking this callback function.
+          </td></tr></table></p></div><a name="onFocusLost()"></a><a name="onFocusLost(com.leapmotion.leap.Controller)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">onFocusLost</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function onFocusLost(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>):void</code><p></p><p></p><p>
+     Called when this application loses the foreground focus.
+          <p>Only the foreground application receives tracking data from the
+     Leap Motion Controller. This function is only called when the
+     controller object is in a connected state.</p>
+          <div class="listing"><pre>
+     public function onFocusLost( controller:Controller ):void {
+         trace( "Focus lost" );
+     }</pre></div>
+          </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">controller</span>:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a></code> &mdash; The Controller object invoking this callback function.
+          </td></tr></table></p></div><a name="onFrame()"></a><a name="onFrame(com.leapmotion.leap.Controller,com.leapmotion.leap.Frame)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">onFrame</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function onFrame(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>, frame:<a href="../../../com/leapmotion/leap/Frame.html">Frame</a>):void</code><p></p><p></p><p>
+     Called when a new frame of hand and finger tracking data is available.
+          <p>Access the new frame data using the <code>controller.frame()</code> function.</p>
+          <div class="listing"><pre>
+     public function onFrame( controller:Controller, frame:Frame ):void {
+         trace( "New frame" );
+     }</pre></div>
+          <p>Note, the Controller skips any pending onFrame events while your
+     onFrame handler executes. If your implementation takes too long to
+     return, one or more frames can be skipped. The Controller still inserts
+     the skipped frames into the frame history. You can access recent frames
+     by setting the history parameter when calling the <code>controller.frame()</code>
+     function. You can determine if any pending onFrame events were skipped
+     by comparing the ID of the most recent frame with the ID of the last
+     received frame.</p>
+          </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">controller</span>:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a></code> &mdash; The Controller object invoking this callback function.
+     </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">frame</span>:<a href="../../../com/leapmotion/leap/Frame.html">Frame</a></code> &mdash; The most recent frame object.
+          </td></tr></table></p></div><a name="onInit()"></a><a name="onInit(com.leapmotion.leap.Controller)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">onInit</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function onInit(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>):void</code><p></p><p></p><p>
+     Called once, when this Listener object is newly added to a Controller.
+          <div class="listing"><pre>
+     public function onInit( controller:Controller ):void {
+         trace( "Init" );
+     }</pre></div>
+          </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">controller</span>:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a></code> &mdash; The Controller object invoking this callback function.
+          </td></tr></table></p></div><a name="onServiceConnect()"></a><a name="onServiceConnect(com.leapmotion.leap.Controller)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">onServiceConnect</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function onServiceConnect(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>):void</code><p></p><p></p><p>
+     Called when the Leap Motion daemon/service connects to your application Controller.
+          <p>onServiceConnect/onServiceDisconnect are for connection established/lost.
+     in normal course of events onServiceConnect will get called once after
+     onInit and onServiceDisconnect will not get called. disconnect
+     notification only happens if service stops running or something
+     else bad happens to disconnect controller from service.</p>
+          </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">controller</span>:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a></code> &mdash; The Controller object invoking this callback function.
+     </td></tr></table></p></div><a name="onServiceDisconnect()"></a><a name="onServiceDisconnect(com.leapmotion.leap.Controller)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">onServiceDisconnect</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function onServiceDisconnect(controller:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a>):void</code><p></p><p></p><p>
+     Called if the Leap Motion daemon/service disconnects from your application Controller.
+          <p>onServiceConnect/onServiceDisconnect are for connection established/lost.
+     in normal course of events onServiceConnect will get called once after
+     onInit and onServiceDisconnect will not get called. disconnect
+     notification only happens if service stops running or something
+     else bad happens to disconnect controller from service.</p>
+          <p>Normally, this callback is not invoked. It is only called if some external event
+     or problem shuts down the service or otherwise interrupts the connection.</p>
+          </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">controller</span>:<a href="../../../com/leapmotion/leap/Controller.html">Controller</a></code> &mdash; The Controller object invoking this callback function.
+     </td></tr></table></p></div><br/><br/><hr><br/><p></p><center class="copyright"><footer></footer><br/>Sun Aug 30 2015, 08:25 PM +08:00  </center></div></body></html><!--<br/>Sun Aug 30 2015, 08:25 PM +08:00  -->
