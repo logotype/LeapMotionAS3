@@ -706,7 +706,7 @@ namespace leapnative {
         uint8_t *serialNumberArray = &serialNumberVector[0];
         
         FREObject freDeviceSerialNumber;
-        FRENewObjectFromUTF8(serialNumberString.length(), serialNumberArray, &freDeviceSerialNumber);
+        FRENewObjectFromUTF8((uint32_t)serialNumberString.length(), serialNumberArray, &freDeviceSerialNumber);
         
         return freDeviceSerialNumber;
     }
@@ -758,7 +758,7 @@ namespace leapnative {
         uint8_t *valueArray = &valueVector[0];
         
         FREObject freReturnValue;
-        FRENewObjectFromUTF8(valueString.length(), valueArray, &freReturnValue);
+        FRENewObjectFromUTF8((uint32_t)valueString.length(), valueArray, &freReturnValue);
         
         return freReturnValue;
     }

@@ -31,7 +31,7 @@ bool createBoolFromFREObject(FREObject freObject)
 FREObject createFREObjectForUTF8(const char* str)
 {
 	FREObject fre;
-	FRENewObjectFromUTF8(strlen(str), (const uint8_t*) str, &fre);
+	FRENewObjectFromUTF8((uint32_t)strlen(str), (const uint8_t*) str, &fre);
 	return fre;
 }
 

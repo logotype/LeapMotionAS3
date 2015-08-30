@@ -16,7 +16,7 @@
 		6C2DA08516BBF41B00FC1899 /* LNLeapListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C2DA08316BBF41B00FC1899 /* LNLeapListener.cpp */; };
 		6C2DA08616BBF41B00FC1899 /* LNLeapListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C2DA08416BBF41B00FC1899 /* LNLeapListener.h */; };
 		6C2DA08816BBF67D00FC1899 /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C2DA08716BBF67D00FC1899 /* libLeap.dylib */; };
-		6C2DA08916BBF68600FC1899 /* libLeap.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6C2DA08716BBF67D00FC1899 /* libLeap.dylib */; };
+		6C2DA08916BBF68600FC1899 /* libLeap.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6C2DA08716BBF67D00FC1899 /* libLeap.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -44,7 +44,7 @@
 		6C2DA07816BBD63400FC1899 /* LNLeapDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LNLeapDevice.h; sourceTree = "<group>"; };
 		6C2DA08316BBF41B00FC1899 /* LNLeapListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LNLeapListener.cpp; sourceTree = "<group>"; };
 		6C2DA08416BBF41B00FC1899 /* LNLeapListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LNLeapListener.h; sourceTree = "<group>"; };
-		6C2DA08716BBF67D00FC1899 /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libLeap.dylib; path = ../../../LeapDeveloperKit/LeapSDK/lib/libLeap.dylib; sourceTree = "<group>"; };
+		6C2DA08716BBF67D00FC1899 /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libLeap.dylib; path = ../../../LeapSDK/lib/libLeap.dylib; sourceTree = "<group>"; };
 		6CD8E59016E66ED9009C8ACA /* LNFREUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LNFREUtilities.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -179,7 +179,7 @@
 		6C2DA03E16BBD08B00FC1899 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = "Wouter Verweirder";
 			};
 			buildConfigurationList = 6C2DA04116BBD08B00FC1899 /* Build configuration list for PBXProject "LeapNative" */;
@@ -255,7 +255,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_STATIC_ANALYZER_MODE = deep;
@@ -283,17 +282,16 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/../../../LeapDeveloperKit/LeapSDK/include\"";
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/../../../LeapSDK/include\"";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../runtimes/air/mac @executable_path/../Frameworks /Library/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(PROJECT_DIR)/../../../LeapDeveloperKit/LeapSDK/lib\"",
-					"\"$(PROJECT_DIR)/../../../LeapDeveloperKit/LeapSDK/lib/libstdc++\"",
+					"\"$(PROJECT_DIR)/../../../LeapSDK/lib\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = macosx10.9;
+				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
@@ -302,7 +300,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_STATIC_ANALYZER_MODE = deep;
@@ -324,17 +321,16 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/../../../LeapDeveloperKit/LeapSDK/include\"";
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/../../../LeapSDK/include\"";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../runtimes/air/mac @executable_path/../Frameworks /Library/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(PROJECT_DIR)/../../../LeapDeveloperKit/LeapSDK/lib\"",
-					"\"$(PROJECT_DIR)/../../../LeapDeveloperKit/LeapSDK/lib/libstdc++\"",
+					"\"$(PROJECT_DIR)/../../../LeapSDK/lib\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = macosx10.9;
+				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;
@@ -358,7 +354,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.9;
+				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -383,7 +379,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.9;
+				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = framework;
 			};
