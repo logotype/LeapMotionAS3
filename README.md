@@ -1,3 +1,6 @@
+Development of this ANE is on hold until Adobe supports 64-bit-only ANEs
+========================================================================
+
 [<img src="http://logotype.github.io/LeapMotionAS3Docs/examples/logo_as3.png">](https://github.com/logotype/LeapMotionAS3)
 
 This is the AS3 framework for working with Leap Motion.
