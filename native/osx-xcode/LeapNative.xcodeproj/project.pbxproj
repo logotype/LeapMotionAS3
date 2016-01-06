@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		37ABA8FB19C5F49700BAAEA5 /* Adobe AIR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37ABA8FA19C5F49700BAAEA5 /* Adobe AIR.framework */; };
+		37D1F0AF1C3D5A5E00A66010 /* Adobe AIR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37ABA8FA19C5F49700BAAEA5 /* Adobe AIR.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		6C2DA05616BBD08B00FC1899 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C2DA05416BBD08B00FC1899 /* InfoPlist.strings */; };
 		6C2DA06916BBD22700FC1899 /* LNExtension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C2DA06716BBD22700FC1899 /* LNExtension.cpp */; };
 		6C2DA06A16BBD22700FC1899 /* LNExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C2DA06816BBD22700FC1899 /* LNExtension.h */; };
@@ -33,7 +33,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		37ABA8FA19C5F49700BAAEA5 /* Adobe AIR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Adobe AIR.framework"; path = "../../../../../../../AIRSDK/runtimes/air/mac/Adobe AIR.framework"; sourceTree = "<group>"; };
+		37ABA8FA19C5F49700BAAEA5 /* Adobe AIR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Adobe AIR.framework"; path = "../../../../../../AIRSDK/runtimes/air/mac/Adobe AIR.framework"; sourceTree = "<group>"; };
 		6C2DA04816BBD08B00FC1899 /* LeapNative.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LeapNative.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C2DA05316BBD08B00FC1899 /* LeapNative-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LeapNative-Info.plist"; sourceTree = "<group>"; };
 		6C2DA05516BBD08B00FC1899 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -53,7 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37ABA8FB19C5F49700BAAEA5 /* Adobe AIR.framework in Frameworks */,
+				37D1F0AF1C3D5A5E00A66010 /* Adobe AIR.framework in Frameworks */,
 				6C2DA08816BBF67D00FC1899 /* libLeap.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -179,8 +179,8 @@
 		6C2DA03E16BBD08B00FC1899 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
-				ORGANIZATIONNAME = "Wouter Verweirder";
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = LeapMotionAS3;
 			};
 			buildConfigurationList = 6C2DA04116BBD08B00FC1899 /* Build configuration list for PBXProject "LeapNative" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -255,22 +255,24 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libstdc++";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_STATIC_ANALYZER_MODE = deep;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CONFIGURATION_BUILD_DIR = ../bin;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"/AIRSDK/runtimes/air/mac\"",
+					/AIRSDK/runtimes/air/mac,
 				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -288,11 +290,18 @@
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/../../../LeapSDK/lib\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-fvisibility=hidden";
+				OTHER_LDFLAGS = (
+					"-flat_namespace",
+					"-weak_framework",
+					"\"Adobe AIR\"",
+				);
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
-				VALID_ARCHS = "i386 x86_64";
+				VALID_ARCHS = "I386 x86_64";
+				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
 		};
@@ -300,8 +309,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libstdc++";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_STATIC_ANALYZER_MODE = deep;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -310,11 +320,11 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"/AIRSDK/runtimes/air/mac\"",
+					/AIRSDK/runtimes/air/mac,
 				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -327,32 +337,42 @@
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/../../../LeapSDK/lib\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-fvisibility=hidden";
+				OTHER_LDFLAGS = (
+					"-flat_namespace",
+					"-weak_framework",
+					"\"Adobe AIR\"",
+				);
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
-				VALID_ARCHS = "i386 x86_64";
+				VALID_ARCHS = "I386 x86_64";
+				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
 		};
 		6C2DA05E16BBD08B00FC1899 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LIBRARY = "compiler-default";
-				COMBINE_HIDPI_IMAGES = YES;
+				COMBINE_HIDPI_IMAGES = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = /AIRSDK/runtimes/air/mac;
+				FRAMEWORK_SEARCH_PATHS = "\"/AIRSDK/runtimes/air/mac\"";
 				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LeapNative/LeapNative-Prefix.pch";
 				GCC_VERSION = "";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = "${inherited}";
 				INFOPLIST_FILE = "LeapNative/LeapNative-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = /AIRSDK/runtimes/air/mac;
+				LD_RUNPATH_SEARCH_PATHS = "\"/Applications/Adobe Flash Builder 4.7/sdks/4.6.0/runtimes/air/mac\"";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.leapmotion.leap.air.native.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
@@ -363,21 +383,24 @@
 		6C2DA05F16BBD08B00FC1899 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LIBRARY = "compiler-default";
-				COMBINE_HIDPI_IMAGES = YES;
+				COMBINE_HIDPI_IMAGES = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = /AIRSDK/runtimes/air/mac;
+				FRAMEWORK_SEARCH_PATHS = "\"/AIRSDK/runtimes/air/mac\"";
 				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LeapNative/LeapNative-Prefix.pch";
 				GCC_VERSION = "";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = "${inherited}";
 				INFOPLIST_FILE = "LeapNative/LeapNative-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = /AIRSDK/runtimes/air/mac;
+				LD_RUNPATH_SEARCH_PATHS = "\"/Applications/Adobe Flash Builder 4.7/sdks/4.6.0/runtimes/air/mac\"";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.leapmotion.leap.air.native.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
