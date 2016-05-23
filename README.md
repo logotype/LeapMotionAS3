@@ -1,5 +1,5 @@
-Development of this ANE is on hold until Adobe supports 64-bit-only ANEs
-========================================================================
+This library is not actively maintained.
+========================================
 
 [<img src="http://logotype.github.io/LeapMotionAS3Docs/examples/logo_as3.png">](https://github.com/logotype/LeapMotionAS3)
 
@@ -149,7 +149,7 @@ Authors
 Copyright and license
 ---------------------
 
-Copyright © 2015 logotype
+Copyright © 2016 logotype
 
 Author: Victor Norgren
 
